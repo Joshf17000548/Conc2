@@ -1,0 +1,135 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.joshf.conc.PlayerProfile"
+    tools:showIn="@layout/player_profile">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:inputType="textCapWords"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        android:hint="@string/enter_name"
+        android:id="@+id/name"
+        android:background="@android:color/transparent"
+        android:textColor="#000000"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_vertical"
+        android:layout_centerHorizontal="true" />
+
+
+
+    <FrameLayout
+        android:layout_width="1080px"
+        android:layout_height="1440px"
+        android:background="@drawable/customborder"
+        android:id="@+id/frameLayout"
+        android:layout_below="@+id/name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/camera2"
+        android:id="@+id/cameraButton"
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@drawable/camera_bg"
+        android:layout_above="@+id/ageText"
+        android:layout_alignParentEnd="true" />
+
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/Age"
+        android:id="@+id/DOB"
+        android:layout_marginTop="23dp"
+        android:layout_below="@+id/frameLayout"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/weight"
+        android:id="@+id/weight"
+        android:layout_below="@+id/DOB"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/height"
+        android:id="@+id/height"
+        android:layout_below="@+id/weight"
+
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/enter_DOB"
+        android:id="@+id/ageText"
+        android:background="@android:color/transparent"
+        android:layout_alignTop="@+id/DOB"
+        android:layout_toEndOf="@+id/height"
+        android:textColor="#000000"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:hint="@string/enter_message"
+        android:id="@+id/weightText"
+        android:inputType="numberDecimal"
+        android:background="@android:color/transparent"
+        android:layout_alignTop="@+id/weight"
+        android:layout_alignStart="@+id/ageText"
+        android:textColor="#000000"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:background="@android:color/transparent"
+        android:inputType="numberDecimal"
+        android:hint="@string/enter_message"
+        android:id="@+id/heightText"
+        android:layout_alignTop="@+id/height"
+        android:layout_toEndOf="@+id/height"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/kg"
+        android:id="@+id/weightMetric"
+        android:layout_alignTop="@+id/weight"
+        android:layout_toEndOf="@+id/weightText"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/m"
+        android:id="@+id/heightMetric"
+        android:layout_alignBottom="@+id/heightText"
+        android:layout_toEndOf="@+id/heightText"
+        android:layout_marginLeft="10dp"/>
+
+</RelativeLayout>

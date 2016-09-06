@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Conc</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Player details-->
+    <string name="Name">Name</string>
+    <string name="Age">Age:</string>
+    <string name="DOB">DOB:</string>
+    <string name="weight">Weight:</string>
+    <string name="height">Height:</string>
+
+    <!--Enter/Edit Player details-->
+    <string name="enter_message">Enter Value</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_DOB">Select Date of Birth</string>
+    <string name="appbar_done">Done</string>
+    <string name="appbar_edit">Edit</string>
+    <string name="empty_field">Please complete all fields</string>
+    <string name="dob_field_error">Please enter a valid date of birth</string>
+    <string name="complete_name">Please enter name</string>
+    <string name="error">Error</string>
+
+    <!--Metric of english units for weight-->
+    <string name="kg">kg</string>
+    <string name="lb">lb</string>
+    <!--Metric of english units for height-->
+    <string name="m">m</string>
+
+    <!--Camera Activity-->
+    <string name="takePhoto">Take Photo</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+
+    <!--Player Select Activity-->
+    <string name="hint_search">Search Players</string>
+    <string name="empty_list_message">No Results</string>
+
+
+</resources>
