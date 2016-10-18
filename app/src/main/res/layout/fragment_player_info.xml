@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/Age"
+        android:id="@+id/DOB"
+        android:layout_marginTop="23dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/weight"
+        android:id="@+id/weight"
+        android:layout_below="@+id/DOB"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/height"
+        android:id="@+id/height"
+        android:layout_below="@+id/weight"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/enter_DOB"
+        android:id="@+id/ageText"
+        android:background="@android:color/transparent"
+        android:layout_alignTop="@+id/DOB"
+        android:layout_toEndOf="@+id/height"
+        android:textColor="#d6dcdc"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:hint="@string/enter_message"
+        android:id="@+id/weightText"
+        android:inputType="numberDecimal"
+        android:background="@android:color/transparent"
+        android:layout_alignTop="@+id/weight"
+        android:layout_alignStart="@+id/ageText"
+        android:textColor="#000000"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:background="@android:color/transparent"
+        android:inputType="numberDecimal"
+        android:hint="@string/enter_message"
+        android:id="@+id/heightText"
+        android:layout_alignTop="@+id/height"
+        android:layout_toEndOf="@+id/height"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/kg"
+        android:id="@+id/weightMetric"
+        android:layout_alignTop="@+id/weight"
+        android:layout_toEndOf="@+id/weightText"
+        android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearance"
+        android:text="@string/m"
+        android:id="@+id/heightMetric"
+        android:layout_alignBottom="@+id/heightText"
+        android:layout_toEndOf="@+id/heightText"
+        android:layout_marginStart="10dp"/>
+
+</RelativeLayout>

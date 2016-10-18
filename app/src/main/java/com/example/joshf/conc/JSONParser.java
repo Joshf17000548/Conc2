@@ -1,11 +1,13 @@
 package com.example.joshf.conc;
 
-import android.content.ContentValues;
+/*
+ *Taken from http://stackoverflow.com/questions/31345614/how-to-implement-login-with-httpurlconnection-and-php-server-in-android
+ */
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-
+import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -18,9 +20,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
-/**
- * Created by joshf on 2016/07/25.
- */
 public class JSONParser {
 
     String charset = "UTF-8";
@@ -33,9 +32,8 @@ public class JSONParser {
     String paramsString;
     String answer="";
     public JSONArray makeHttpRequest(String url, String method,
-                                     ContentValues params) {
-        Log.e("URI", "Parser Start");
-
+                                     HashMap<String, String> params) {
+        Log.e("Parser","Parse start ");
         sbParams = new StringBuilder();
 
         int i = 0;
@@ -44,9 +42,9 @@ public class JSONParser {
                 if (i != 0){
                     sbParams.append("&");
                 }
+
                 sbParams.append(key).append("=")
-                        .append(URLEncoder.encode(params.getAsString(key), charset));
-                Log.e("URIbuild", sbParams.toString());
+                        .append(URLEncoder.encode(params.get(key), charset));
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -56,7 +54,6 @@ public class JSONParser {
 
         if (method.equals("POST")) {
             // request method is POST
-            Log.e("Post", "Post Start");
             try {
                 urlObj = new URL(url);
 
@@ -68,28 +65,26 @@ public class JSONParser {
 
                 conn.setRequestProperty("Accept-Charset", charset);
 
-                conn.setReadTimeout(10000);
-
-                conn.setConnectTimeout(15000);
-
+               // conn.setReadTimeout(10000);
+              //  conn.setConnectTimeout(15000);
 
                 conn.connect();
-                Log.e("Post", "8");
 
                 paramsString = sbParams.toString();
-
 
                 wr = new DataOutputStream(conn.getOutputStream());
                 wr.writeBytes(paramsString);
                 wr.flush();
                 wr.close();
 
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         else if(method.equals("GET")){
-            // request method is GET
+            // request method is
+            Log.e("GET", "start");
 
             if (sbParams.length() != 0) {
                 url += "?" + sbParams.toString();
@@ -109,9 +104,11 @@ public class JSONParser {
                 conn.setConnectTimeout(15000);
 
                 conn.connect();
+                Log.e("GET", "2");
 
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.e("GET", "error");
             }
 
         }

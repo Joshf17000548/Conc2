@@ -1,9 +1,16 @@
 package com.example.joshf.conc;
 
+import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SearchViewCompat;
@@ -18,38 +25,35 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class PlayerSelect extends AppCompatActivity {
+public class PlayerSelect extends AppCompatActivity{
 
-    String TAG = "Conc";
+    String TAG = "PlayerSelect";
 
-    private ListView listView;
-    private SearchView searchView;
-    private SearchManager searchManager;
-
-    Player p;
-
-    //GetData data = new GetData("Player");
-
+    SearchView searchView;
+    SearchManager searchManager;
+    public ArrayList<Integer> playerCodeList;
     public ArrayList<Player> playerList;
-    public PlayerAdapter adapter;
-
-/*    String[] playerNames ={"Joshua Fischer", "Christoff Heunis", "Gareth Holmes", "Gerhard Smith",
-            "Tys van der Merwe", "Liam Swanepoel"};
-    Integer[] imageId = {R.drawable.joshua_fischer,R.drawable.joshua_fischer,
-            R.drawable.joshua_fischer,R.drawable.joshua_fischer,R.drawable.joshua_fischer,
-            R.drawable.joshua_fischer
-    };*/
-
-
-    //ArrayList<String> players;
-
+    Boolean  updateRequired=true;
+    Boolean firstRun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,44 +61,89 @@ public class PlayerSelect extends AppCompatActivity {
         setContentView(R.layout.player_select);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //firstRun=true;
 
-       // Log.e(TAG, "Start");
+        if(savedInstanceState!=null) {
 
-        getPlayers();
+            Log.e(TAG,getIntent().getExtras().toString());
+            Bundle extras = getIntent().getExtras();
+            updateRequired = extras.getBoolean("database_update");
+            Log.e("test1", savedInstanceState.getString("test"));
+            Log.e("test2", String.valueOf(updateRequired));
 
+            if(!updateRequired.equals(true)){
+                Log.e("put binder", "put binder");
+                playerList =(ArrayList<Player>) savedInstanceState.getSerializable("player_list");
+                firstRun=false;
+            }
+        }
 
-        listView = (ListView)findViewById(R.id.list_view);
-
-        adapter = new
-                PlayerAdapter(PlayerSelect.this, playerList, getPhotoIDs());
-        listView.setAdapter(adapter);
-
-
-        listView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Player selectedPlayer = adapter.getItem(position);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("player_select", "existing");
-                        bundle.putBinder("player_info", new ObjectWrapperForBinder(selectedPlayer));
-                        startActivity(new Intent(PlayerSelect.this, PlayerProfile.class).putExtras(bundle));
-                    }
-                }
-        );
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Bundle bundle = new Bundle();
                 bundle.putString("player_select", "new");
+                bundle.putIntegerArrayList("code_list", playerCodeList);
                 startActivity(new Intent(PlayerSelect.this, PlayerProfile.class).putExtras(bundle));
-
             }
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if ((updateRequired.equals(true)) ) {
+            new getPlayers().execute();
+        }
+    }
+/*    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e("destroy","destory");
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        finish();
+        Log.e("pause","pause");
+
+    }*/
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState){
+
+        Log.e("test", "save");
+       // savedInstanceState.putSerializable("player_list", playerList);
+        savedInstanceState.putString("test", "werk asb");
+
+
+
+        //ArrayList<Player> list =(ArrayList<Player>) savedInstanceState.getSerializable("player_list");
+        //Log.e("put binder", list.get(1).getPlayer_Name());
+        super.onSaveInstanceState(savedInstanceState);
+
+    }
+
+
+
+/*    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.e("test", "restore");
+
+        Log.e("test1", savedInstanceState.getString("test"));
+
+*//*        savedInstanceState.getSerializable("player_list");
+
+        ArrayList<Player> list =(ArrayList<Player>) savedInstanceState.getSerializable("player_list");
+        Log.e("put binder", list.get(1).getPlayer_Name());*//*
+
+
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,33 +156,15 @@ public class PlayerSelect extends AppCompatActivity {
         searchView.setIconifiedByDefault(false);
         searchView.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
 
-            @Override
-            public boolean onQueryTextChange(String query) {
-                adapter.getFilter().filter(query);
-                return true;
-            }
-        });
-
-        //searchView.setSearchableInfo( searchManager.getSearchableInfo(getComponentName()) );
-
-        //return super.onCreateOptionsMenu(menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -141,63 +172,80 @@ public class PlayerSelect extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public int getNumberOfPlayers() {
-        int numberOfPlayers;
-        File file = new File(this.getExternalFilesDir(null).toString());
-        File[] list = file.listFiles();
-        numberOfPlayers = list.length;
+    private class getPlayers extends AsyncTask<String, String, JSONArray> {
 
-/*        for (File f : list) {
-            String name = f.getName();
-            if (!name.endsWith(".jpg"))
-                numberOfPlayers++;
-        }*/
-        //Log.e("Files",String.valueOf(numberOfPlayers));
-        return numberOfPlayers;
-    }
+        private static final String URL = "http://104.198.254.110/ConcApp/getPlayer.php";
+        JSONParser jsonParser = new JSONParser();
+        private ProgressDialog pDialog;
 
-    public boolean getPlayers() {
-        FileInputStream inStream = null;
-        playerList = new ArrayList<Player>();
-        for (int n=1 ; n<=(getNumberOfPlayers()); n++) {
-            try{
+        @Override
+        protected void onPreExecute() {
+            Log.e("JSonInsTeam", "Start");
+            pDialog = new ProgressDialog(PlayerSelect.this);
+            pDialog.setMessage("Loading Player List");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
 
-                String folder_main = this.getExternalFilesDir(null)+"/"+String.valueOf(n);
-                File fileTxt = new File(folder_main, "/"+String.valueOf(n)+".ply");
-                inStream = new FileInputStream(fileTxt);
-                ObjectInputStream objectInStream = new ObjectInputStream(inStream);
-                Player simpleClass = (Player) objectInStream.readObject();
-                objectInStream.close();
-                playerList.add(simpleClass);
+        @Override
+        protected JSONArray doInBackground(String... params) {
 
-            }catch(IOException e){
-                Log.e(TAG, "Could not write object to file");
-            }catch(ClassNotFoundException e){
-                Log.e(TAG, "Could not find class");
+            try {
+                // PREPARING PARAMETERS..
+                HashMap<String, String> args = new HashMap<>();
+
+                args.put("Code_Team","3");
+
+                Log.e("request", "starting");
+
+                JSONArray json = jsonParser.makeHttpRequest(
+                        URL, "POST", args);
+
+                if (json != null) {
+                    Log.e("JSON REQUEST", params.toString());
+                    Log.e("JSON result", json.toString());
+                    // RETURNING THE ANSWER FROM THE SERVER TO
+                    // onPostExecute IN THE MAIN THREAD
+                    return json;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(JSONArray jsonArray) {
+
+            playerList = new ArrayList<Player>();
+            playerList= Player.fromJson(jsonArray);
+
+            if (!playerList.isEmpty())
+            {
+                Log.e(TAG,"Opening List View Fragment");
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                SwipeListViewFragment playerListFragment = SwipeListViewFragment.newInstance();
+                Bundle bund = new Bundle();
+                bund.putSerializable("player_list", playerList);
+                playerListFragment.setArguments(bund);
+                transaction.replace(R.id.playerList, playerListFragment);
+                transaction.commit();
+
+            } else {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                EmptyListFragment emptyListFragment = EmptyListFragment.newInstance();
+                transaction.replace(R.id.playerList, emptyListFragment);
+                transaction.commit();
+            }
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
             }
         }
-
-        return true;
-
     }
-    public Integer[] getPhotoIDs(){
-        int num = getNumberOfPlayers();
-        Log.e("imageidnum", String.valueOf(num));
-        Integer[] imageId= new Integer[num];
-        for (int n=1 ; n<=num; n++) {
-            Log.e("imageidnum", "3");
-            imageId[n-1] = n;
-            Log.e("imageid", String.valueOf(imageId[n-1]));
-        }
-        return imageId;
-    }
-
 }
 
-//TODO long click on list item to delete, figure some way to deal with missing code numbers then
-//TODO swipe down to refresh PlayerSelect List
-//TODO Prepare list for when there is no entries
+
 //TODO Clean up code for dramatic performance increase.Consider Asynch upload
 //TODO find a way to compress picture when saving it, so that upload will be much quicker
-//TODO Fix search with individual photos
 

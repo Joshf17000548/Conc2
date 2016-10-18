@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="15dp">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout111"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/hia1a_section_header"
+                    android:id="@+id/labelTextView111"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout222"
+                android:layout_below="@id/linearLayout111"
+                android:paddingTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/hia1a_section1_header"
+                    android:id="@+id/labelTextView222"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/linearLayout222"
+                android:id="@+id/linearLayout333"
+                android:paddingTop="20dp"
+                >
+
+                <CheckBox
+                    android:text="@string/symptom_tp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox_TP"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:layout_alignParentLeft="true"
+                    android:onClick="onCheckBoxSelected"
+
+                    />
+
+                <CheckBox
+                    android:text="@string/symptom_conv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox_CONV"
+                    android:layout_weight="1.17"
+                    android:textSize="14sp"
+                    android:layout_alignParentRight="true"
+                    android:onClick="onCheckBoxSelected"
+
+                    />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_below="@id/linearLayout333"
+                android:id="@+id/linearLayout444"
+                android:paddingTop="10dp"
+                android:weightSum="1">
+
+
+                <CheckBox
+                    android:text="@string/symptom_cconsc"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox_CCONSC"
+                    android:textSize="14sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_weight="0.68"
+                    android:onClick="onCheckBoxSelected"/>
+
+                <CheckBox
+                    android:text="@string/symptom_sconsc"
+                    android:layout_width="176dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox_SCONSC"
+                    android:textSize="14sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_weight="1.17"
+                    android:onClick="onCheckBoxSelected"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_below="@id/linearLayout444"
+                android:id="@+id/linearLayout555"
+                android:paddingTop="10dp">
+
+
+                <CheckBox
+                    android:text="@string/symptom_bal"
+                    android:layout_width="193dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox_BAL"
+                    android:textSize="14sp"
+                    android:onClick="onCheckBoxSelected"/>
+
+                <CheckBox
+                    android:text="@string/symptom_orien"
+                    android:layout_width="181dp"
+                    android:layout_height="42dp"
+                    android:id="@+id/checkBox_ORIEN"
+                    android:textSize="14sp"
+                    android:onClick="onCheckBoxSelected"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_below="@id/linearLayout555"
+                android:id="@+id/linearLayout666"
+                android:paddingTop="10dp">
+
+
+                <CheckBox
+                    android:text="@string/symptom_daze"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox_DAZE"
+                    android:textSize="14sp"
+                    android:layout_weight="1.43"
+                    android:onClick="onCheckBoxSelected"/>
+
+                <CheckBox
+                    android:text="@string/symptom_conf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox_CONF"
+                    android:layout_weight="0.61"
+                    android:textSize="14sp"
+                    android:onClick="onCheckBoxSelected"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_below="@id/linearLayout666"
+                android:id="@+id/linearLayout777"
+                android:paddingTop="10dp">
+
+
+                <CheckBox
+                    android:text="@string/symptom_behav"
+                    android:layout_width="194dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox_BEHAV"
+                    android:textSize="14sp"
+                    android:onClick="onCheckBoxSelected"/>
+
+                <CheckBox
+                    android:text="@string/symptom_ident"
+                    android:layout_width="186dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/checkBox_IDENT"
+                    android:textSize="14sp"
+                    android:onClick="onCheckBoxSelected"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_below="@id/linearLayout777"
+                android:id="@+id/linearLayout888"
+                android:paddingTop="10dp">
+
+                <CheckBox
+                    android:text="@string/symptom_ocu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/checkBox_OCU"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:onClick="onCheckBoxSelected"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout999"
+                android:layout_below="@id/linearLayout888"
+                android:paddingTop="0dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/hia1a_removal_header"
+                    android:id="@+id/labelTextView333"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinner32"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout003"
+                android:layout_below="@id/linearLayout999"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/hia1a_video_header"
+                    android:id="@+id/labelTextView444"
+                    android:textSize="16sp"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout004"
+                android:layout_below="@id/linearLayout003"
+                android:paddingTop="10dp">
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <RadioButton
+                        android:text="@string/vid_yes"
+                        android:layout_width="84dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkBox_yes"
+                        android:onClick="onRadioButtonClicked"
+                        style="@android:style/Widget.CompoundButton.CheckBox"
+                        />
+
+                    <RadioButton
+                        android:text="@string/vid_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/checkBox_no"
+                        android:layout_weight="1"
+                        android:onClick="onRadioButtonClicked"
+                        style="@android:style/Widget.CompoundButton.CheckBox"
+                        />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

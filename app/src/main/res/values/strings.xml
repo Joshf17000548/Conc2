@@ -2,12 +2,15 @@
     <string name="app_name">Conc</string>
     <string name="action_settings">Settings</string>
 
+    <string name="raleway_regular">Raleway-Regular</string>
+
     <!--Player details-->
     <string name="Name">Name</string>
     <string name="Age">Age:</string>
     <string name="DOB">DOB:</string>
     <string name="weight">Weight:</string>
     <string name="height">Height:</string>
+    <string name="dateOfPreviousTest">Last Tested:</string>
 
     <!--Enter/Edit Player details-->
     <string name="enter_message">Enter Value</string>
@@ -18,6 +21,7 @@
     <string name="empty_field">Please complete all fields</string>
     <string name="dob_field_error">Please enter a valid date of birth</string>
     <string name="complete_name">Please enter name</string>
+    <string name="last_tested_text">None</string>
     <string name="error">Error</string>
 
     <!--Metric of english units for weight-->
@@ -33,6 +37,447 @@
     <!--Player Select Activity-->
     <string name="hint_search">Search Players</string>
     <string name="empty_list_message">No Results</string>
+    <string name="no_players_message">No Registered Players</string>
+    <string name="no_players_message2">Select</string>
+    <string name="no_players_message3">To Add a Player</string>
+    <string name="status_healthy">Healthy</string>
+    <string name="delete_conformation">Are you sure you want to delete this player?</string>
+    <string name="delete_positive">Yes</string>
+    <string name="delete_negative">No</string>
+
+    <!--Three buttons-->
+    <string name="start_test">Start Test</string>
+    <string name="player_info">Player Info</string>
+    <string name="player_history">Player History</string>.
+
+
+    <string-array name="menu_array">
+        <item>Player Profile</item>
+        <item>Side-Line Test</item>
+        <item>Baseline Test</item>
+        <item>Follow up Test</item>
+    </string-array>
+    <string name="title_activity_test_menu">TestMenuActivity</string>
+
+    <string-array name="testmenu_array">
+        <item>Head Impact Assessment 1</item>
+        <item>Head Impact Assessment 2</item>
+        <item>Head Impact Assessment 3</item>
+    </string-array>
+    <string name="title_activity_administrator">AdministratorActivity</string>
+
+    <string name="physician_name_hint">..."Dr Gerard Smith"</string>
+    <string name="physician_name">Physicians Name:</string>
+    <string name="date">Date:</string>
+    <string name="date_hint">..."dd/mm/yyyy"</string>
+    <string name="assessment_time">Assessment Time:</string>
+    <string name="assessment_time_hint">..."19:00"</string>
+    <string name="kickoff_time">Kick-Off Time:</string>
+    <string name="kickoff_time_hint">..."19:00"</string>
+
+
+    <!-- HIA1 -->
+    <string name="hia1a_section_header">COMPLETE EITHER SECTION 1 OR SECTION 2</string>
+    <string name="hia1a_section1_header">SECTION 1: Immediate and permanent removal from play</string>
+    <string name="symptom_tp">Tonic posturing</string>
+    <string name="symptom_conv">Convulsion</string>
+    <string name="symptom_cconsc">Confirmed loss of consciousness</string>
+    <string name="symptom_sconsc">Suspected loss of consciousness</string>
+    <string name="symptom_bal">Balance disturbance/ataxia</string>
+    <string name="symptom_orien">Player not orientated in time, place or person</string>
+    <string name="symptom_daze">Clearly dazed</string>
+    <string name="symptom_conf">Definite confusion</string>
+    <string name="symptom_behav">Definite behavioural cahnges</string>
+    <string name="symptom_ident">On field identification of sign or symptom of concussion</string>
+    <string name="symptom_ocu">Oculomotor signs (e.g. spontaneous nystagmus)</string>
+    <string name="hia1a_removal_header">Removal requested by:</string>
+    <string name="removal_dr">"Team doctor"</string>
+    <string name="removal_mdd">"Match day doctor"</string>
+    <string name="removal_phy">"Physiotherapist"</string>
+    <string name="removal_ref">"Referee"</string>
+    <string name="removal_tdr">"Tournament Doctor"</string>
+    <string name="removal_video">"Following in-game video review"</string>
+    <string name="hia1a_video_header">Video Available?</string>
+    <string name="vid_yes">"Yes"</string>
+    <string name="vid_no">"No"</string>
+    <string name="title_activity_hia1">HIA1Activity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_hia">HIAActivity</string>
+    <string name="hia1a_section21_header">SECTION 2: Pitch-side Head Injury Assessment</string>
+    <string name="hia1a_section22_header">Identify reason(s) for HIA below:</string>
+    <string name = "reason_head">Head impact where diagnosis not immediately apparent</string>
+    <string name = "reason_behav">Possible behavioural changes</string>
+    <string name = "reason_conf">Possible confusion</string>
+    <string name = "reason_inj">Injury event witnessed with potential to result in a concussive injury</string>
+    <string name = "reason_other">Other (identify):</string>
+    <string name="hia1a_section31_header">Pitch-side Head Injury Assessment</string>
+    <string name="hia1a_section32_header">ANSWER ALL QUESTIONS - (Incorrect =1, Correct =2)</string>
+    <string name="hia1a_section33_header">Any coloumn = 1, NO return to play </string>
+    <string name="hia1a_section34_header">Maddocks Questions - Orientation </string>
+    <string name="madd1">What venue are we at today?</string>
+    <string name="madd2">Which half is it now?</string>
+    <string name="madd3">Who scored last in this match?</string>
+    <string name="madd4">What team did you play last week/game?</string>
+    <string name="madd5">Did your team win the last game?</string>
+    <string name="incorrect">Incorrect</string>
+    <string name="correct">Correct</string>
+    <string name="hia1a_section41_header">Symptoms checklist</string>
+    <string name="symptom2_1">Do you have a headache?</string>
+    <string name="symptom2_2">Do you have any dizziness?</string>
+    <string name="symptom2_3">Do you have any \'pressure in your head\'?</string>
+    <string name="symptom2_4">Do you feel nauseated or do you feel like vomiting?</string>
+    <string name="symptom2_5">Do you have any blurred vision?</string>
+    <string name="symptom2_6">Does the light or noise worry you?</string>
+    <string name="symptom2_7">Do you feel as though you are slowing down?</string>
+    <string name="symptom2_8">Do you feel like you are in a fog?</string>
+    <string name="symptom2_9">Do you feel unwell?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="hia1a_section51_header">Delayed Recall</string>
+    <string name="hia1a_section52_header">(ABNORMAL is a score less than 3 or less than baseline)</string>
+    <string name="recall">Test recall of immediate memory words</string>
+    <string name="abnormal">Abnormal</string>
+    <string name="normal">Normal</string>
+    <string name="hia1a_section61_header">Clinical signs</string>
+    <string name="cs1">Emotional - sad, anxious, nervous, irritable</string>
+    <string name="cs2">Drowsy/ has difficulty concentrating</string>
+    <string name="cs3">Doctor performing HIA suspects concussion despite above test being normal</string>
+    <string name="hia1a_section71_header">Requested by:</string>
+    <string name="hia1a_section81_header">Completed by:</string>
+    <string name="hia1a_section91_header">Player removed:</string>
+    <string name="vid_influence">Did video influence the request for the HIA?</string>
+    <string name="MDD_present">Was the Match Day Doctor present during the HIA??</string>
+    <string name="vid_influence2">Did video influence the decision following the HIA?</string>
+    <string name="hia1a_81_sectionheader">ANSWER ALL QUESTIONS</string>
+    <string name="hia1a_811_sectionheader">Any coloumn 1 answer = NO return to play</string>
+    <string name="hia1a_82_sectionheader">Immediate memory</string>
+    <string name="hia1a_83_sectionheader">Digits backwards</string>
+    <string name="opt_1">Option 1 &#160; - &#160;&#160; </string>
+    <string name="opt_2">Option 2 &#160; - &#160;&#160; </string>
+    <string name="opt_3">Option 3 &#160; - &#160;&#160; </string>
+    <string name="opt_1_num1">Option 1 numbers: -</string>
+    <string name="opt_2_num2">Option 2 numbers (if needed): -</string>
+    <string name = "hia1_form">HIA1 Form</string>
+
+    <string-array name="player_removed_spinner">
+        <item>No</item>
+        <item>Yes, pitchside HIA abnormal</item>
+        <item>Yes, player removed for another injury</item>
+    </string-array>
+
+    <string-array name="hia1_1_spinner">
+        <item>Referee</item>
+        <item>Team doctor</item>
+        <item>Tournament doctor</item>
+        <item>Match day doctor</item>
+        <item>Following in-game video review</item>
+        <item>Physiotherapist</item>
+    </string-array>
+
+
+    <string name="imed_score">Immediate memory score (out of 15):</string>
+    <string name="digback_score">Digits backwards score (out of 4):</string>
+    <string name="del_score">Delayed memory score (out of 5):</string>
+
+    <!-- HIA2 -->
+    <string name="hia2a_section11_header">Was an HIA1 form completed, and if yes, what was the restult?</string>
+    <string name="hia2a_section12_header">Select one option:</string>
+    <string name="hia2a_section21_header">SECTION 1: Symptom Checklist</string>
+    <string name="hia2a_section22_header">Ask the player: Do you have any of the following symptoms? Ask about every symptom listed.
+    Score each symptom, based on how the player feels at the time of questioning, from 0 (no symptom at all)
+        to 6(the most severe they ave ever experienced). </string>
+    <string name= "symp2_1">Headaches</string>
+    <string name= "symp2_2">\'Dont feel right\'</string>
+    <string name= "symp2_3">\'Pressure in head\'</string>
+    <string name= "symp2_4">Difficulty concentrating</string>
+    <string name= "symp2_5">Neck pain</string>
+    <string name= "symp2_6">Difficulty remembering</string>
+    <string name= "symp2_7">Nausea/vomiting</string>
+    <string name= "symp2_8">Fatigue/low energy</string>
+    <string name= "symp2_9">Dizziness</string>
+    <string name= "symp2_10">Confusion</string>
+    <string name= "symp2_11">Blurred vision</string>
+    <string name= "symp2_12">Drowsiness</string>
+    <string name= "symp2_13">Balance problems</string>
+    <string name= "symp2_14">Excessive tiredness</string>
+    <string name= "symp2_15">Sensitivity to light</string>
+    <string name= "symp2_16">More emotional</string>
+    <string name= "symp2_17">Sensitivity to noise</string>
+    <string name= "symp2_18">Irritability</string>
+    <string name= "symp2_19">Feeling slowed down</string>
+    <string name= "symp2_20">Sadness</string>
+    <string name= "symp2_21">Feeling like \'in a fog\'</string>
+    <string name= "symp2_22">Nervous/anxious</string>
+    <string name= "symp2_23">Trouble falling asleep</string>
+
+    <string-array name="listDataHeader">
+        <item>Headaches</item>
+        <item>\'Pressure in head\'</item>
+        <item>Neck pain</item>
+        <item>Nausea/vomiting</item>
+        <item>Dizziness</item>
+        <item>Blurred vision</item>
+        <item>Balance problems</item>
+        <item>Sensitivity to light</item>
+        <item>Sensitivity to noise</item>
+        <item>Feeling slowed down</item>
+        <item>Feeling like \'in a fog\'</item>
+        <item>\'Dont feel right\'</item>
+        <item>Difficulty concentrating</item>
+        <item>Difficulty remembering</item>
+        <item>Fatigue/low energy</item>
+        <item>Confusion</item>
+        <item>Drowsiness</item>
+        <item>Trouble falling asleep</item>
+        <item>More emotional</item>
+        <item>Irritability</item>
+        <item>Sadness</item>
+        <item>Nervous/anxious</item>
+    </string-array>
+
+    <string name= "num_symp">Number of symptoms experienced (/22):</string>
+    <string name= "sev_symp">Severity of symptoms (/132):</string>
+    <string name="exp_not_conc">If the injured player has symptoms not usually experienced following
+    a Rugby match or training and your diagnosis is NOT concussion please provide an explanation
+        (below) for not confirming a diagnosis of concussion</string>
+    <string name="hia2a_section31_header">SECTION 2: Cognitive Assessment</string>
+    <string name="hia2a_section32_header">Standardised Assessment of Concussion (SAC)</string>
+    <string name="hia2a_section33_header">ORIENTATION</string>
+    <string name="hia2a_section34_header">(1 point for each correct answer)</string>
+    <string name="orien_1">What month is it?</string>
+    <string name="orien_2">What is the date today?</string>
+    <string name="orien_3">What is the day of the week?</string>
+    <string name="orien_4">What year is it?</string>
+    <string name="orien_5">What time is it right now? (within 1 hour)</string>
+    <string name="orien_score">Orientation score (/5):</string>
+    <string name="sac_dr">SAC - Delayed Recall</string>
+    <string name="sac_it">Number of words from Immediate test remembered? (/5)</string>
+    <string name="sac_sum">SAC - Summary and Total Score</string>
+    <string name="sac_1">Orientation (/5)</string>
+    <string name="sac_2">Immediate memory (/15)</string>
+    <string name="sac_3">Concentration (digits backwards) (/5)</string>
+    <string name="conc_score">Concentration (/5)</string>
+    <string name="sac_4">Delayed recall (/5)</string>
+    <string name="sac_5">Total (/30)</string>
+    <string name="sac_explained">Assesssment of population of Rugby players suffering from a concussion injury will usually
+    elicit the following results:\n\n1. Total SAC score of 26 or below\n2. Immediate memory score of 12 or less\n3. Concentration
+        score of (digits backwards) score of 2 or below \n4. Delayed recall result of 3 words or fewer
+    \n5. Balance: tandem stance result of 3 or more errors, single leg result of 4 or more errors\n6. If the
+    player reports the presence of any symptom in the symptom list which is not usually experienced following a
+    Rugby match or training, then this is a strong indicator of concusion</string>
+    <string name="hia2a_section41_header">SECTION 4: Clinical diagnosis at this time</string>
+    <string name="conc_conf">Concussion confirmed:</string>
+    <string name="conc_conf2">HIA Form 3 must be completed as part of follow-up of a confirmed concussion</string>
+    <string name="conc_n_conf">Concussion not confirmed(and must be followed up with completetion of HIA Form 3):</string>
+    <string name="conc_n_conf2">HIA Form 3 must be completed to exclude a delayed concussion and as part of the ongoing monitoring in a player with a
+                                possible head injury</string>
+
+    <string name="immed_mem">IMMEDIATE MEMORY</string>
+    <string name="immed_mem_score">Immediate memory score (/15):</string>
+    <string name="conc_dig_score">Concentration score (/5):</string>
+    <string name="conc_month_score">Concentration score for months in reverse (/1):</string>
+    <string name="conc_dig_back_score">Concentration digits backwards score (/4):</string>
+    <string name="conc_dig">CONCENTRATION: DIGITS BACKWARD</string>
+    <string name="conc_month">CONCENTRATION: MONTHS IN REVERSE ORDER</string>
+    <string name="conc_month2">( 1 point for entire sequence correct)</string>
+    <string name="rev_month">Dec-Nov-Oct-Sep-Aug-Jul-Jun-May-Apr-Mar-Feb-Jan</string>
+
+    <string-array name="hia2_1_spinner">
+        <item>Yes, player immediately and permanently removed</item>
+        <item>Yes, pitch-side HIA abnormal and player removed</item>
+        <item>Yes, pitch-side HIA normal and player returned to play</item>
+        <item>Yes, pitch-side HIA normal and player removed for another non-head injury</item>
+        <item>No, symptoms appeared after completion of game</item>
+        <item>No, failed to complete HIA Form 1 despite being indicated</item>
+    </string-array>
+
+    <string-array name="hia2_2_spinner">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
+
+    <!-- HIA3 -->
+    <string name="Reas_HIA3">Reason for HIA3?</string>
+    <string name="hia3a_1_sectionheader">SECTION 2: Summary of HIA1 and HIA2</string>
+    <string name="hia3a_21_sectionheader">Was an HIA1 form completed, and if yes, what was the result? (Select one option):</string>
+    <string name="hia3a_22_sectionheader">Was an HIA2 form completed, and if yes, what was the clinical diagnosis at the time? (Select one option):</string>
+    <string name="sel_opt">(Select one option)</string>
+    <string name="hia3a_3_sectionheader">SECTION 3: Incident Details</string>
+    <string name="inc_d1">Game event:</string>
+    <string name="inc_d2">Collision with:</string>
+    <string name="inc_d3">Contact:</string>
+    <string name="inc_d4">Player Technique:</string>
+    <string name="if_other">If selected \"Other\":</string>
+    <string name="hia3a_4_sectionheader">SECTION 6: Cognitive Assessment</string>
+    <string name="hia3a_5_sectionheader">SECTION 7: Results of HIA3</string>
+    <string name="hia3a_6_sectionheader">SECTION 8: Overall Result</string>
+    <string name="cogAssTool">Cognitive assessment tool used:</string>
+    <string name="cogAss1">Cognitive Assessment (SAC) from SCAT</string>
+    <string name="cogAss2">CogSport</string>
+    <string name="cogAss3">Headminder</string>
+    <string name="cogAss4">Impact</string>
+    <string name="cogAss5">Other</string>
+    <string name="cogAssRes">What was the result of this cognitive assessment?</string>
+    <string name="domains">Identify the domain(s) that were abnormal in this HIA3:</string>
+    <string name="clinsusp">Clinical suspicion (over and above the other tests) ?</string>
+    <string name="dom1">Symptom assessment</string>
+    <string name="dom2">Cognitive assessment tool</string>
+    <string name="dom3">Balance evaluation</string>
+    <string name="dom4">Clinical suspicion (over and above the other tests)</string>
+    <string name="dom5">Nill</string>
+    <string name="diag_conc">Does the HIA3 confirm a diagnosis of concussion?</string>
+    <string name="diag_conc2">If this HIA 3 has an abnormal domain result and you believe the player does not
+                                have a concussion , explain why:</string>
+    <string name="was_conc_conf">Was concussion confirmed at any point during the HIA process (from the injury to HIA3)?</string>
+    <string name="hia3a_61_sectionheader">No is indicated if ALL of the following apply:</string>
+    <string name="hia3a_61_body">- There are no immediate and permanent removal criteria identified
+        immediately following the injury\n
+        - HIA2 and neurological assessment are normal\n
+        - HIA3 and neurological assessment are normal\n
+        - No clinical suspicion</string>
+    <string name="hia3a_62_sectionheader">Yes is indicated if ANY of the following apply</string>
+    <string name="hia3a_622_sectionheader">(identify by checking the box(es), the abnormal
+                                        assessments supporting a confirmed concussion):</string>
+    <string name ="abass1">Immediate on-pitch removal</string>
+    <string name ="abass2">Abnormal HIA3 assessment</string>
+    <string name ="abass3">Abnormal HIA2 assessment</string>
+    <string name ="abass4">Clinical suspicion</string>
+    <string name="hia3a_7_sectionheader">SECTION 5: Symptom Assessment</string>
+    <string name="hia3a_71_sectionheader">To the player: From kick-off until now</string>
+    <string name ="symp_check">Symptoms Checklist:</string>
+    <string name ="ant_amn">Anterograde Amnesia (amnesia after injury)?</string>
+    <string name ="ret_amn">Retrograde Amnesia (amnesia before the injury)?</string>
+    <string name ="yes_dur">Yes, duration:</string>
+
+    <string-array name="randomWords">
+        <item>elbow </item>
+        <item>apple </item>
+        <item>carpet </item>
+        <item>saddle </item>
+        <item>bubble </item>
+        <item>candle </item>
+        <item>paper </item>
+        <item>sugar </item>
+        <item>sandwich </item>
+        <item>wagon </item>
+    </string-array>
+
+    <string-array name="randomWords1">
+        <item>baby </item>
+        <item>monkey </item>
+        <item>perfume </item>
+        <item>sunset </item>
+        <item>iron </item>
+        <item>window </item>
+        <item>door </item>
+        <item>tree </item>
+        <item>coffee </item>
+        <item>flower </item>
+
+    </string-array>
+
+    <string-array name="randomWords2">
+        <item>whistle </item>
+        <item>defence </item>
+        <item>style </item>
+        <item>study </item>
+        <item>wood </item>
+        <item>scrum </item>
+        <item>ring </item>
+        <item>grass</item>
+        <item>hotel </item>
+        <item>street</item>
+
+    </string-array>
+
+    <string-array name="randomWords3">
+        <item>smoke</item>
+        <item>page </item>
+        <item>root </item>
+        <item>dress </item>
+        <item>brown</item>
+        <item>belt </item>
+        <item>action </item>
+        <item>honey</item>
+        <item>slave</item>
+        <item>nail</item>
+
+    </string-array>
+
+    <string-array name="randomWords4">
+        <item>fire</item>
+        <item>story </item>
+        <item>flat </item>
+        <item>square </item>
+        <item>listen</item>
+        <item>doctor </item>
+        <item>crash </item>
+        <item>hunt</item>
+        <item>picture</item>
+        <item>idea</item>
+
+    </string-array>
+
+
+    <string-array name="hia3_1_spinner">
+        <item>Follow up of HIA1 and/or HIA2</item>
+        <item>Player developed symptoms day(s) following game</item>
+        <item>Requested following video review</item>
+    </string-array>
+
+    <string-array name="hia3_1_spinner2">
+        <item>Yes, player immediately and permanently removed</item>
+        <item>Yes, pitch-side HIA abnormal and player removed</item>
+        <item>Yes, pitch-side HIA normal and player returned to play</item>
+        <item>Yes, pitch-side HIA normal and player removed for another non-head injury</item>
+        <item>No, symptoms appeared after completion of game</item>
+        <item>No, failed to complete HIA Form 1 despite being indicated</item>
+    </string-array>
+
+
+    <string-array name="hia3_1_spinner3">
+        <item>HIA2 completed as follow up to HIA1, concussion not confirmed</item>
+        <item>Yes, HIA2 completed as follow up to HIA1, concussion confirmed</item>
+        <item>Yes, HIA2 completed, symptoms developed post-match, same day, concussion not confirmed</item>
+        <item>Yes, HIA2 completed, symptoms developed post-match, same day, concussion confirmed</item>
+        <item>No, HIA2 not completed, symptoms developed during the day(s) following the match</item>
+        <item>No, HIA2 not completed despite being indicated</item>
+    </string-array>
+
+    <string name="symptom_exp_view_b">Identify when you started to feel the symptom:</string>
+    <string name="symptom_exp_view_c">Identify how long the symptom lasted:</string>
+    <string name="symptom_exp_view_d">Identify the intensity of the symptom:</string>
+
+    <string-array name = "hia1_f_spinner1">
+        <item>Team Doctor</item>
+        <item>Physiotherapist</item>
+        <item>Match Day Doctor</item>
+        <item>Tournament Doctor</item>
+        <item>Referee</item>
+    </string-array>
+
+    <string-array name = "hia1_f_spinner2">
+        <item>Team Doctor</item>
+        <item>Match Day Doctor</item>
+        <item>Tournament Doctor</item>
+        <item>Assistant Team Doctor</item>
+    </string-array>
+
+
+    <string-array name = "hia1_f_spinner3">
+        <item>No</item>
+        <item>Yes, pitchside HIA abnormal</item>
+        <item>Yes, player removed for another injury</item>
+    </string-array>
+
+
+
 
 
 </resources>

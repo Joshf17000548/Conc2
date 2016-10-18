@@ -22,7 +22,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/playerselect_content"/>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -35,5 +34,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="35dp"
         android:layout_marginBottom="31dp" />
+
+    <include layout="@layout/player_select_content" />
 
 </android.support.design.widget.CoordinatorLayout>

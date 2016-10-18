@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/image_bg"
-    android:id="@+id/staticPhoto">
+    >
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/playerFinalPhoto"
+        android:visibility="gone"
+        />
 
-            android:id="@+id/playerFinalPhoto"
-            />
 
 </FrameLayout>

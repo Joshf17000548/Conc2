@@ -22,6 +22,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -49,6 +50,8 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v13.app.FragmentCompat;
+import android.support.v4.app.FragmentActivity;
+
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.util.Size;
@@ -70,6 +73,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 
@@ -125,7 +129,7 @@ public class CameraFragment extends Fragment
     /**
      * Max preview width that is guaranteed by Camera2 API
      */
-    private static final int MAX_PREVIEW_WIDTH = 1920;
+    private static final int MAX_PREVIEW_WIDTH = 1440;
 
     /**
      * Max preview height that is guaranteed by Camera2 API
@@ -236,21 +240,36 @@ public class CameraFragment extends Fragment
     /**
      * This is the output file for our picture.
      */
-    private File mFile;
 
     /**
      * This a callback object for the {@link ImageReader}. "onImageAvailable" will be called when a
      * still image is ready to be saved.
      */
+    //private FragmentManager mFragment;
     private final ImageReader.OnImageAvailableListener mOnImageAvailableListener
             = new ImageReader.OnImageAvailableListener() {
 
         @Override
         public void onImageAvailable(ImageReader reader) {
-            mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
+
+            ByteBuffer buffer = reader.acquireNextImage().getPlanes()[0].getBuffer();
+            byte[] bytes = new byte[buffer.remaining()];
+            buffer.get(bytes);
+            Bundle bund = new Bundle();
+            bund.putBoolean("camera", true);
+            bund.putString("player_select", "existing");
+            bund.putByteArray("player_photo", bytes);
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            PhotoFragment photoFragment = PhotoFragment.newInstance();
+            photoFragment.setArguments(bund);
+            transaction.replace(R.id.cameraFeed, photoFragment, "PhotoFragment");
+            transaction.commit();
+            //mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile, getFragmentManager()));
+            //mBackgroundHandler.post(new frag());
         }
 
     };
+
 
     /**
      * {@link CaptureRequest.Builder} for the camera preview
@@ -376,7 +395,6 @@ public class CameraFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        player_code = getArguments().getString("player_code");
         return inflater.inflate(R.layout.fragment_camera_feed, container, false);
     }
 
@@ -384,13 +402,12 @@ public class CameraFragment extends Fragment
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         view.findViewById(R.id.picture).setOnClickListener(this);
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
-        //player_name = getArguments().getString("player_name");
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mFile = new File(getActivity().getExternalFilesDir(null)+"/"+player_code, player_code+"P.jpg");
     }
 
     @Override
@@ -438,6 +455,39 @@ public class CameraFragment extends Fragment
         }
     }
 
+    private static Size chooseOptimalSize(Size[] choices, int textureViewWidth,
+                                          int textureViewHeight, int maxWidth, int maxHeight, Size aspectRatio) {
+
+        // Collect the supported resolutions that are at least as big as the preview Surface
+        List<Size> bigEnough = new ArrayList<>();
+        // Collect the supported resolutions that are smaller than the preview Surface
+        List<Size> notBigEnough = new ArrayList<>();
+        int w = aspectRatio.getWidth();
+        int h = aspectRatio.getHeight();
+        for (Size option : choices) {
+            if (option.getWidth() <= maxWidth && option.getHeight() <= maxHeight &&
+                    option.getHeight() == option.getWidth() * h / w) {
+                if (option.getWidth() >= textureViewWidth &&
+                        option.getHeight() >= textureViewHeight) {
+                    bigEnough.add(option);
+                } else {
+                    notBigEnough.add(option);
+                }
+            }
+        }
+
+        // Pick the smallest of those big enough. If there is no one big enough, pick the
+        // largest of those not big enough.
+        if (bigEnough.size() > 0) {
+            return Collections.min(bigEnough, new CompareSizesByArea());
+        } else if (notBigEnough.size() > 0) {
+            return Collections.max(notBigEnough, new CompareSizesByArea());
+        } else {
+            Log.e(TAG, "Couldn't find any suitable preview size");
+            return choices[0];
+        }
+    }
+
     /**
      * Sets up member variables related to camera.
      *
@@ -458,15 +508,25 @@ public class CameraFragment extends Fragment
                     continue;
                 }
 
+
                 StreamConfigurationMap map = characteristics.get(
                         CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
                 if (map == null) {
                     continue;
                 }
 
-                // For still image captures, we use the largest available size.
-                Size largest = new Size(1440,1080);
 
+                // For still image captures, we use the largest available size.
+/*                Size largest = Collections.max(
+                        Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)),
+                        new CompareSizesByArea());*/
+
+                Size largest= new Size(960, 720);
+
+                Size[] largest1 = map.getOutputSizes(ImageFormat.JPEG);
+                for(Size n : largest1){
+                    Log.e("camera", n.toString());
+                }
                 mImageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(),
                         ImageFormat.JPEG, /*maxImages*/2);
                 mImageReader.setOnImageAvailableListener(
@@ -476,18 +536,24 @@ public class CameraFragment extends Fragment
                 // coordinate.
                 int displayRotation = activity.getWindowManager().getDefaultDisplay().getRotation();
 
+
                 //noinspection ConstantConditions
                 mSensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
+               // Log.e("Sensor", String.valueOf(mSensorOrientation));
                 boolean swappedDimensions = false;
                 switch (displayRotation) {
                     case Surface.ROTATION_0:
+
                     case Surface.ROTATION_180:
                         if (mSensorOrientation == 90 || mSensorOrientation == 270) {
                             swappedDimensions = true;
+                            Log.e("Sensor", "1");
                         }
                         break;
                     case Surface.ROTATION_90:
+                        Log.e("Sensor", "3");
                     case Surface.ROTATION_270:
+                        Log.e("Sensor", "4");
                         if (mSensorOrientation == 0 || mSensorOrientation == 180) {
                             swappedDimensions = true;
                         }
@@ -495,6 +561,8 @@ public class CameraFragment extends Fragment
                     default:
                         Log.e(TAG, "Display rotation is invalid: " + displayRotation);
                 }
+
+
 
 
                 Point displaySize = new Point();
@@ -523,18 +591,18 @@ public class CameraFragment extends Fragment
                 // bus' bandwidth limitation, resulting in gorgeous previews but the storage of
                 // garbage capture data.
 
-                mPreviewSize = new Size(1440,1080);
+                mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class),
+                        rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
+                        maxPreviewHeight, largest);
 
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     mTextureView.setAspectRatio(
                             mPreviewSize.getWidth(), mPreviewSize.getHeight());
-
                 } else {
                     mTextureView.setAspectRatio(
                             mPreviewSize.getHeight(), mPreviewSize.getWidth());
-
                 }
 
                 // Check if the flash is supported.
@@ -707,14 +775,17 @@ public class CameraFragment extends Fragment
         float centerX = viewRect.centerX();
         float centerY = viewRect.centerY();
         if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
+            Log.e("rotate", "90");
             bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY());
             matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL);
             float scale = Math.max(
                     (float) viewHeight / mPreviewSize.getHeight(),
                     (float) viewWidth / mPreviewSize.getWidth());
             matrix.postScale(scale, scale, centerX, centerY);
-            matrix.postRotate(90 * (rotation - 2), centerX, centerY);
-        } else if (Surface.ROTATION_180 == rotation) {
+            matrix.postRotate(90 * (rotation), centerX, centerY);
+        }
+        else if (Surface.ROTATION_180 == rotation) {
+            Log.e("rotate", "180");
             matrix.postRotate(180, centerX, centerY);
         }
         mTextureView.setTransform(matrix);
@@ -744,8 +815,8 @@ public class CameraFragment extends Fragment
         }
     }
 
-    /**
-     * Run the precapture sequence for capturing a still image. This method should be called when
+    /**ing
+     * Run the precapture sequence for captur a still image. This method should be called when
      * we get a response in {@link #mCaptureCallback} from {@link #lockFocus()}.
      */
     private void runPrecaptureSequence() {
@@ -785,7 +856,6 @@ public class CameraFragment extends Fragment
             // Orientation
             int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getOrientation(rotation));
-            Log.e(TAG ,"Capture Request");
 
             CameraCaptureSession.CaptureCallback CaptureCallback
                     = new CameraCaptureSession.CaptureCallback() {
@@ -794,21 +864,21 @@ public class CameraFragment extends Fragment
                 public void onCaptureCompleted(@NonNull CameraCaptureSession session,
                                                @NonNull CaptureRequest request,
                                                @NonNull TotalCaptureResult result) {
-                    showToast("Saved: " + mFile);
-                    Log.d(TAG, mFile.toString());
-                    unlockFocus();
-                    Bundle bund = new Bundle();
+                    //showToast("Saved: " + mFile);
+                    //Log.d(TAG, mFile.toString());
+                    //unlockFocus();
+/*                    Bundle bund = new Bundle();
+                    bund.putBoolean("camera", true);
                     bund.putString("player_select", "existing");
                     bund.putString("player_code", player_code);
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                     PhotoFragment photoFragment = PhotoFragment.newInstance();
                     photoFragment.setArguments(bund);
-                    transaction.replace(R.id.frameLayout, photoFragment);
-                    transaction.commit();
-                    Log.e(TAG ,"Capture Complete");
+                    transaction.replace(R.id.frameLayout, photoFragment, "PhotoFragment");
+                    transaction.commit();*/
                 }
             };
-
+            Log.e("Camera", "Stop Capture");
             mCaptureSession.stopRepeating();
             mCaptureSession.capture(captureBuilder.build(), CaptureCallback, null);
         } catch (CameraAccessException e) {
@@ -827,7 +897,10 @@ public class CameraFragment extends Fragment
         // We have to take that into account and rotate JPEG properly.
         // For devices with orientation of 90, we simply return our mapping from ORIENTATIONS.
         // For devices with orientation of 270, we need to rotate the JPEG 180 degrees.
-        return (ORIENTATIONS.get(rotation)-180) % 360;
+
+
+
+        return (ORIENTATIONS.get(rotation)+mSensorOrientation + 270) % 360;
     }
 
     /**
@@ -840,7 +913,8 @@ public class CameraFragment extends Fragment
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                     CameraMetadata.CONTROL_AF_TRIGGER_CANCEL);
             setAutoFlash(mPreviewRequestBuilder);
-            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
+            Log.e("camera"," capture request");
+             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);
             // After this, the camera will go back to the normal state of preview.
             mState = STATE_PREVIEW;
@@ -881,20 +955,23 @@ public class CameraFragment extends Fragment
     /**
      * Saves a JPEG {@link Image} into the specified {@link File}.
      */
-    private static class ImageSaver implements Runnable {
+/*    private static class ImageSaver implements Runnable {
 
-        /**
+        *//**
          * The JPEG image
-         */
+         *//*
         private final Image mImage;
-        /**
+        *//**
          * The file we save the image into.
-         */
+         *//*
         private final File mFile;
 
-        public ImageSaver(Image image, File file) {
+
+
+        public ImageSaver(Image image, File file, FragmentManager fragment) {
             mImage = image;
             mFile = file;
+           // mFragment = fragment;
         }
 
         @Override
@@ -903,6 +980,7 @@ public class CameraFragment extends Fragment
             byte[] bytes = new byte[buffer.remaining()];
             buffer.get(bytes);
             FileOutputStream output = null;
+
             try {
                 output = new FileOutputStream(mFile);
                 output.write(bytes);
@@ -917,10 +995,10 @@ public class CameraFragment extends Fragment
                         e.printStackTrace();
                     }
                 }
-            }
+           }
         }
 
-    }
+    }*/
 
     /**
      * Compares two {@code Size}s based on their areas.
@@ -960,6 +1038,7 @@ public class CameraFragment extends Fragment
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             activity.finish();
+
                         }
                     })
                     .create();
