@@ -70,12 +70,12 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 
 
     //This function calls AsyncTask [insertHIA1], which submit the HIA1 data to insertHIA1.php file.
-/*    public void submitHIA1(View view) {
+    public void submitHIA1(View view) {
 
         new HIA1insertAsync(objHIA1).execute(); //Call async Task
-    }*/
+    }
 
-   /* /*//*//*---------------------------------------------
+    //*//*---------------------------------------------
     //------------JSON ----------------------------
 
     private class HIA1insertAsync extends AsyncTask<Void, Void, JSONArray> {
@@ -84,7 +84,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         // Alert Dialog Manager
         AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://10.0.2.2/ConcApp/insertHIA1.php"; // Needs to be changed when using different php files.
+        private static final String URL = "http://104.198.254.110/ConcApp/insertHIA1.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -225,7 +225,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 
     }
     //-------END JSON----------------
-    //-------------------------------*/
+    //-------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

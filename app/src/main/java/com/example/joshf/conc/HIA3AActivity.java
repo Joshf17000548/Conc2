@@ -64,10 +64,10 @@ public class HIA3AActivity extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(), "You selected :"+ radioButton.getText(), Toast.LENGTH_SHORT).show();
         //Log.v("AGAIN:", "Check Check Ckeck: " + fragObjHia1.objHIA1.HIA1_Test1_Question1);
         //objHIA1.setHIA1_Test1_Question1(param);
-        //new HIA3AActivity.HIA3insertAsync(objHIA3).execute(); //Call async Task
+        new HIA3AActivity.HIA3insertAsync(objHIA3).execute(); //Call async Task
     }
 
-/*    //---------------------------------------------
+    //---------------------------------------------
     //------------JSON ----------------------------
 
     private class HIA3insertAsync extends AsyncTask<Void, Void, JSONArray> {
@@ -76,7 +76,7 @@ public class HIA3AActivity extends AppCompatActivity {
         // Alert Dialog Manager
         AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://10.0.2.2/ConcApp/insertHIA3.php"; // Needs to be changed when using different php files.
+        private static final String URL = "http://104.198.254.110/ConcApp/insertHIA3.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -291,7 +291,7 @@ public class HIA3AActivity extends AppCompatActivity {
 
     }
     //-------END JSON----------------
-    //-------------------------------*/
+    //-------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -42,6 +42,8 @@ public class HIA2AActivity extends AppCompatActivity
     SectionsPagerAdapter mSectionsPagerAdapter;
     HIA2 objHIA2=new HIA2();
 
+    int Code_HIA1;
+
 
     ViewPager mViewPager;
 
@@ -67,9 +69,9 @@ public class HIA2AActivity extends AppCompatActivity
         //Toast.makeText(getApplicationContext(), "You selected :"+ radioButton.getText(), Toast.LENGTH_SHORT).show();
         //Log.v("AGAIN:", "Check Check Ckeck: " + fragObjHia1.objHIA1.HIA1_Test1_Question1);
         //objHIA1.setHIA1_Test1_Question1(param);
-        //new HIA2AActivity.HIA2insertAsync(objHIA2).execute(); //Call async Task
+        new HIA2AActivity.HIA2insertAsync(objHIA2).execute(); //Call async Task
     }
-/*    //---------------------------------------------
+    //---------------------------------------------
     //------------JSON ----------------------------
 
     private class HIA2insertAsync extends AsyncTask<Void, Void, JSONArray> {
@@ -78,7 +80,7 @@ public class HIA2AActivity extends AppCompatActivity
         // Alert Dialog Manager
         AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://10.0.2.2/ConcApp/insertHIA2.php"; // Needs to be changed when using different php files.
+        private static final String URL = "http://104.198.254.110/ConcApp/insertHIA2.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -209,10 +211,126 @@ public class HIA2AActivity extends AppCompatActivity
 
     }
     //-------END JSON----------------
-    //-------------------------------*/
+    //-------------------------------
+
+    // second Async start
+
+    private class get_HIA1_Test7_Question5 extends AsyncTask<Void, Void, JSONArray> {
+
+        int getHIA1T7Q5;
+        // Alert Dialog Manager
+        AlertDialogManager alert = new AlertDialogManager();
+
+        private static final String URL = "http://104.198.254.110/ConcApp/getHIA1_Test7_Question5.php"; // Needs to be changed when using different php files.
+        private static final String TAG_SUCCESS = "success";
+        private static final String TAG_MESSAGE = "message";
+
+
+        JSONParser jsonParser = new JSONParser();
+
+        private ProgressDialog pDialog;
+
+        public get_HIA1_Test7_Question5(int CodeHIA1){
+            Log.d("JSONCONSTRUCTOR", "Start");
+            Toast.makeText(getApplicationContext(), "Starting JSON", Toast.LENGTH_SHORT).show();
+            this.getHIA1T7Q5=CodeHIA1;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.d("JSonInsTeam", "Start");
+            pDialog = new ProgressDialog(HIA2AActivity.this);
+            pDialog.setMessage("Attempting retrieve...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+        @Override
+        protected JSONArray doInBackground(Void... params) {
+
+            Log.d("JSonInsTeam", "Background");
+            try {
+                //    Log.d("JSON REQUEST", "Start ...");
+
+                // PREPARING PARAMETERS..
+                Log.d("JSON REQUEST", "Preparing Params ...");
+                HashMap<String, String> args = new HashMap<>();
+
+                args.put("Code_HIA1", Integer.toString(this.getHIA1T7Q5));
+
+                // all args needs to convert to string because the hash map is string, string types.
+
+                //   Log.d("JSON REQUEST", args.toString());
+                Log.d("JSON REQUEST", "Firing Json ...");
+                JSONArray json = jsonParser.makeHttpRequest(
+                        URL, "POST", args);
+                Log.d("json", "0bject = " + json);
+
+                if (json != null) {
+                    Log.d("I got", "in here?");
+                    Log.d("JSON REQUEST", params.toString());
+                    Log.d("JSON result", json.toString());
+
+                    return json;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(JSONArray json) {
+            Log.d("JSonInsTeam", "Finish");
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            int success = 0;
+            String message = "";
+
+            if (json != null) {
+                Toast.makeText(HIA2AActivity.this, json.toString(), Toast.LENGTH_LONG).show();
+
+                try {
+                    success = json.getJSONObject(0).getInt(TAG_SUCCESS);
+                    message = json.getJSONObject(0).getString(TAG_MESSAGE);
+
+                    if (success==1){
+                        Code_HIA1 = json.getJSONObject(0).getInt("HIA1_Test7_Question5");
+                        Log.d("Retrieved",Integer.toString(Code_HIA1));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (success == 1) {
+                Log.d("Success!", message);
+
+                //finish();
+            } else {
+                // Problems SQL
+                alert.showAlertDialog(HIA2AActivity.this, "Insert failed..", "Something went wrong, see Failure Log", false);
+                Log.d("Failure", message);
+                finish();
+            }
+        }
+
+
+    }
+    //-------END JSON----------------
+    //-------------------------------
+    // end second Async
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.viewpager_layout);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());//,this.getApplicationContext());
 
@@ -229,6 +347,11 @@ public class HIA2AActivity extends AppCompatActivity
         //mViewPager = new ViewPager(this);
         //mViewPager.setId(R.id.pager);
         //setContentView(mViewPager);
+
+        Log.d("Before", Integer.toString(Code_HIA1));
+        new HIA2AActivity.get_HIA1_Test7_Question5(1).execute();
+        Log.d("After", Integer.toString(Code_HIA1));
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());//,this.getApplicationContext());
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
             @Override

@@ -442,7 +442,7 @@
 
 
     <string-array name="hia3_1_spinner3">
-        <item>HIA2 completed as follow up to HIA1, concussion not confirmed</item>
+        <item>Yes, HIA2 completed as follow up to HIA1, concussion not confirmed</item>
         <item>Yes, HIA2 completed as follow up to HIA1, concussion confirmed</item>
         <item>Yes, HIA2 completed, symptoms developed post-match, same day, concussion not confirmed</item>
         <item>Yes, HIA2 completed, symptoms developed post-match, same day, concussion confirmed</item>
