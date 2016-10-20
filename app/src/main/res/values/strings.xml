@@ -160,9 +160,12 @@
     <string name = "hia1_form">HIA1 Form</string>
 
     <string-array name="player_removed_spinner">
+        <item>Yes, player immediately and permanently removed</item>
+        <item>Yes, pitch-side HIA abnormal and player removed</item>
+        <item>Yes, pitch-side HIA normal and player removed</item>
+        <item>Yes, pitch-side HIA normal and player returned to play</item>
+        <item>Yes, HIA normal and player removed for another injury</item>
         <item>No</item>
-        <item>Yes, pitchside HIA abnormal</item>
-        <item>Yes, player removed for another injury</item>
     </string-array>
 
     <string-array name="hia1_1_spinner">
@@ -285,10 +288,10 @@
     <string-array name="hia2_1_spinner">
         <item>Yes, player immediately and permanently removed</item>
         <item>Yes, pitch-side HIA abnormal and player removed</item>
+        <item>Yes, pitch-side HIA normal and player removed</item>
         <item>Yes, pitch-side HIA normal and player returned to play</item>
-        <item>Yes, pitch-side HIA normal and player removed for another non-head injury</item>
-        <item>No, symptoms appeared after completion of game</item>
-        <item>No, failed to complete HIA Form 1 despite being indicated</item>
+        <item>Yes, HIA normal and player removed for another injury</item>
+        <item>No</item>
     </string-array>
 
     <string-array name="hia2_2_spinner">
@@ -434,10 +437,10 @@
     <string-array name="hia3_1_spinner2">
         <item>Yes, player immediately and permanently removed</item>
         <item>Yes, pitch-side HIA abnormal and player removed</item>
+        <item>Yes, pitch-side HIA normal and player removed</item>
         <item>Yes, pitch-side HIA normal and player returned to play</item>
-        <item>Yes, pitch-side HIA normal and player removed for another non-head injury</item>
-        <item>No, symptoms appeared after completion of game</item>
-        <item>No, failed to complete HIA Form 1 despite being indicated</item>
+        <item>Yes, HIA normal and player removed for another injury</item>
+        <item>No</item>
     </string-array>
 
 

@@ -41,8 +41,9 @@ public class HIA2AActivity extends AppCompatActivity
     private static final String TAG = "Tag Check";
     SectionsPagerAdapter mSectionsPagerAdapter;
     HIA2 objHIA2=new HIA2();
+    static Spinner spinner;
 
-    int Code_HIA1;
+    static int Code_HIA1;
 
 
     ViewPager mViewPager;
@@ -298,6 +299,11 @@ public class HIA2AActivity extends AppCompatActivity
                     if (success==1){
                         Code_HIA1 = json.getJSONObject(0).getInt("HIA1_Test7_Question5");
                         Log.d("Retrieved",Integer.toString(Code_HIA1));
+                        //test spinner
+                        Code_HIA1=1;
+                        //onResume();
+                        setSpinner();
+
                     }
 
                 } catch (JSONException e) {
@@ -323,7 +329,11 @@ public class HIA2AActivity extends AppCompatActivity
     //-------------------------------
     // end second Async
 
+    public void setSpinner(){
+        spinner.setSelection(Code_HIA1);
 
+
+    }
 
 
 
@@ -384,13 +394,10 @@ public class HIA2AActivity extends AppCompatActivity
             }
         });
 
-        //Log.v(TAG, "Purple Monkeys again " + articleFrag);
+
 
     }
-    //public void changeFragmentTextView(String s) {
-    // Fragment frag = getSupportFragmentManager().findFragmentById(R.id.hia2Efrag);
-    // ((TextView) frag.getView().findViewById(R.id.textView_orientationresult)).setText(s);
-    //}
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -511,17 +518,19 @@ public class HIA2AActivity extends AppCompatActivity
             View rootView = inflater.inflate(R.layout.fragment_hia2_a, container, false);
 
 
-            Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner4);
+            spinner = (Spinner) rootView.findViewById(R.id.spinner4);
 
-            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, req_by);
-            //adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
             this.adapter=ArrayAdapter.createFromResource(this.getActivity(),R.array.hia2_1_spinner,android.R.layout.simple_spinner_dropdown_item);
             this.adapter = ArrayAdapter.createFromResource(this.getActivity(),R.array.hia2_1_spinner,R.layout.multiline_spinner_dropdown_item);
             spinner.setAdapter(adapter);
+            Log.d("Spinner Value Test:",Integer.toString(Code_HIA1));
+            spinner.setSelection(Code_HIA1);
 
 
             return rootView;
         }
+
+
     }
 
 
@@ -578,16 +587,6 @@ public class HIA2AActivity extends AppCompatActivity
         @Override
         public CharSequence getPageTitle(int position) {
 
-            /*switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;
-            */
             return "HIA2 (" + (position + 1) + "/7)";
         }
 
@@ -610,7 +609,6 @@ public class HIA2AActivity extends AppCompatActivity
                 return null;
             return mFragmentManager.findFragmentByTag(tag);
         }
-
 
 
     }
