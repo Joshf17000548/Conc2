@@ -479,8 +479,34 @@
         <item>Yes, player removed for another injury</item>
     </string-array>
 
+    <!-- Help dialogue box's -->
 
+    <string name= "toolbox_help" >"?"</string>
+    <string name = "dialogue_imed_mem_dig" >"<b>IMMEDIATE MEMORY</b>!\n- select option 1, 2 or 3 and test this
+        option three times.\n\n<b>Instructions</b>!\n\"I am going to test your memory. I will read you a list of words
+        and when I am done, repeat back as many words as you can
+        remember, in any order.\"<b>Repeat the same procedure using the same words three
+            times:</b>!\n\"I am going to repeat the same list again. Repeat back as
+        many words as you can remember in any order.\"\n
+        Complete all three trials regardless of score on trial 1 and 2.\n
+        Read the words at a rate of one per second.\n
+        <b>The maximum score is 15</b>!\n\n
+        <b>DIGITS BACKWARDS</b>!\n
+        - start with either option 1 or option 2 numbers.\n
+        \"I am going to read you a string of numbers and
+        when I am done, you repeat them back to me
+        backwards, in reverse order of how I read them to you. For
+        example, if I say 7-1-9, you would say 9-1-7.\"\n
+        Start with the 3 digit string length from trial 1. If correct move
+        to increasing string lengths, scoring one point for each correct
+        sequence. If incorrect, read trial 2 with the same string length.
+        Remove from play if incorrect on both trials of three numbers.
+        The digits should be read at the rate of one per second. Score
+        one point for each correct string, so the maximum score is 4 points."</string>
 
-
+    <string name = "dialogue_delayed_mem" >"<b>DELAYED RECALL</b>!\n
+                   - test recall of the same immediate memory words.\n
+        \"Tell me as many words from the list of words
+read to you earlier in any order\""</string>
 
 </resources>

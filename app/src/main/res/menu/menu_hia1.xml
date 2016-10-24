@@ -8,4 +8,9 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_help"
+        android:title="@string/toolbox_help"
+        app:showAsAction="withText|ifRoom"
+        android:actionLayout="@layout/player_profile"/>
 </menu>
