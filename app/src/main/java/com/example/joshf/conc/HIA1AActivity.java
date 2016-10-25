@@ -2,6 +2,7 @@ package com.example.joshf.conc;
         import android.app.Activity;
         //import android.app.AlertDialog;
         import android.app.ProgressDialog;
+        import android.content.DialogInterface;
         import android.net.Uri;
         import android.os.AsyncTask;
         import android.support.design.widget.FloatingActionButton;
@@ -350,6 +351,39 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        // code here to show dialog
+        //super.onBackPressed();  // optional depending on your needs
+        //Log.d("Back pressed","Yes");
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder backbut = new AlertDialog.Builder(HIA1AActivity.this);
+        backbut.setMessage(R.string.dialog_back)
+                .setTitle(R.string.dialog_back_title);
+        // 3. Get the AlertDialog from create()
+        // Add the buttons
+
+
+        backbut.setPositiveButton(R.string.dialog_back_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                HIA1AActivity.super.onBackPressed();
+            }
+        });
+        backbut.setNegativeButton(R.string.dialog_back_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+                //dialogback.dismiss();
+            }
+        });
+
+        final AlertDialog dialogback = backbut.create();
+        dialogback.show();
+
 
     }
 

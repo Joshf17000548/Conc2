@@ -580,4 +580,12 @@
         \nConfirm the intensity of any unusual symptom that is still present\n
         "</string>
 
+    <!-- back dialogue box's -->
+
+    <string name = "dialog_back_title" >Warning</string>
+    <string name = "dialog_back">All data will be lost if you proceed.</string>
+    <string name = "dialog_back_ok" >OK</string>
+    <string name = "dialog_back_cancel" >CANCEL</string>
+
+
 </resources>

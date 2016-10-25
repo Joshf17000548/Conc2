@@ -2,6 +2,7 @@ package com.example.joshf.conc;
 
         import android.app.ProgressDialog;
         import android.content.Context;
+        import android.content.DialogInterface;
         import android.os.AsyncTask;
         import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.Snackbar;
@@ -478,6 +479,40 @@ public class HIA2AActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        // code here to show dialog
+        //super.onBackPressed();  // optional depending on your needs
+        //Log.d("Back pressed","Yes");
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder backbut = new AlertDialog.Builder(HIA2AActivity.this);
+        backbut.setMessage(R.string.dialog_back)
+                .setTitle(R.string.dialog_back_title);
+        // 3. Get the AlertDialog from create()
+        // Add the buttons
+
+
+        backbut.setPositiveButton(R.string.dialog_back_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                HIA2AActivity.super.onBackPressed();
+            }
+        });
+        backbut.setNegativeButton(R.string.dialog_back_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+                //dialogback.dismiss();
+            }
+        });
+
+        final AlertDialog dialogback = backbut.create();
+        dialogback.show();
+
+
+    }
+
     @Override
     public void onOrienSelected(int position) {
 
