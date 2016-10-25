@@ -1,5 +1,6 @@
 package com.example.joshf.conc;
         import android.app.Activity;
+        //import android.app.AlertDialog;
         import android.app.ProgressDialog;
         import android.net.Uri;
         import android.os.AsyncTask;
@@ -7,6 +8,7 @@ package com.example.joshf.conc;
         import android.support.design.widget.Snackbar;
         import android.support.v4.app.FragmentStatePagerAdapter;
         import android.support.v4.view.PagerAdapter;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
 
@@ -39,10 +41,12 @@ package com.example.joshf.conc;
         import org.w3c.dom.Text;
 
         import java.util.HashMap;
+        import java.util.Map;
 
 public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     boolean HIA1_Test1_Question13;
     public HIA1AActivity hia1test;
+    public int tabbed_pos;
 
     //testResults attemp1 = new testResults();
     HIA1 objHIA1=new HIA1();
@@ -231,12 +235,34 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewpager_layout);
-
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position){
+                Fragment fragment = ((SectionsPagerAdapter)mViewPager.getAdapter()).getFragment(position);
+
+                tabbed_pos = position;
+                Log.d("Position = ",Integer.toString(position));
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
@@ -262,10 +288,55 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Log.d("check","in on options item selected");
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        else if (id == R.id.action_help)
+        {
+            Log.d("check","in action help");
+            // 1. Instantiate an AlertDialog.Builder with its constructor
+            AlertDialog.Builder builder = new AlertDialog.Builder(HIA1AActivity.this);
+            builder.setMessage(R.string.dialog_default)
+                    .setTitle(R.string.dialog_title);
+            // 3. Get the AlertDialog from create()
+            AlertDialog dialogd1 = builder.create();
+            switch (tabbed_pos){
+                case 0:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    dialogd1.show();
+                    break;
+                case 1:
+                    dialogd1.show();
+                    break;
+                case 2:
+                    dialogd1.show();
+                    break;
+                case 3:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    builder.setMessage(R.string.dialogue_imed_mem_dig)
+                            .setTitle(R.string.dialog_title);
+                    // 3. Get the AlertDialog from create()
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    break;
+                case 4:
+                    dialogd1.show();
+                    break;
+                case 5:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    builder.setMessage(R.string.dialogue_delayed_mem)
+                            .setTitle(R.string.dialog_title);
+                    // 3. Get the AlertDialog from create()
+                    AlertDialog dialog2 = builder.create();
+                    dialog2.show();
+                    break;
+                case 6:
+                    dialogd1.show();
+                    break;
+            }
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -348,7 +419,14 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFragmentManager = fm;
+            mFragmentTags = new HashMap<Integer, String>();
+            // mContext= context;
+
+
         }
+        private Map<Integer, String> mFragmentTags;
+        private FragmentManager mFragmentManager;
 
         @Override
         public Fragment getItem(int position) {
@@ -384,6 +462,13 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         public CharSequence getPageTitle(int position) {
 
             return "HIA1 (" + (position + 1) + "/7)";
+        }
+
+        public Fragment getFragment(int position){
+            String tag = mFragmentTags.get(position);
+            if(tag==null)
+                return null;
+            return mFragmentManager.findFragmentByTag(tag);
         }
 
     }

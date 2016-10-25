@@ -6,6 +6,7 @@ package com.example.joshf.conc;
         import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.Snackbar;
         import android.support.v4.app.FragmentActivity;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
 
@@ -42,6 +43,7 @@ public class HIA2AActivity extends AppCompatActivity
     SectionsPagerAdapter mSectionsPagerAdapter;
     HIA2 objHIA2=new HIA2();
     static Spinner spinner;
+    public int tabbed_pos;
 
     static int Code_HIA1;
 
@@ -372,6 +374,7 @@ public class HIA2AActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int position){
                 Fragment fragment = ((SectionsPagerAdapter)mViewPager.getAdapter()).getFragment(position);
+                tabbed_pos = position;
 
                 if (position ==5 && fragment != null)
                 {
@@ -402,7 +405,7 @@ public class HIA2AActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_hia, menu);
+        getMenuInflater().inflate(R.menu.menu_hia1, menu);
         return true;
     }
 
@@ -416,6 +419,61 @@ public class HIA2AActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        else if (id == R.id.action_help)
+        {
+            Log.d("check","in action help");
+            // 1. Instantiate an AlertDialog.Builder with its constructor
+            AlertDialog.Builder builder = new AlertDialog.Builder(HIA2AActivity.this);
+            builder.setMessage(R.string.dialog_default)
+                    .setTitle(R.string.dialog_title);
+            // 3. Get the AlertDialog from create()
+            AlertDialog dialogd1 = builder.create();
+            switch (tabbed_pos){
+                case 0:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    dialogd1.show();
+                    break;
+                case 1:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    builder.setMessage(R.string.dialogue_symp)
+                            .setTitle(R.string.dialog_title);
+                    // 3. Get the AlertDialog from create()
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    break;
+                case 2:
+                    dialogd1.show();
+                    break;
+                case 3:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    builder.setMessage(R.string.dialogue_imed_mem)
+                            .setTitle(R.string.dialog_title);
+                    // 3. Get the AlertDialog from create()
+                    AlertDialog dialog1 = builder.create();
+                    dialog1.show();
+                    break;
+                case 4:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    builder.setMessage(R.string.dialogue_digback_months_rev)
+                            .setTitle(R.string.dialog_title);
+                    // 3. Get the AlertDialog from create()
+                    AlertDialog dialog2 = builder.create();
+                    dialog2.show();
+                    break;
+                case 5:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    builder.setMessage(R.string.dialogue_delayed_mem_2)
+                            .setTitle(R.string.dialog_title);
+                    // 3. Get the AlertDialog from create()
+                    AlertDialog dialog3 = builder.create();
+                    dialog3.show();
+                    break;
+                case 6:
+                    dialogd1.show();
+                    break;
+            }
+
         }
 
         return super.onOptionsItemSelected(item);

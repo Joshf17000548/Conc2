@@ -482,31 +482,102 @@
     <!-- Help dialogue box's -->
 
     <string name= "toolbox_help" >"?"</string>
-    <string name = "dialogue_imed_mem_dig" >"<b>IMMEDIATE MEMORY</b>!\n- select option 1, 2 or 3 and test this
-        option three times.\n\n<b>Instructions</b>!\n\"I am going to test your memory. I will read you a list of words
+    <string name = "dialog_title" >Help</string>
+    <string name = "dialog_default">Please complete the necessary fields.</string>
+
+    <!-- HIA1 -->
+
+    <string name = "dialogue_imed_mem_dig" >"<b>IMMEDIATE MEMORY</b>\n- select option 1, 2 or 3 and test this
+        option three times.\n\n<b>Instructions</b>\n\"I am going to test your memory. I will read you a list of words
         and when I am done, repeat back as many words as you can
-        remember, in any order.\"<b>Repeat the same procedure using the same words three
-            times:</b>!\n\"I am going to repeat the same list again. Repeat back as
-        many words as you can remember in any order.\"\n
-        Complete all three trials regardless of score on trial 1 and 2.\n
-        Read the words at a rate of one per second.\n
-        <b>The maximum score is 15</b>!\n\n
-        <b>DIGITS BACKWARDS</b>!\n
-        - start with either option 1 or option 2 numbers.\n
-        \"I am going to read you a string of numbers and
+        remember, in any order.\"\n<b>Repeat the same procedure using the same words three
+            times:</b>\n\"I am going to repeat the same list again. Repeat back as
+        many words as you can remember in any order.\"
+        \nComplete all three trials regardless of score on trial 1 and 2.
+        \nRead the words at a rate of one per second.
+        \n<b>The maximum score is 15</b>\n\n
+        <b>DIGITS BACKWARDS</b>\n
+        - start with either option 1 or option 2 numbers.\n\n
+        <b>Instructions</b>
+        \n\"I am going to read you a string of numbers and
         when I am done, you repeat them back to me
         backwards, in reverse order of how I read them to you. For
-        example, if I say 7-1-9, you would say 9-1-7.\"\n
-        Start with the 3 digit string length from trial 1. If correct move
+        example, if I say 7-1-9, you would say 9-1-7.\"
+        \nStart with the 3 digit string length from trial 1. If correct move
         to increasing string lengths, scoring one point for each correct
         sequence. If incorrect, read trial 2 with the same string length.
         Remove from play if incorrect on both trials of three numbers.
         The digits should be read at the rate of one per second. Score
         one point for each correct string, so the maximum score is 4 points."</string>
 
-    <string name = "dialogue_delayed_mem" >"<b>DELAYED RECALL</b>!\n
-                   - test recall of the same immediate memory words.\n
-        \"Tell me as many words from the list of words
-read to you earlier in any order\""</string>
+    <string name = "dialogue_delayed_mem" >"<b>DELAYED RECALL</b>\n
+                   - test recall of the same immediate memory words.
+        \n\"Tell me as many words from the list of words
+        read to you earlier in any order\""</string>
+
+    <!-- HIA2 -->
+
+    <string name = "dialogue_symp" >"The symptoms score is determined by counting the number of individual symptoms reported. The result should be compared to each individual’s baseline score. <b>For athletes without a
+        baseline score</b>, if any symptom is declared in the symptom list which is not usually experienced by the player following a
+        Rugby match or training, this is strongly indicative of concussion."
+    </string>
+
+     <string name = "dialogue_imed_mem" >"<b>IMMEDIATE MEMORY</b>\n\n
+         <b>Instructions</b>\n
+         \"I am going to test your memory. I will read you a list of words
+        and when I am done, repeat back as many words as you can
+        remember, in any order.\"
+         \nTrials 2 and 3: \"<b>I am going to repeat the same list again.
+             Repeat back as many words as you can remember in any
+             order, even if you said the word before.</b>\"
+         \nComplete all three trials regardless of score on trial 1 and 2.
+         \nRead the words at a rate of one per second.
+         \nScore one point for each correct response. Total
+         score equals sum across all three trials. Do not
+         inform the athlete that delayed recall will be tested."</string>
+
+    <string name = "dialogue_digback_months_rev">" <b>DIGITS BACKWARDS</b>\n\n
+        <b>Instructions</b>\n
+        <b>\"I am going to read you a string of numbers and
+        when I am done, you repeat them back to me
+        backwards, in reverse order of how I read them to you. For
+        example, if I say 7-1-9, you would say 9-1-7.\"</b>
+        \nStart with the 3 digit string length from trial 1. If correct move
+        to increasing string lengths, scoring one point for each correct
+        sequence. If an incorrect sequence is given, move onto the
+        same digit length in the next trial. Stop the test if incorrect
+        answers are given in two consecutive trials.\n\n
+         <b>MONTHS IN REVERSE ORDER</b>!\n\n
+        <b>Instructions</b>\n
+        <b>\"Now tell me the months of the year in reverse order. Start
+            with the last month and go backward. So you’ll say
+            December, November ... Go ahead.\"</b>
+        \nScore one point for entire sequence correct." </string>
+
+    <string name = "dialogue_delayed_mem_2" >"<b>DELAYED RECALL</b>
+        \n\nThe delayed recall should be performed after completion of
+        the balance and co-ordination examination.
+        \n<b>\"Do you remember that list of words I read a few times
+            earlier? Tell me as many words from the list as you can
+            remember in any order.\"</b>
+        \nScore one point for each correct response."</string>
+
+    <!-- HIA3 -->
+    <string name = "dialogue_symp_HIA3" >"<b>SYMPTOMS ASSESSMENT</b>\n
+        <b>How Many?</b>\n
+        Identify any symptom you have experienced
+        since the injury or following the match which is
+        not usually noted with Rugby\n
+        <b>How Much?</b>\n
+        Identify the maximum intensity
+        of each symptom\n
+        <b>When?</b>\n
+        Identify when you started to feel each
+        symptom identified\n
+        <b>How Long?</b>\n
+        Please identify how long each of these symptoms lasted\n
+        <b>Still Present?</b>\n
+        Confirm the intensity of any unusual symptom that is still present\n
+        "</string>
 
 </resources>
