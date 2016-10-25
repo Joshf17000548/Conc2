@@ -5,6 +5,7 @@ package com.example.joshf.conc;
         import android.os.AsyncTask;
         import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.Snackbar;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
 
@@ -30,12 +31,15 @@ package com.example.joshf.conc;
         import org.json.JSONException;
 
         import java.util.HashMap;
+        import java.util.Map;
 
 
 public class HIA3AActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    public int tabbed_pos;
+
 
 
     //database
@@ -428,6 +432,28 @@ public class HIA3AActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position){
+                Fragment fragment = ((SectionsPagerAdapter)mViewPager.getAdapter()).getFragment(position);
+
+                tabbed_pos = position;
+                Log.d("Position = ",Integer.toString(position));
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         Log.d("Before", Integer.toString(Code_HIA1));
         new HIA3AActivity.get_HIA1_Test7_Question5(1).execute();
         Log.d("After", Integer.toString(Code_HIA1));
@@ -438,7 +464,7 @@ public class HIA3AActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_hia, menu);
+        getMenuInflater().inflate(R.menu.menu_hia1, menu);
         return true;
     }
 
@@ -452,6 +478,46 @@ public class HIA3AActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        else if (id == R.id.action_help)
+        {
+            Log.d("check","in action help");
+            // 1. Instantiate an AlertDialog.Builder with its constructor
+            AlertDialog.Builder builder = new AlertDialog.Builder(HIA3AActivity.this);
+            builder.setMessage(R.string.dialog_default)
+                    .setTitle(R.string.dialog_title);
+            // 3. Get the AlertDialog from create()
+            AlertDialog dialogd1 = builder.create();
+            switch (tabbed_pos){
+                case 0:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    dialogd1.show();
+                    break;
+                case 1:
+                    dialogd1.show();
+                    break;
+                case 2:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    builder.setMessage(R.string.dialogue_symp_HIA3)
+                            .setTitle(R.string.dialog_title);
+                    // 3. Get the AlertDialog from create()
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    break;
+                case 3:
+                    dialogd1.show();
+                    break;
+                case 4:
+                    dialogd1.show();
+                    break;
+                case 5:
+                    dialogd1.show();
+                    break;
+                case 6:
+                    dialogd1.show();
+                    break;
+            }
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -548,8 +614,12 @@ public class HIA3AActivity extends AppCompatActivity {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFragmentManager = fm;
+            mFragmentTags = new HashMap<Integer, String>();
+            // mContext= context;
         }
-
+        private Map<Integer, String> mFragmentTags;
+        private FragmentManager mFragmentManager;
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
@@ -596,6 +666,13 @@ public class HIA3AActivity extends AppCompatActivity {
             return null;
             */
             return "HIA3 (" + (position + 1) + "/5)";
+        }
+
+        public Fragment getFragment(int position){
+            String tag = mFragmentTags.get(position);
+            if(tag==null)
+                return null;
+            return mFragmentManager.findFragmentByTag(tag);
         }
 
     }

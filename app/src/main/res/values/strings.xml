@@ -564,20 +564,20 @@
 
     <!-- HIA3 -->
     <string name = "dialogue_symp_HIA3" >"<b>SYMPTOMS ASSESSMENT</b>\n
-        <b>How Many?</b>\n
-        Identify any symptom you have experienced
+        \n<b>How Many?</b>
+        \nIdentify any symptom you have experienced
         since the injury or following the match which is
-        not usually noted with Rugby\n
-        <b>How Much?</b>\n
-        Identify the maximum intensity
-        of each symptom\n
-        <b>When?</b>\n
-        Identify when you started to feel each
-        symptom identified\n
-        <b>How Long?</b>\n
-        Please identify how long each of these symptoms lasted\n
-        <b>Still Present?</b>\n
-        Confirm the intensity of any unusual symptom that is still present\n
+        not usually noted with Rugby
+        \n<b>How Much?</b>
+        \nIdentify the maximum intensity
+        of each symptom
+        \n<b>When?</b>
+        \nIdentify when you started to feel each
+        symptom identified
+        \n<b>How Long?</b>
+        \nPlease identify how long each of these symptoms lasted
+        \n<b>Still Present?</b>
+        \nConfirm the intensity of any unusual symptom that is still present\n
         "</string>
 
 </resources>
