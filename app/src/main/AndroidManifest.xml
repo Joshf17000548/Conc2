@@ -49,10 +49,16 @@
             android:name=".HIA1AActivity"
             android:label="@string/app_name"
             android:parentActivityName=".TestMenuActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme">
         </activity>
-        <activity android:name=".HIA2AActivity" />
-        <activity android:name=".HIA3AActivity" />
+        <activity
+            android:name=".HIA2AActivity"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".HIA3AActivity"
+            android:theme="@style/AppTheme">
+        </activity>
 
 
     </application>

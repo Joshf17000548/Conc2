@@ -109,11 +109,6 @@
             android:id="@+id/checkBox3_ABASS1"
             android:layout_weight="1" />
 
-        <CheckBox
-            android:text="@string/abass2"
-            android:layout_width="156dp"
-            android:layout_height="41dp"
-            android:id="@+id/checkBox_ABASS2" />
     </LinearLayout>
 
     <LinearLayout
@@ -122,8 +117,25 @@
         android:orientation="horizontal"
         android:paddingTop="5dp"
         android:id="@+id/linearLayout009"
-        android:layout_below="@+id/linearLayout008">
+        android:layout_below="@+id/linearLayout008"
+        android:weightSum="1">
 
+        <CheckBox
+            android:text="@string/abass2"
+            android:layout_width="156dp"
+            android:layout_height="41dp"
+            android:id="@+id/checkBox_ABASS2"
+            android:layout_weight="0.48" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout010"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:layout_below="@+id/linearLayout009">
 
         <CheckBox
             android:text="@string/abass3"
@@ -132,12 +144,24 @@
             android:id="@+id/checkBox3_ABASS3"
             android:layout_weight="1" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout011"
+        android:paddingTop="5dp"
+        android:layout_below="@+id/linearLayout010"
+        >
+
         <CheckBox
             android:text="@string/abass4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox_ABASS4"
             android:layout_weight="1" />
+
     </LinearLayout>
 
     <Button
@@ -146,8 +170,8 @@
         android:text="Finish"
         android:id="@+id/btn_finish"
         android:onClick="submitHIA3"
-        android:layout_marginTop="76dp"
-        android:layout_below="@+id/linearLayout009"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/linearLayout011"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
