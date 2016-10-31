@@ -15,6 +15,7 @@ import java.util.Date;
  */
 public class Player implements java.io.Serializable{
     public int Code_Player;
+    public int Player_Status;
     public int Code_Team;
     public String Player_Name;
     public String Player_Photo;
@@ -34,6 +35,9 @@ public class Player implements java.io.Serializable{
     }
     public double getPlayer_Height(){
         return this.Player_Height;
+    }
+    public int getPlayer_Status(){
+        return this.Player_Status;
     }
     public double getPlayer_Weight(){
         return this.Player_Weight;
@@ -66,8 +70,10 @@ public class Player implements java.io.Serializable{
                 this.Player_Weight = Float.valueOf(object.getString("Player_Weight"));
                 this.Player_Height = Float.valueOf(object.getString("Player_Height"));
                 this.Player_Lenses = Boolean.valueOf(object.getString("Player_Lenses"));
-                this.Player_Photo = object.getString("Player_Photo");
                 this.Player_DateOfBirth = object.getString("Player_DateOfBirth");
+                if (object.getString("Player_Status")!="null") {
+                    this.Player_Status = Integer.valueOf(object.getString("Player_Status"));
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.e("Player", "Error");

@@ -8,11 +8,9 @@ package com.example.joshf.conc;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
-        import android.widget.Button;
         import android.widget.CheckBox;
         import android.widget.CompoundButton;
         import android.widget.RadioButton;
-        import android.widget.TextView;
 
 
 public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeListener {

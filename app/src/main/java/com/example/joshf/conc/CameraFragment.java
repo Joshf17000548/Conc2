@@ -256,13 +256,11 @@ public class CameraFragment extends Fragment
             byte[] bytes = new byte[buffer.remaining()];
             buffer.get(bytes);
             Bundle bund = new Bundle();
-            bund.putBoolean("camera", true);
-            bund.putString("player_select", "existing");
             bund.putByteArray("player_photo", bytes);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             PhotoFragment photoFragment = PhotoFragment.newInstance();
             photoFragment.setArguments(bund);
-            transaction.replace(R.id.cameraFeed, photoFragment, "PhotoFragment");
+            transaction.replace(R.id.dialog_photo_holder, photoFragment, "PhotoFragment");
             transaction.commit();
             //mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile, getFragmentManager()));
             //mBackgroundHandler.post(new frag());
@@ -521,7 +519,7 @@ public class CameraFragment extends Fragment
                         Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)),
                         new CompareSizesByArea());*/
 
-                Size largest= new Size(960, 720);
+                Size largest= new Size(1088, 1088);
 
                 Size[] largest1 = map.getOutputSizes(ImageFormat.JPEG);
                 for(Size n : largest1){
@@ -591,9 +589,11 @@ public class CameraFragment extends Fragment
                 // bus' bandwidth limitation, resulting in gorgeous previews but the storage of
                 // garbage capture data.
 
-                mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class),
+                mPreviewSize = new Size(1088, 1088);
+
+/*                mPreviewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture.class),
                         rotatedPreviewWidth, rotatedPreviewHeight, maxPreviewWidth,
-                        maxPreviewHeight, largest);
+                        maxPreviewHeight, largest);*/
 
                 // We fit the aspect ratio of TextureView to the size of preview we picked.
                 int orientation = getResources().getConfiguration().orientation;
@@ -1068,10 +1068,7 @@ public class CameraFragment extends Fragment
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Activity activity = parent.getActivity();
-                                    if (activity != null) {
-                                        activity.finish();
-                                    }
+
                                 }
                             })
                     .create();

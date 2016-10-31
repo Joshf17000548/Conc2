@@ -1,3 +1,4 @@
+/*
 package com.example.joshf.conc;
 
 import android.app.Activity;
@@ -16,18 +17,16 @@ import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
 
+*/
 /**
  * Created by Josh_PC on 2016/10/13.
- */
+ *//*
+
 public class CameraActivity extends Activity {
 
     ImageView screenShot;
     ImageButton check;
     ImageButton cancel;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +60,13 @@ public class CameraActivity extends Activity {
                 public void onClick(View view) {
 
                     //TODO start player profile again and crop image data and pass as argument
-    /*                mCallback.onCheckSelected();
+    */
+/*                mCallback.onCheckSelected();
                     check.setVisibility(View.GONE);
                     cancel.setVisibility(View.GONE);
                     cameraButton.setVisibility(View.VISIBLE);
-                    photoLoaded=true;*/
+                    photoLoaded=true;*//*
+
 
                 }
             });
@@ -90,3 +91,4 @@ public class CameraActivity extends Activity {
 
     }
 }
+*/

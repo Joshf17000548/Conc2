@@ -9,7 +9,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/playerFinalPhoto"
-        android:visibility="gone"
+
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/check"
+        android:id="@+id/check"
+
+        android:background="@drawable/check_bg"
+
+        android:layout_gravity="bottom|left"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cancel"
+        android:id="@+id/cancel"
+
+        android:background="@drawable/cancel_bg"
+        android:layout_gravity="bottom|right"
         />
 
 

@@ -12,5 +12,7 @@
         android:title="@string/appbar_edit"
         app:showAsAction="withText|ifRoom"
         android:actionLayout="@layout/player_profile"/>
+    <item android:id="@+id/menuId_logout"
+        android:title="Log out" />
 
 </menu>

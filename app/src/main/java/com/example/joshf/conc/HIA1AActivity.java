@@ -1,14 +1,6 @@
 package com.example.joshf.conc;
         import android.app.Activity;
-        import android.app.ProgressDialog;
-        import android.net.Uri;
-        import android.os.AsyncTask;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.design.widget.Snackbar;
-        import android.support.v4.app.FragmentStatePagerAdapter;
-        import android.support.v4.view.PagerAdapter;
         import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
 
         import android.support.v4.app.Fragment;
         import android.support.v4.app.FragmentManager;
@@ -25,20 +17,10 @@ package com.example.joshf.conc;
         import android.widget.AdapterView;
         import android.widget.ArrayAdapter;
         import android.widget.CheckBox;
-        import android.widget.EditText;
         import android.widget.RadioButton;
-        import android.widget.RadioGroup;
         import android.widget.Spinner;
         import android.widget.TextView;
         import android.widget.Toast;
-
-
-
-        import org.json.JSONArray;
-        import org.json.JSONException;
-        import org.w3c.dom.Text;
-
-        import java.util.HashMap;
 
 public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     boolean HIA1_Test1_Question13;
@@ -46,7 +28,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 
     //testResults attemp1 = new testResults();
     HIA1 objHIA1=new HIA1();
-    HIA1FFragment fragObjHia1 = new HIA1FFragment();
+    HIA1GFragment fragObjHia1 = new HIA1GFragment();
     boolean HIA1_Test1_Question1 = false;
     boolean HIA1_Test1_Question2 = false;
     boolean HIA1_Test1_Question3 = false;
@@ -357,13 +339,15 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 case 2:
                     return HIA1CFragment.newInstance();
                 case 3:
-                    return HIA1GFragment.newInstance();
+                    return HIA1HFragment.newInstance();
                 case 4:
-                    return HIA1DFragment.newInstance();
+                    return Gait.newInstance();
                 case 5:
-                    return HIA1EFragment.newInstance();
+                    return HIA1DFragment.newInstance();
                 case 6:
                     return HIA1FFragment.newInstance();
+                case 7:
+                    return HIA1GFragment.newInstance();
 
             }
 
@@ -372,13 +356,13 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 
         @Override
         public int getCount() {
-            return 7;
+            return 8;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
 
-            return "HIA1 (" + (position + 1) + "/7)";
+            return "HIA1 (" + (position + 1) + "/8)";
         }
 
     }

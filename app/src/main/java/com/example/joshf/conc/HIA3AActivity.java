@@ -440,11 +440,15 @@ public class HIA3AActivity extends AppCompatActivity {
                     return HIA3BFragment.newInstance();
                 case 2:
                     return HIA3FFragment.newInstance();
+                case 3:
+                    return Balance.newInstance();
+                case 4:
+                    return Gait.newInstance();
                 /*case 3:
                     return HIA3CFragment.newInstance();*/
-                case 3:
+                case 5:
                     return HIA3DFragment.newInstance();
-                case 4:
+                case 6:
                     return HIA3EFragment.newInstance();
                 /*case 5:
                     return HIA2FFragment.newInstance();
@@ -458,7 +462,7 @@ public class HIA3AActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 5;
+            return 7;
         }
 
         @Override
@@ -473,7 +477,7 @@ public class HIA3AActivity extends AppCompatActivity {
             }
             return null;
             */
-            return "HIA3 (" + (position + 1) + "/5)";
+            return "HIA3 (" + (position + 1) + "/7)";
         }
 
     }

@@ -35,12 +35,13 @@ import java.util.List;
 /**
  * Created by Josh_PC on 2016/07/25.
  */
-public class PlayerAdapter extends ArrayAdapter<Player> implements Filterable {
-    private ArrayList<Player> playerList;
+public class TeamAdapter extends ArrayAdapter<Team> implements Filterable {
+
+    private ArrayList<Team> teamList;
     private Activity context;
-    private Filter playerFilter;
-    private ArrayList<Player> origPlayerList;
-    String TAG = "PlayerAdapter";
+    private Filter teamFilter;
+    private ArrayList<Team> origTeamList;
+    String TAG = "TeamAdapter";
 
     DisplayImageOptions options;
     ImageLoader imageLoader;
@@ -53,15 +54,13 @@ public class PlayerAdapter extends ArrayAdapter<Player> implements Filterable {
     private ImageView brainStatus;
 
 
-    public PlayerAdapter(Activity context, ArrayList<Player> players) {
-        super(context, R.layout.playerlist_item, players);
+    public TeamAdapter(Activity context, ArrayList<Team> teams) {
+        super(context, R.layout.playerlist_item, teams);
         this.context = context;
-        this.playerList = players;
-        this.origPlayerList = players;
+        this.teamList = teams;
+        this.origTeamList = teams;
 
-        Log.e("adapter", "start");
-
-        File cacheDir = StorageUtils.getOwnCacheDirectory(context, "http://104.198.254.110/ConcApp/Player_Image/");
+        File cacheDir = StorageUtils.getOwnCacheDirectory(context, "http://104.198.254.110/ConcApp/Team_Logo/");
         try {
             // Get singletone instance of ImageLoader
             imageLoader = ImageLoader.getInstance();
@@ -83,100 +82,90 @@ public class PlayerAdapter extends ArrayAdapter<Player> implements Filterable {
         list = (SwipeMenuListView) context.findViewById(R.id.list_view_swipe);
         noResult = (TextView) context.findViewById(R.id.no_result);
 
-
     }
     @Override
     public int getCount() {
-        return playerList.size();
+        return teamList.size();
     }
 
     @Override
     public long getItemId(int i) {
-        return playerList.get(i).hashCode();
+        return teamList.get(i).hashCode();
     }
 
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 
-        PlayerHolder holder = new PlayerHolder();
+        TeamHolder holder = new TeamHolder();
 
         if(view == null) {
             LayoutInflater inflater = context.getLayoutInflater();
-            view = inflater.inflate(R.layout.playerlist_item, null);
+            view = inflater.inflate(R.layout.teamlist_item, null);
 
             nameTxt = (TextView) view.findViewById(R.id.name);
             imageView = (ImageView) view.findViewById(R.id.playerPhoto);
             brainStatus = (ImageView) view.findViewById(R.id.playerHealth);
-           // playerStatus = (TextView) context.findViewById(R.id.no_result);
+            // playerStatus = (TextView) context.findViewById(R.id.no_result);
 
-            holder.playerNameView = nameTxt;
-            holder.playerPhoto = imageView;
-            holder.playerBrainStatus = brainStatus;
-           // holder.noResult = (TextView) context.findViewById(R.id.no_result);
+            holder.teamNameView = nameTxt;
+            holder.teamPhoto = imageView;
+            holder.teamBrainStatus = brainStatus;
+            // holder.noResult = (TextView) context.findViewById(R.id.no_result);
 
             view.setTag(holder);
         }
         else{
-            holder = (PlayerHolder) view.getTag();
+            holder = (TeamHolder) view.getTag();
         }
 
-        String photoPath = String.valueOf(playerList.get(position).getCode_Player());
-        String path = "http://104.198.254.110/ConcApp/Player_Image/" + photoPath +"THUMB.png";
+/*        String photoPath = String.valueOf(teamList.get(position).getCode_Team());
+        String path = "http://104.198.254.110/ConcApp/Team_Logo/" + photoPath +"IMG.png";
 
         try {
-            imageLoader.displayImage(path, holder.playerPhoto, options);
+            imageLoader.displayImage(path, holder.teamPhoto, options);
 
         }catch (Exception e){
             e.printStackTrace();
-        }
-        holder.playerNameView.setText(playerList.get(position).getPlayer_Name());
-        playerList.get(position).Player_Status= position % 3;
+        }*/
+        holder.teamNameView.setText(teamList.get(position).getTeam_Name());
+        Log.e(TAG, teamList.get(position).getTeam_Name());
+        //teamList.get(position).Player_Status= position % 3;
+      //  Log.e("mod", String.valueOf(teamList.get(position).Player_Status));
 
-        int status = playerList.get(position).getPlayer_Status();
-
-        switch (status){
-            case(0):
-                holder.playerBrainStatus.setImageDrawable(null);
-                break;
-            case(1):
-                holder.playerBrainStatus.setImageResource(R.drawable.baseline);
-                break;
-            default:
-                holder.playerBrainStatus.setImageResource(R.drawable.injured);
-        }
+     //   int status = teamList.get(position).getPlayer_Status();
 
         return view;
     }
 
-    private static class PlayerHolder {
-        TextView playerNameView;
-        ImageView playerPhoto;
-        ImageView playerBrainStatus;
+    private static class TeamHolder {
+        TextView teamNameView;
+        ImageView teamPhoto;
+        ImageView teamBrainStatus;
     }
 
     @Override
     public Filter getFilter() {
-        if (playerFilter == null) {
-            playerFilter = new PlayerFilter();
+        if (teamFilter == null) {
+            teamFilter = new TeamFilter();
         }
-        return playerFilter;
+        return teamFilter;
     }
-    private class PlayerFilter extends Filter {
+    private class TeamFilter extends Filter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
 
             if (constraint==null || constraint.length() ==0) {
-                results.count = origPlayerList.size();
-                results.values = origPlayerList;
+                results.count = origTeamList.size();
+                results.values = origTeamList;
             }else{
-                ArrayList<Player> tempList = new ArrayList<Player>();
+                ArrayList<Team> tempList = new ArrayList<Team>();
                 // search content in friend list
-                for (Player player : origPlayerList) {
-                    if (player.getPlayer_Name().contains(constraint.toString())) {
-                        tempList.add(player);
+                for (Team team : origTeamList) {
+                    if (team.getTeam_Name().contains(constraint.toString())) {
+                        tempList.add(team);
                     }
                 }
                 results.count = tempList.size();
@@ -194,7 +183,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> implements Filterable {
         @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            playerList = (ArrayList<Player>) results.values;
+            teamList = (ArrayList<Team>) results.values;
             if (results.count == 0) {
                 list.setVisibility(View.GONE);
                 noResult.setVisibility(View.VISIBLE);

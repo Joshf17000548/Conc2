@@ -439,6 +439,12 @@ public class HIA2AActivity extends AppCompatActivity
                 case 5:
                     return HIA2EFragment.newInstance();
                 case 6:
+                    return Balance.newInstance();
+                case 7:
+                    return Gait.newInstance();
+                case 8:
+                    return UpperLimbCoordination.newInstance();
+                case 9:
                     return HIA2FFragment.newInstance();
 
             }
@@ -449,7 +455,7 @@ public class HIA2AActivity extends AppCompatActivity
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 7;
+            return 10;
         }
 
         @Override
@@ -465,7 +471,7 @@ public class HIA2AActivity extends AppCompatActivity
             }
             return null;
             */
-            return "HIA2 (" + (position + 1) + "/7)";
+            return "HIA2 (" + (position + 1) + "/10)";
         }
 
         @Override

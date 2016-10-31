@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/photo_background"
+            android:alpha="0.5"
+            android:scaleType="centerCrop"
+            />
+
+        <FrameLayout
+            android:layout_width="210dp"
+            android:layout_height="210dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:background="@null"
+            android:id="@+id/playerPhotoHolder">
+
+            <ImageView
+                android:id="@+id/playerPhotoLarge"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:transitionName="photo"
+                android:layout_gravity="center"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                 />
+        </FrameLayout>
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/cameraButton"
+            android:src="@drawable/camerap"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_alignBottom="@+id/playerPhotoHolder"
+            android:layout_alignEnd="@+id/playerPhotoHolder" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"
+            android:hint="@string/enter_name"
+            android:transitionName="name"
+            android:elevation="2dp"
+            android:inputType="textCapWords"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:textColor="@color/textPrimary"
+            android:textSize="25sp"
+            android:layout_above="@+id/playerPhotoHolder"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#EFEBE9"
+        android:paddingBottom="20dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/playerHealth"
+                    android:layout_gravity="center"
+                    android:src="@drawable/healthy"
+
+                    android:transitionName="brain"
+                    android:layout_marginEnd="30dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/playerHealthText"
+                    android:textColor="@color/textPrimary"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+    >
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TableRow
+                    android:id="@+id/playerInfoTable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:textColor="@color/textPrimary"
+                        android:layout_height="35dp"
+                        android:id="@+id/age"
+                        android:layout_column="1"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:textColor="@color/textPrimary"
+                        android:id="@+id/weight"
+                        android:layout_column="2"
+                        android:text="@string/weight"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:textColor="@color/textPrimary"
+                        android:id="@+id/height"
+                        android:text="@string/height"
+                        android:layout_column="3"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        />
+                </TableRow>
+
+                <View android:layout_width="match_parent"
+                    android:background="#BCAAA4"
+                    android:layout_height="2dp" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1"
+                        android:layout_column="1"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:id="@+id/ageText"
+                            android:text="Select"
+                            android:textColor="@color/hint"
+                            android:layout_gravity="bottom"
+                            android:layout_weight="0.76"
+                            android:gravity="bottom|center_horizontal" />
+
+                        <View
+                            android:layout_width="fill_parent"
+                            android:id="@+id/ageLine"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:background="#616161"
+                            android:layout_marginTop="1dp"/>
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/weightText"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="14sp"
+
+                        android:hint="@string/enter_weight"
+                        android:inputType="numberDecimal"
+                        android:layout_column="2"
+                        android:layout_weight="1"
+                        android:gravity="center"/>
+
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/heightText"
+                        android:textSize="14sp"
+                        android:hint="@string/enter_height"
+                        android:textColor="@color/textPrimary"
+                        android:inputType="numberDecimal"
+                        android:layout_column="3"
+                        android:layout_weight="1"
+                        android:layout_gravity="bottom"
+                        android:gravity="center" />
+                </TableRow>
+            </TableLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:id="@+id/linearLayout2"
+            android:paddingTop="10dp"
+
+            >
+
+<!--
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" >
+            </Space>
+-->
+
+
+            <Button
+                android:background="@drawable/action_button_select"
+                android:textColor="@color/buttontext_selector"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/startTest"
+                android:layout_gravity="center"
+                android:text="@string/start_test"
+                android:layout_weight="1"
+                android:elevation="2dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="10dp"
+
+
+                />
+<!--            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" >
+            </Space>-->
+
+            <Button
+                android:background="@drawable/action_button_select"
+                android:textColor="@color/buttontext_selector"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/playerHistory"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/player_history"
+                android:elevation="2dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="5dp"
+                />
+
+<!--            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" >
+            </Space>-->
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

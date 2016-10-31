@@ -7,49 +7,38 @@
     android:padding="5dp">
 
     <ImageView
-        android:id="@+id/playerPhoto"
-        android:transitionName="photo"
+        android:id="@+id/teamPhoto"
+        android:src="@drawable/maties"
+        android:transitionName="teamphoto"
         android:layout_width="58dp"
         android:layout_height="58dp"
-        >
+        android:scaleType="centerCrop">
     </ImageView>
 
 
     <ImageView
-        android:id="@+id/playerHealth"
+        android:id="@+id/teamHealth"
         android:transitionName="brain"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="10dp">
-
     </ImageView>
-
-
-    <TextView
-        android:id="@+id/surname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/playerHealth"
-        android:textSize="20sp"
-        android:transitionName="surname"
-        android:textStyle="bold"
-        android:textColor="@color/textPrimary"
-
-        android:layout_alignStart="@+id/name" />
 
     <TextView
         android:id="@+id/name"
+        android:text="Stomers"
         android:layout_width="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:layout_marginStart="5dp"
         android:transitionName="name"
+        android:gravity="center_vertical"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"
-        android:layout_alignTop="@+id/playerHealth"
-        android:layout_toEndOf="@+id/playerPhoto" />
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/teamPhoto" />
 
 
 </RelativeLayout>

@@ -59,13 +59,13 @@ import java.util.List;
 /**
  * Created by joshf on 2016/09/13.
  */
-public class SwipeListViewFragment extends Fragment implements ConfirmationDialog.DeleteDialogListener{
+public class SwipeListTeam extends Fragment implements ConfirmationDialog.DeleteDialogListener{
 
-    public PlayerAdapter mAdapter;
+    public TeamAdapter mAdapter;
     private SwipeMenuListView mListView;
-    public ArrayList<Player> playerList;
-    String TAG = "SwipeListViewFragment";
-    private int playerPositionForDelete;
+    public ArrayList<Team> teamList;
+    String TAG = "SwipeListTeam";
+    private int teamPositionForDelete;
     int deleteCode;
     Activity activity;
 
@@ -76,7 +76,7 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
     private SearchManager searchManager;
 
     static public interface ListSelected {
-        public void listItemSelected(Player player, View view);
+        public void listItemSelected(Team team, View view);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            listCallback = (PlayerSelect) activity;
+            listCallback = (TeamSelect) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement CheckSelectedCallback");
@@ -96,8 +96,8 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_swipe_player_list, container, false);
-        playerList =(ArrayList<Player>) getArguments().getSerializable("player_list");
+        View view = inflater.inflate(R.layout.fragment_swipe_team_list, container, false);
+       teamList =(ArrayList<Team>) getArguments().getSerializable("team_list");
         mListView = (SwipeMenuListView) view.findViewById(R.id.list_view_swipe);
         //playerPhoto = (ImageView) view.findViewById(R.id.playerPhoto) ;
         setHasOptionsMenu(true);
@@ -106,15 +106,18 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        mAdapter = new PlayerAdapter(getActivity(), playerList);
+
+        // new getPlayers().execute();
+
+        mAdapter = new TeamAdapter(getActivity(), teamList);
         mListView.setAdapter(mAdapter);
 
         mListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Player selectedPlayer = mAdapter.getItem(position);
-                        listCallback.listItemSelected(selectedPlayer,view);
+                        Team selectedTeam = mAdapter.getItem(position);
+                        listCallback.listItemSelected(selectedTeam,view);
                     }
                 }
         );
@@ -149,10 +152,9 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 DialogFragment dialog = new ConfirmationDialog();
                 dialog.show(getChildFragmentManager(), "ConformationDialog");
-                playerPositionForDelete=position;
+                teamPositionForDelete=position;
 
-
-            return false;
+                return false;
             }
         });
 
@@ -196,9 +198,9 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
 
             @Override
             public boolean onQueryTextChange(String query) {
-               // Log.e(TAG, query);
+                // Log.e(TAG, query);
                 if (mListView != null)
-                mAdapter.getFilter().filter(query);
+                    mAdapter.getFilter().filter(query);
                 return true;
             }
         });
@@ -212,10 +214,10 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
 
 
     public void onDialogPositiveClick(DialogFragment dialog) {
-        Player selectedPlayer = mAdapter.getItem(playerPositionForDelete);
-        deleteCode = selectedPlayer.getCode_Player();
-        new deletePlayers().execute();
-        mAdapter.remove(selectedPlayer);
+        Team selectedTeam = mAdapter.getItem(teamPositionForDelete);
+        deleteCode = selectedTeam.getCode_Team();
+        new deleteTeam().execute();
+        mAdapter.remove(selectedTeam);
         mAdapter.notifyDataSetChanged();
     }
 
@@ -224,13 +226,13 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
     }
 
 
-    public static SwipeListViewFragment newInstance() {
-        return new SwipeListViewFragment();
+    public static SwipeListTeam newInstance() {
+        return new SwipeListTeam();
     }
 
-    private class deletePlayers extends AsyncTask<String, String, JSONArray> {
+    private class deleteTeam extends AsyncTask<String, String, JSONArray> {
 
-        private static final String URL = "http://104.198.254.110/ConcApp/deletePlayer.php";
+        private static final String URL = "http://104.198.254.110/ConcApp/deleteTeam.php";
         JSONParser jsonParser = new JSONParser();
 
         @Override
@@ -239,7 +241,7 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
             try {
                 HashMap<String, String> args = new HashMap<>();
 
-                args.put("Code_Player",String.valueOf(deleteCode));
+                args.put("Code_Team",String.valueOf(deleteCode));
 
 
                 JSONArray json = jsonParser.makeHttpRequest(
@@ -265,5 +267,3 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
 
 
 }
-
-
