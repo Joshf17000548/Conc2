@@ -2,9 +2,11 @@ package com.example.joshf.conc;
 
         import android.app.Activity;
         import android.app.ProgressDialog;
+        import android.content.DialogInterface;
         import android.os.AsyncTask;
         import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.Snackbar;
+        import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
 
@@ -30,17 +32,23 @@ package com.example.joshf.conc;
         import org.json.JSONException;
 
         import java.util.HashMap;
+        import java.util.Map;
 
 
 public class HIA3AActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    public int tabbed_pos;
+
 
 
     //database
     public HIA3AActivity hia3test;
     HIA3 objHIA3=new HIA3();
+    static Spinner spinner1;
+
+    static int Code_HIA1;
 
     //This function calls AsyncTask [insertHIA1], which submit the HIA1 data to insertHIA1.php file.
     public void submitHIA3(View view) {
@@ -64,10 +72,10 @@ public class HIA3AActivity extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(), "You selected :"+ radioButton.getText(), Toast.LENGTH_SHORT).show();
         //Log.v("AGAIN:", "Check Check Ckeck: " + fragObjHia1.objHIA1.HIA1_Test1_Question1);
         //objHIA1.setHIA1_Test1_Question1(param);
-        //new HIA3AActivity.HIA3insertAsync(objHIA3).execute(); //Call async Task
+        new HIA3AActivity.HIA3insertAsync(objHIA3).execute(); //Call async Task
     }
 
-/*    //---------------------------------------------
+    //---------------------------------------------
     //------------JSON ----------------------------
 
     private class HIA3insertAsync extends AsyncTask<Void, Void, JSONArray> {
@@ -76,7 +84,7 @@ public class HIA3AActivity extends AppCompatActivity {
         // Alert Dialog Manager
         AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://10.0.2.2/ConcApp/insertHIA3.php"; // Needs to be changed when using different php files.
+        private static final String URL = "http://104.198.254.110/ConcApp/insertHIA3.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -291,7 +299,128 @@ public class HIA3AActivity extends AppCompatActivity {
 
     }
     //-------END JSON----------------
-    //-------------------------------*/
+    //-------------------------------
+
+    // second Async start
+
+    private class get_HIA1_Test7_Question5 extends AsyncTask<Void, Void, JSONArray> {
+
+        int getHIA1T7Q5;
+        // Alert Dialog Manager
+        AlertDialogManager alert = new AlertDialogManager();
+
+        private static final String URL = "http://104.198.254.110/ConcApp/getHIA1_Test7_Question5.php"; // Needs to be changed when using different php files.
+        private static final String TAG_SUCCESS = "success";
+        private static final String TAG_MESSAGE = "message";
+
+
+        JSONParser jsonParser = new JSONParser();
+
+        private ProgressDialog pDialog;
+
+        public get_HIA1_Test7_Question5(int CodeHIA1){
+            Log.d("JSONCONSTRUCTOR", "Start");
+            Toast.makeText(getApplicationContext(), "Starting JSON", Toast.LENGTH_SHORT).show();
+            this.getHIA1T7Q5=CodeHIA1;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Log.d("JSonInsTeam", "Start");
+            pDialog = new ProgressDialog(HIA3AActivity.this);
+            pDialog.setMessage("Attempting retrieve...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+        @Override
+        protected JSONArray doInBackground(Void... params) {
+
+            Log.d("JSonInsTeam", "Background");
+            try {
+                //    Log.d("JSON REQUEST", "Start ...");
+
+                // PREPARING PARAMETERS..
+                Log.d("JSON REQUEST", "Preparing Params ...");
+                HashMap<String, String> args = new HashMap<>();
+
+                args.put("Code_HIA1", Integer.toString(this.getHIA1T7Q5));
+
+                // all args needs to convert to string because the hash map is string, string types.
+
+                //   Log.d("JSON REQUEST", args.toString());
+                Log.d("JSON REQUEST", "Firing Json ...");
+                JSONArray json = jsonParser.makeHttpRequest(
+                        URL, "POST", args);
+                Log.d("json", "0bject = " + json);
+
+                if (json != null) {
+                    Log.d("I got", "in here?");
+                    Log.d("JSON REQUEST", params.toString());
+                    Log.d("JSON result", json.toString());
+
+                    return json;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(JSONArray json) {
+            Log.d("JSonInsTeam", "Finish");
+            if (pDialog != null && pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            int success = 0;
+            String message = "";
+
+            if (json != null) {
+                Toast.makeText(HIA3AActivity.this, json.toString(), Toast.LENGTH_LONG).show();
+
+                try {
+                    success = json.getJSONObject(0).getInt(TAG_SUCCESS);
+                    message = json.getJSONObject(0).getString(TAG_MESSAGE);
+
+                    if (success==1){
+                        Code_HIA1 = json.getJSONObject(0).getInt("HIA1_Test7_Question5");
+                        Log.d("Retrieved",Integer.toString(Code_HIA1));
+                        //test spinner
+                        Code_HIA1=1;
+                        //onResume();
+                        setSpinner();
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (success == 1) {
+                Log.d("Success!", message);
+
+                //finish();
+            } else {
+                // Problems SQL
+                alert.showAlertDialog(HIA3AActivity.this, "Insert failed..", "Something went wrong, see Failure Log", false);
+                Log.d("Failure", message);
+                finish();
+            }
+        }
+
+
+    }
+    //-------END JSON----------------
+    //-------------------------------
+    // end second Async
+
+    public void setSpinner(){
+        spinner1.setSelection(Code_HIA1);
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -304,13 +433,39 @@ public class HIA3AActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position){
+                Fragment fragment = ((SectionsPagerAdapter)mViewPager.getAdapter()).getFragment(position);
+
+                tabbed_pos = position;
+                Log.d("Position = ",Integer.toString(position));
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        Log.d("Before", Integer.toString(Code_HIA1));
+        new HIA3AActivity.get_HIA1_Test7_Question5(1).execute();
+        Log.d("After", Integer.toString(Code_HIA1));
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_hia, menu);
+        getMenuInflater().inflate(R.menu.menu_hia1, menu);
         return true;
     }
 
@@ -325,8 +480,81 @@ public class HIA3AActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.action_help)
+        {
+            Log.d("check","in action help");
+            // 1. Instantiate an AlertDialog.Builder with its constructor
+            AlertDialog.Builder builder = new AlertDialog.Builder(HIA3AActivity.this);
+            builder.setMessage(R.string.dialog_default)
+                    .setTitle(R.string.dialog_title);
+            // 3. Get the AlertDialog from create()
+            AlertDialog dialogd1 = builder.create();
+            switch (tabbed_pos){
+                case 0:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    dialogd1.show();
+                    break;
+                case 1:
+                    dialogd1.show();
+                    break;
+                case 2:
+                    // 2. Chain together various setter methods to set the dialog characteristics
+                    builder.setMessage(R.string.dialogue_symp_HIA3)
+                            .setTitle(R.string.dialog_title);
+                    // 3. Get the AlertDialog from create()
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    break;
+                case 3:
+                    dialogd1.show();
+                    break;
+                case 4:
+                    dialogd1.show();
+                    break;
+                case 5:
+                    dialogd1.show();
+                    break;
+                case 6:
+                    dialogd1.show();
+                    break;
+            }
+
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        // code here to show dialog
+        //super.onBackPressed();  // optional depending on your needs
+        //Log.d("Back pressed","Yes");
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder backbut = new AlertDialog.Builder(HIA3AActivity.this);
+        backbut.setMessage(R.string.dialog_back)
+                .setTitle(R.string.dialog_back_title);
+        // 3. Get the AlertDialog from create()
+        // Add the buttons
+
+
+        backbut.setPositiveButton(R.string.dialog_back_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked OK button
+                HIA3AActivity.super.onBackPressed();
+            }
+        });
+        backbut.setNegativeButton(R.string.dialog_back_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+                //dialogback.dismiss();
+            }
+        });
+
+        final AlertDialog dialogback = backbut.create();
+        dialogback.show();
+
+
     }
 
     /**
@@ -367,23 +595,17 @@ public class HIA3AActivity extends AppCompatActivity {
 
 
             Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner27);
-            //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, reas_hia3);
-            //adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
             this.adapter=ArrayAdapter.createFromResource(this.getActivity(),R.array.hia3_1_spinner,android.R.layout.simple_spinner_dropdown_item);
             this.adapter = ArrayAdapter.createFromResource(this.getActivity(),R.array.hia3_1_spinner,R.layout.multiline_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
-            Spinner spinner1 = (Spinner) rootView.findViewById(R.id.spinner29);
-            //ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, comp_hia3);
-            //adapter1.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+            spinner1 = (Spinner) rootView.findViewById(R.id.spinner29);
             this.adapter1=ArrayAdapter.createFromResource(this.getActivity(),R.array.hia3_1_spinner2,android.R.layout.simple_spinner_dropdown_item);
             this.adapter1 = ArrayAdapter.createFromResource(this.getActivity(),R.array.hia3_1_spinner2,R.layout.multiline_spinner_dropdown_item);
             spinner1.setAdapter(adapter1);
 
 
             Spinner spinner2 = (Spinner) rootView.findViewById(R.id.spinner30);
-            //ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, diag_hia3);
-            //adapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
             this.adapter2=ArrayAdapter.createFromResource(this.getActivity(),R.array.hia3_1_spinner3,android.R.layout.simple_spinner_dropdown_item);
             this.adapter2 = ArrayAdapter.createFromResource(this.getActivity(),R.array.hia3_1_spinner3,R.layout.multiline_spinner_dropdown_item);
             spinner2.setAdapter(adapter2);
@@ -426,8 +648,12 @@ public class HIA3AActivity extends AppCompatActivity {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFragmentManager = fm;
+            mFragmentTags = new HashMap<Integer, String>();
+            // mContext= context;
         }
-
+        private Map<Integer, String> mFragmentTags;
+        private FragmentManager mFragmentManager;
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
@@ -478,6 +704,13 @@ public class HIA3AActivity extends AppCompatActivity {
             return null;
             */
             return "HIA3 (" + (position + 1) + "/7)";
+        }
+
+        public Fragment getFragment(int position){
+            String tag = mFragmentTags.get(position);
+            if(tag==null)
+                return null;
+            return mFragmentManager.findFragmentByTag(tag);
         }
 
     }
