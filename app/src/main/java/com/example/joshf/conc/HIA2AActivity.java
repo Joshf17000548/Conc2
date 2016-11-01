@@ -7,6 +7,7 @@ package com.example.joshf.conc;
         import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.Snackbar;
         import android.support.v4.app.FragmentActivity;
+        import android.support.v7.app.ActionBar;
         import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
@@ -343,8 +344,11 @@ public class HIA2AActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.viewpager_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_team);
+        toolbar.setLogo(R.drawable.logo);
+        setSupportActionBar(toolbar);
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());//,this.getApplicationContext());
 
         //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -407,6 +411,9 @@ public class HIA2AActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_hia1, menu);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar .setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         return true;
     }
 
@@ -664,6 +671,12 @@ public class HIA2AActivity extends AppCompatActivity
                 case 5:
                     return HIA2EFragment.newInstance();
                 case 6:
+                    return Balance.newInstance();
+                case 7:
+                    return Gait.newInstance();
+                case 8:
+                    return UpperLimbCoordination.newInstance();
+                case 9:
                     return HIA2FFragment.newInstance();
 
             }
@@ -673,14 +686,14 @@ public class HIA2AActivity extends AppCompatActivity
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 7;
+
+            return 10;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
 
-            return "HIA2 (" + (position + 1) + "/7)";
+            return "HIA2 (" + (position + 1) + "/10)";
         }
 
         @Override

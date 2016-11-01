@@ -10,7 +10,8 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_help"
-        android:title="@string/toolbox_help"
-        app:showAsAction="withText|ifRoom"
+        android:icon="@drawable/help"
+        android:title="help"
+        app:showAsAction="ifRoom"
         android:actionLayout="@layout/player_profile"/>
 </menu>

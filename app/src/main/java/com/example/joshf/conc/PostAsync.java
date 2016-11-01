@@ -47,6 +47,7 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
     private static final String LOGIN_URL = "http://104.198.254.110/ConcApp/loginTest.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
+    private static final String ADMIN = "UserDoctor_Adm";
 
 
 
@@ -107,6 +108,7 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
         if (fieldFilled) {
             int success = 0;
             String message = "";
+            int admin=0;
 
             if (json != null) {
                 Toast.makeText(mContext, json.toString(),
@@ -115,6 +117,7 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
                 try {
                     success = json.getJSONObject(0).getInt(TAG_SUCCESS);
                     message = json.getJSONObject(0).getString(TAG_MESSAGE);
+                    admin = json.getJSONObject(0).getInt(ADMIN);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

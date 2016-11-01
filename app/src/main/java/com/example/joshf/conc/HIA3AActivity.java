@@ -6,6 +6,7 @@ package com.example.joshf.conc;
         import android.os.AsyncTask;
         import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.Snackbar;
+        import android.support.v7.app.ActionBar;
         import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
@@ -426,6 +427,9 @@ public class HIA3AActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewpager_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_team);
+        toolbar.setLogo(R.drawable.logo);
+        setSupportActionBar(toolbar);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -466,6 +470,9 @@ public class HIA3AActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_hia1, menu);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar .setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         return true;
     }
 
