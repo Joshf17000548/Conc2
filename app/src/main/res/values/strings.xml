@@ -334,6 +334,8 @@
     <string name="dom3">Balance evaluation</string>
     <string name="dom4">Clinical suspicion (over and above the other tests)</string>
     <string name="dom5">Nill</string>
+    <string name="dom6">Eye tracking</string>
+
     <string name="diag_conc">Does the HIA3 confirm a diagnosis of concussion?</string>
     <string name="diag_conc2">If this HIA 3 has an abnormal domain result and you believe the player does not
                                 have a concussion , explain why:</string>

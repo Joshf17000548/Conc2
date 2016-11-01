@@ -30,15 +30,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout003"
-        android:paddingTop="50dp"
+        android:layout_below="@+id/linearLayout001"
+        android:paddingTop="15dp"
+        android:orientation="horizontal"
         >
 
         <TextView
             android:text="@string/symptom2_1"
-            android:layout_width="263dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
             android:id="@+id/textView002"
-            android:layout_weight="1"
             android:textSize="14sp"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
@@ -78,10 +79,9 @@
 
         <TextView
             android:text="@string/symptom2_2"
-            android:layout_width="263dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
             android:id="@+id/textView001"
-            android:layout_weight="1.14"
             android:textSize="14sp"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
@@ -121,10 +121,9 @@
 
         <TextView
             android:text="@string/symptom2_3"
-            android:layout_width="263dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
             android:id="@+id/textView003"
-            android:layout_weight="1.14"
             android:textSize="14sp"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
@@ -164,12 +163,12 @@
 
         <TextView
             android:text="@string/symptom2_4"
-            android:layout_width="270dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
             android:id="@+id/textView004"
             android:textSize="14sp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_weight="0.95" />
+             />
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -207,12 +206,12 @@
 
         <TextView
             android:text="@string/symptom2_5"
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
             android:id="@+id/textView005"
             android:textSize="14sp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_weight="1.01" />
+             />
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -250,12 +249,11 @@
 
         <TextView
             android:text="@string/symptom2_6"
-            android:layout_width="263dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
             android:id="@+id/textView006"
             android:textSize="14sp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_weight="1.05" />
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -293,7 +291,7 @@
 
         <TextView
             android:text="@string/symptom2_7"
-            android:layout_width="268dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
             android:id="@+id/textView007"
             android:textSize="14sp"
@@ -315,7 +313,7 @@
 
             <RadioButton
                 android:text="@string/no"
-                android:layout_width="57dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/checkBox_Symp28_n"
                 style="@android:style/Widget.CompoundButton.CheckBox"
@@ -334,12 +332,11 @@
 
         <TextView
             android:text="@string/symptom2_8"
-            android:layout_width="263dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
             android:id="@+id/textView008"
             android:textSize="14sp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_weight="1.10" />
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -377,12 +374,12 @@
 
         <TextView
             android:text="@string/symptom2_9"
-            android:layout_width="263dp"
+            android:layout_width="200dp"
             android:layout_height="40dp"
             android:id="@+id/textView009"
             android:textSize="14sp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_weight="1.17" />
+             />
 
         <RadioGroup
             android:layout_width="wrap_content"

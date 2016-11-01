@@ -8,23 +8,28 @@
     android:paddingTop="15dp">
 
 
-    <TextView
-        android:text="@string/hia1_form"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView38"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:id="@+id/linearLayout000">
+        <TextView
+            android:text="@string/hia1_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView38"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:id="@+id/linearLayout001"
-        android:weightSum="1"
-        android:layout_below="@+id/textView38"
-        android:paddingTop="60dp">
+        android:layout_below="@+id/linearLayout000"
+        android:paddingTop="10dp"
+        >
 
         <TextView
             android:layout_width="129dp"
@@ -35,7 +40,7 @@
             android:textSize="16sp" />
 
         <Spinner
-            android:layout_width="245dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:id="@+id/spinner" />
     </LinearLayout>
@@ -45,9 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout002"
-        android:weightSum="1"
         android:layout_below="@+id/linearLayout001"
-        android:paddingTop="15dp">
+        android:paddingTop="10dp">
 
 
         <TextView
@@ -56,8 +60,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView002"
-            android:textSize="16sp"
-            android:layout_weight="1" />
+            android:textSize="16sp"            />
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +70,7 @@
         android:id="@+id/linearLayout003"
         android:weightSum="1"
         android:layout_below="@+id/linearLayout002"
-        android:paddingTop="10dp">
+        android:paddingTop="5dp">
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -101,22 +104,21 @@
         android:id="@+id/linearLayout004"
         android:layout_below="@+id/linearLayout003"
         android:weightSum="1"
-        android:paddingTop="25dp">
+        android:paddingTop="15dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="129dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/hia1a_section81_header"
             android:id="@+id/labelTextView003"
             android:textSize="16sp"
-            android:layout_weight="0.36" />
+             />
 
         <Spinner
-            android:layout_width="203dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner2"
-            android:layout_weight="0.67" />
+            android:id="@+id/spinner2" />
     </LinearLayout>
 
     <LinearLayout
@@ -126,7 +128,7 @@
         android:id="@+id/linearLayout005"
         android:weightSum="1"
         android:layout_below="@+id/linearLayout004"
-        android:paddingTop="15dp">
+        android:paddingTop="5dp">
 
 
         <TextView
@@ -135,8 +137,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView003"
-            android:textSize="16sp"
-            android:layout_weight="1" />
+            android:textSize="16sp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -179,24 +180,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout007"
         android:layout_below="@+id/linearLayout006"
-        android:weightSum="1"
-        android:paddingTop="25dp">
+        android:paddingTop="15dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="129dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/hia1a_section91_header"
             android:id="@+id/labelTextView004"
-            android:textSize="16sp"
-            android:layout_weight="0.22" />
+            android:textSize="16sp"/>
 
         <Spinner
-            android:layout_width="203dp"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:id="@+id/spinner3"
-            android:layout_weight="0.83"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dialog"
+             />
     </LinearLayout>
 
     <LinearLayout
@@ -204,10 +203,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout008"
-        android:weightSum="1"
         android:layout_below="@+id/linearLayout007"
-        android:paddingTop="0dp">
-
+        >
 
         <TextView
             android:text="@string/vid_influence2"
@@ -216,7 +213,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/textView004"
             android:textSize="16sp"
-            android:layout_weight="1" />
+            android:paddingTop="15dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -224,7 +221,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout009"
-        android:weightSum="1"
         android:layout_below="@+id/linearLayout008"
         android:paddingTop="10dp">
 
@@ -258,8 +254,8 @@
         android:text="Finish"
         android:id="@+id/btn_finish"
         android:onClick="submitHIA1"
+        android:layout_marginTop="6dp"
         android:layout_below="@+id/linearLayout009"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
