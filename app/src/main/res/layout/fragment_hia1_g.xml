@@ -3,200 +3,185 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="15dp">
+    android:paddingRight="@dimen/activity_horizontal_margin">
 
 
     <TextView
-        android:text="@string/hia1_form"
+        android:text="@string/hia1a_82_sectionheader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView38"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:id="@+id/textView35"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="18sp"/>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        android:layout_below="@id/textView35"
         android:id="@+id/linearLayout001"
-        android:weightSum="1"
-        android:layout_below="@+id/textView38"
-        android:paddingTop="60dp">
+        android:paddingTop="10dp"
+        >
 
         <TextView
-            android:layout_width="129dp"
+            android:text="@string/opt_1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/textView36"
+            android:layout_weight="0.00"
+            android:paddingTop="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/hia1a_section71_header"
-            android:id="@+id/labelTextView001"
-            android:textSize="16sp" />
+            android:textSize="14sp"
 
-        <Spinner
-            android:layout_width="245dp"
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner" />
+            android:id="@+id/textView43"
+            android:layout_weight="0.00" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView42"
+            android:layout_weight="0.00" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView41"
+            android:layout_weight="0.00" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView40"
+            android:layout_weight="0.00" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView37"
+            android:layout_weight="0.00" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout001"
+        android:paddingTop="10dp"
         android:id="@+id/linearLayout002"
-        android:weightSum="1"
-        android:layout_below="@+id/linearLayout001"
-        android:paddingTop="15dp">
-
+        >
 
         <TextView
-            android:text="@string/vid_influence"
+            android:text="@string/opt_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/textView33"
+            android:layout_weight="0.00"
+            android:paddingTop="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView002"
-            android:textSize="16sp"
-            android:layout_weight="1" />
+            android:textSize="14sp"
+
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView32"
+            android:layout_weight="0.00" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView31"
+            android:layout_weight="0.00" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView29"
+            android:layout_weight="0.00" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView28"
+            android:layout_weight="0.00" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView27"
+            android:layout_weight="0.00" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout002"
+        android:paddingTop="10dp"
         android:id="@+id/linearLayout003"
-        android:weightSum="1"
-        android:layout_below="@+id/linearLayout002"
-        android:paddingTop="10dp">
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-            <RadioButton
-                android:text="@string/yes"
-                android:layout_width="71dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_VI_Y"
-                style="@android:style/Widget.CompoundButton.CheckBox"/>
-
-            <RadioButton
-                android:text="@string/no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_VI_N"
-                android:layout_weight="1"
-                style="@android:style/Widget.CompoundButton.CheckBox"
-                />
-
-        </RadioGroup>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout004"
-        android:layout_below="@+id/linearLayout003"
-        android:weightSum="1"
-        android:paddingTop="25dp">
+        >
 
         <TextView
+            android:text="@string/opt_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/textView0000"
+            android:layout_weight="0.00"
+            android:paddingTop="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/hia1a_section81_header"
-            android:id="@+id/labelTextView003"
-            android:textSize="16sp"
-            android:layout_weight="0.36" />
+            android:textSize="14sp"
 
-        <Spinner
-            android:layout_width="203dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner2"
-            android:layout_weight="0.67" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout005"
-        android:weightSum="1"
-        android:layout_below="@+id/linearLayout004"
-        android:paddingTop="15dp">
-
+            />
 
         <TextView
-            android:text="@string/MDD_present"
+            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView003"
-            android:textSize="16sp"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout006"
-        android:weightSum="1"
-        android:layout_below="@+id/linearLayout005"
-        android:paddingTop="10dp">
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/Radio_checkBoxAA"
-            >
-
-            <RadioButton
-                android:text="@string/yes"
-                android:layout_width="72dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_MDD_Y"
-                style="@android:style/Widget.CompoundButton.CheckBox"/>
-
-            <RadioButton
-                android:text="@string/no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_MDD_N"
-                android:layout_weight="1"
-                style="@android:style/Widget.CompoundButton.CheckBox"/>
-
-        </RadioGroup>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout007"
-        android:layout_below="@+id/linearLayout006"
-        android:weightSum="1"
-        android:paddingTop="25dp">
+            android:id="@+id/textView1"
+            android:layout_weight="0.00" />
 
         <TextView
+            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/hia1a_section91_header"
-            android:id="@+id/labelTextView004"
-            android:textSize="16sp"
-            android:layout_weight="0.22" />
+            android:id="@+id/textView2"
+            android:layout_weight="0.00" />
 
-        <Spinner
-            android:layout_width="203dp"
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner3"
-            android:layout_weight="0.83"
-            android:spinnerMode="dialog"/>
+            android:id="@+id/textView3"
+            android:layout_weight="0.00" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:layout_weight="0.00" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView5"
+            android:layout_weight="0.00" />
     </LinearLayout>
 
     <LinearLayout
@@ -204,62 +189,156 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout008"
-        android:weightSum="1"
-        android:layout_below="@+id/linearLayout007"
-        android:paddingTop="0dp">
-
+        android:layout_below="@+id/linearLayout003"
+        android:paddingTop="10dp">
 
         <TextView
-            android:text="@string/vid_influence2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="26dp"
+            android:text="@string/imed_score"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView004"
-            android:textSize="16sp"
-            android:layout_weight="1" />
+            android:textSize="14sp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="2"
+            android:id="@+id/editText11"
+            android:paddingLeft="5dp"/>
+
+
     </LinearLayout>
+
+    <TextView
+        android:text="@string/hia1a_83_sectionheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:layout_weight="1"
+        android:paddingTop="20dp"
+        android:layout_below="@id/linearLayout008"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:text="@string/opt_1_num1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView44"
+        android:layout_below="@id/textView11"
+        android:paddingTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="14sp"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout009"
-        android:weightSum="1"
-        android:layout_below="@+id/linearLayout008"
+        android:layout_below="@id/textView44"
+        android:id="@id/linearLayout004"
         android:paddingTop="10dp">
 
-        <RadioGroup
+        <TextView
+            android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:id="@+id/textView46"
+            android:layout_weight="1" />
 
-            <RadioButton
-                android:text="@string/yes"
-                android:layout_width="72dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_VI2_Y"
-                style="@android:style/Widget.CompoundButton.CheckBox"/>
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView47"
+            android:layout_weight="1" />
 
-            <RadioButton
-                android:text="@string/no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_VI2_N"
-                android:layout_weight="1"
-                style="@android:style/Widget.CompoundButton.CheckBox"/>
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView48"
+            android:layout_weight="1" />
 
-        </RadioGroup>
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView49"
+            android:layout_weight="1" />
     </LinearLayout>
 
-    <Button
+    <TextView
+        android:text="@string/opt_2_num2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Finish"
-        android:id="@+id/btn_finish"
-        android:onClick="submitHIA1"
-        android:layout_below="@+id/linearLayout009"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp" />
+        android:id="@+id/textView45"
+        android:layout_below="@id/linearLayout004"
+        android:paddingTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView45"
+        android:id="@+id/linearLayout010"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView53"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView52"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView51"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView50"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout010"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="235dp"
+            android:layout_height="26dp"
+            android:text="@string/digback_score"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14sp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="4"
+            android:id="@+id/editText12"
+            android:paddingLeft="3dp"/>
+    </LinearLayout>
+
+
 
 </RelativeLayout>

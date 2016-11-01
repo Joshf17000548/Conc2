@@ -122,8 +122,8 @@
 
         <TextView
             android:text="@string/conc_dig_back_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="228dp"
+            android:layout_height="60dp"
             android:id="@+id/textView56"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="14sp"
@@ -133,7 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:ems="2"
+            android:ems="4"
             android:id="@+id/editText16"
             android:paddingStart="50dp"
             android:layout_weight="1.03" />
@@ -168,13 +168,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView57"
         android:id="@+id/linearLayout011"
-        android:paddingTop="20dp"
-        android:weightSum="1">
+        android:paddingTop="20dp">
 
         <TextView
             android:text="@string/conc_month_score"
             android:layout_width="228dp"
-            android:layout_height="44dp"
+            android:layout_height="60dp"
             android:id="@+id/textView54"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="14sp"
@@ -184,10 +183,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:ems="2"
-            android:id="@+id/editText15"
-            android:paddingStart="50dp"
-            android:layout_weight="1.03" />
+            android:ems="4"
+            android:id="@+id/editText15"/>
 
 
     </LinearLayout>

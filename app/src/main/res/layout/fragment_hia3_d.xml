@@ -104,6 +104,11 @@
         android:id="@+id/linearLayoutbb"
         >
         <CheckBox
+            android:text="@string/dom6"
+            android:layout_width="176dp"
+            android:layout_height="match_parent"
+            android:id="@+id/checkBox3_DOM5" />
+        <CheckBox
             android:text="@string/dom5"
             android:layout_width="176dp"
             android:layout_height="match_parent"

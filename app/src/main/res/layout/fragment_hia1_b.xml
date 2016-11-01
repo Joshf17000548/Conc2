@@ -118,9 +118,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout007"
-        android:layout_below="@id/linearLayout006"
         android:paddingTop="15dp"
-        >
+        android:layout_below="@+id/linearLayout006"
+        android:layout_alignParentStart="true">
 
         <CheckBox
             android:text="@string/reason_other"
@@ -135,11 +135,10 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:hint="...Convulsion"
-            android:ems="10"
+            android:ems="7"
             android:id="@+id/editText001"
             android:layout_weight="1" />
     </LinearLayout>
-
 
 
 </RelativeLayout>

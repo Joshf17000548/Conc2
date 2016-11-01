@@ -7,133 +7,222 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="15dp">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout000">
+        <TextView
+            android:text="@string/hia1_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView38"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    </LinearLayout>
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:id="@+id/linearLayout001"
+        android:layout_below="@+id/linearLayout000"
+        android:paddingTop="10dp"
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="129dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/hia1a_section51_header"
+            android:text="@string/hia1a_section71_header"
             android:id="@+id/labelTextView001"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
+        <Spinner
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/linearLayout002"
         android:layout_below="@+id/linearLayout001"
+        android:paddingTop="10dp">
+
+
+        <TextView
+            android:text="@string/vid_influence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView002"
+            android:textSize="16sp"            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/linearLayout003"
-        android:paddingTop="30dp"
-        >
-        <TextView
-            android:layout_width="250dp"
-            android:layout_height="26dp"
-            android:text="@string/del_score"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="14sp"
-            />
+        android:weightSum="1"
+        android:layout_below="@+id/linearLayout002"
+        android:paddingTop="5dp">
 
-        <EditText
-            android:layout_width="match_parent"
+        <RadioGroup
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="2"
-            android:id="@+id/editText12"
-            android:paddingLeft="5dp"/>
+            android:orientation="horizontal"
+            >
 
+            <RadioButton
+                android:text="@string/yes"
+                android:layout_width="71dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox_VI_Y"
+                style="@android:style/Widget.CompoundButton.CheckBox"/>
+
+            <RadioButton
+                android:text="@string/no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox_VI_N"
+                android:layout_weight="1"
+                style="@android:style/Widget.CompoundButton.CheckBox"
+                />
+
+        </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout003"
         android:id="@+id/linearLayout004"
-        android:paddingTop="25dp"
+        android:layout_below="@+id/linearLayout003"
+        android:weightSum="1"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:layout_width="129dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/hia1a_section81_header"
+            android:id="@+id/labelTextView003"
+            android:textSize="16sp"
+             />
+
+        <Spinner
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout005"
+        android:weightSum="1"
+        android:layout_below="@+id/linearLayout004"
+        android:paddingTop="5dp">
+
+
+        <TextView
+            android:text="@string/MDD_present"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView003"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout006"
+        android:weightSum="1"
+        android:layout_below="@+id/linearLayout005"
+        android:paddingTop="10dp">
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/Radio_checkBoxAA"
+            >
+
+            <RadioButton
+                android:text="@string/yes"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox_MDD_Y"
+                style="@android:style/Widget.CompoundButton.CheckBox"/>
+
+            <RadioButton
+                android:text="@string/no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox_MDD_N"
+                android:layout_weight="1"
+                style="@android:style/Widget.CompoundButton.CheckBox"/>
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout007"
+        android:layout_below="@+id/linearLayout006"
+        android:paddingTop="15dp">
+
+        <TextView
+            android:layout_width="129dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/hia1a_section91_header"
+            android:id="@+id/labelTextView004"
+            android:textSize="16sp"/>
+
+        <Spinner
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner3"
+            android:spinnerMode="dialog"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout008"
+        android:layout_below="@+id/linearLayout007"
         >
 
         <TextView
+            android:text="@string/vid_influence2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/hia1a_section61_header"
-            android:id="@+id/labelTextView003"
-            android:textSize="18sp"
-            style="Bold"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout004"
-        android:id="@+id/linearLayout005"
-        android:paddingTop="20dp"
-        android:weightSum="1">
-
-        <TextView
-            android:text="@string/cs1"
-            android:layout_width="256dp"
-            android:layout_height="39dp"
             android:id="@+id/textView004"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="14sp"
-            android:layout_weight="1" />
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-            <RadioButton
-                android:text="@string/yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_CS1_Y"
-                style="@android:style/Widget.CompoundButton.CheckBox"
-
-                />
-
-            <RadioButton
-                android:text="@string/no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_CS1_N"
-                android:layout_weight="1"
-                style="@android:style/Widget.CompoundButton.CheckBox"
-
-                />
-
-        </RadioGroup>
+            android:textSize="16sp"
+            android:paddingTop="15dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout005"
-        android:id="@+id/linearLayout006"
+        android:id="@+id/linearLayout009"
+        android:layout_below="@+id/linearLayout008"
         android:paddingTop="10dp">
-
-        <TextView
-            android:text="@string/cs2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView005"
-            android:layout_weight="3.69"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="14sp"/>
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -143,70 +232,30 @@
 
             <RadioButton
                 android:text="@string/yes"
-                android:layout_width="wrap_content"
+                android:layout_width="72dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/checkBox_CS2_Y"
-                style="@android:style/Widget.CompoundButton.CheckBox"
-
-                />
+                android:id="@+id/checkBox_VI2_Y"
+                style="@android:style/Widget.CompoundButton.CheckBox"/>
 
             <RadioButton
                 android:text="@string/no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/checkBox_CS2_N"
+                android:id="@+id/checkBox_VI2_N"
                 android:layout_weight="1"
-                style="@android:style/Widget.CompoundButton.CheckBox"
-
-                />
+                style="@android:style/Widget.CompoundButton.CheckBox"/>
 
         </RadioGroup>
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout006"
-        android:id="@+id/linearLayout007"
-        android:paddingTop="10dp">
-
-        <TextView
-            android:text="@string/cs3"
-            android:layout_width="243dp"
-            android:layout_height="63dp"
-            android:id="@+id/textView006"
-            android:layout_weight="1.76"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="14sp"/>
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-            <RadioButton
-                android:text="@string/yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_CS3_Y"
-                style="@android:style/Widget.CompoundButton.CheckBox"
-
-                />
-
-            <RadioButton
-                android:text="@string/no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_CS3_N"
-                android:layout_weight="1"
-                style="@android:style/Widget.CompoundButton.CheckBox"
-
-                />
-
-        </RadioGroup>
-    </LinearLayout>
-
+        android:text="Finish"
+        android:id="@+id/btn_finish"
+        android:onClick="submitHIA1"
+        android:layout_marginTop="6dp"
+        android:layout_below="@+id/linearLayout009"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
