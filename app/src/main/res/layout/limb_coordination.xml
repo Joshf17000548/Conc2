@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="Home"
+            android:onClick="home_icon_clicked"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Upper Limb"
+            android:layout_gravity="center"
+            android:id="@+id/title_text_upper"/>
+
+
+        <Button
+            android:text="Help"
+            android:onClick="help_icon_clicked"/>
+
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear2"
+        android:layout_marginTop="60dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score : "
+            android:id="@+id/text_upper2" />
+
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/text_upper_score"
+            android:layout_toRightOf="@+id/text_upper2"
+            android:inputType="numberDecimal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" out of 1"
+            android:id="@+id/text_upper4"
+            android:layout_toRightOf="@+id/text_upper_score"
+            android:layout_below="@+id/text_upper1"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear2">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check"
+            android:onClick="button_check_clicked"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

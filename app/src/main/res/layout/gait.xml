@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:text="Home"
+                android:onClick="home_icon_clicked"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Tandem Gait"
+                android:layout_gravity="center"
+                android:id="@+id/title_text_tandem"/>
+
+            <Button
+                android:text="Help"
+                android:onClick="help_icon_clicked"/>
+
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/grid_testbuttons">
+
+            <Button
+                android:text="Test 1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_test1"
+                android:onClick="button_test1_clicked"/>
+            <Button
+                android:text="Test 2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_test2"
+                android:onClick="button_test2_clicked"/>
+            <Button
+                android:text="Test 3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_test3"
+                android:onClick="button_test3_clicked"/>
+            <Button
+                android:text="Test 4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/button_test4"
+                android:onClick="button_test4_clicked"/>
+
+        </GridLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/darker_gray"/>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time (sec)"
+                android:id="@+id/text_enter_time" />
+
+
+            <EditText
+                android:layout_width="127dp"
+                android:layout_height="50dp"
+                android:text=""
+                android:id="@+id/edit_time"
+                android:inputType="numberDecimal"/>
+
+            <Button
+                android:text = "Evaluate"
+                android:onClick="evaluate_clicked"/>
+        </GridLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status : "
+            android:id="@+id/text_evaluate_status" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/darker_gray"/>
+
+
+
+
+        <include layout="@layout/raheel_main"/>
+
+
+    </LinearLayout>
+
+</ScrollView>
