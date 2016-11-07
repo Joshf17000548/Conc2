@@ -461,7 +461,7 @@
         <item>Yes, HIA2 completed, symptoms developed post-match, same day, concussion not confirmed</item>
         <item>Yes, HIA2 completed, symptoms developed post-match, same day, concussion confirmed</item>
         <item>No, HIA2 not completed, symptoms developed during the day(s) following the match</item>
-        <item>No, HIA2 not completed despite being indicated</item>
+
     </string-array>
 
     <string name="symptom_exp_view_b">Identify when you started to feel the symptom:</string>

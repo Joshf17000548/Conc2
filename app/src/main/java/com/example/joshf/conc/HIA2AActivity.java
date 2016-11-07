@@ -46,6 +46,7 @@ public class HIA2AActivity extends AppCompatActivity
     HIA2 objHIA2=new HIA2();
     static Spinner spinner;
     public int tabbed_pos;
+    AlertDialogManager alert = new AlertDialogManager();
 
     static int Code_HIA1;
 
@@ -224,7 +225,7 @@ public class HIA2AActivity extends AppCompatActivity
 
         int getHIA1T7Q5;
         // Alert Dialog Manager
-        AlertDialogManager alert = new AlertDialogManager();
+       // AlertDialogManager alert = new AlertDialogManager();
 
         private static final String URL = "http://104.198.254.110/ConcApp/getHIA1_Test7_Question5.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
@@ -304,7 +305,7 @@ public class HIA2AActivity extends AppCompatActivity
                         Code_HIA1 = json.getJSONObject(0).getInt("HIA1_Test7_Question5");
                         Log.d("Retrieved",Integer.toString(Code_HIA1));
                         //test spinner
-                        Code_HIA1=1;
+                        //Code_HIA1=1;
                         //onResume();
                         setSpinner();
 
@@ -406,6 +407,11 @@ public class HIA2AActivity extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onPause(){
+        alert.dismissAlertDialog();
+        super.onPause();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

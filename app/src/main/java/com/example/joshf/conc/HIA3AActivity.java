@@ -41,6 +41,7 @@ public class HIA3AActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     public int tabbed_pos;
+    AlertDialogManager alert = new AlertDialogManager();
 
 
 
@@ -83,7 +84,7 @@ public class HIA3AActivity extends AppCompatActivity {
 
         HIA3 objectHIA3=new HIA3();
         // Alert Dialog Manager
-        AlertDialogManager alert = new AlertDialogManager();
+       // AlertDialogManager alert = new AlertDialogManager();
 
         private static final String URL = "http://104.198.254.110/ConcApp/insertHIA3.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
@@ -388,7 +389,7 @@ public class HIA3AActivity extends AppCompatActivity {
                         Code_HIA1 = json.getJSONObject(0).getInt("HIA1_Test7_Question5");
                         Log.d("Retrieved",Integer.toString(Code_HIA1));
                         //test spinner
-                        Code_HIA1=1;
+                        //Code_HIA1=1;
                         //onResume();
                         setSpinner();
 
@@ -465,6 +466,11 @@ public class HIA3AActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause(){
+        alert.dismissAlertDialog();
+        super.onPause();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -11,18 +11,18 @@ public class HIA3 extends FragmentActivity {
 
     public int HIA3_Test1_Question1;
     public int HIA3_Test2_Question1;
-    public String HIA3_Test2_Question2;
+    public String HIA3_Test2_Question2 = "NA";
     public int HIA3_Test2_Question3;
-    public String HIA3_Test2_Question4;
+    public String HIA3_Test2_Question4 = "NA";
     public int HIA3_Test2_Question5;
-    public String HIA3_Test2_Question6;
+    public String HIA3_Test2_Question6 = "NA";
     public int HIA3_Test2_Question7;
-    public String HIA3_Test2_Question8;
+    public String HIA3_Test2_Question8 = "NA";
 
     public int HIA3_Test3_Question1;
-    public String HIA3_Test3_Question2;
+    public String HIA3_Test3_Question2 = "NA";
     public int HIA3_Test3_Question3;
-    public String HIA3_Test3_Question4;
+    public String HIA3_Test3_Question4 = "NA";
     public int HIA3_Test3_Question5;
     public int HIA3_Test3_Question6;
     public int HIA3_Test3_Question7;
@@ -117,7 +117,7 @@ public class HIA3 extends FragmentActivity {
     public int HIA3_Test4_Question3;
     public int HIA3_Test4_Question4;
     public int HIA3_Test4_Question5;
-    public String HIA3_Test4_Question6;
+    public String HIA3_Test4_Question6 ="NA";
 
     public int HIA3_Test5_Question1;
     public int HIA3_Test5_Question2;

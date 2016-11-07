@@ -29,7 +29,8 @@
         android:orientation="horizontal"
         android:layout_below="@+id/linearLayout001"
         android:id="@+id/linearLayout002"
-        android:paddingTop="25dp">
+        android:paddingTop="25dp"
+        >
 
 
         <CheckBox
@@ -37,7 +38,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox_CC"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:clickable="false"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -64,7 +67,8 @@
         android:orientation="horizontal"
         android:layout_below="@+id/linearLayout003"
         android:id="@+id/linearLayout004"
-        android:paddingTop="35dp">
+        android:paddingTop="35dp"
+        >
 
 
         <CheckBox
@@ -72,7 +76,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkBox_CNC"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:clickable="false"
+            />
     </LinearLayout>
 
     <LinearLayout

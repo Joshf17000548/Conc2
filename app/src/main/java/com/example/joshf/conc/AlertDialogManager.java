@@ -8,7 +8,9 @@ package com.example.joshf.conc;
         import android.content.Context;
         import android.content.DialogInterface;
 
-public class AlertDialogManager {
+public class AlertDialogManager
+{
+    AlertDialog alertDialog;
 
     /**
      * Function to display simple Alert Dialog
@@ -20,7 +22,7 @@ public class AlertDialogManager {
      * */
     public void showAlertDialog(Context context, String title, String message,
                                 Boolean status) {
-        AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog = new AlertDialog.Builder(context).create();
 
         // Setting Dialog Title
         alertDialog.setTitle(title);
@@ -40,6 +42,14 @@ public class AlertDialogManager {
 
         // Showing Alert Message
         alertDialog.show();
+    }
+
+    public void dismissAlertDialog(){
+        if (alertDialog!= null)
+        {
+            alertDialog.dismiss();
+        }
+
     }
 }
 

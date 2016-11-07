@@ -44,6 +44,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -150,8 +151,20 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
 
     @Override
     public void onResume() {
+        super.onResume();
 
-        updateRequired = getIntent().getExtras().getBoolean("database_update");
+        playerList = new ArrayList<Player>();
+        JSONObject jsonObject = null;
+        Player player = new Player(jsonObject);
+        player.Player_Height=15;
+        player.Player_Weight=52;
+        player.Player_DateOfBirth="1993-08-26";
+        player.Player_Name="Josh";
+        player.Code_Player=10;
+        player.Code_Team=3;
+        playerList.add(player);
+
+/*        updateRequired = getIntent().getExtras().getBoolean("database_update");
         super.onResume();
         if ((updateRequired.equals(true)) ) {
             new getPlayers().execute();
@@ -173,7 +186,7 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
                 Log.e(TAG, "Could not read object from cache");
 
             }
-        }
+        }*/
     }
 
     @Override

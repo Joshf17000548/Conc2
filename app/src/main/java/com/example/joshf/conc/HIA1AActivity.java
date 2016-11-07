@@ -77,6 +77,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+    AlertDialogManager alert = new AlertDialogManager();
 
 
     //This function calls AsyncTask [insertHIA1], which submit the HIA1 data to insertHIA1.php file.
@@ -92,7 +93,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 
         HIA1 objectHIA1=new HIA1();
         // Alert Dialog Manager
-        AlertDialogManager alert = new AlertDialogManager();
+        //AlertDialogManager alert = new AlertDialogManager();
 
         private static final String URL = "http://104.198.254.110/ConcApp/insertHIA1.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
@@ -282,6 +283,12 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
        // client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+    }
+
+    @Override
+    protected void onPause(){
+        alert.dismissAlertDialog();
+        super.onPause();
     }
 
 

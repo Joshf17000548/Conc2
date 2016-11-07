@@ -26,7 +26,7 @@ public class HIA1 extends FragmentActivity {
     public int HIA1_Test2_Question3;
     public int HIA1_Test2_Question4;
     public int HIA1_Test2_Question5;
-    public String HIA1_Test2_Question6;
+    public String HIA1_Test2_Question6 = "NA";
 
     public int HIA1_Test3_Question1;
     public int HIA1_Test3_Question2;
