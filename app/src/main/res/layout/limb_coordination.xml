@@ -1,76 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent" >
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:text="Home"
-            android:onClick="home_icon_clicked"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Upper Limb"
-            android:layout_gravity="center"
-            android:id="@+id/title_text_upper"/>
-
-
-        <Button
-            android:text="Help"
-            android:onClick="help_icon_clicked"/>
-
-    </GridLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Upper Limb"
+        android:layout_gravity="start"
+        android:id="@+id/title_text_upper"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/linear2"
-        android:layout_marginTop="60dp">
+        android:id="@+id/success_buttons"
+        android:layout_marginTop="150dp"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Score : "
-            android:id="@+id/text_upper2" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
-        <EditText
+        <Button
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
-
-            android:id="@+id/text_upper_score"
-            android:layout_toRightOf="@+id/text_upper2"
-            android:inputType="numberDecimal"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" out of 1"
-            android:id="@+id/text_upper4"
-            android:layout_toRightOf="@+id/text_upper_score"
-            android:layout_below="@+id/text_upper1"/>
+            android:layout_height="50dp"
+            android:id="@+id/upper1"
+            android:background="@drawable/upperbutton_unpressed"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/upper2"
+            android:background="@drawable/upperbutton_unpressed"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/upper3"
+            android:background="@drawable/upperbutton_unpressed"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/upper4"
+            android:background="@drawable/upperbutton_unpressed"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/upper5"
+            android:background="@drawable/upperbutton_unpressed"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
 
     </LinearLayout>
 
-    <LinearLayout
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:id="@+id/reset"
+        android:text="Reset"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/reset_button_selector"
+        android:clickable="false"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linear2">
+        android:textSize="18sp"
+        android:text="Successful nose touches"
+        android:layout_gravity="start"
+        android:id="@+id/title_upper"
+        android:layout_alignBottom="@+id/success_buttons"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp" />
 
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Check"
-            android:onClick="button_check_clicked"/>
-
-    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Success"
+        android:id="@+id/success"
+        android:clickable="false"
+        android:textAlignment="center"
+        android:background="@drawable/balance_button_selector"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

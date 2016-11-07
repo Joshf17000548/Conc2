@@ -104,8 +104,8 @@ public class TeamAdapter extends ArrayAdapter<Team> implements Filterable {
             view = inflater.inflate(R.layout.teamlist_item, null);
 
             nameTxt = (TextView) view.findViewById(R.id.name);
-            imageView = (ImageView) view.findViewById(R.id.playerPhoto);
-            brainStatus = (ImageView) view.findViewById(R.id.playerHealth);
+            imageView = (ImageView) view.findViewById(R.id.teamPhoto);
+            brainStatus = (ImageView) view.findViewById(R.id.teamHealth);
             // playerStatus = (TextView) context.findViewById(R.id.no_result);
 
             holder.teamNameView = nameTxt;
@@ -119,7 +119,7 @@ public class TeamAdapter extends ArrayAdapter<Team> implements Filterable {
             holder = (TeamHolder) view.getTag();
         }
 
-/*        String photoPath = String.valueOf(teamList.get(position).getCode_Team());
+        String photoPath = String.valueOf(teamList.get(position).getCode_Team());
         String path = "http://104.198.254.110/ConcApp/Team_Logo/" + photoPath +"IMG.png";
 
         try {
@@ -127,9 +127,8 @@ public class TeamAdapter extends ArrayAdapter<Team> implements Filterable {
 
         }catch (Exception e){
             e.printStackTrace();
-        }*/
+        }
         holder.teamNameView.setText(teamList.get(position).getTeam_Name());
-        Log.e(TAG, teamList.get(position).getTeam_Name());
         //teamList.get(position).Player_Status= position % 3;
       //  Log.e("mod", String.valueOf(teamList.get(position).Player_Status));
 

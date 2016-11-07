@@ -98,11 +98,6 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
         setSupportActionBar(toolbar);
 
         session = new SessionManager(this);
-        session.checkLogin();
-
-        Bundle extras = getIntent().getExtras();
-        team_code = extras.getInt("team");
-
 
 
 /*        if (checkSelfPermission(Manifest.permission.READ_CALENDAR)
@@ -126,6 +121,7 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
             public void onClick(View view) {
 
                 Bundle bundle = new Bundle();
+                bundle.putInt("team", team_code);
                 bundle.putString("player_select", "new");
                 startActivity(new Intent(PlayerSelect.this, PlayerProfile.class).putExtras(bundle));
             }
@@ -143,17 +139,24 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
 
         Bundle bundle = options.toBundle();
         intent.putExtra("player_select", "existing");
+        intent.putExtra("team", team_code);
         intent.putExtra("player_info", selectedPlayer);
+        intent.putExtra("parent",true);
         startActivity(intent,bundle);
 
     }
 
     @Override
     public void onResume() {
-
-        updateRequired = getIntent().getExtras().getBoolean("database_update");
         super.onResume();
-        if ((updateRequired.equals(true)) ) {
+        session.checkLogin();
+
+        Bundle extras = getIntent().getExtras();
+
+        updateRequired = extras.getBoolean("database_update");
+        team_code = extras.getInt("team");
+
+        if (updateRequired) {
             new getPlayers().execute();
         }
         else{
@@ -248,7 +251,6 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
             try {
                 // PREPARING PARAMETERS..
                 HashMap<String, String> args = new HashMap<>();
-
                 args.put("Code_Team", String.valueOf(team_code));
 
                 Log.e("request", "starting");

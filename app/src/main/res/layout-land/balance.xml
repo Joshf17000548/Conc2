@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/balanceFrame"
+    android:clickable="true">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Balance"
+                android:id="@+id/title_text_balance"
+                android:layout_gravity="center"
+                android:textSize="18sp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/grid_testbuttons"
+            android:layout_marginTop="5dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:text="Double Leg"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:id="@+id/double_leg"
+                android:clickable="true"
+                android:elevation="8dp"
+                android:layout_gravity="center_vertical"
+                />
+            <View
+                android:layout_width="50dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:text="Single Leg"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:id="@+id/single_leg"
+                android:clickable="true"
+                android:elevation="8dp"
+                android:layout_gravity="center_vertical"
+                />
+            <View
+                android:layout_width="50dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:text="Tandem"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:id="@+id/tandem"
+                android:clickable="false"
+                android:elevation="8dp"
+                android:layout_gravity="center_vertical"
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+
+
+        <include layout="@layout/raheel_main"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Peak to Peak ML : 0 "
+
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/textpeaktopeak"/>
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

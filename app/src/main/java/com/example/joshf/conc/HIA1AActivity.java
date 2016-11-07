@@ -5,6 +5,7 @@ package com.example.joshf.conc;
         import android.app.SearchManager;
         import android.content.Context;
         import android.content.DialogInterface;
+        import android.content.pm.ActivityInfo;
         import android.net.Uri;
         import android.os.AsyncTask;
         import android.support.design.widget.FloatingActionButton;
@@ -179,23 +180,87 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 args.put("HIA1_Test7_Question4", Integer.toString(this.objectHIA1.getHIA1_Test7_Question4()));
                 args.put("HIA1_Test7_Question5", Integer.toString(this.objectHIA1.getHIA1_Test7_Question5()));
                 args.put("HIA1_Test7_Question6", Integer.toString(this.objectHIA1.getHIA1_Test7_Question6()));
+
+                args.put("HIA1_Test7_Question1", Integer.toString(this.objectHIA1.getHIA1_Test7_Question1()));
+                args.put("HIA1_Test7_Question2", Integer.toString(this.objectHIA1.getHIA1_Test7_Question2()));
+                args.put("HIA1_Test7_Question3", Integer.toString(this.objectHIA1.getHIA1_Test7_Question3()));
+                args.put("HIA1_Test7_Question4", Integer.toString(this.objectHIA1.getHIA1_Test7_Question4()));
+                args.put("HIA1_Test7_Question5", Integer.toString(this.objectHIA1.getHIA1_Test7_Question5()));
+                args.put("HIA1_Test7_Question6", Integer.toString(this.objectHIA1.getHIA1_Test7_Question6()));
+
+/*                Log.e("gait_test_Completed", Boolean.toString(PreferenceConnector.gait_test_completed));
+                args.put("gait_test_Completed", Boolean.toString(PreferenceConnector.gait_test_completed));
+                Log.e("test_Status", Float.toString(PreferenceConnector.test_status));
+                args.put("test_Status", Float.toString(PreferenceConnector.test_status));
+
+                Log.e("tandem_t1", Float.toString(PreferenceConnector.tandem_t1));
+                args.put("tandem_t1", Float.toString(PreferenceConnector.tandem_t1));
+                Log.e("tandem_t1_MLRMS", Float.toString(PreferenceConnector.tandem_t1_MLRMS));
+                args.put("tandem_t1_MLRMS", Float.toString(PreferenceConnector.tandem_t1_MLRMS));
+                Log.e("tandem_t1_APRMS", Float.toString(PreferenceConnector.tandem_t1_APRMS));
+                args.put("tandem_t1_APRMS", Float.toString(PreferenceConnector.tandem_t1_APRMS));
+
+                Log.e("tandem_t2", Float.toString(PreferenceConnector.tandem_t2));
+                args.put("tandem_t2", Float.toString(PreferenceConnector.tandem_t2));
+                Log.e("tandem_t2_MLRMS", Float.toString(PreferenceConnector.tandem_t2_MLRMS));
+                args.put("tandem_t2_MLRMS", Float.toString(PreferenceConnector.tandem_t2_MLRMS));
+                Log.e("tandem_t2_APRMS", Float.toString(PreferenceConnector.tandem_t2_APRMS));
+                args.put("tandem_t2_APRMS", Float.toString(PreferenceConnector.tandem_t2_APRMS));
+
+                Log.e("tandem_t3", Float.toString(PreferenceConnector.tandem_t3));
+                args.put("tandem_t3", Float.toString(PreferenceConnector.tandem_t3));
+                Log.e("tandem_t3_MLRMS", Float.toString(PreferenceConnector.tandem_t3_MLRMS));
+                args.put("tandem_t3_MLRMS", Float.toString(PreferenceConnector.tandem_t3_MLRMS));
+                Log.e("tandem_t3_APRMS", Float.toString(PreferenceConnector.tandem_t3_APRMS));
+                args.put("tandem_t3_APRMS", Float.toString(PreferenceConnector.tandem_t3_APRMS));
+
+                Log.e("tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
+                args.put("tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
+                Log.e("tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
+                args.put("tandem_t4_MLRMS", Float.toString(PreferenceConnector.tandem_t4_MLRMS));
+                Log.e("tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
+                args.put("tandem_t4_APRMS", Float.toString(PreferenceConnector.tandem_t4_APRMS));
+
+                Log.e("tandem_time_stamp", PreferenceConnector.time_stamp.toString());
+                args.put("tandem_time_stamp", PreferenceConnector.time_stamp.toString());
+                Log.e("tandem_event_stamp", PreferenceConnector.event_stamp.toString());
+                args.put("tandem_event_stamp", PreferenceConnector.event_stamp.toString());
+               // Log.e("tandem_status_stamp", PreferenceConnector.status_stamp.toString());
+             //   args.put("tandem_status_stamp", PreferenceConnector.status_stamp.toString());
+
+                Log.e("tandem_acc_values0", PreferenceConnector.acc_values0.toString());
+                args.put("tandem_acc_values0", PreferenceConnector.acc_values0.toString());
+                Log.e("tandem_acc_values1", PreferenceConnector.acc_values1.toString());
+                args.put("tandem_acc_values1", PreferenceConnector.acc_values1.toString());
+                Log.e("tandem_acc_values2", PreferenceConnector.acc_values2.toString());
+                args.put("tandem_acc_values2", PreferenceConnector.acc_values2.toString());
+
+                Log.e("tandem_rot_values0", PreferenceConnector.rot_values0.toString());
+                args.put("tandem_rot_values0", PreferenceConnector.rot_values0.toString());
+                Log.e("tandem_rot_values1", PreferenceConnector.rot_values1.toString());
+                args.put("tandem_rot_values1", PreferenceConnector.rot_values1.toString());
+                Log.e("tandem_rot_values2", PreferenceConnector.rot_values2.toString());
+                args.put("tandem_rot_values2", PreferenceConnector.rot_values2.toString());*/
+
+
                 // all args needs to convert to string because the hash map is string, string types.
 
                 //   Log.d("JSON REQUEST", args.toString());
-                Log.d("JSON REQUEST", "Firing Json ...");
+                Log.e("JSON REQUEST", "Firing Json ...");
                 JSONArray json = jsonParser.makeHttpRequest(
                         URL, "POST", args);
                 Log.d("json", "0bject = " + json);
 
                 if (json != null) {
-                    Log.d("I got", "in here?");
-                    Log.d("JSON REQUEST", params.toString());
-                    Log.d("JSON result", json.toString());
+                    Log.e("I got", "in here?");
+                    Log.e("JSON REQUEST", params.toString());
+                    Log.e("JSON result", json.toString());
 
                     return json;
                 }
 
             } catch (Exception e) {
+                Log.e("HIA1insert", "exception",e);
                 e.printStackTrace();
             }
             return null;

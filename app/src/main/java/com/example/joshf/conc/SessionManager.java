@@ -1,15 +1,17 @@
 package com.example.joshf.conc;
 
 /**
- * Created by joshf on 2016/10/30.
+ * Created by Rafael on 30/06/2016.
+ * taken from http://www.androidhive.info/2012/08/android-session-management-using-shared-preferences/
  */
-
 import java.util.HashMap;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import com.example.joshf.conc.LoginActivity;
 
 public class SessionManager {
     // Shared Preferences
@@ -33,11 +35,14 @@ public class SessionManager {
     // User name (make variable public to access from outside)
     public static final String KEY_NAME = "name";
 
-    // Email address (make variable public to access from outside)
-    public static final String KEY_EMAIL = "email";
+    // Token (make variable public to access from outside)
+    public static final String KEY_TOKEN = "token";
+
+    // ADM STATUS (make variable public to access from outside)
+    public static final String KEY_ADM = "0";
 
     // Constructor
-    public SessionManager(Context context) {
+    public SessionManager(Context context){
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
@@ -45,16 +50,19 @@ public class SessionManager {
 
     /**
      * Create login session
-     */
-    public void createLoginSession(String name, String email) {
+     * */
+    public void createLoginSession(String name, String token, String adm){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref
         editor.putString(KEY_NAME, name);
 
-        // Storing email in pref
-        editor.putString(KEY_EMAIL, email);
+        // Storing token in pref
+        editor.putString(KEY_TOKEN, token);
+
+        // Storing token in pref
+        editor.putString(KEY_ADM, adm);
 
         // commit changes
         editor.commit();
@@ -64,10 +72,10 @@ public class SessionManager {
      * Check login method wil check user login status
      * If false it will redirect user to login page
      * Else won't do anything
-     */
-    public void checkLogin() {
+     * */
+    public void checkLogin(){
         // Check login status
-        if (!this.isLoggedIn()) {
+        if(!this.isLoggedIn()){
             // user is not logged in redirect him to Login Activity
             Intent i = new Intent(_context, LoginActivity.class);
             // Closing all the Activities
@@ -81,6 +89,9 @@ public class SessionManager {
         }
 
     }
+
+
+
     /**
      * Get stored session data
      * */
@@ -89,8 +100,11 @@ public class SessionManager {
         // user name
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
 
-        // user email id
-        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+        // user token
+        user.put(KEY_TOKEN, pref.getString(KEY_TOKEN, null));
+
+        // user adm
+        user.put(KEY_ADM, pref.getString(KEY_ADM, null));
 
         // return user
         return user;

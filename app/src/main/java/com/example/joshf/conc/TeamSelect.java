@@ -39,13 +39,20 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
     SearchView searchView;
     SearchManager searchManager;
     public ArrayList<Team> teamList;
-    Boolean updateRequired = true;
+    Boolean teamUpdateRequired = true;
     SessionManager session;
     private Team selectedTeam;
 
     public void listItemSelected(Team listSelectedTeam, View view) {
         selectedTeam = listSelectedTeam;
-        teamSelected(view);
+
+        Intent intent = new Intent(this, PlayerSelect.class);
+        intent.putExtra("team",selectedTeam.getCode_Team());
+        intent.putExtra("database_update", true);
+
+        startActivity(intent);
+
+
     }
 
     public TeamSelect() {
@@ -61,46 +68,30 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
         setSupportActionBar(toolbar);
 
         session = new SessionManager(this);
-        //Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
-        /**
-         * Call this function whenever you want to check user login
-         * This will redirect user to LoginActivity is he is not
-         * logged in
-         * */
-        session.checkLogin();
 
-/*        // get user data from session
-        HashMap<String, String> user = session.getUserDetails();
 
-        // name
-        String name = user.get(SessionManager.KEY_NAME);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_team);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        // email
-        String email = user.get(SessionManager.KEY_EMAIL);*/
+                Bundle bundle = new Bundle();
+                bundle.putString("player_select", "new");
+                startActivity(new Intent(TeamSelect.this, TeamInsert.class).putExtras(bundle));
+            }
+        });
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        session.checkLogin();
 
-        Team team = new Team();
-        teamList = new ArrayList<Team>();
-        team.Team_Name = "Maties";
-        team.Code_Team = 3;
-        teamList.add(0, team);
+        if ((teamUpdateRequired.equals(true))) {
+            new getTeams().execute();
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        SwipeListTeam teamListFragment = SwipeListTeam.newInstance();
-        Bundle bund = new Bundle();
-        bund.putSerializable("team_list", teamList);
-        teamListFragment.setArguments(bund);
-        transaction.replace(R.id.teamList, teamListFragment);
-        transaction.commitAllowingStateLoss();
-        if ((updateRequired.equals(true))) {
-            //new getTeams().execute();
-
-        }/* else {
+        }else {
             try {
                 teamList = (ArrayList<Team>) InternalStorage.readObject(this, "teamList");
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -117,37 +108,20 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
                 Log.e(TAG, "Could not read object from cache");
 
             }
-        }*/
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
-/*        try {
+        try {
             InternalStorage.writeObject(this, "teamList", teamList);
             //   Log.e("player_select", "inserted");
         } catch (IOException e) {
             Log.e(TAG, "Could not write object to cache");
-        }*/
+        }
     }
-
-
-    private void teamSelected(View view) {
-
-        Intent intent = new Intent(this, PlayerSelect.class);
-
-/*        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                new android.support.v4.util.Pair<View, String>(view.findViewById(R.id.playerPhoto),"photo"));
-*//*                new android.support.v4.util.Pair<View, String>(view.findViewById(R.id.name), "name"),
-                new android.support.v4.util.Pair<View, String>(view.findViewById(R.id.playerHealth), "brain"));*/
-
-        //Bundle bundle = options.toBundle();
-        intent.putExtra("team",selectedTeam);
-        startActivity(intent);
-
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -181,7 +155,7 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
         }
     }
 
-/*    private class getTeams extends AsyncTask<String, String, JSONArray> {
+    private class getTeams extends AsyncTask<String, String, JSONArray> {
 
         private static final String URL = "http://104.198.254.110/ConcApp/getTeams.php";
         JSONParser jsonParser = new JSONParser();
@@ -203,8 +177,6 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
             try {
                 // PREPARING PARAMETERS..
                 HashMap<String, String> args = new HashMap<>();
-
-                //args.put("Code_Team","3");
 
                 Log.e("request", "starting");
 
@@ -251,7 +223,7 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
                 pDialog.dismiss();
             }
         }
-    }*/
+    }
 }
 
 

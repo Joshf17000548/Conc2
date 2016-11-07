@@ -1,128 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:id="@+id/gaitFrame"
+    android:onClick="start_clicked"
+    android:clickable="false"
 
+    >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WAIT"
+        android:textSize="80sp"
 
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_gravity="center"/>
 
-            <Button
-                android:text="Home"
-                android:onClick="home_icon_clicked"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="14"
+        android:id="@+id/texttimervalue"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Balance"
-                android:layout_gravity="center"
-                android:id="@+id/title_text_balance"/>
+        android:layout_gravity="bottom"
+        android:textSize="130sp"
+        android:visibility="gone"/>
 
-            <Button
-                android:text="Help"
-                android:onClick="help_icon_clicked"/>
-
-        </GridLayout>
-
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/grid_balance_testbuttons">
-
-            <Button
-                android:text="Double Leg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_double_leg"
-                android:onClick="button_double_leg_clicked"/>
-            <Button
-                android:text="Single Leg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_single_leg"
-                android:onClick="button_single_leg_clicked"/>
-            <Button
-                android:text="Tandem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/button_tandem_stance"
-                android:onClick="button_tandem_stance_clicked"/>
-
-        </GridLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@android:color/darker_gray"/>
-
-        <GridLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Error Count"
-                android:id="@+id/text_error" />
-
-
-            <EditText
-                android:layout_width="127dp"
-                android:layout_height="50dp"
-                android:text=""
-                android:id="@+id/edit_error_cnt"
-                android:inputType="numberDecimal"/>
-
-            <Button
-                android:text = "Diagnose"
-                android:onClick="diagnose_clicked"/>
-        </GridLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status : "
-            android:id="@+id/text_diagnose_status" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@android:color/darker_gray"/>
-
-
-
-
-        <include layout="@layout/raheel_main"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Peak to Peak ML : 0 "
-
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/textpeaktopeak"/>
-
-
-
-    </LinearLayout>
-
-</ScrollView>
+</FrameLayout>

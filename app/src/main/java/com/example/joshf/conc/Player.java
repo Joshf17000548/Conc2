@@ -22,6 +22,7 @@ public class Player implements java.io.Serializable{
     public boolean Player_Lenses;
     public double Player_Weight;
     public double Player_Height;
+    public String Player_Email;
     public String Player_DateOfBirth;
 
     public String getPlayer_Photo(){
@@ -29,6 +30,9 @@ public class Player implements java.io.Serializable{
     }
     public String getPlayer_Name(){
         return this.Player_Name;
+    }
+    public String getPlayer_Email(){
+        return this.Player_Email;
     }
     public boolean getLenses(){
         return this.Player_Lenses;
@@ -48,6 +52,9 @@ public class Player implements java.io.Serializable{
     public String getDOB_player(){
         return this.Player_DateOfBirth;
     }
+    public int getCode_Team(){
+        return this.Code_Team;
+    }
 
     public Integer[] getDOBInt() {
 
@@ -66,6 +73,7 @@ public class Player implements java.io.Serializable{
         if(object!=null) {
             try {
                 this.Player_Name = object.getString("Player_Name");
+                this.Player_Email = object.getString("Player_Email");
                 this.Code_Player = Integer.valueOf(object.getString("Code_Player"));
                 this.Player_Weight = Float.valueOf(object.getString("Player_Weight"));
                 this.Player_Height = Float.valueOf(object.getString("Player_Height"));
@@ -87,7 +95,6 @@ public class Player implements java.io.Serializable{
             try {
 
                 players.add(new Player(jsonObjects.getJSONObject(i)));
-                Log.e("player", String.valueOf(players.get(i).getCode_Player()));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

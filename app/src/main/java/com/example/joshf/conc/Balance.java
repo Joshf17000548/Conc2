@@ -1,16 +1,24 @@
 package com.example.joshf.conc;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,10 +33,13 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.zip.Inflater;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+
 
 public class Balance extends Fragment implements SensorEventListener {
 
-    private SensorManager mSensorManager;
+    ToneGenerator toneGen1;
+    private SensorManager mSensorManager2;
     private Sensor mAccelerometer;
     private Sensor mMagneticField;
     private Sensor mRotationVector;
@@ -53,15 +64,16 @@ public class Balance extends Fragment implements SensorEventListener {
     double maxaccy, minaccy;
 
     long timeprev, timenow, timervalue;
-
-    long duration_initiation = 5000;
+    int cnt=0;
+    long duration_initiation = 2000;
     long duration_setup = 5000;
-    long duration_assessment = 15000;
+    long duration_assessment = 5000;
 
     TextView taz,tpi,tro,tmvd,tmlrms,taprms,tpd, ttimervalue,tstatus;
 
-    Button startbutton;
-    public Button bt1, bt2, bt3, bt4;
+    View startbutton;
+    Button reset;
+    public Button bt2, bt3, bt4;
 
     EditText edit_errorcnt;
     TextView tgs;
@@ -73,14 +85,57 @@ public class Balance extends Fragment implements SensorEventListener {
     boolean timerstarted;
     boolean initiation;
 
-    int errorcount = 0;
+    //int errorcount = 0;
     int status = 0;
     int balancestatus = 0;
+
+    Boolean doublestatus = false;
+    Boolean singlestatus = false;
+    Boolean tandemstatus = false;
+
+    Boolean doublepressed = false;
+    Boolean singlepressed = false;
+    Boolean tandempressed = false;
 
     public static Balance newInstance() {
         Balance fragment = new Balance();
         return fragment;
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            Activity a = getActivity();
+            if(a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE ) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Mount phone on the patients chest and press ok only when finised")
+                        .setTitle(R.string.dialog_title);
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if(!PreferenceConnector.balance_test_completed)
+                        {
+                            startbutton.setClickable(true);
+                            add();
+                        }else{
+                            reset.setVisibility(View.GONE);
+                        }
+
+                        dialog.dismiss();
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+        }else{
+            remove();
+        }
+    }
+
 
 //    PowerManager.WakeLock mWakeLock;
 
@@ -89,8 +144,13 @@ public class Balance extends Fragment implements SensorEventListener {
                                 Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View rootView = inflater.inflate(R.layout.balance, container, false);
+        Log.e("balance", "onCreate");
 
 
+        mSensorManager2 = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager2.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mMagneticField = mSensorManager2.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        mRotationVector = mSensorManager2.getDefaultSensor (Sensor.TYPE_ROTATION_VECTOR);
 
         //      PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         //    mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, "My Tag");
@@ -111,172 +171,221 @@ public class Balance extends Fragment implements SensorEventListener {
         matrixValues = new float[3];
 
 
-
-        PreferenceConnector.acc_values0 = new double[9999];;
-        PreferenceConnector.acc_values1 = new double[9999];
-        PreferenceConnector.acc_values2 = new double[9999];;
+        PreferenceConnector.bal_time_stamp = new double[9999];
+        PreferenceConnector.bal_event_stamp= new double[10];
+        PreferenceConnector.bal_status_stamp= new double[10];
+        PreferenceConnector.bal_acc_values0 = new double[9999];;
+        PreferenceConnector.bal_acc_values1 = new double[9999];
+        PreferenceConnector.bal_acc_values2 = new double[9999];;
         PreferenceConnector.acc_cnt = 0;
-        PreferenceConnector.rot_values0 = new double[9999];;
-        PreferenceConnector.rot_values1 = new double[9999];;
-        PreferenceConnector.rot_values2 = new double[9999];;
+        PreferenceConnector.bal_rot_values0 = new double[9999];;
+        PreferenceConnector.bal_rot_values1 = new double[9999];;
+        PreferenceConnector.bal_rot_values2 = new double[9999];;
         PreferenceConnector.rot_cnt =0;
 
 
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mMagneticField = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        mRotationVector = mSensorManager.getDefaultSensor (Sensor.TYPE_ROTATION_VECTOR);
-        mSensorManager.registerListener(this, mAccelerometer , SensorManager.SENSOR_DELAY_FASTEST);
 
 
+        if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE ) {
 
 
+            ttimervalue = (TextView) rootView.findViewById(R.id.texttimervalue);
+
+            startbutton = rootView.findViewById(R.id.balanceFrame);
+            reset = (Button) rootView.findViewById(R.id.reset);
+
+            bt2 = (Button) rootView.findViewById(R.id.double_leg);
+            bt3 = (Button) rootView.findViewById(R.id.single_leg);
+            bt4 = (Button) rootView.findViewById(R.id.tandem);
 
 
-        taz= (TextView)rootView.findViewById(R.id.textazimuthvalue);
-        tpi= (TextView)rootView.findViewById(R.id.textpitchvalue);
-        tro= (TextView)rootView.findViewById(R.id.textrollvalue);
+            long timestamp = System.currentTimeMillis();
 
-        ttimervalue = (TextView)rootView.findViewById(R.id.texttimervalue);
+            azimuth = 0;
+            pitch = 0;
+            roll = 0;
 
-        tmvd= (TextView)rootView.findViewById(R.id.textMVDvalue);
-        tmlrms= (TextView)rootView.findViewById(R.id.textMLRMSvalue);
-        taprms= (TextView)rootView.findViewById(R.id.textAPRMSvalue);
-        tpd= (TextView)rootView.findViewById(R.id.textPDvalue);
-        tstatus = (TextView)rootView.findViewById(R.id.textstatusvalue);
-        ptp = (TextView)rootView.findViewById(R.id.textpeaktopeak);
+            azimuth_init = 0;
+            pitch_init = 0;
+            roll_init = 0;
 
+            accx = 0;
+            accy = 0;
+            accz = 0;
 
-        startbutton = (Button)rootView.findViewById(R.id.button);
+            ML = 0;
+            AP = 0;
+            MLprev = 0;
+            APprev = 0;
+            N = 0;
+            sumML = 0;
+            sumAP = 0;
+            sumMVD = 0;
 
+            MVD = 0;
+            MLRMS = 0;
+            APRMS = 0;
+            PD = 0;
 
-        bt1 = (Button)rootView.findViewById(R.id.button_double_leg);
-        bt2 = (Button)rootView.findViewById(R.id.button_single_leg);
-        bt3 = (Button)rootView.findViewById(R.id.button_tandem_stance);
-
-
-
-        long timestamp = System.currentTimeMillis();
-
-
-        //tcX= (TextView)findViewById(R.id.x_acis);
-        //tcY= (TextView)findViewById(R.id.y_acis);
-        //tcZ= (TextView)findViewById(R.id.z_acis);
-
-
-        azimuth = 0;
-        pitch = 0;
-        roll = 0;
-
-        azimuth_init = 0;
-        pitch_init = 0;
-        roll_init = 0;
-
-        accx = 0;
-        accy = 0;
-        accz = 0;
-
-        ML = 0;
-        AP = 0;
-        MLprev = 0;
-        APprev = 0;
-        N = 0;
-        sumML = 0;
-        sumAP = 0;
-        sumMVD = 0;
-
-        MVD = 0;
-        MLRMS = 0;
-        APRMS = 0;
-        PD = 0;
-
-        maxaccy = 0;
-        minaccy = 0;
+            maxaccy = 0;
+            minaccy = 0;
 
 
-        timeprev = 0;
-        timenow = 0;
-        timervalue = 0;
+            timeprev = 0;
+            timenow = 0;
+            timervalue = 0;
 
-        timerstarted = false;
+            timerstarted = false;
 
-        status = 0;
-        balancestatus = 1;
-        set_button_colors();
+            status = 0;
+            balancestatus = 1;
+
+            reset.setVisibility(View.GONE);
+            set_values();
+
+            bt2.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    balancestatus = 1;
+                    set_button_colors();
+                }
+
+            });
+            bt3.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    balancestatus=2;
+                    set_button_colors();
+
+                }
+
+            });
+            bt4.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    balancestatus=3;
+                    set_button_colors();
+
+                }
+
+            });
+
+            startbutton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    if(status==0) {
+
+                        toneGen1.startTone(ToneGenerator.TONE_PROP_BEEP, 500);
+                        starttime = System.currentTimeMillis();
 
 
-        edit_errorcnt = (EditText) rootView.findViewById(R.id.edit_error_cnt);
-        tgs = (TextView)rootView.findViewById(R.id.text_diagnose_status);
-        title_text = (TextView)rootView.findViewById(R.id.title_text_balance);
-        int at = PreferenceConnector.assessment_type;
-        switch(at){
-            case 12:title_text.setText("HIA I: Balance"); break;
-            case 22:title_text.setText("HIA 2: Balance"); break;
-            case 32:title_text.setText("HIA 3: Balance"); break;
-            default: title_text.setText("Balance"); break;
-        }
+/*                    if (status != 4)
+                        startbutton.setClickable(false);
+                    // starttime = 0;*/
 
 
-        set_values();
+                        azimuth = 0;
+                        pitch = 0;
+                        roll = 0;
 
-        startbutton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                starttime = System.currentTimeMillis();
-
-                if (status != 4)
-                    startbutton.setClickable(false);
-                // starttime = 0;
+                        azimuth_init = 0;
+                        pitch_init = 0;
+                        roll_init = 0;
 
 
-                azimuth = 0;
-                pitch = 0;
-                roll = 0;
+                        accx = 0;
+                        accy = 0;
+                        accz = 0;
 
-                azimuth_init = 0;
-                pitch_init = 0;
-                roll_init = 0;
+                        ML = 0;
+                        AP = 0;
+                        MLprev = 0;
+                        APprev = 0;
+                        N = 0;
+                        sumML = 0;
+                        sumAP = 0;
+                        sumMVD = 0;
 
+                        MVD = 0;
+                        MLRMS = 0;
+                        APRMS = 0;
+                        PD = 0;
 
-                accx = 0;
-                accy = 0;
-                accz = 0;
+                        timeprev = 0;
+                        timenow = 0;
+                        timervalue = 0;
 
-                ML = 0;
-                AP = 0;
-                MLprev = 0;
-                APprev = 0;
-                N = 0;
-                sumML = 0;
-                sumAP = 0;
-                sumMVD = 0;
-
-                MVD = 0;
-                MLRMS = 0;
-                APRMS = 0;
-                PD = 0;
-
-                timeprev = 0;
-                timenow = 0;
-                timervalue = 0;
-
-                maxaccy = 0;
-                minaccy = 0;
-
+                        maxaccy = 0;
+                        minaccy = 0;
 
 
 //        status = 1;
 
-                initiation = true;
-                timerstarted = false;
-                // Do something in response to button click
+                        initiation = true;
+                        timerstarted = false;
+                        // Do something in response to button click
+                    }
 
-            }
-        });
+                }
+            });
+
+            reset.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    Log.e("reset", "reset");
+                    Log.e("doublestatus", String.valueOf(doublestatus));
+                    Log.e("singlestatus", String.valueOf(singlestatus));
+                    Log.e("tandemstatus", String.valueOf(tandemstatus));
+                    startbutton.setClickable(true);
+                    switch (balancestatus) {
+                        case 1:
+                            PreferenceConnector.balance_dl = 0;
+                            PreferenceConnector.balance_dl_APRMS = 0;
+                            PreferenceConnector.balance_dl_MLRMS = 0;
+                            PreferenceConnector.balance_dl_PTP = 0;
+                            doublestatus = false;
+                            set_button_colors();
+                            reset.setVisibility(View.GONE);
+                            break;
+                        case 2:
+                            PreferenceConnector.balance_sl = 0;
+                            PreferenceConnector.balance_sl_APRMS = 0;
+                            PreferenceConnector.balance_sl_MLRMS = 0;
+                            PreferenceConnector.balance_sl_PTP = 0;
+                            singlestatus = false;
+                            set_button_colors();
+                            reset.setVisibility(View.GONE);
+                            break;
+                        case 3:
+                            PreferenceConnector.balance_ts = 0;
+                            PreferenceConnector.balance_ts_APRMS = 0;
+                            PreferenceConnector.balance_ts_MLRMS = 0;
+                            PreferenceConnector.balance_ts_PTP = 0;
+                            tandemstatus = false;
+                            set_button_colors();
+                            reset.setVisibility(View.GONE);
+                            break;
+                    }
+                }
+
+            });
+
+            set_button_colors();
+
+        }
 
         return rootView;
     }
+
+    public void setClickable(){
+        bt2.setClickable(true);
+        bt3.setClickable(true);
+        bt4.setClickable(true);
+    }
+
+    public void setNotClickable(){
+        bt2.setClickable(false);
+        bt3.setClickable(false);
+        bt4.setClickable(false);
+    }
+
 
     @Override
     public void onDestroy() {
@@ -284,81 +393,26 @@ public class Balance extends Fragment implements SensorEventListener {
         super.onDestroy();
     }
 
-
-    /** Called when the user touches the button */
-   /* public void start_clicked(View view) {
-
-        starttime = System.currentTimeMillis();
-
-        if (status != 4)
-            startbutton.setClickable(false);
-        // starttime = 0;
-
-
-        azimuth = 0;
-        pitch = 0;
-        roll = 0;
-
-        azimuth_init = 0;
-        pitch_init = 0;
-        roll_init = 0;
-
-
-        accx = 0;
-        accy = 0;
-        accz = 0;
-
-        ML = 0;
-        AP = 0;
-        MLprev = 0;
-        APprev = 0;
-        N = 0;
-        sumML = 0;
-        sumAP = 0;
-        sumMVD = 0;
-
-        MVD = 0;
-        MLRMS = 0;
-        APRMS = 0;
-        PD = 0;
-
-        timeprev = 0;
-        timenow = 0;
-        timervalue = 0;
-
-        maxaccy = 0;
-        minaccy = 0;
-
-
-
-//        status = 1;
-
-        initiation = true;
-        timerstarted = false;
-        // Do something in response to button click
-    }*/
-
     @Override
     public void onSensorChanged(SensorEvent event) {
-
         long timestamp = System.currentTimeMillis();
-
 
         if (status==0) {
             timervalue = 0;
             PreferenceConnector.acc_cnt = 0;
             PreferenceConnector.rot_cnt = 0;
+            setClickable();
         }
-        else if(status==1)
-            timervalue = (duration_setup - (timestamp - starttime));
-        else if (status==2)
+        else if (status==1) {
             timervalue = (duration_initiation - (timestamp - starttime));
-        else if (status==3) {
+            setNotClickable();
+        }
+        else if (status==2) {
             timervalue = (duration_assessment - (timestamp - starttime));
             PreferenceConnector.acc_cnt = PreferenceConnector.acc_cnt + 1;
             PreferenceConnector.rot_cnt = PreferenceConnector.rot_cnt + 1;
         }
-        else if (status==4) {
+        else if (status==3) {
             timervalue = 0;
             PreferenceConnector.max_cnt = PreferenceConnector.acc_cnt;
 
@@ -369,60 +423,51 @@ public class Balance extends Fragment implements SensorEventListener {
             timervalue = 0;
 
 
-        if ((status == 0) && (initiation == true))
+        if ((status == 0) && (initiation == true)) {
             status = 1;
+        }
         else  if ((status == 1) && (timervalue <=0))
         {
             status = 2;
             starttime = timestamp;
-
         }
 
         else if ((status == 2) && (timervalue <=0))
         {
+            toneGen1.startTone(ToneGenerator.TONE_PROP_NACK,300);
             status = 3;
             starttime = timestamp;
         }
         else if ((status == 3) && (timervalue <=0))
         {
-            status = 4;
-            starttime = timestamp;
-            initiation = false;
-        }
-        else if ((status==4) && (initiation==true))
-        {
             status = 0;
             initiation = false;
-            //status = 3;
-            //starttime = timestamp;
+            PreferenceConnector.bal_event_stamp[cnt]=timestamp-starttime;
+            PreferenceConnector.bal_status_stamp[cnt]=balancestatus;
+            cnt = cnt+1;
+            upload_results();
+            balancestatus = balancestatus +1;
+            set_button_colors();
         }
 
-
-
-
-
-
-/*
-        if ((status == 3) && ((timestamp - starttime - duration_asessment) >=0))
+/*        if ((status == 3) && ((timestamp - starttime - duration_asessment) >=0))
         {
             status = 3;
             starttime = timestamp;
-        }
+        }*/
 
-*/
-        /*
 
-        if ((initiation==true) && ((timestamp - initstarttime) > duration_initiation))
+/*        if ((initiation==true) && ((timestamp - initstarttime) > duration_initiation))
         {
             starttime = timestamp;
             timerstarted = true;
             initiation = false;
 
-        }
-*/
+        }*/
 
-/*
-            if ((timerstarted==true) && ((timestamp - starttime) > duration_assessment)) {
+
+
+/*            if ((timerstarted) && ((timestamp - starttime) > duration_assessment)) {
                 initiation = false;
                 timerstarted = false;
 
@@ -432,14 +477,15 @@ public class Balance extends Fragment implements SensorEventListener {
                 MLRMS = Math.pow((sumML / N), 0.5);
                 APRMS = Math.pow((sumAP / N), 0.5);
                 PD = 0;
-            }
-  */
+            }*/
+
+
 
         // set_values();
 
 
-        /*
 
+/*
         if (timerstarted == true)
         {
             timervalue = timestamp - starttime;
@@ -454,6 +500,8 @@ public class Balance extends Fragment implements SensorEventListener {
 
         }
 */
+
+
 
         switch (event.sensor.getType()) {
             case Sensor.TYPE_ACCELEROMETER:
@@ -503,7 +551,7 @@ public class Balance extends Fragment implements SensorEventListener {
 
 
 
-            if ((status == 0) || (status == 1) || (status == 2))
+            if ((status == 0) || (status == 1) )
             {
                 azimuth_init = azimuth;
                 pitch_init = pitch;
@@ -533,7 +581,7 @@ public class Balance extends Fragment implements SensorEventListener {
             AP = roll;
             timenow = timestamp;
 
-            if (status == 3)
+            if (status == 2)
             {
 
                 sumMVD = sumMVD + (Math.pow((Math.pow((ML - MLprev),2) + Math.pow((AP - APprev),2)),0.5))/(timenow - timeprev);
@@ -541,12 +589,9 @@ public class Balance extends Fragment implements SensorEventListener {
                 sumML = sumML + (ML*ML);
                 sumAP = sumAP + (AP*AP);
                 N = N + 1;
-
-
-
             }
 
-            if ((status == 3) || (status==4)) {
+            if ((status == 2) || (status==3)) {
                 MVD = sumMVD;///N;
                 MLRMS = Math.pow((sumML / N), 0.5);
                 APRMS = Math.pow((sumAP / N), 0.5);
@@ -574,17 +619,18 @@ public class Balance extends Fragment implements SensorEventListener {
             // if (status == 0)
             //   timervalue = 0;
 
-            set_values();
+            ttimervalue.setText(Integer.toString(Math.round(timervalue)));
         }
 
-        if (status ==3) {
-            PreferenceConnector.acc_values0[PreferenceConnector.acc_cnt] = valuesAccelerometer[0];
-            PreferenceConnector.acc_values1[PreferenceConnector.acc_cnt] = valuesAccelerometer[1];
-            PreferenceConnector.acc_values2[PreferenceConnector.acc_cnt] = valuesAccelerometer[2];
+        if (status ==2) {
+            PreferenceConnector.bal_time_stamp[PreferenceConnector.acc_cnt] = timestamp-starttime;
+            PreferenceConnector.bal_acc_values0[PreferenceConnector.acc_cnt] = valuesAccelerometer[0];
+            PreferenceConnector.bal_acc_values1[PreferenceConnector.acc_cnt] = valuesAccelerometer[1];
+            PreferenceConnector.bal_acc_values2[PreferenceConnector.acc_cnt] = valuesAccelerometer[2];
 
-            PreferenceConnector.rot_values1[PreferenceConnector.rot_cnt] = matrixValues[0];
-            PreferenceConnector.rot_values1[PreferenceConnector.rot_cnt] = matrixValues[1];
-            PreferenceConnector.rot_values2[PreferenceConnector.rot_cnt] = matrixValues[2];
+            PreferenceConnector.bal_rot_values1[PreferenceConnector.rot_cnt] = matrixValues[0];
+            PreferenceConnector.bal_rot_values1[PreferenceConnector.rot_cnt] = matrixValues[1];
+            PreferenceConnector.bal_rot_values2[PreferenceConnector.rot_cnt] = matrixValues[2];
         }
     }
 
@@ -593,312 +639,163 @@ public class Balance extends Fragment implements SensorEventListener {
 
     void set_values (){
 
-        taz.setText(Double.toString((double)Math.round(azimuth * 100) / 100));
-        tpi.setText(Double.toString((double)Math.round(pitch * 100) / 100));
-        tro.setText(Double.toString((double)Math.round(roll * 100) / 100));
+        if ((status == 3) && (timervalue <= 0)) {
+            balancestatus = balancestatus +1;
+            if (balancestatus >= 5) {
+                finish();
 
-        tmvd.setText(Double.toString(MVD));
-        tmlrms.setText(Double.toString((double)Math.round(MLRMS * 100) / 100));
-        taprms.setText(Double.toString((double)Math.round(APRMS * 100) / 100));
-        tpd.setText(Double.toString(PD));
-
-
-        ttimervalue.setText(Double.toString(Math.round(timervalue)));
-
-
-        if (status == 0)
-        {
-            tstatus.setText("Idle");
-            startbutton.setText("START ASSESSMENT");
+            }
         }
-        else if (status==1) {
+    }
 
-            tstatus.setText("Setup time");
-            startbutton.setText("WAIT");
+    public void finish(){
+        PreferenceConnector.balance_status = balancestatus-1;
+        mSensorManager2.unregisterListener(this,     mAccelerometer);
+        mSensorManager2.unregisterListener(this,     mMagneticField);
+        mSensorManager2.unregisterListener(this,     mRotationVector);
+        mSensorManager2.unregisterListener(this);
+        toneGen1.release();
 
-        }
-        else if (status==2) {
-            tstatus.setText("Initiating");
-            startbutton.setText("WAIT");
-        }
-
-        else if (status == 3) {
-            tstatus.setText("Assessment in Progress");
-            startbutton.setText("WAIT");
-        }
-        else  if (status==4)
-        {
-            tstatus.setText("Ässessment Completed");
-            startbutton.setClickable(true);
-            startbutton.setText("CLEAR ALL");
-        }
-        else
-            tstatus.setText("Idle");
-
-
-
-        ptp.setText("Peak to Peak ML : " + Double.toString(maxaccy - minaccy));
-
-
-/*
-            if (initiation == true)
-                tstatus.setText("Initiating");
-            else if (timerstarted == true)
-                tstatus.setText("Assessment in Progress");
-            else
-                tstatus.setText("Idle");
-  */
-
-            /*
-            tvX.setText(Double.toString(azimuth));
-            tvY.setText(Double.toString(pitch));
-            tvZ.setText(Double.toString(roll));
-            tcX.setText(Double.toString(accx));
-            tcY.setText(Double.toString(accy));
-            tcZ.setText(Double.toString(accz));
-  */
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
+        builder2.setMessage("Please continue to the next slide")
+                .setTitle(R.string.dialog_title);
+        builder2.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder2.create();
+        dialog.show();
 
     }
 
-    public void diagnose_clicked(View v){
+    public void upload_results() {
         //////////////////////////////////////////////////////////////////////////////
         //ALL THE PREFERENCE CONNECTOR VALUES?VARIABLES SHOULD BE SAVED
         ///////////////////////////////////////////////////////////////////////////
 
         //    errorcount = Integer.parseInt(edit_errorcnt.getText().toString());
+        int at = PreferenceConnector.assessment_type;
 
-        String errtext = edit_errorcnt.getText().toString();
-        if (errtext.matches("")) {
-            Toast.makeText(getActivity(), "You did not enter a value", Toast.LENGTH_SHORT).show();
+            switch (balancestatus) {
+                case 1:
+                    // PreferenceConnector.balance_dl = errorcount;
+                    PreferenceConnector.balance_dl_MLRMS = (float) MLRMS;
+                    PreferenceConnector.balance_dl_APRMS = (float) APRMS;
+                    PreferenceConnector.balance_dl_PTP = (float) (maxaccy - minaccy);
+                    doublestatus=true;
+                    break;
+                case 2:
+                    // PreferenceConnector.balance_sl = errorcount;
+                    PreferenceConnector.balance_sl_MLRMS = (float) MLRMS;
+                    PreferenceConnector.balance_sl_APRMS = (float) APRMS;
+                    PreferenceConnector.balance_sl_PTP = (float) (maxaccy - minaccy);
+                    singlestatus=true;
+                    break;
+                case 3:
+                    // PreferenceConnector.balance_ts = errorcount;
+                    PreferenceConnector.balance_ts_MLRMS = (float) MLRMS;
+                    PreferenceConnector.balance_ts_APRMS = (float) APRMS;
+                    PreferenceConnector.balance_ts_PTP = (float) (maxaccy - minaccy);
+                    tandemstatus=true;
+                    break;
+                default:
+                    //   PreferenceConnector.balance_dl = 0;
+                    PreferenceConnector.balance_dl_MLRMS = (float) MLRMS;
+                    PreferenceConnector.balance_dl_APRMS = (float) APRMS;
+                    PreferenceConnector.balance_dl_PTP = (float) (maxaccy - minaccy);
 
-        }
-        else
-
-        {
-            errorcount = Integer.parseInt(errtext);
-
-            int at = PreferenceConnector.assessment_type;
-
-            if (at == 12) {
-                switch (balancestatus) {
-                    case 1:
-                        PreferenceConnector.hia1_balance_dl = errorcount;
-                        PreferenceConnector.hia1_balance_dl_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia1_balance_dl_APRMS = (float) APRMS;
-                        PreferenceConnector.hia1_balance_dl_PTP = (float) (maxaccy - minaccy);
-                        break;
-                    case 2:
-                        PreferenceConnector.hia1_balance_sl = errorcount;
-                        PreferenceConnector.hia1_balance_sl_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia1_balance_sl_APRMS = (float) APRMS;
-                        PreferenceConnector.hia1_balance_sl_PTP = (float) (maxaccy - minaccy);
-                        break;
-                    case 3:
-                        PreferenceConnector.hia1_balance_ts = errorcount;
-                        PreferenceConnector.hia1_balance_ts_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia1_balance_ts_APRMS = (float) APRMS;
-                        PreferenceConnector.hia1_balance_ts_PTP = (float) (maxaccy - minaccy);
-                        break;
-                    default:
-                        PreferenceConnector.hia1_balance_dl = 0;
-                        PreferenceConnector.hia1_balance_dl_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia1_balance_dl_APRMS = (float) APRMS;
-                        PreferenceConnector.hia1_balance_dl_PTP = (float) (maxaccy - minaccy);
-
-                }
-
-                int ed = PreferenceConnector.hia1_balance_dl;
-                int es = PreferenceConnector.hia1_balance_sl;
-                int et = PreferenceConnector.hia1_balance_ts;
-
-                if ((et >= 3) || (es >= 4) || ((ed + et + es) >= 8)) {
-                    tgs.setText("Status: Abnormal ( Test Failed )");
-                    PreferenceConnector.hia1_balance_status = 0;
-                } else {
-                    tgs.setText("Status: Normal ( Test Passed )");
-                    PreferenceConnector.hia1_balance_status = 1;
-                }
             }
 
+/*            try {
 
-            ////////////////////
+                // INCLUDE TIMESTAMP IF POSSIBLE
+                PreferenceConnector.writedata("data.txt", PreferenceConnector.acc_values0);
+                PreferenceConnector.writedata("data.txt", PreferenceConnector.acc_values1);
+                PreferenceConnector.writedata("data.txt", PreferenceConnector.acc_values2);
+                PreferenceConnector.writedata("data.txt", PreferenceConnector.rot_values0);
+                PreferenceConnector.writedata("data.txt", PreferenceConnector.rot_values1);
+                PreferenceConnector.writedata("data.txt", PreferenceConnector.rot_values2);
 
-            if (at == 22) {
-                switch (balancestatus) {
-                    case 1:
-                        PreferenceConnector.hia2_balance_dl = errorcount;
-                        PreferenceConnector.hia2_balance_dl_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia2_balance_dl_APRMS = (float) APRMS;
-                        PreferenceConnector.hia2_balance_dl_PTP = (float) (maxaccy - minaccy);
-                        break;
-                    case 2:
-                        PreferenceConnector.hia2_balance_sl = errorcount;
-                        PreferenceConnector.hia2_balance_sl_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia2_balance_sl_APRMS = (float) APRMS;
-                        PreferenceConnector.hia2_balance_sl_PTP = (float) (maxaccy - minaccy);
-                        break;
-                    case 3:
-                        PreferenceConnector.hia2_balance_ts = errorcount;
-                        PreferenceConnector.hia2_balance_ts_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia2_balance_ts_APRMS = (float) APRMS;
-                        PreferenceConnector.hia2_balance_ts_PTP = (float) (maxaccy - minaccy);
-                        break;
-                    default:
-                        PreferenceConnector.hia2_balance_dl = 0;
-                        PreferenceConnector.hia2_balance_dl_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia2_balance_dl_APRMS = (float) APRMS;
-                        PreferenceConnector.hia2_balance_dl_PTP = (float) (maxaccy - minaccy);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
 
-                }
-
-                int ed = PreferenceConnector.hia2_balance_dl;
-                int es = PreferenceConnector.hia2_balance_sl;
-                int et = PreferenceConnector.hia2_balance_ts;
-
-                if ((et >= 3) || (es >= 4) || ((ed + et + es) >= 8)) {
-                    tgs.setText("Status: Abnormal ( Test Failed )");
-                    PreferenceConnector.hia2_balance_status = 0;
-                } else {
-                    tgs.setText("Status: Normal ( Test Passed )");
-                    PreferenceConnector.hia2_balance_status = 1;
-                }
-            }
-
-            //////////////////////////
-
-            if (at == 32) {
-                switch (balancestatus) {
-                    case 1:
-                        PreferenceConnector.hia3_balance_dl = errorcount;
-                        PreferenceConnector.hia3_balance_dl_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia3_balance_dl_APRMS = (float) APRMS;
-                        PreferenceConnector.hia3_balance_dl_PTP = (float) (maxaccy - minaccy);
-                        break;
-                    case 2:
-                        PreferenceConnector.hia3_balance_sl = errorcount;
-                        PreferenceConnector.hia3_balance_sl_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia3_balance_sl_APRMS = (float) APRMS;
-                        PreferenceConnector.hia3_balance_sl_PTP = (float) (maxaccy - minaccy);
-                        break;
-                    case 3:
-                        PreferenceConnector.hia3_balance_ts = errorcount;
-                        PreferenceConnector.hia3_balance_ts_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia3_balance_ts_APRMS = (float) APRMS;
-                        PreferenceConnector.hia3_balance_ts_PTP = (float) (maxaccy - minaccy);
-                        break;
-                    default:
-                        PreferenceConnector.hia3_balance_dl = 0;
-                        PreferenceConnector.hia3_balance_dl_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia3_balance_dl_APRMS = (float) APRMS;
-                        PreferenceConnector.hia3_balance_dl_PTP = (float) (maxaccy - minaccy);
-
-                }
-
-                int ed = PreferenceConnector.hia3_balance_dl;
-                int es = PreferenceConnector.hia3_balance_sl;
-                int et = PreferenceConnector.hia3_balance_ts;
-
-                if ((et >= 3) || (es >= 4) || ((ed + et + es) >= 8)) {
-                    tgs.setText("Status: Abnormal ( Test Failed )");
-                    PreferenceConnector.hia3_balance_status = 0;
-                } else {
-                    tgs.setText("Status: Normal ( Test Passed )");
-                    PreferenceConnector.hia3_balance_status = 1;
-                }
-            }
-
-
-
-        }
-        //return true;
-
-        try {
-
-            // INCLUDE TIMESTAMP IF POSSIBLE
-            PreferenceConnector.writedata("data.txt",PreferenceConnector.acc_values0);
-            PreferenceConnector.writedata("data.txt",PreferenceConnector.acc_values1);
-            PreferenceConnector.writedata("data.txt",PreferenceConnector.acc_values2);
-            PreferenceConnector.writedata("data.txt",PreferenceConnector.rot_values0);
-            PreferenceConnector.writedata("data.txt",PreferenceConnector.rot_values1);
-            PreferenceConnector.writedata("data.txt",PreferenceConnector.rot_values2);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(doublestatus && singlestatus && tandemstatus){
+            PreferenceConnector.balance_test_completed = true;
         }
 
-    }
-
-
-    public void button_double_leg_clicked(View v){
-        balancestatus = 1;
-        edit_errorcnt.setText("");
-        tgs.setText("Status : ");
-        set_button_colors();
-
-//        bt2.setClickable(false);
-        //      bt3.setClickable(false);
-        //    bt4.setClickable(false);
 
     }
-
-
-    public void button_single_leg_clicked(View v){
-        balancestatus = 2;
-        edit_errorcnt.setText("");
-        tgs.setText("Status : ");
-        set_button_colors();
-
-//        bt2.setClickable(false);
-        //      bt3.setClickable(false);
-        //    bt4.setClickable(false);
-
-    }
-
-
-    public void button_tandem_stance_clicked(View v){
-        balancestatus = 3;
-        edit_errorcnt.setText("");
-        tgs.setText("Status : ");
-        set_button_colors();
-
-    }
-
-
-
 
     public void set_button_colors(){
+        Resources resources = getActivity().getResources();
+        Drawable on_red = resources.getDrawable(R.drawable.balance_button_pressed_required);
+        Drawable off_red = resources.getDrawable(R.drawable.balance_button_required);
+        Drawable on_green = resources.getDrawable(R.drawable.balance_button_pressed_done);
+        Drawable off_green = resources.getDrawable(R.drawable.balance_button_done);
 
         switch(balancestatus){
             case 1:     {
-                bt1.setBackgroundColor(Color.GREEN);
-                bt2.setBackgroundColor(Color.RED);
-                bt3.setBackgroundColor(Color.RED);
-
+                doublepressed = true;
+                singlepressed = false;
+                tandempressed = false;
                 break;
-
             }
-
             case 2:     {
-                bt1.setBackgroundColor(Color.RED);
-                bt2.setBackgroundColor(Color.GREEN);
-                bt3.setBackgroundColor(Color.RED);
+                doublepressed = false;
+                singlepressed = true;
+                tandempressed = false;
                 break;
             }
-
             case 3:     {
-                bt1.setBackgroundColor(Color.RED);
-                bt2.setBackgroundColor(Color.RED);
-                bt3.setBackgroundColor(Color.GREEN);
+                doublepressed = false;
+                singlepressed = false;
+                tandempressed = true;
                 break;
             }
+        }
 
+        if (doublepressed && doublestatus){
+            bt2.setBackground(on_green);
+            reset.setVisibility(View.VISIBLE);
+            startbutton.setClickable(false);
+        }else if(!doublepressed && doublestatus){
+            bt2.setBackground(off_green);
+        }else if(doublepressed && !doublestatus){
+            bt2.setBackground(on_red);
+            reset.setVisibility(View.GONE);
+            startbutton.setClickable(true);
+        }else{
+            bt2.setBackground(off_red);
+        }
 
-            default:     {
-                bt1.setBackgroundColor(Color.GREEN);
-                bt2.setBackgroundColor(Color.RED);
-                bt3.setBackgroundColor(Color.RED);
-            }
+        if (singlepressed && singlestatus){
+            bt3.setBackground(on_green);
+            reset.setVisibility(View.VISIBLE);
+            startbutton.setClickable(false);
+        }else if(!singlepressed && singlestatus){
+            bt3.setBackground(off_green);
+        }else if(singlepressed && !singlestatus){
+            bt3.setBackground(on_red);
+            reset.setVisibility(View.GONE);
+            startbutton.setClickable(true);
+        }else{
+            bt3.setBackground(off_red);
+        }
 
+        if (tandempressed && tandemstatus){
+            bt4.setBackground(on_green);
+            reset.setVisibility(View.VISIBLE);
+            startbutton.setClickable(false);
+        }else if(!tandempressed && tandemstatus){
+            bt4.setBackground(off_green);
+        }else if(tandempressed && !tandemstatus){
+            bt4.setBackground(on_red);
+            reset.setVisibility(View.GONE);
+            startbutton.setClickable(true);
+        }else{
+            bt4.setBackground(off_red);
         }
 
 
@@ -907,23 +804,44 @@ public class Balance extends Fragment implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+    public void add(){
+        if (mSensorManager2!=null) {
+            mSensorManager2.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+            mSensorManager2.registerListener(this, mMagneticField, SensorManager.SENSOR_DELAY_FASTEST);
+            mSensorManager2.registerListener(this, mRotationVector, SensorManager.SENSOR_DELAY_FASTEST);
+
+        }
+        toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+    }
+
+    public void remove(){
+        if (mSensorManager2!=null && toneGen1!=null) {
+            mSensorManager2.unregisterListener(this, mAccelerometer);
+            mSensorManager2.unregisterListener(this, mMagneticField);
+            mSensorManager2.unregisterListener(this, mRotationVector);
+            toneGen1.release();
+        }
+
+
+    }
 
 
 
     public void onResume() {
 
         super.onResume();
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(this,     mMagneticField,     SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(this,     mRotationVector,     SensorManager.SENSOR_DELAY_FASTEST);
-        // mWakeLock.acquire();
+        Log.e("balance", "onResume");
+        if(PreferenceConnector.gait_test_completed && getUserVisibleHint()) {
+        }
+        if(getUserVisibleHint()){
+            add();
+        }
     }
 
     public void onPause() {
-        mSensorManager.unregisterListener(this,     mAccelerometer);
-        mSensorManager.unregisterListener(this,     mMagneticField);
-        mSensorManager.unregisterListener(this,     mRotationVector);
-        //mWakeLock.release();
+        Log.e("balance", "onPause");
+        remove();
+            //mWakeLock.release();
         super.onPause();
 
     }
@@ -939,38 +857,13 @@ public class Balance extends Fragment implements SensorEventListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*
-        switch(item.getItemId())
+/*        switch(item.getItemId())
         {
-            case R.id.feeds:
-                break;
-            case R.id.friends:
-                break;
-            case R.id.about:
-                break;
+
         }*/
+
         return true;
     }
 
-
-
-/*    public void home_icon_clicked(View view) {
-
-        Intent intent = new Intent(this, TestHomeActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        finish();
-        startActivity(intent);
-    }
-
-    public void help_icon_clicked(View view){
-
-        Intent intent = new Intent(this, HelpActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }*/
 
 }

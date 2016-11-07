@@ -1,6 +1,7 @@
 package com.example.joshf.conc;
 
         import android.app.Activity;
+        import android.content.pm.ActivityInfo;
         import android.os.Bundle;
         import android.support.v4.app.Fragment;
         import android.util.Log;
@@ -25,9 +26,11 @@ public class HIA2FFragment extends Fragment {
     public HIA2FFragment() {
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_hia2_f, container, false);
         chk1 = (CheckBox)rootView.findViewById(R.id.checkBox_CC);
         chk2 = (CheckBox)rootView.findViewById(R.id.checkBox_CNC);

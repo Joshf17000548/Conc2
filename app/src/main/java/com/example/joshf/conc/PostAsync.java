@@ -43,11 +43,11 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
     private ProgressDialog pDialog;
     private boolean fieldFilled = true;
 
-    // private static final String LOGIN_URL = "http://www.remanet.org/System2/loginTest.php";
+
+    // private static final String LOGIN_URL = "http://10.0.2.2/ConcApp/loginTest.php";
     private static final String LOGIN_URL = "http://104.198.254.110/ConcApp/loginTest.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
-    private static final String ADMIN = "UserDoctor_Adm";
 
 
 
@@ -70,9 +70,9 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
         // Check if username, password is filled
         if(username== null || username.isEmpty() || password.isEmpty() || password==null) {
             fieldFilled =false;
-            Log.e("Fields", "Empty");
+            Log.d("Fields", "Empty");
         }else{
-            Log.e("Fields", "FULL");
+            Log.d("Fields", "FULL");
             fieldFilled =true;
             // Conecting with database and retrieving data
             try {
@@ -82,15 +82,15 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
                 params.put("User_Name", username);
                 params.put("User_Password", password);
 
-                Log.e("request", "starting");
+                Log.d("request", "starting");
 
                 JSONArray json = jsonParser.makeHttpRequest(
                         LOGIN_URL, "POST", params);
 
-                if (json != null) {
-                    Log.e("JSON REQUEST", params.toString());
-                    Log.e("JSON result", json.toString());
+                Log.d("JSON REQUEST", params.toString());
+                Log.d("JSON result", json.toString());
 
+                if (json != null) {
                     return json;
                 }
 
@@ -108,7 +108,6 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
         if (fieldFilled) {
             int success = 0;
             String message = "";
-            int admin=0;
 
             if (json != null) {
                 Toast.makeText(mContext, json.toString(),
@@ -117,15 +116,17 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
                 try {
                     success = json.getJSONObject(0).getInt(TAG_SUCCESS);
                     message = json.getJSONObject(0).getString(TAG_MESSAGE);
-                    admin = json.getJSONObject(0).getInt(ADMIN);
+/*                    message = json.getJSONObject(0).getString();
+                    message = json.getJSONObject(0).getString(TAG_MESSAGE);*/
+                    // HERE WE TAKE THE TOKEN AND THE ADM PARAMETERS.
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
 
             if (success == 1) {
-                Log.e("Success!", message);
-                session.createLoginSession(username, "anroidhive@gmail.com");
+                Log.d("Success!", message);
+                session.createLoginSession(username, "token", "0"); // here username, token and adm status
 
                 // Staring MainActivity
                 Intent i = new Intent(mContext, TeamSelect.class);
@@ -135,7 +136,7 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
             } else {
                 // username / password doesn't match
                 alert.showAlertDialog(mContext, "Login failed..", "Username/Password is incorrect", false);
-                Log.e("Failure", message);
+                Log.d("Failure", message);
             }
         } else {
             // user didn't entered username or password

@@ -2,6 +2,7 @@ package com.example.joshf.conc;
 
 
         import android.app.Activity;
+        import android.content.pm.ActivityInfo;
         import android.os.Bundle;
         import android.support.v4.app.Fragment;
         import android.util.Log;
@@ -26,6 +27,14 @@ public class HIA1GFragment extends Fragment implements AdapterView.OnItemSelecte
     public static HIA1GFragment newInstance() {
         HIA1GFragment fragment = new HIA1GFragment();
         return fragment;
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            Activity a = getActivity();
+            if(a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 
     public HIA1GFragment() {

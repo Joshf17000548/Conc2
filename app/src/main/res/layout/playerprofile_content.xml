@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:layout_height="match_parent">
+    android:id="@+id/playerPhotoFRame">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="260dp"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
         >
 
-        <FrameLayout
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/photo_background"
+            android:id="@+id/photoBackground"
             android:alpha="0.5"
-            android:scaleType="centerCrop"
+            android:scaleType="matrix"
+
             />
 
         <FrameLayout
@@ -59,13 +63,17 @@
             android:hint="@string/enter_name"
             android:transitionName="name"
             android:elevation="2dp"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
             android:inputType="textCapWords"
             android:maxLines="1"
             android:textStyle="bold"
             android:textColor="@color/textPrimary"
             android:textSize="25sp"
             android:layout_above="@+id/playerPhotoHolder"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            tools:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
@@ -74,7 +82,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#EFEBE9"
-        android:paddingBottom="20dp">
+        android:paddingBottom="0dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -82,7 +90,9 @@
             android:background="#FFFFFF"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginBottom="0dp"
             android:layout_marginEnd="10dp"
+            android:id="@+id/statusHolder"
             >
 
             <LinearLayout
@@ -96,7 +106,6 @@
                     android:id="@+id/playerHealth"
                     android:layout_gravity="center"
                     android:src="@drawable/healthy"
-
                     android:transitionName="brain"
                     android:layout_marginEnd="30dp" />
 
@@ -223,71 +232,59 @@
                 </TableRow>
             </TableLayout>
         </FrameLayout>
-
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:id="@+id/linearLayout2"
-            android:paddingTop="10dp"
-
+            android:layout_height="50dp"
+            android:background="#FFFFFF"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="0dp"
+            android:paddingBottom="0dp"
             >
 
-<!--
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" >
-            </Space>
--->
-
-
-            <Button
-                android:background="@drawable/action_button_select"
-                android:textColor="@color/buttontext_selector"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/startTest"
-                android:layout_gravity="center"
-                android:text="@string/start_test"
-                android:layout_weight="1"
-                android:elevation="2dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginStart="10dp"
+                android:layout_gravity="center">
 
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:text="Email: "
+                    android:layout_gravity="center"
+                    android:transitionName="brain"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:layout_weight="0.29" />
 
-                />
-<!--            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" >
-            </Space>-->
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/emailText"
+                    android:hint="Enter email address"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/textPrimary"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:gravity="center"/>
+            </LinearLayout>
 
-            <Button
-                android:background="@drawable/action_button_select"
-                android:textColor="@color/buttontext_selector"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:id="@+id/playerHistory"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:text="@string/player_history"
-                android:elevation="2dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginStart="5dp"
-                />
+        </FrameLayout>
 
-<!--            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" >
-            </Space>-->
-
-        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="10dp"
+            android:text="Start Test"
+            android:layout_marginBottom="0dp"
+            android:id="@+id/startTest"
+            android:background="@drawable/action_button_select"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
     </LinearLayout>
+
+
+
 </LinearLayout>

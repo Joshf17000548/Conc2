@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditText
+        android:id="@+id/teamName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter Team Name"
+        android:textSize="30sp"
+        android:layout_below="@+id/teamImage"
+        android:layout_centerHorizontal="true"
+        android:inputType="textCapWords"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/teamSendRegister"
+        android:text="Done"
+        android:background="@drawable/balance_button_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp" />
+
+    <ImageView
+        android:id="@+id/teamImage"
+        android:layout_width="180dp"
+        android:src="@drawable/unknown_team"
+
+        android:layout_height="180dp"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="118dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

@@ -521,10 +521,10 @@ public class CameraFragment extends Fragment
 
                 Size largest= new Size(1088, 1088);
 
-                Size[] largest1 = map.getOutputSizes(ImageFormat.JPEG);
+/*                Size[] largest1 = map.getOutputSizes(ImageFormat.JPEG);
                 for(Size n : largest1){
                     Log.e("camera", n.toString());
-                }
+                }*/
                 mImageReader = ImageReader.newInstance(largest.getWidth(), largest.getHeight(),
                         ImageFormat.JPEG, /*maxImages*/2);
                 mImageReader.setOnImageAvailableListener(
