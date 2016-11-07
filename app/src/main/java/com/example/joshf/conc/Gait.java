@@ -139,7 +139,8 @@ public class Gait extends Fragment implements SensorEventListener {
                                 Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View rootView = inflater.inflate(R.layout.gait, container, false);
-        Log.e("gait", "onCreate");
+      //
+        //  Log.e("gait", "onCreate");
 
         mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -277,7 +278,7 @@ public class Gait extends Fragment implements SensorEventListener {
                         reset.setVisibility(View.VISIBLE);
                         long timestamp = System.currentTimeMillis();;
                         PreferenceConnector.event_stamp[teststatus-1]=timestamp-starttime;
-                        Log.e("event_stamp",String.valueOf(PreferenceConnector.event_stamp[teststatus-1]));
+                        //Log.e("event_stamp",String.valueOf(PreferenceConnector.event_stamp[teststatus-1]));
                         teststatus = teststatus + 1;
                         upload_results();
                         title_text.setText("Tandem Gait: Done");
@@ -286,12 +287,12 @@ public class Gait extends Fragment implements SensorEventListener {
                         status=3;
 
                     }
-                    Log.e("reset","start");
+                  //  Log.e("reset","start");
                 }
             });
             reset.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Log.e("reset","reset");
+                 //   Log.e("reset","reset");
                     resetButton();
 
                 }
@@ -308,7 +309,7 @@ public class Gait extends Fragment implements SensorEventListener {
         startbutton.setClickable(true);
         status=0;
 
-        Log.e("status",String.valueOf(teststatus));
+      //  Log.e("status",String.valueOf(teststatus));
 
         switch (teststatus){
 
@@ -338,7 +339,7 @@ public class Gait extends Fragment implements SensorEventListener {
                 break;
         }
 
-        Log.e("status",String.valueOf(teststatus));
+      //  Log.e("status",String.valueOf(teststatus));
 
 
 
@@ -395,7 +396,7 @@ public class Gait extends Fragment implements SensorEventListener {
                 initiation = false;
                 set_button_colors();
             } else if ((status == 3) && (timervalue <= 0)) {
-                Log.e("3","3");
+             //   Log.e("3","3");
                 initiation = false;
                 teststatus = teststatus + 1;
                 set_values();
@@ -404,7 +405,7 @@ public class Gait extends Fragment implements SensorEventListener {
                 set_button_colors();
 
                 PreferenceConnector.event_stamp[teststatus-1]=duration_assessment-timervalue;
-                Log.e("event_stamp",String.valueOf(PreferenceConnector.event_stamp[teststatus-1]));
+              //  Log.e("event_stamp",String.valueOf(PreferenceConnector.event_stamp[teststatus-1]));
 
 
             }
@@ -526,7 +527,7 @@ public class Gait extends Fragment implements SensorEventListener {
             PreferenceConnector.rot_values1[PreferenceConnector.rot_cnt] = matrixValues[0];
             PreferenceConnector.rot_values1[PreferenceConnector.rot_cnt] = matrixValues[1];
             PreferenceConnector.rot_values2[PreferenceConnector.rot_cnt] = matrixValues[2];
-            Log.e("time_stamp",String.valueOf(PreferenceConnector.time_stamp[PreferenceConnector.acc_cnt]));
+            //Log.e("time_stamp",String.valueOf(PreferenceConnector.time_stamp[PreferenceConnector.acc_cnt]));
 
         }
 

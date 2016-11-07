@@ -33,7 +33,7 @@ public class JSONParser {
     String answer="";
     public JSONArray makeHttpRequest(String url, String method,
                                      HashMap<String, String> params) {
-        Log.e("Parser","Parse start ");
+     //   Log.e("Parser","Parse start ");
         sbParams = new StringBuilder();
 
         int i = 0;
@@ -42,7 +42,8 @@ public class JSONParser {
                 if (i != 0){
                     sbParams.append("&");
                 }
-
+                //Log.e("Parser", params.get(key));
+                Log.e("Parser", key + " " +params.get(key));
                 sbParams.append(key).append("=")
                         .append(URLEncoder.encode(params.get(key), charset));
 
@@ -104,7 +105,6 @@ public class JSONParser {
                 conn.setConnectTimeout(15000);
 
                 conn.connect();
-                Log.e("GET", "2");
 
             } catch (IOException e) {
                 e.printStackTrace();
