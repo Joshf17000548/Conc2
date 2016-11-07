@@ -59,7 +59,6 @@ public class PlayerAdapter extends ArrayAdapter<Player> implements Filterable {
         this.playerList = players;
         this.origPlayerList = players;
 
-        Log.e("adapter", "start");
 
         File cacheDir = StorageUtils.getOwnCacheDirectory(context, "http://104.198.254.110/ConcApp/Player_Image/");
         try {

@@ -15,8 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,18 +29,32 @@ import java.util.List;
  */
 public class TestMenuActivity extends AppCompatActivity {
     ArrayAdapter<String> testmenuadapter;
+    Player playerInFocus;
+    SessionManager session;
+    int team_code;
+
+    Button hia1, hia2, hia3, baseline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.slide_out,R.anim.slide_in);
         setContentView(R.layout.test_menu_activity);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setLogo(R.drawable.logo);
         setSupportActionBar(toolbar);
 
+        session = new SessionManager(this);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String[] testmenuArray = getResources().getStringArray(R.array.testmenu_array);
+        hia1 = (Button) findViewById(R.id.buttonHIA1);
+        hia2 = (Button) findViewById(R.id.buttonHIA2);
+        hia3 = (Button) findViewById(R.id.buttonHIA3);
+        baseline = (Button) findViewById(R.id.buttonBaseline);
+
+/*        String[] testmenuArray = getResources().getStringArray(R.array.testmenu_array);
         List<String> testMenu = new ArrayList<String>(Arrays.asList(testmenuArray));
 
         testmenuadapter = new ArrayAdapter<String>(
@@ -45,30 +62,60 @@ public class TestMenuActivity extends AppCompatActivity {
                 R.id.list_item_menu_textview,testMenu);
 
         ListView l_id= (ListView) findViewById(R.id.listview_testmenu);
-        l_id.setAdapter(testmenuadapter);
+        l_id.setAdapter(testmenuadapter);*/
 
-        l_id.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        hia1.setOnClickListener(new View.OnClickListener(){
         @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int test_menu_sel, long l){
+        public void onClick(View view){
 
-            switch(test_menu_sel){
-                case 0:
-                    Intent intent = new Intent(getApplicationContext(),HIA1AActivity.class);
-                    startActivity(intent);
-                    break;
-                case 1:
-                    Intent intent1 = new Intent(getApplicationContext(),HIA2AActivity.class);
-                    startActivity(intent1);
-                    break;
-                case 2:
-                    Intent intent2 = new Intent(getApplicationContext(),HIA3AActivity.class);
-                    startActivity(intent2);
-                    break;
-
+            PreferenceConnector.clear_all_values();
+            Intent intent = new Intent(getApplicationContext(),HIA1AActivity.class);
+            startActivity(intent);
             }
 
-        }
-    });
+        });
+
+        hia2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                PreferenceConnector.clear_all_values();
+                Intent intent1 = new Intent(getApplicationContext(),HIA2AActivity.class);
+                intent1.putExtra("baseline/hia2", false);
+                startActivity(intent1);
+            }
+
+        });
+
+        hia3.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                PreferenceConnector.clear_all_values();
+                Intent intent2 = new Intent(getApplicationContext(),HIA3AActivity.class);
+                startActivity(intent2);
+            }
+        });
+
+        baseline.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                PreferenceConnector.clear_all_values();
+                Intent intent2 = new Intent(getApplicationContext(),HIA2AActivity.class);
+                intent2.putExtra("baseline/hia2", true);
+                startActivity(intent2);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        session.checkLogin();
+        Bundle extras = getIntent().getExtras();
+        playerInFocus =(Player) extras.getSerializable("player_info");
+        team_code = extras.getInt("team_code");
 
 
     }
@@ -81,58 +128,25 @@ public class TestMenuActivity extends AppCompatActivity {
         return true;
     }
 
-/*    public static class TestMenuFragment extends Fragment {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_edit:
+                return true;
+            case R.id.menuId_logout:
+                session.logoutUser();
+                return true;
+            case android.R.id.home:
 
+                Intent intent = new Intent(TestMenuActivity.this, PlayerProfile.class);
+                intent.putExtra("player_select","existing");
+                intent.putExtra("player_info",playerInFocus);
+                intent.putExtra("team", team_code);
+                startActivity(intent);
 
-        int testMenuButton=0;
-
-        public static TestMenuFragment newInstance() {
-            return new TestMenuFragment();
         }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-
-            View rootView = inflater.inflate(R.layout.fragment_testmenu, container, false);
-            String[] testmenuArray = getResources().getStringArray(R.array.testmenu_array);
-
-
-            testmenuadapter = new ArrayAdapter<String>(
-                    getActivity(),R.layout.test_select_list_item,
-                    R.id.list_item_menu_textview,testMenu);
-
-            // get reference to the listview id
-            ListView l_id= (ListView)rootView.findViewById(R.id.listview_testmenu);
-            //Binding the adapter to the list view in the fragment xml file
-            l_id.setAdapter(testmenuadapter);
-
-            // The Test Menu called via intent.
-            // This displays the menu item selected on the preceding activity
-            // in the future can use this to maybe set the heading
-            //Intent intent = getActivity().getIntent();
-            *//*if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
-                String forecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
-                ((TextView) rootView.findViewById(R.id.testmenu_text))
-                        .setText(forecastStr);
-            }*//*
-            final String tag = "MENU_SELECTED";
-*//*            l_id.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
-                    String test_menu_sel = String.valueOf(i);
-                    Log.v(tag,"On Click\nValue of i: " + test_menu_sel );
-                    //Toast.makeText(getActivity(),pushed_menu,Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), AdministratorActivity.class)
-                            .putExtra(Intent.EXTRA_TEXT, test_menu_sel);
-                    //testMenuButton=i;
-                    startActivity(intent);
-
-                }
-            });*//*
-
-            return rootView;
-        }
-    }*/
-
+        return super.onOptionsItemSelected(item);
+    }
 }

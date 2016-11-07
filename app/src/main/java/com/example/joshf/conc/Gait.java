@@ -4,15 +4,24 @@ package com.example.joshf.conc;
  * Created by joshf on 2016/10/28.
  */
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,14 +30,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.Map;
+
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 
 public class Gait extends Fragment implements SensorEventListener {
 
+    ToneGenerator toneGen;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private Sensor mMagneticField;
@@ -53,18 +67,17 @@ public class Gait extends Fragment implements SensorEventListener {
 
     long timeprev, timenow, timervalue;
 
-    long duration_initiation = 5000;
+    long duration_initiation = 2000;
     long duration_setup = 5000;
-    long duration_assessment = 15000;
+    long duration_assessment = 5000;
 
-    TextView taz,tpi,tro,tmvd,tmlrms,taprms,tpd, ttimervalue,tstatus;
+    TextView /*taz,tpi,tro,tmvd,tmlrms,taprms,tpd,*/ ttimervalue;//,tstatus;
 
 
-    public Button startbutton;
-    Button bt1, bt2, bt3, bt4;
+    public View startbutton;
+    Button bt1, bt2, bt3, reset;
 
-    EditText edit_time_text;
-    TextView evaluate_status_text;
+    //EditText edit_time_text;
 
     TextView title_text;
 
@@ -72,10 +85,11 @@ public class Gait extends Fragment implements SensorEventListener {
 
     boolean timerstarted;
     boolean initiation;
+    boolean teststart;
 
     float assessmenttime = 0;
     int status = 0;
-    int teststatus = 0;
+    int teststatus = 1;
 
 //    PowerManager.WakeLock mWakeLock;
 
@@ -85,16 +99,52 @@ public class Gait extends Fragment implements SensorEventListener {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser) {
+            Activity a = getActivity();
+            if(a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE ) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Mount phone on the patients chest and press ok only when finised")
+                        .setTitle(R.string.dialog_title);
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        if (!PreferenceConnector.gait_test_completed) {
+                            startbutton.setClickable(true);
+                            add();
+                        }else{
+                            reset.setClickable(true);
+                        }
+
+                        dialog.dismiss();
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+
+        }else{
+            remove();
+        }
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                 Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View rootView = inflater.inflate(R.layout.gait, container, false);
+        Log.e("gait", "onCreate");
 
-
-
-        //      PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        //    mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, "My Tag");
-        //  mWakeLock.acquire();
+        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mMagneticField = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        mRotationVector = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
 
         timerstarted = false;
         initiation = false;
@@ -110,349 +160,279 @@ public class Gait extends Fragment implements SensorEventListener {
         matrixI = new float[9];
         matrixValues = new float[3];
 
-        PreferenceConnector.acc_values0 = new double[9999];;
+        PreferenceConnector.time_stamp = new double[9999];
+        PreferenceConnector.event_stamp= new double[5];
+        PreferenceConnector.acc_values0 = new double[9999];
         PreferenceConnector.acc_values1 = new double[9999];
-        PreferenceConnector.acc_values2 = new double[9999];;
+        PreferenceConnector.acc_values2 = new double[9999];
         PreferenceConnector.acc_cnt = 0;
-        PreferenceConnector.rot_values0 = new double[9999];;
-        PreferenceConnector.rot_values1 = new double[9999];;
-        PreferenceConnector.rot_values2 = new double[9999];;
+        PreferenceConnector.rot_values0 = new double[9999];
+        PreferenceConnector.rot_values1 = new double[9999];
+        PreferenceConnector.rot_values2 = new double[9999];
         PreferenceConnector.rot_cnt =0;
 
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mMagneticField = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        mRotationVector = mSensorManager.getDefaultSensor (Sensor.TYPE_ROTATION_VECTOR);
-        mSensorManager.registerListener(this, mAccelerometer , SensorManager.SENSOR_DELAY_FASTEST);
+        if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE ) {
+
+            ttimervalue = (TextView)rootView.findViewById(R.id.texttimervalue);
+            title_text = (TextView)rootView.findViewById(R.id.title_text_tandem) ;
+
+            startbutton = rootView.findViewById(R.id.gaitFrame);
+            bt1 = (Button)rootView.findViewById(R.id.button_test1);
+            bt2 = (Button)rootView.findViewById(R.id.button_test2);
+            bt3 = (Button)rootView.findViewById(R.id.button_test3);
+            reset = (Button) rootView.findViewById(R.id.reset);
+
+            reset.setClickable(true);
+
+            final long timestamp = System.currentTimeMillis();
+
+            azimuth = 0;
+            pitch = 0;
+            roll = 0;
+
+            azimuth_init = 0;
+            pitch_init = 0;
+            roll_init = 0;
+
+            accx = 0;
+            accy = 0;
+            accz = 0;
+
+            ML = 0;
+            AP = 0;
+            MLprev = 0;
+            APprev = 0;
+            N = 0;
+            sumML = 0;
+            sumAP = 0;
+            sumMVD = 0;
+
+            MVD = 0;
+            MLRMS = 0;
+            APRMS = 0;
+            PD = 0;
+
+            timeprev = 0;
+            timenow = 0;
+            timervalue = 0;
+
+            timerstarted = false;
+
+            status = 0;
+            teststatus = 1;
 
 
+            set_values();
+
+            startbutton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    if(status==0) {
+                        toneGen.startTone(ToneGenerator.TONE_PROP_BEEP,500);
+                        starttime = System.currentTimeMillis();
+/*
+                if (status != 2)
+                    startbutton.setClickable(false);*/
+                        // starttime = 0;
 
 
+                        azimuth = 0;
+                        pitch = 0;
+                        roll = 0;
 
-        taz= (TextView) rootView.findViewById(R.id.textazimuthvalue);
-        tpi= (TextView)rootView.findViewById(R.id.textpitchvalue);
-        tro= (TextView)rootView.findViewById(R.id.textrollvalue);
+                        azimuth_init = 0;
+                        pitch_init = 0;
+                        roll_init = 0;
 
-        ttimervalue = (TextView)rootView.findViewById(R.id.texttimervalue);
+                        accx = 0;
+                        accy = 0;
+                        accz = 0;
 
-        tmvd= (TextView)rootView.findViewById(R.id.textMVDvalue);
-        tmlrms= (TextView)rootView.findViewById(R.id.textMLRMSvalue);
-        taprms= (TextView)rootView.findViewById(R.id.textAPRMSvalue);
-        tpd= (TextView)rootView.findViewById(R.id.textPDvalue);
-        tstatus = (TextView)rootView.findViewById(R.id.textstatusvalue);
+                        ML = 0;
+                        AP = 0;
+                        MLprev = 0;
+                        APprev = 0;
+                        N = 0;
+                        sumML = 0;
+                        sumAP = 0;
+                        sumMVD = 0;
 
+                        MVD = 0;
+                        MLRMS = 0;
+                        APRMS = 0;
+                        PD = 0;
 
-        startbutton = (Button)rootView.findViewById(R.id.button);
-
-
-        bt1 = (Button)rootView.findViewById(R.id.button_test1);
-        bt2 = (Button)rootView.findViewById(R.id.button_test2);
-        bt3 = (Button)rootView.findViewById(R.id.button_test3);
-        bt4 = (Button)rootView.findViewById(R.id.button_test4);
-
-
-
-        long timestamp = System.currentTimeMillis();
-
-
-        //tcX= (TextView)findViewById(R.id.x_acis);
-        //tcY= (TextView)findViewById(R.id.y_acis);
-        //tcZ= (TextView)findViewById(R.id.z_acis);
-
-
-        azimuth = 0;
-        pitch = 0;
-        roll = 0;
-
-        azimuth_init = 0;
-        pitch_init = 0;
-        roll_init = 0;
-
-        accx = 0;
-        accy = 0;
-        accz = 0;
-
-        ML = 0;
-        AP = 0;
-        MLprev = 0;
-        APprev = 0;
-        N = 0;
-        sumML = 0;
-        sumAP = 0;
-        sumMVD = 0;
-
-        MVD = 0;
-        MLRMS = 0;
-        APRMS = 0;
-        PD = 0;
-
-        timeprev = 0;
-        timenow = 0;
-        timervalue = 0;
-
-        timerstarted = false;
-
-        status = 0;
-        teststatus = 1;
-        set_button_colors();
-
-
-        edit_time_text = (EditText) rootView.findViewById(R.id.edit_time);
-        evaluate_status_text = (TextView)rootView.findViewById(R.id.text_evaluate_status);
-        title_text = (TextView)rootView.findViewById(R.id.title_text_tandem);
-        int at = PreferenceConnector.assessment_type;
-        switch(at){
-            case 11:title_text.setText("HIA I: Tandem Gait"); break;
-            case 21:title_text.setText("HIA 2: Tandem Gait"); break;
-            case 31:title_text.setText("HIA 3: Tandem Gait"); break;
-            default: title_text.setText("Tandem Gait"); break;
-        }
-
-        set_values();
-
-        startbutton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                starttime = System.currentTimeMillis();
-
-                if (status != 4)
-                    startbutton.setClickable(false);
-                // starttime = 0;
-
-
-                azimuth = 0;
-                pitch = 0;
-                roll = 0;
-
-                azimuth_init = 0;
-                pitch_init = 0;
-                roll_init = 0;
-
-
-                accx = 0;
-                accy = 0;
-                accz = 0;
-
-                ML = 0;
-                AP = 0;
-                MLprev = 0;
-                APprev = 0;
-                N = 0;
-                sumML = 0;
-                sumAP = 0;
-                sumMVD = 0;
-
-                MVD = 0;
-                MLRMS = 0;
-                APRMS = 0;
-                PD = 0;
-
-                timeprev = 0;
-                timenow = 0;
-                timervalue = 0;
+                        timeprev = 0;
+                        timenow = 0;
+                        timervalue = 0;
 
 //        status = 1;
 
-                initiation = true;
-                timerstarted = false;
-                // Do something in response to button click
+                        initiation = true;
+                        timerstarted = false;
+                        // Do something in response to button click
+                    }
+                    if ((status==2) && (timervalue>0)){
+                        toneGen.startTone(ToneGenerator.TONE_PROP_ACK,500);
+                        reset.setVisibility(View.VISIBLE);
+                        long timestamp = System.currentTimeMillis();;
+                        PreferenceConnector.event_stamp[teststatus-1]=timestamp-starttime;
+                        Log.e("event_stamp",String.valueOf(PreferenceConnector.event_stamp[teststatus-1]));
+                        teststatus = teststatus + 1;
+                        upload_results();
+                        title_text.setText("Tandem Gait: Done");
+                        finish();
+                        initiation =false;
+                        status=3;
 
-            }
-        });
+                    }
+                    Log.e("reset","start");
+                }
+            });
+            reset.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Log.e("reset","reset");
+                    resetButton();
+
+                }
+            });
+
+            set_button_colors();
+        }
 
         return rootView;
     }
 
+    public void resetButton(){
+
+        startbutton.setClickable(true);
+        status=0;
+
+        Log.e("status",String.valueOf(teststatus));
+
+        switch (teststatus){
+
+            case 2:
+                PreferenceConnector.tandem_t1=0;
+                PreferenceConnector.tandem_t1_APRMS=0;
+                PreferenceConnector.tandem_t1_MLRMS=0;
+                teststatus = 1;
+                break;
+            case 3:
+                PreferenceConnector.tandem_t2=0;
+                PreferenceConnector.tandem_t2_APRMS=0;
+                PreferenceConnector.tandem_t2_MLRMS=0;
+                teststatus = 2;
+                break;
+            case 4:
+                PreferenceConnector.tandem_t3=0;
+                PreferenceConnector.tandem_t3_APRMS=0;
+                PreferenceConnector.tandem_t3_MLRMS=0;
+                teststatus = 3;
+                break;
+            case 5:
+                PreferenceConnector.tandem_t4=0;
+                PreferenceConnector.tandem_t4_APRMS=0;
+                PreferenceConnector.tandem_t4_MLRMS=0;
+                teststatus = 4;
+                break;
+        }
+
+        Log.e("status",String.valueOf(teststatus));
 
 
-    /** Called when the user touches the button */
 
-   /* public void start_clicked(View view) {
+        if(PreferenceConnector.gait_test_completed)
+            add();
+        title_text.setText("Tandem Gait: Attempt " + String.valueOf(teststatus) + "/4");
+        PreferenceConnector.gait_test_completed=false;
+    }
 
-        starttime = System.currentTimeMillis();
-
-        if (status != 4)
-            startbutton.setClickable(false);
-        // starttime = 0;
-
-
-        azimuth = 0;
-        pitch = 0;
-        roll = 0;
-
-        azimuth_init = 0;
-        pitch_init = 0;
-        roll_init = 0;
-
-
-        accx = 0;
-        accy = 0;
-        accz = 0;
-
-        ML = 0;
-        AP = 0;
-        MLprev = 0;
-        APprev = 0;
-        N = 0;
-        sumML = 0;
-        sumAP = 0;
-        sumMVD = 0;
-
-        MVD = 0;
-        MLRMS = 0;
-        APRMS = 0;
-        PD = 0;
-
-        timeprev = 0;
-        timenow = 0;
-        timervalue = 0;
-
-//        status = 1;
-
-        initiation = true;
-        timerstarted = false;
-        // Do something in response to button click
-    }*/
 
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        long timestamp = System.currentTimeMillis();
+        long timestamp = System.currentTimeMillis();;
 
-
-        if (status==0) {
-            timervalue = 0;
-            PreferenceConnector.acc_cnt = 0;
-            PreferenceConnector.rot_cnt = 0;
-        }
-        else if(status==1)
-            timervalue = (duration_setup - (timestamp - starttime));
-        else if (status==2)
-            timervalue = (duration_initiation - (timestamp - starttime));
-        else if (status==3)        {
-            timervalue = (duration_assessment - (timestamp - starttime));
-            PreferenceConnector.acc_cnt = PreferenceConnector.acc_cnt + 1;
-            PreferenceConnector.rot_cnt = PreferenceConnector.rot_cnt + 1;
-        }
-        else if (status==4){
-            timervalue = 0;
-            PreferenceConnector.max_cnt = PreferenceConnector.acc_cnt;
-
-            // PreferenceConnector.acc_cnt = 0;
-            // PreferenceConnector.rot_cnt = 0;
-        }
-        else
-            timervalue = 0;
-
-
-        if ((status == 0) && (initiation == true))
-            status = 1;
-        else  if ((status == 1) && (timervalue <=0))
-        {
-            status = 2;
-            starttime = timestamp;
-
-        }
-
-        else if ((status == 2) && (timervalue <=0))
-        {
-            status = 3;
-            starttime = timestamp;
-        }
-        else if ((status == 3) && (timervalue <=0))
-        {
-            status = 4;
-            starttime = timestamp;
-            initiation = false;
-        }
-        else if ((status==4) && (initiation==true))
-        {
-            status = 0;
-            initiation = false;
-            //status = 3;
-            //starttime = timestamp;
-        }
-
-
-/*
-        if ((status == 3) && ((timestamp - starttime - duration_asessment) >=0))
-        {
-            status = 3;
-            starttime = timestamp;
-        }
-
-*/
-        /*
-
-        if ((initiation==true) && ((timestamp - initstarttime) > duration_initiation))
-        {
-            starttime = timestamp;
-            timerstarted = true;
-            initiation = false;
-
-        }
-*/
-
-/*
-            if ((timerstarted==true) && ((timestamp - starttime) > duration_assessment)) {
-                initiation = false;
-                timerstarted = false;
-
-                timervalue = timestamp - starttime;
-                endtime = timestamp;
-                MVD = sumMVD;///N;
-                MLRMS = Math.pow((sumML / N), 0.5);
-                APRMS = Math.pow((sumAP / N), 0.5);
-                PD = 0;
-            }
-  */
-
-        // set_values();
-
-
-        /*
-
-        if (timerstarted == true)
-        {
-            timervalue = timestamp - starttime;
-        }
-
-
-
-        if (initiation == true)
-        {
-            //long ttt = 5000;
-            timervalue = duration_initiation - (timestamp - initstarttime);
-
-        }
-*/
-
-        switch (event.sensor.getType()) {
-            case Sensor.TYPE_ACCELEROMETER:
-                for (int i = 0; i < 3; i++) {
-                    valuesAccelerometer[i] = event.values[i];
-
-                    // alpha is calculated as t / (t + dT)
-                    // with t, the low-pass filter's time-constant
-                    // and dT, the event delivery rate
-                    gravity[i] = alpha * gravity[i] + (1 - alpha) * event.values[i];
-                    linear_acceleration[i] = event.values[i] - gravity[i];
+            if (status == 0) {
+                if(teststatus!=1) {
+                    reset.setClickable(true);
+                    reset.setVisibility(View.VISIBLE);
                 }
-                break;
-            //	case Sensor.TYPE_MAGNETIC_FIELD:
-            //		for(int i =0; i < 3; i++)
-            //		{    valuesMagneticField[i] = event.values[i];   }
-            //		break;
+                timervalue = 0;
+                //PreferenceConnector.acc_cnt = 0;
+               // PreferenceConnector.rot_cnt = 0;
+            } else if (status == 1) {
+                timervalue = (duration_initiation - (timestamp - starttime));
+                reset.setClickable(false);
+                reset.setVisibility(View.INVISIBLE);
+            } else if (status == 2) {
+                timervalue = (duration_assessment - (timestamp - starttime));
+                PreferenceConnector.acc_cnt = PreferenceConnector.acc_cnt + 1;
+                PreferenceConnector.rot_cnt = PreferenceConnector.rot_cnt + 1;
+            } else if (status == 3) {
+                //timervalue = 0;
+                PreferenceConnector.max_cnt = PreferenceConnector.acc_cnt;
+
+                // PreferenceConnector.acc_cnt = 0;
+                // PreferenceConnector.rot_cnt = 0;
+            } else
+                timervalue = 0;
 
 
-            // we received a sensor event. it is a good practice to check
-            // that we received the proper event
+            if ((status == 0) && (initiation == true)) {
+                status = 1;
+                set_button_colors();
+            } else if ((status == 1) && (timervalue <= 0)) {
+                toneGen.startTone(ToneGenerator.TONE_PROP_BEEP2, 500);
+                status = 2;
+                starttime = timestamp;
+                set_button_colors();
+            } else if ((status == 2) && (timervalue <= 0)) {
+                toneGen.startTone(ToneGenerator.TONE_PROP_NACK, 300);
+                status = 3;
+                starttime = timestamp;
+                initiation = false;
+                set_button_colors();
+            } else if ((status == 3) && (timervalue <= 0)) {
+                Log.e("3","3");
+                initiation = false;
+                teststatus = teststatus + 1;
+                set_values();
+                upload_results();
+                status = 0;
+                set_button_colors();
 
-            case Sensor.TYPE_ROTATION_VECTOR: {
-                valuesRotationVector = event.values;
+                PreferenceConnector.event_stamp[teststatus-1]=duration_assessment-timervalue;
+                Log.e("event_stamp",String.valueOf(PreferenceConnector.event_stamp[teststatus-1]));
+
+
             }
-            //SensorManager.getRotationMatrixFromVector(mRotationMatrix , event.values);
+
+            switch (event.sensor.getType()) {
+                case Sensor.TYPE_ACCELEROMETER:
+                    for (int i = 0; i < 3; i++) {
+                        valuesAccelerometer[i] = event.values[i];
+
+                        // alpha is calculated as t / (t + dT)
+                        // with t, the low-pass filter's time-constant
+                        // and dT, the event delivery rate
+                        gravity[i] = alpha * gravity[i] + (1 - alpha) * event.values[i];
+                        linear_acceleration[i] = event.values[i] - gravity[i];
+                    }
+                    break;
+                //	case Sensor.TYPE_MAGNETIC_FIELD:
+                //		for(int i =0; i < 3; i++)
+                //		{    valuesMagneticField[i] = event.values[i];   }
+                //		break;
+
+
+                // we received a sensor event. it is a good practice to check
+                // that we received the proper event
+                case Sensor.TYPE_ROTATION_VECTOR: {
+                    valuesRotationVector = event.values;
+                }
+                //SensorManager.getRotationMatrixFromVector(mRotationMatrix , event.values);
 
         }
 
@@ -465,18 +445,21 @@ public class Gait extends Fragment implements SensorEventListener {
             SensorManager.getOrientation(mRotationMatrix, matrixValues);
             azimuth = Math.toDegrees(matrixValues[0]);
             azimuth = Math.round(azimuth * 1000.0) / 1000.000;
+            //Log.e("azimuth", String.valueOf(azimuth));
 
             pitch = Math.toDegrees(matrixValues[1]);
             pitch = pitch + 45;
             pitch = Math.round(pitch * 1000.0) / 1000.0;
+            //Log.e("pitch", String.valueOf(pitch));
 
             roll = Math.toDegrees(matrixValues[2]);
             roll = roll - 45;
             roll = Math.round(roll * 1000.0) / 1000.0;
+          //  Log.e("roll", String.valueOf(roll));
 
 
 
-            if ((status == 0) || (status == 1) || (status == 2))
+            if ((status == 0) || (status == 1) )
             {
                 azimuth_init = azimuth;
                 pitch_init = pitch;
@@ -506,7 +489,7 @@ public class Gait extends Fragment implements SensorEventListener {
             AP = roll;
             timenow = timestamp;
 
-            if (status == 3)
+            if (status == 2)
             {
 
                 sumMVD = sumMVD + (Math.pow((Math.pow((ML - MLprev),2) + Math.pow((AP - APprev),2)),0.5))/(timenow - timeprev);
@@ -514,12 +497,9 @@ public class Gait extends Fragment implements SensorEventListener {
                 sumML = sumML + (ML*ML);
                 sumAP = sumAP + (AP*AP);
                 N = N + 1;
-
-
-
             }
 
-            if ((status == 3) || (status==4)) {
+            if ((status == 2) || (status==3)) {
                 MVD = sumMVD;///N;
                 MLRMS = Math.pow((sumML / N), 0.5);
                 APRMS = Math.pow((sumAP / N), 0.5);
@@ -534,223 +514,76 @@ public class Gait extends Fragment implements SensorEventListener {
                 PD = 0;
             }
 
-            // if (status == 0)
-            //   timervalue = 0;
-
-            set_values();
+/*            if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE )
+                set_values();*/
         }
 
-        if (status==3) {
+        if (status==2) {
+            PreferenceConnector.time_stamp[PreferenceConnector.acc_cnt] = timestamp-starttime;
             PreferenceConnector.acc_values0[PreferenceConnector.acc_cnt] = valuesAccelerometer[0];
             PreferenceConnector.acc_values1[PreferenceConnector.acc_cnt] = valuesAccelerometer[1];
             PreferenceConnector.acc_values2[PreferenceConnector.acc_cnt] = valuesAccelerometer[2];
-
             PreferenceConnector.rot_values1[PreferenceConnector.rot_cnt] = matrixValues[0];
             PreferenceConnector.rot_values1[PreferenceConnector.rot_cnt] = matrixValues[1];
             PreferenceConnector.rot_values2[PreferenceConnector.rot_cnt] = matrixValues[2];
+            Log.e("time_stamp",String.valueOf(PreferenceConnector.time_stamp[PreferenceConnector.acc_cnt]));
+
         }
+
+
+        ttimervalue.setText(Integer.toString(Math.round(timervalue)));
 
     }
 
-
-
-
-    void set_values (){
-
-        taz.setText(Double.toString((double)Math.round(azimuth * 100) / 100));
-        tpi.setText(Double.toString((double)Math.round(pitch * 100) / 100));
-        tro.setText(Double.toString((double)Math.round(roll * 100) / 100));
-
-        tmvd.setText(Double.toString(MVD));
-        tmlrms.setText(Double.toString((double)Math.round(MLRMS * 100) / 100));
-        taprms.setText(Double.toString((double)Math.round(APRMS * 100) / 100));
-        tpd.setText(Double.toString(PD));
-
-
-        ttimervalue.setText(Double.toString(Math.round(timervalue)));
-
-
-        if (status == 0)
-        {
-            tstatus.setText("Idle");
-            startbutton.setText("START ASSESSMENT");
-        }
-        else if (status==1) {
-
-            tstatus.setText("Setup time");
-            startbutton.setText("WAIT");
+    void set_values () {
+/*        Log.e("set_values",String.valueOf(teststatus));
+        Log.e("set_values",String.valueOf(status));
+        Log.e("set_values",String.valueOf(timervalue));*/
+        if ((status == 3) && (timervalue <= 0)) {
+            if (teststatus < 5) {
+                Log.e("set_values","title");
+                title_text.setText("Tandem Gait: Attempt " + String.valueOf(teststatus) + "/4");
+            } else {
+                title_text.setText("Tandem Gait: Done");
+                startbutton.setClickable(false);
+                finish();
+            }
 
         }
-        else if (status==2) {
-            tstatus.setText("Initiating");
-            startbutton.setText("WAIT");
-        }
-
-        else if (status == 3) {
-            tstatus.setText("Assessment in Progress");
-            startbutton.setText("WAIT");
-        }
-        else  if (status==4)
-        {
-            tstatus.setText("Ässessment Completed");
-            startbutton.setClickable(true);
-            startbutton.setText("CLEAR ALL");
-        }
-        else
-            tstatus.setText("Idle");
-
-
-
-/*
-            if (initiation == true)
-                tstatus.setText("Initiating");
-            else if (timerstarted == true)
-                tstatus.setText("Assessment in Progress");
-            else
-                tstatus.setText("Idle");
-  */
-
-            /*
-            tvX.setText(Double.toString(azimuth));
-            tvY.setText(Double.toString(pitch));
-            tvZ.setText(Double.toString(roll));
-            tcX.setText(Double.toString(accx));
-            tcY.setText(Double.toString(accy));
-            tcZ.setText(Double.toString(accz));
-  */
-
     }
 
-    public void evaluate_clicked(View v){
+    public void upload_results(){
 
         //////////////////////////////////////////////////////////////////////////////
         //ALL THE PREFERENCE CONNECTOR VALUES?VARIABLES SHOULD BE SAVED
         ///////////////////////////////////////////////////////////////////////////
-
-        String timetext = edit_time_text.getText().toString();
-        if (timetext.matches("")) {
-            Toast.makeText(getActivity(), "You did not enter a value", Toast.LENGTH_SHORT).show();
-
-        }
-
-        else {
-            assessmenttime = Float.valueOf(timetext);
-
-            int at = PreferenceConnector.assessment_type;
-
-            if (at == 11) {
-                switch (teststatus) {
-                    case 1:
-                        PreferenceConnector.hia1_tandem_t1 = assessmenttime;
-                        PreferenceConnector.hia1_tandem_t1_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia1_tandem_t1_APRMS = (float) APRMS;
-                        break;
-                    case 2:
-                        PreferenceConnector.hia1_tandem_t2 = assessmenttime;
-                        PreferenceConnector.hia1_tandem_t2_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia1_tandem_t2_APRMS = (float) APRMS;
-                        break;
-                    case 3:
-                        PreferenceConnector.hia1_tandem_t3 = assessmenttime;
-                        PreferenceConnector.hia1_tandem_t3_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia1_tandem_t3_APRMS = (float) APRMS;
-                        break;
-                    case 4:
-                        PreferenceConnector.hia1_tandem_t4 = assessmenttime;
-                        PreferenceConnector.hia1_tandem_t4_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia1_tandem_t4_APRMS = (float) APRMS;
-                        break;
-                    default:
-                        PreferenceConnector.hia1_tandem_t1 = 0;
-                }
-
-                if (assessmenttime < 14) {
-                    evaluate_status_text.setText("Status: Normal ( Test Passed )");
-                    PreferenceConnector.hia1_tandem_status = 1;
-                } else {
-                    evaluate_status_text.setText("Status: Abnormal ( Test Failed )");
-                    PreferenceConnector.hia1_tandem_status = 0;
-                }
+        PreferenceConnector.test_status = teststatus;
+            switch (teststatus) {
+                case 2:
+                    PreferenceConnector.tandem_t1 = duration_assessment-timervalue;
+                    PreferenceConnector.tandem_t1_MLRMS = (float) MLRMS;
+                    PreferenceConnector.tandem_t1_APRMS = (float) APRMS;
+                    break;
+                case 3:
+                    PreferenceConnector.tandem_t2 = duration_assessment-timervalue;
+                    PreferenceConnector.tandem_t2_MLRMS = (float) MLRMS;
+                    PreferenceConnector.tandem_t2_APRMS = (float) APRMS;
+                    break;
+                case 4:
+                    PreferenceConnector.tandem_t3 = duration_assessment-timervalue;
+                    PreferenceConnector.tandem_t3_MLRMS = (float) MLRMS;
+                    PreferenceConnector.tandem_t3_APRMS = (float) APRMS;
+                    break;
+                case 5:
+                    PreferenceConnector.tandem_t4 = duration_assessment-timervalue;
+                    PreferenceConnector.tandem_t4_MLRMS = (float) MLRMS;
+                    PreferenceConnector.tandem_t4_APRMS = (float) APRMS;
+                    break;
+                default:
+                    PreferenceConnector.tandem_t1 = 0;
             }
 
-
-
-            if (at == 21) {
-                switch (teststatus) {
-                    case 1:
-                        PreferenceConnector.hia2_tandem_t1 = assessmenttime;
-                        PreferenceConnector.hia2_tandem_t1_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia2_tandem_t1_APRMS = (float) APRMS;
-                        break;
-                    case 2:
-                        PreferenceConnector.hia2_tandem_t2 = assessmenttime;
-                        PreferenceConnector.hia2_tandem_t2_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia2_tandem_t2_APRMS = (float) APRMS;
-                        break;
-                    case 3:
-                        PreferenceConnector.hia2_tandem_t3 = assessmenttime;
-                        PreferenceConnector.hia2_tandem_t3_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia2_tandem_t3_APRMS = (float) APRMS;
-                        break;
-                    case 4:
-                        PreferenceConnector.hia2_tandem_t4 = assessmenttime;
-                        PreferenceConnector.hia2_tandem_t4_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia2_tandem_t4_APRMS = (float) APRMS;
-                        break;
-                    default:
-                        PreferenceConnector.hia2_tandem_t1 = 0;
-                }
-
-                if (assessmenttime < 14) {
-                    evaluate_status_text.setText("Status: Normal ( Test Passed )");
-                    PreferenceConnector.hia2_tandem_status = 1;
-                } else {
-                    evaluate_status_text.setText("Status: Abnormal ( Test Failed )");
-                    PreferenceConnector.hia2_tandem_status = 0;
-                }
-            }
-
-
-
-            if (at == 31) {
-                switch (teststatus) {
-                    case 1:
-                        PreferenceConnector.hia3_tandem_t1 = assessmenttime;
-                        PreferenceConnector.hia3_tandem_t1_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia3_tandem_t1_APRMS = (float) APRMS;
-                        break;
-                    case 2:
-                        PreferenceConnector.hia3_tandem_t2 = assessmenttime;
-                        PreferenceConnector.hia3_tandem_t2_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia3_tandem_t2_APRMS = (float) APRMS;
-                        break;
-                    case 3:
-                        PreferenceConnector.hia3_tandem_t3 = assessmenttime;
-                        PreferenceConnector.hia3_tandem_t3_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia3_tandem_t3_APRMS = (float) APRMS;
-                        break;
-                    case 4:
-                        PreferenceConnector.hia3_tandem_t4 = assessmenttime;
-                        PreferenceConnector.hia3_tandem_t4_MLRMS = (float) MLRMS;
-                        PreferenceConnector.hia3_tandem_t4_APRMS = (float) APRMS;
-                        break;
-                    default:
-                        PreferenceConnector.hia3_tandem_t1 = 0;
-                }
-
-                if (assessmenttime < 14) {
-                    evaluate_status_text.setText("Status: Normal ( Test Passed )");
-                    PreferenceConnector.hia3_tandem_status = 1;
-                } else {
-                    evaluate_status_text.setText("Status: Abnormal ( Test Failed )");
-                    PreferenceConnector.hia3_tandem_status = 0;
-                }
-            }
-
-
-        }
-
-        try {
+/*        try {
             // INCLUDE TIMESTAMP IF POSSIBLE
             PreferenceConnector.writedata("data.txt",PreferenceConnector.acc_values0);
             PreferenceConnector.writedata("data.txt",PreferenceConnector.acc_values1);
@@ -761,106 +594,99 @@ public class Gait extends Fragment implements SensorEventListener {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
+        }*/
 
         //return true;
     }
 
+    public void finish(){
 
-    public void button_test1_clicked(View v){
-        teststatus = 1;
-        edit_time_text.setText("");
-        evaluate_status_text.setText("Status : ");
-        set_button_colors();
+        PreferenceConnector.gait_test_completed=true;
 
-//        bt2.setClickable(false);
-        //      bt3.setClickable(false);
-        //    bt4.setClickable(false);
+        mSensorManager.unregisterListener(this,     mAccelerometer);
+        mSensorManager.unregisterListener(this,     mMagneticField);
+        mSensorManager.unregisterListener(this,     mRotationVector);
+        mSensorManager.unregisterListener(this);
+        toneGen.release();
 
-    }
-
-
-    public void button_test2_clicked(View v){
-        teststatus = 2;
-        edit_time_text.setText("");
-        evaluate_status_text.setText("Status : ");
-        set_button_colors();
-
-//        bt2.setClickable(false);
-        //      bt3.setClickable(false);
-        //    bt4.setClickable(false);
-
-    }
+        reset.setClickable(true);
 
 
-    public void button_test3_clicked(View v){
-        teststatus = 3;
-        edit_time_text.setText("");
-        evaluate_status_text.setText("Status : ");
-        set_button_colors();
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
+        builder2.setMessage("Test complete. Swipe left")
+                .setTitle(R.string.dialog_title);
+        builder2.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder2.create();
+        dialog.show();
 
     }
 
 
-    public void button_test4_clicked(View v){
-        teststatus = 4;
-        edit_time_text.setText("");
-        evaluate_status_text.setText("Status : ");
-        set_button_colors();
 
-    }
 
 
     public void set_button_colors(){
+        Resources resources = getActivity().getResources();
+        Drawable on = resources.getDrawable(R.drawable.balance_button_pressed);
+        Drawable off = resources.getDrawable(R.drawable.balance_button);
 
-        switch(teststatus){
-            case 1:     {
-                bt1.setBackgroundColor(Color.GREEN);
-                bt2.setBackgroundColor(Color.RED);
-                bt3.setBackgroundColor(Color.RED);
-                bt4.setBackgroundColor(Color.RED);
+        switch(status){
+            case 0:     {
+                bt1.setBackground(on );
+                bt2.setBackground(off );
+                bt3.setBackground(off );
                 break;
+            }
 
+            case 1:     {
+                bt1.setBackground(off );
+                bt2.setBackground(on );
+                bt3.setBackground(off );
+                break;
             }
 
             case 2:     {
-                bt1.setBackgroundColor(Color.RED);
-                bt2.setBackgroundColor(Color.GREEN);
-                bt3.setBackgroundColor(Color.RED);
-                bt4.setBackgroundColor(Color.RED);
+                bt1.setBackground(off );
+                bt2.setBackground(off );
+                bt3.setBackground(on );
                 break;
             }
 
-            case 3:     {
-                bt1.setBackgroundColor(Color.RED);
-                bt2.setBackgroundColor(Color.RED);
-                bt3.setBackgroundColor(Color.GREEN);
-                bt4.setBackgroundColor(Color.RED);
-                break;
-            }
-
-            case 4:     {
-                bt1.setBackgroundColor(Color.RED);
-                bt2.setBackgroundColor(Color.RED);
-                bt3.setBackgroundColor(Color.RED);
-                bt4.setBackgroundColor(Color.GREEN);
-                break;
-            }
 
             default:     {
-                bt1.setBackgroundColor(Color.GREEN);
-                bt2.setBackgroundColor(Color.RED);
-                bt3.setBackgroundColor(Color.RED);
-                bt4.setBackgroundColor(Color.RED);
+                bt1.setBackground(on );
+                bt2.setBackground(off );
+                bt3.setBackground(off );
             }
 
+
         }
-
-
     }
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    public void add(){
+        if (mSensorManager!=null) {
+            mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
+            mSensorManager.registerListener(this, mMagneticField, SensorManager.SENSOR_DELAY_FASTEST);
+            mSensorManager.registerListener(this, mRotationVector, SensorManager.SENSOR_DELAY_FASTEST);
+
+        }
+        toneGen = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+    }
+
+    public void remove(){
+        if (mSensorManager!=null && toneGen!=null) {
+            mSensorManager.unregisterListener(this, mAccelerometer);
+            mSensorManager.unregisterListener(this, mMagneticField);
+            mSensorManager.unregisterListener(this, mRotationVector);
+        }
 
     }
 
@@ -869,17 +695,27 @@ public class Gait extends Fragment implements SensorEventListener {
     public void onResume() {
 
         super.onResume();
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(this,     mMagneticField,     SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(this,     mRotationVector,     SensorManager.SENSOR_DELAY_FASTEST);
-        // mWakeLock.acquire();
+        Log.e("gait", "onResume");
+        if(PreferenceConnector.gait_test_completed && getUserVisibleHint()) {
+            startbutton.setClickable(false);
+            title_text.setText("Tandem Gait: Done");
+        }
+        if(getUserVisibleHint()){
+            add();
+        }
+
+
+            // mWakeLock.acquire();
     }
 
     public void onPause() {
-        mSensorManager.unregisterListener(this,     mAccelerometer);
-        mSensorManager.unregisterListener(this,     mMagneticField);
-        mSensorManager.unregisterListener(this,     mRotationVector);
-        //mWakeLock.release();
+        Log.e("gait", "onPause");
+        remove();
+
+
+            //mWakeLock.release();
+
+
         super.onPause();
 
     }
@@ -914,29 +750,7 @@ public class Gait extends Fragment implements SensorEventListener {
     }
 
 
-/*
 
-    public void home_icon_clicked(View view) {
-
-        Intent intent = new Intent(this, TestHomeActivity.class);
-//        PreferenceConnector.assessment_type = 1;
-
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        finish();
-        startActivity(intent);
-    }
-
-    public void help_icon_clicked(View view){
-
-        Intent intent = new Intent(this, HelpActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
-    }
-*/
 
 
 

@@ -11,6 +11,6 @@
     <color name="lineNoEdit">#EEEEEE</color>
 
     <color name="startTest">#76FF03</color>
-    <color name="leftRightButtons">#F44336</color>
+    <color name="reset">#F44336</color>
 
 </resources>

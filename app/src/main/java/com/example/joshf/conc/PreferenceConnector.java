@@ -18,6 +18,9 @@ import java.util.logging.Logger;
 
 public class PreferenceConnector{
 
+    public static double [] time_stamp;
+    public static double [] event_stamp;
+    public static double [] status_stamp;
     public static double [] acc_values0;
     public static double [] acc_values1;
     public static double [] acc_values2;
@@ -28,6 +31,17 @@ public class PreferenceConnector{
     public static double [] rot_values2;
     public static int rot_cnt;
 
+    public static double [] bal_time_stamp;
+    public static double [] bal_event_stamp;
+    public static double [] bal_status_stamp;
+    public static double [] bal_acc_values0;
+    public static double [] bal_acc_values1;
+    public static double [] bal_acc_values2;
+
+    public static double [] bal_rot_values0;
+    public static double [] bal_rot_values1;
+    public static double [] bal_rot_values2;
+
     public static int max_cnt;
 
     public static  String PREF_NAME = "PEOPLE_PREFERENCES";
@@ -37,11 +51,12 @@ public class PreferenceConnector{
     public static int test_type = 0;
 
 
+    public static Boolean gait_test_completed = false;
+    public static int test_status = 1;
     public static float tandem_t1 = 0;
     public static float tandem_t2 = 0;
     public static float tandem_t3 = 0;
     public static float tandem_t4 = 0;
-    public static int tandem_status = 0;//"Not fit";
     public static float tandem_t1_MLRMS = 0;
     public static float tandem_t1_APRMS = 0;
     public static float tandem_t2_MLRMS = 0;
@@ -51,7 +66,7 @@ public class PreferenceConnector{
     public static float tandem_t4_MLRMS = 0;
     public static float tandem_t4_APRMS = 0;
 
-
+    public static Boolean balance_test_completed = false;
     public static int balance_dl = 0;
     public static int balance_sl = 0;
     public static int balance_ts = 0;
@@ -76,40 +91,6 @@ public class PreferenceConnector{
 
 /////////////////////
 
-
-    public static float hia1_tandem_t1 = 0;
-    public static float hia1_tandem_t2 = 0;
-    public static float hia1_tandem_t3 = 0;
-    public static float hia1_tandem_t4 = 0;
-    public static int hia1_tandem_status = 0;//"Not fit";
-    public static float hia1_tandem_t1_MLRMS = 0;
-    public static float hia1_tandem_t1_APRMS = 0;
-    public static float hia1_tandem_t2_MLRMS = 0;
-    public static float hia1_tandem_t2_APRMS = 0;
-    public static float hia1_tandem_t3_MLRMS = 0;
-    public static float hia1_tandem_t3_APRMS = 0;
-    public static float hia1_tandem_t4_MLRMS = 0;
-    public static float hia1_tandem_t4_APRMS = 0;
-
-
-    public static int hia1_balance_dl = 0;
-    public static int hia1_balance_sl = 0;
-    public static int hia1_balance_ts = 0;
-    public static int hia1_balance_status = 0;//"Not fit";
-
-    public static float hia1_balance_dl_MLRMS = 0;
-    public static float hia1_balance_dl_APRMS = 0;
-    public static float hia1_balance_sl_MLRMS = 0;
-    public static float hia1_balance_sl_APRMS = 0;
-    public static float hia1_balance_ts_MLRMS = 0;
-    public static float hia1_balance_ts_APRMS = 0;
-
-    public static float hia1_balance_dl_PTP = 0;
-    public static float hia1_balance_sl_PTP = 0;
-    public static float hia1_balance_ts_PTP = 0;
-
-
-    public static int hia1_upper_score = 0;
 //	public static  String SERVERIP = "192.168.119.101";
 //	public static  String SERVERPORT = "8080";
 
@@ -117,80 +98,12 @@ public class PreferenceConnector{
 /////////////////////
 
 
-    public static float hia2_tandem_t1 = 0;
-    public static float hia2_tandem_t2 = 0;
-    public static float hia2_tandem_t3 = 0;
-    public static float hia2_tandem_t4 = 0;
-    public static int hia2_tandem_status = 0;//"Not fit";
-    public static float hia2_tandem_t1_MLRMS = 0;
-    public static float hia2_tandem_t1_APRMS = 0;
-    public static float hia2_tandem_t2_MLRMS = 0;
-    public static float hia2_tandem_t2_APRMS = 0;
-    public static float hia2_tandem_t3_MLRMS = 0;
-    public static float hia2_tandem_t3_APRMS = 0;
-    public static float hia2_tandem_t4_MLRMS = 0;
-    public static float hia2_tandem_t4_APRMS = 0;
-
-
-    public static int hia2_balance_dl = 0;
-    public static int hia2_balance_sl = 0;
-    public static int hia2_balance_ts = 0;
-    public static int hia2_balance_status = 0;//"Not fit";
-
-    public static float hia2_balance_dl_MLRMS = 0;
-    public static float hia2_balance_dl_APRMS = 0;
-    public static float hia2_balance_sl_MLRMS = 0;
-    public static float hia2_balance_sl_APRMS = 0;
-    public static float hia2_balance_ts_MLRMS = 0;
-    public static float hia2_balance_ts_APRMS = 0;
-
-    public static float hia2_balance_dl_PTP = 0;
-    public static float hia2_balance_sl_PTP = 0;
-    public static float hia2_balance_ts_PTP = 0;
-
-
-    public static int hia2_upper_score = 0;
 //	public static  String SERVERIP = "192.168.119.101";
 //	public static  String SERVERPORT = "8080";
 
 
     ////////////////////
 
-
-
-    public static float hia3_tandem_t1 = 0;
-    public static float hia3_tandem_t2 = 0;
-    public static float hia3_tandem_t3 = 0;
-    public static float hia3_tandem_t4 = 0;
-    public static int hia3_tandem_status = 0;//"Not fit";
-    public static float hia3_tandem_t1_MLRMS = 0;
-    public static float hia3_tandem_t1_APRMS = 0;
-    public static float hia3_tandem_t2_MLRMS = 0;
-    public static float hia3_tandem_t2_APRMS = 0;
-    public static float hia3_tandem_t3_MLRMS = 0;
-    public static float hia3_tandem_t3_APRMS = 0;
-    public static float hia3_tandem_t4_MLRMS = 0;
-    public static float hia3_tandem_t4_APRMS = 0;
-
-
-    public static int hia3_balance_dl = 0;
-    public static int hia3_balance_sl = 0;
-    public static int hia3_balance_ts = 0;
-    public static int hia3_balance_status = 0;//"Not fit";
-
-    public static float hia3_balance_dl_MLRMS = 0;
-    public static float hia3_balance_dl_APRMS = 0;
-    public static float hia3_balance_sl_MLRMS = 0;
-    public static float hia3_balance_sl_APRMS = 0;
-    public static float hia3_balance_ts_MLRMS = 0;
-    public static float hia3_balance_ts_APRMS = 0;
-
-    public static float hia3_balance_dl_PTP = 0;
-    public static float hia3_balance_sl_PTP = 0;
-    public static float hia3_balance_ts_PTP = 0;
-
-
-    public static int hia3_upper_score = 0;
 //	public static  String SERVERIP = "192.168.119.101";
 //	public static  String SERVERPORT = "8080";
 
@@ -247,18 +160,12 @@ public class PreferenceConnector{
 
     public static void clear_all_values(){
 
-
-
-
-
-        assessment_type = 0;
-
-
+        gait_test_completed=false;
+        test_status=1;
         tandem_t1 = 0;
         tandem_t2 = 0;
         tandem_t3 = 0;
         tandem_t4 = 0;
-        tandem_status = 0;//"Not fit";
         tandem_t1_MLRMS = 0;
         tandem_t1_APRMS = 0;
         tandem_t2_MLRMS = 0;
@@ -289,108 +196,6 @@ public class PreferenceConnector{
 
         //////////////////////////
 
-        hia1_tandem_t1 = 0;
-        hia1_tandem_t2 = 0;
-        hia1_tandem_t3 = 0;
-        hia1_tandem_t4 = 0;
-        hia1_tandem_status = 0;//"Not fit";
-        hia1_tandem_t1_MLRMS = 0;
-        hia1_tandem_t1_APRMS = 0;
-        hia1_tandem_t2_MLRMS = 0;
-        hia1_tandem_t2_APRMS = 0;
-        hia1_tandem_t3_MLRMS = 0;
-        hia1_tandem_t3_APRMS = 0;
-        hia1_tandem_t4_MLRMS = 0;
-        hia1_tandem_t4_APRMS = 0;
-
-        hia1_balance_dl = 0;
-        hia1_balance_sl = 0;
-        hia1_balance_ts = 0;
-        hia1_balance_status = 0;//"Not fit";
-
-        hia1_balance_dl_MLRMS = 0;
-        hia1_balance_dl_APRMS = 0;
-        hia1_balance_sl_MLRMS = 0;
-        hia1_balance_sl_APRMS = 0;
-        hia1_balance_ts_MLRMS = 0;
-        hia1_balance_ts_APRMS = 0;
-
-        hia1_balance_dl_PTP = 0;
-        hia1_balance_sl_PTP = 0;
-        hia1_balance_ts_PTP = 0;
-
-        hia1_upper_score = 0;
-
-        //////////////////////////
-
-        hia2_tandem_t1 = 0;
-        hia2_tandem_t2 = 0;
-        hia2_tandem_t3 = 0;
-        hia2_tandem_t4 = 0;
-        hia2_tandem_status = 0;//"Not fit";
-        hia2_tandem_t1_MLRMS = 0;
-        hia2_tandem_t1_APRMS = 0;
-        hia2_tandem_t2_MLRMS = 0;
-        hia2_tandem_t2_APRMS = 0;
-        hia2_tandem_t3_MLRMS = 0;
-        hia2_tandem_t3_APRMS = 0;
-        hia2_tandem_t4_MLRMS = 0;
-        hia2_tandem_t4_APRMS = 0;
-
-        hia2_balance_dl = 0;
-        hia2_balance_sl = 0;
-        hia2_balance_ts = 0;
-        hia2_balance_status = 0;//"Not fit";
-
-        hia2_balance_dl_MLRMS = 0;
-        hia2_balance_dl_APRMS = 0;
-        hia2_balance_sl_MLRMS = 0;
-        hia2_balance_sl_APRMS = 0;
-        hia2_balance_ts_MLRMS = 0;
-        hia2_balance_ts_APRMS = 0;
-
-        hia2_balance_dl_PTP = 0;
-        hia2_balance_sl_PTP = 0;
-        hia2_balance_ts_PTP = 0;
-
-        hia2_upper_score = 0;
-
-        //////////////////////////
-
-        hia3_tandem_t1 = 0;
-        hia3_tandem_t2 = 0;
-        hia3_tandem_t3 = 0;
-        hia3_tandem_t4 = 0;
-        hia3_tandem_status = 0;//"Not fit";
-        hia3_tandem_t1_MLRMS = 0;
-        hia3_tandem_t1_APRMS = 0;
-        hia3_tandem_t2_MLRMS = 0;
-        hia3_tandem_t2_APRMS = 0;
-        hia3_tandem_t3_MLRMS = 0;
-        hia3_tandem_t3_APRMS = 0;
-        hia3_tandem_t4_MLRMS = 0;
-        hia3_tandem_t4_APRMS = 0;
-
-
-        hia3_balance_dl = 0;
-        hia3_balance_sl = 0;
-        hia3_balance_ts = 0;
-        hia3_balance_status = 0;//"Not fit";
-
-        hia3_balance_dl_MLRMS = 0;
-        hia3_balance_dl_APRMS = 0;
-        hia3_balance_sl_MLRMS = 0;
-        hia3_balance_sl_APRMS = 0;
-        hia3_balance_ts_MLRMS = 0;
-        hia3_balance_ts_APRMS = 0;
-
-
-        hia3_balance_dl_PTP = 0;
-        hia3_balance_sl_PTP = 0;
-        hia3_balance_ts_PTP = 0;
-
-
-        hia3_upper_score = 0;
 
     }
 

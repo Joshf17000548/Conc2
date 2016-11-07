@@ -242,6 +242,66 @@ public class HIA3AActivity extends AppCompatActivity {
                 args.put("HIA3_Test5_Question4", Integer.toString(this.objectHIA3.getHIA3_Test5_Question4()));
                 args.put("HIA3_Test5_Question5", Integer.toString(this.objectHIA3.getHIA3_Test5_Question5()));
 
+                args.put("Gait_Completed", Boolean.toString(PreferenceConnector.gait_test_completed));
+                args.put("Test_Status", Float.toString(PreferenceConnector.test_status));
+
+                args.put("Tandem_t1", Float.toString(PreferenceConnector.tandem_t1));
+                args.put("Tandem_t1_MLRMS", Float.toString(PreferenceConnector.tandem_t1_MLRMS));
+                args.put("Tandem_t1_APRMS", Float.toString(PreferenceConnector.tandem_t1_APRMS));
+
+                args.put("Tandem_t2", Float.toString(PreferenceConnector.tandem_t2));
+                args.put("Tandem_t2_MLRMS", Float.toString(PreferenceConnector.tandem_t2_MLRMS));
+                args.put("Tandem_t2_APRMS", Float.toString(PreferenceConnector.tandem_t2_APRMS));
+
+                args.put("Tandem_t3", Float.toString(PreferenceConnector.tandem_t3));
+                args.put("Tandem_t3_MLRMS", Float.toString(PreferenceConnector.tandem_t3_MLRMS));
+                args.put("Tandem_t3_APRMS", Float.toString(PreferenceConnector.tandem_t3_APRMS));
+
+                args.put("Tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
+                args.put("Tandem_t4_MLRMS", Float.toString(PreferenceConnector.tandem_t4_MLRMS));
+                args.put("Tandem_t4_APRMS", Float.toString(PreferenceConnector.tandem_t4_APRMS));
+
+                args.put("Balance_test_complete", Boolean.toString(PreferenceConnector.balance_test_completed));
+
+                args.put("Balance_dl", Float.toString(PreferenceConnector.balance_dl));
+                args.put("Balance_dl_MLRMS", Float.toString(PreferenceConnector.balance_dl_MLRMS));
+                args.put("Balance_dl_APRMS", Float.toString(PreferenceConnector.balance_dl_APRMS));
+                args.put("Balance_dl_PTP", Float.toString(PreferenceConnector.balance_dl_PTP));
+
+                args.put("Balance_sl", Float.toString(PreferenceConnector.balance_dl));
+                args.put("Balance_sl_MLRMS", Float.toString(PreferenceConnector.balance_dl_MLRMS));
+                args.put("Balance_sl_APRMS", Float.toString(PreferenceConnector.balance_dl_APRMS));
+                args.put("Balance_sl_PTP", Float.toString(PreferenceConnector.balance_dl_PTP));
+
+                args.put("Balance_ts", Float.toString(PreferenceConnector.balance_ts));
+                args.put("Balance_ts_MLRMS", Float.toString(PreferenceConnector.balance_ts_MLRMS));
+                args.put("Balance_ts_APRMS", Float.toString(PreferenceConnector.balance_ts_APRMS));
+                args.put("Balance_ts_PTP", Float.toString(PreferenceConnector.balance_ts_PTP));
+
+                args.put("Tandem_time_stamp", PreferenceConnector.time_stamp.toString());
+                args.put("Tandem_event_stamp", PreferenceConnector.event_stamp.toString());
+                args.put("Tandem_status_stamp", PreferenceConnector.status_stamp.toString());
+
+                args.put("Tandem_acc_values0", PreferenceConnector.acc_values0.toString());
+                args.put("Tandem_acc_values1", PreferenceConnector.acc_values1.toString());
+                args.put("Tandem_acc_values2", PreferenceConnector.acc_values2.toString());
+
+                args.put("Tandem_rot_values0", PreferenceConnector.rot_values0.toString());
+                args.put("Tandem_rot_values1", PreferenceConnector.rot_values1.toString());
+                args.put("Tandem_rot_values2", PreferenceConnector.rot_values2.toString());
+
+                args.put("Balance_time_stamp", PreferenceConnector.bal_time_stamp.toString());
+                args.put("Balance_event_stamp", PreferenceConnector.bal_event_stamp.toString());
+                args.put("Balance_status_stamp", PreferenceConnector.bal_status_stamp.toString());
+
+                args.put("Balance_acc_values0", PreferenceConnector.bal_acc_values0.toString());
+                args.put("Balance_acc_values1", PreferenceConnector.bal_acc_values1.toString());
+                args.put("Balance_acc_values2", PreferenceConnector.bal_acc_values2.toString());
+
+                args.put("Balance_rot_values0", PreferenceConnector.bal_rot_values0.toString());
+                args.put("Balance_rot_values1", PreferenceConnector.bal_rot_values1.toString());
+                args.put("Balance_rot_values2", PreferenceConnector.bal_rot_values2.toString());
+
 
 
 
@@ -478,7 +538,6 @@ public class HIA3AActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_hia1, menu);
         ActionBar actionBar = getSupportActionBar();
         actionBar .setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(true);
         return true;
     }
 
@@ -680,7 +739,8 @@ public class HIA3AActivity extends AppCompatActivity {
                 case 2:
                     return HIA3FFragment.newInstance();
                 case 3:
-                    return Balance.newInstance();
+                   // return Balance.newInstance();
+                    return HIA3FFragment.newInstance();
                 case 4:
                     return Gait.newInstance();
                 /*case 3:

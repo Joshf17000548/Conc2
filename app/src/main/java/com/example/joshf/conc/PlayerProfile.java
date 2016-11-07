@@ -2,6 +2,7 @@ package com.example.joshf.conc;
 
 import android.Manifest;
 import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -40,6 +42,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
+import android.icu.text.DecimalFormat;
 import android.icu.util.GregorianCalendar;
 import android.icu.util.TimeZone;
 import android.net.Uri;
@@ -57,6 +61,8 @@ import android.support.v4.content.ContextCompat;
 import android.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.util.Pair;
+import android.support.v4.view.GestureDetectorCompat;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -68,6 +74,7 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -102,6 +109,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.server.converter.StringToIntConverter;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -114,15 +122,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import static android.R.transition.move;
+
 
 /**
  * Created by joshf on 2016/07/25.
  */
-public class PlayerProfile extends AppCompatActivity implements PhotoFragment.CheckSelectedCallback{
+public class PlayerProfile extends AppCompatActivity implements PhotoFragment.CheckSelectedCallback, View.OnClickListener{
 
     String TAG = "PlayerProfile";
 
     EditText name;
+    EditText emailText;
     TextView age;
     TextView DOB;
     EditText height;
@@ -131,6 +142,20 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
     ImageView brainStatus;
     TextView brainStatusText;
     View ageLine;
+
+    private GestureDetectorCompat gestureDetector;
+    View.OnTouchListener gestureListener;
+
+    private static final int SWIPE_MIN_DISTANCE = 120;
+    private static final int SWIPE_MAX_OFF_PATH = 250;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private float dY;
+    private float dX;
+
+    ImageView photoBackground;
+    ImageView slideBackground;
+
+    int team_code;
 
     Button startTest;
     Button playerHistory;
@@ -147,7 +172,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
     ImageView playerPhoto;
 
     public Toolbar toolbar;
-    public String player_select;
+    public String player_select = "existing";
     private static Player playerInFocus;
 
     private CameraDialog cameraDialog;
@@ -193,7 +218,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         session = new SessionManager(this);
-        session.checkLogin();
+
 
         databaseUpdate = false;
 
@@ -203,14 +228,19 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         setSupportActionBar(toolbar);
 
 
+
         // photoHolder = (FrameLayout) findViewById(R.id.playerPhoto);
         name = (EditText) findViewById(R.id.name);
+        emailText = (EditText) findViewById(R.id.emailText);
         cameraButton = (ImageButton) findViewById(R.id.cameraButton);
         age = (TextView) findViewById(R.id.ageText);
         DOB = (TextView) findViewById(R.id.age);
         height = (EditText) findViewById(R.id.heightText);
         weight = (EditText) findViewById(R.id.weightText);
-        ageLine = (View) findViewById(R.id.ageLine);
+        ageLine = findViewById(R.id.ageLine);
+
+        photoBackground = (ImageView) findViewById(R.id.photoBackground);
+       // slideBackground = (ImageView) findViewById(R.id.startTestHolder);
 
 
         startTest = (Button) findViewById(R.id.startTest);
@@ -221,25 +251,11 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         brainStatusText = (TextView) findViewById(R.id.playerHealthText);
 
 
+        loadBitmap(R.drawable.photo_background, photoBackground);
+        //loadBitmap(R.drawable.slide, slideBackground);
 
-        //age.setFactory(mFactory);
-        // DOB.setFactory(mFactory);
 
-
-/*        Animation in = AnimationUtils.loadAnimation(this,
-                android.R.anim.fade_in);
-        Animation out = AnimationUtils.loadAnimation(this,
-                android.R.anim.fade_out);
-        DOB.setInAnimation(in);
-        DOB.setOutAnimation(out);
-        age.setInAnimation(in);
-        age.setOutAnimation(out);*/
-
-        Bundle extras = getIntent().getExtras();
-
-        player_select = extras.getString("player_select");
-        //New or existing player?
-
+        startTest.setOnClickListener(this);
         try {
             // Get singletone instance of ImageLoader
             imageLoader = ImageLoader.getInstance();
@@ -258,106 +274,33 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
             e.printStackTrace();
         }
 
-
-
-
-        if (player_select.equalsIgnoreCase("existing")) {
-            addTransitionListener();
-            playerInFocus = ((Player) getIntent().getExtras().getSerializable("player_info"));
-
-            setInfoNoEdit();
-            updateViews();
-
-            photoLoaded = true;
-            editEnabled = false;
-            dateLoaded = true;
-        } else {
-            JSONObject jsonObject = null;
-            playerInFocus = new Player(jsonObject);
-            playerInFocus.Code_Team=extras.getInt("team");
-            playerPhoto.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.unknown));
-
-            setInfoEdit();
-
-            photoLoaded = false;
-            editEnabled = true;
-        }
-
-        playerHistory.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                int action = motionEvent.getActionMasked();
-                /* Raise view on ACTION_DOWN and lower it on ACTION_UP. */
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                        Log.e(TAG, "ACTION_DOWN on view.");
-                        view.setTranslationZ(8);
-                        view.setPressed(true);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        Log.e(TAG, "ACTION_UP on view.");
-                        view.setTranslationZ(0);
-                        view.setPressed(false);
-                        break;
-                    default:
-                        return false;
-                }
-                return true;
-            }
-        });
-
-        startTest.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                int action = motionEvent.getActionMasked();
-                /* Raise view on ACTION_DOWN and lower it on ACTION_UP. */
-                switch (action) {
-                    case MotionEvent.ACTION_DOWN:
-                        Log.e(TAG, "ACTION_DOWN on view.");
-                        view.setTranslationZ(8);
-                        view.setPressed(true);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        Log.e(TAG, "ACTION_UP on view.");
-                        view.setTranslationZ(0);
-                        view.setPressed(false);
-                        startActivity(new Intent(PlayerProfile.this, TestMenuActivity.class));
-                        break;
-                    default:
-                        return false;
-                }
-                return true;
-            }
-        });
         cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-
                 cameraDialog = new CameraDialog();
                 cameraDialog.show(getFragmentManager(), "dialog");
-
             }
         });
+
+
+    }
+
+    public void onClick(View view) {
+/*        view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.slide_in));*/
+        Intent intent = new Intent(PlayerProfile.this, TestMenuActivity.class);
+        intent.putExtra("player_info",playerInFocus);
+        intent.putExtra("team_code",team_code);
+        //overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+        startActivity(intent);
+
     }
 
 
 
-
-/*    private ViewSwitcher.ViewFactory mFactory = new ViewSwitcher.ViewFactory() {
-
-        @Override
-        public View makeView() {
-
-            // Create a new TextView
-            TextView t = new TextView(PlayerProfile.this);
-            //t.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL);
-            t.setTextAppearance(PlayerProfile.this, android.R.style.TextAppearance);
-            return t;
-        }
-    };*/
-
-
     private void setInfoNoEdit() {
         name.setEnabled(false);
+        emailText.setEnabled(false);
         age.setEnabled(false);
         height.setEnabled(false);
         weight.setEnabled(false);
@@ -367,6 +310,8 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         ageLine.setBackgroundColor(getResources().getColor(R.color.lineNoEdit));
 
     }
+
+
 
     private boolean addTransitionListener() {
         final Transition transition = getWindow().getSharedElementEnterTransition();
@@ -411,6 +356,117 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         return false;
     }
 
+    class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
+        private int data = 0;
+
+        public BitmapWorkerTask(ImageView imageView) {
+            // Use a WeakReference to ensure the ImageView can be garbage collected
+            imageViewReference = new WeakReference<ImageView>(imageView);
+
+        }
+
+        // Decode image in background.
+        @Override
+        protected Bitmap doInBackground(Integer... params) {
+            data = params[0];
+
+            return decodeSampledBitmapFromResource(getResources(), data, 200, 100);
+        }
+
+        // Once complete, see if ImageView is still around and set bitmap.
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (imageViewReference != null && bitmap != null) {
+                final ImageView imageView = imageViewReference.get();
+                if (imageView != null) {
+                    imageView.setImageBitmap(bitmap);
+                }
+            }
+        }
+    }
+
+    public void loadBitmap(int resId, ImageView imageView) {
+        BitmapWorkerTask task = new BitmapWorkerTask(imageView);
+        task.execute(resId);
+    }
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Bundle extras = getIntent().getExtras();
+        //onNewIntent();
+
+        player_select = extras.getString("player_select");
+        Boolean testMenu = extras.getBoolean("parent");
+        team_code = extras.getInt("team", team_code);
+        Log.e("Team_Code", String.valueOf(team_code));
+
+        if (player_select.equalsIgnoreCase("existing")) {
+
+            playerInFocus = ((Player) extras.getSerializable("player_info"));
+            if(testMenu)
+                addTransitionListener();
+            else
+                loadImage(true);
+
+            setInfoNoEdit();
+            updateViews();
+
+            photoLoaded = true;
+            editEnabled = false;
+            dateLoaded = true;
+        } else {
+            JSONObject jsonObject = null;
+            playerInFocus = new Player(jsonObject);
+            playerPhoto.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.unknown));
+
+            setInfoEdit();
+
+            photoLoaded = false;
+            editEnabled = true;
+        }
+    }
 
     public void updateViews() {
         Integer[] DOBdata = playerInFocus.getDOBInt();//Retrieve players DOB and calculate age
@@ -433,8 +489,15 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         }
         age.setText(ageString); //Update all textViews
         name.setText(playerInFocus.getPlayer_Name());
-        weight.setText(String.valueOf(playerInFocus.getPlayer_Weight()));
-        height.setText(String.valueOf(playerInFocus.getPlayer_Height()));
+        emailText.setText(playerInFocus.getPlayer_Email());
+
+        DecimalFormat REAL_FORMATTER = new DecimalFormat("0.###");
+        String weightStr = REAL_FORMATTER.format(playerInFocus.getPlayer_Weight());
+        String heightStr = REAL_FORMATTER.format(playerInFocus.getPlayer_Height());
+        weightStr = weightStr.replace(",",".");
+        heightStr = heightStr.replace(",",".");
+        weight.setText(weightStr);
+        height.setText(heightStr);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -460,6 +523,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                 if (!editEnabled) {
                     setInfoEdit();
                     item.setTitle(R.string.appbar_done);
+                    databaseUpdate = true;
                     editEnabled = true;
 
                 } else {
@@ -492,7 +556,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
         });
         name.setEnabled(true);
-
+        emailText.setEnabled(true);
         age.setEnabled(true);
         height.setEnabled(true);
         weight.setEnabled(true);
@@ -567,34 +631,35 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         Boolean success = false;
 
         if (dateLoaded.equals(true) && (name.getText().toString().length() > 0)
-                && (photoLoaded.equals(true))) try {
-            playerInFocus.Player_Name = name.getText().toString();
+                && (photoLoaded.equals(true)) && (emailText.getText().toString().length() > 0))
+            try {
 
-            playerInFocus.Player_Height = Double.parseDouble(height.getText().toString());
-            playerInFocus.Player_Weight = Double.parseDouble(weight.getText().toString());
+                playerInFocus.Player_Name = name.getText().toString();
+                playerInFocus.Player_Email = emailText.getText().toString();
+                playerInFocus.Player_Height = Double.parseDouble(height.getText().toString());
+                playerInFocus.Player_Weight = Double.parseDouble(weight.getText().toString());
 
-            Log.e(TAG, String.valueOf(playerInFocus.getPlayer_Weight()));
-            setInfoNoEdit(); //Set edittext views as non editable
-            updateViews();
 
-            if (player_select.equals("new")) {
-                new insertPlayer().execute();
-            } else {
-                if (newPhotoLoaded) {
-                    String photoPath = String.valueOf(playerInFocus.getCode_Player());
-                    String path1 = "http://104.198.254.110/ConcApp/Player_Image/" + photoPath +"THUMB.png";
-                    String path2 = "http://104.198.254.110/ConcApp/Player_Image/" + photoPath +"IMG.png";
-                    MemoryCacheUtils.removeFromCache(path1, ImageLoader.getInstance().getMemoryCache());
-                    MemoryCacheUtils.removeFromCache(path2, ImageLoader.getInstance().getMemoryCache());
+                setInfoNoEdit(); //Set edittext views as non editable
+                updateViews();
 
-                    DiskCacheUtils.removeFromCache(path1, ImageLoader.getInstance().getDiskCache());
-                    DiskCacheUtils.removeFromCache(path2, ImageLoader.getInstance().getDiskCache());
+                if (player_select.equals("new")) {
+                    new insertPlayer().execute();
+                } else {
+                    if (newPhotoLoaded) {
+                        String photoPath = String.valueOf(playerInFocus.getCode_Player());
+                        String path1 = "http://104.198.254.110/ConcApp/Player_Image/" + photoPath +"THUMB.png";
+                        String path2 = "http://104.198.254.110/ConcApp/Player_Image/" + photoPath +"IMG.png";
+                        MemoryCacheUtils.removeFromCache(path1, ImageLoader.getInstance().getMemoryCache());
+                        MemoryCacheUtils.removeFromCache(path2, ImageLoader.getInstance().getMemoryCache());
 
+                        DiskCacheUtils.removeFromCache(path1, ImageLoader.getInstance().getDiskCache());
+                        DiskCacheUtils.removeFromCache(path2, ImageLoader.getInstance().getDiskCache());
+
+                    }
+                    new updatePlayer().execute();
                 }
-                new updatePlayer().execute();
-            }
 
-            databaseUpdate = true;
 
             success = true;
         } catch (Exception e) {
@@ -609,7 +674,6 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
         String photoPath = String.valueOf(playerInFocus.getCode_Player());
         try {
-            Log.e("loadImage", String.valueOf(large));
             if (!large) {
                 imageLoader.displayImage("http://104.198.254.110/ConcApp/Player_Image/" + photoPath + "THUMB.png", playerPhoto, options);
             } else
@@ -650,9 +714,6 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
 
     private class insertPlayer extends AsyncTask<Void, Void, JSONArray> {
-
-        // Alert Dialog Manager
-        AlertDialogManager alert = new AlertDialogManager();
 
         private static final String URL = "http://104.198.254.110/ConcApp/insertPlayer.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
@@ -702,13 +763,14 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                 Log.e("JSON REQUEST", "Image Done");
 
                 args.put("Player_Name", String.valueOf(playerInFocus.getPlayer_Name()));
+                args.put("Player_Email", String.valueOf(playerInFocus.getPlayer_Email()));
                 args.put("Player_Height", String.valueOf(playerInFocus.getPlayer_Height()));
                 args.put("Player_Weight", String.valueOf(playerInFocus.getPlayer_Weight()));
                 args.put("Player_Photo", encodedImageLarge);
                 args.put("Player_Thumb", encodedImageSmall);
                 args.put("Player_Surname", "Fischer");
                 args.put("Player_DateOfBirth", playerInFocus.getDOB_player());
-                args.put("Code_Team", "3");
+                args.put("Code_Team",String.valueOf(team_code));
                 //args.put("Player_Status", "1");
                 args.put("Player_Lenses", "1");
 
@@ -819,14 +881,16 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
                 Log.e("JSON REQUEST", "Image Done");
 
-
                 args.put("Code_Player", String.valueOf(playerInFocus.getCode_Player()));
                 args.put("Player_Name", String.valueOf(playerInFocus.getPlayer_Name()));
+                args.put("Player_Email", playerInFocus.getPlayer_Email());
                 args.put("Player_Surname", "Fischer");
                 args.put("Player_Height", String.valueOf(playerInFocus.getPlayer_Height()));
                 args.put("Player_Weight", String.valueOf(playerInFocus.getPlayer_Weight()));
                 args.put("Player_DateOfBirth", playerInFocus.getDOB_player());
-                args.put("Code_Team", "3");
+                Log.e("JSON team", String.valueOf(team_code));
+                Log.e("JSON player", String.valueOf(playerInFocus.getCode_Player()));
+                args.put("Code_Team", String.valueOf(team_code));
 
                 args.put("Player_Lenses", "1");
                 // all args needs to convert to string because the hash map is string, string types.
@@ -880,7 +944,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
     public void onBackPressed() {
         Bundle bundle = new Bundle();
         bundle.putBoolean("database_update", databaseUpdate);
-        bundle.putInt("team", playerInFocus.Code_Team);
+        bundle.putInt("team",team_code);
         startActivity(new Intent(PlayerProfile.this, PlayerSelect.class).putExtras(bundle));
         finish();
     }
