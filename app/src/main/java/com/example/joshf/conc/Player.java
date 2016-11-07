@@ -73,6 +73,7 @@ public class Player implements java.io.Serializable{
         if(object!=null) {
             try {
                 this.Player_Name = object.getString("Player_Name");
+                this.Code_Team = Integer.valueOf(object.getString("Code_Team"));
                 this.Player_Email = object.getString("Player_Email");
                 this.Code_Player = Integer.valueOf(object.getString("Code_Player"));
                 this.Player_Weight = Float.valueOf(object.getString("Player_Weight"));

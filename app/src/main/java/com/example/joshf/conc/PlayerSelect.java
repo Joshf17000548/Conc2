@@ -101,11 +101,6 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
         session = new SessionManager(this);
         session.checkLogin();
 
-        Bundle extras = getIntent().getExtras();
-        team_code = extras.getInt("team");
-
-
-
 /*        if (checkSelfPermission(Manifest.permission.READ_CALENDAR)
                 != PackageManager.PERMISSION_GRANTED) {
             requestCalendarReadPermission(Manifest.permission.READ_CALENDAR);
@@ -128,6 +123,7 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
 
                 Bundle bundle = new Bundle();
                 bundle.putString("player_select", "new");
+                bundle.putInt("team_code", team_code);
                 startActivity(new Intent(PlayerSelect.this, PlayerProfile.class).putExtras(bundle));
             }
         });
@@ -144,7 +140,9 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
 
         Bundle bundle = options.toBundle();
         intent.putExtra("player_select", "existing");
+        intent.putExtra("parent", true);
         intent.putExtra("player_info", selectedPlayer);
+        intent.putExtra("team_code", selectedPlayer.getCode_Team());
         startActivity(intent,bundle);
 
     }
@@ -153,7 +151,7 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
     public void onResume() {
         super.onResume();
 
-        playerList = new ArrayList<Player>();
+/*        playerList = new ArrayList<Player>();
         JSONObject jsonObject = null;
         Player player = new Player(jsonObject);
         player.Player_Height=15;
@@ -162,9 +160,15 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
         player.Player_Name="Josh";
         player.Code_Player=10;
         player.Code_Team=3;
-        playerList.add(player);
+        playerList.add(player);*/
 
-/*        updateRequired = getIntent().getExtras().getBoolean("database_update");
+
+
+        Bundle extras = getIntent().getExtras();
+
+        updateRequired = extras.getBoolean("database_update");
+        team_code = extras.getInt("team_code");
+        Log.e(TAG+"team_code", String.valueOf(team_code));
         super.onResume();
         if ((updateRequired.equals(true)) ) {
             new getPlayers().execute();
@@ -186,7 +190,7 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
                 Log.e(TAG, "Could not read object from cache");
 
             }
-        }*/
+        }
     }
 
     @Override

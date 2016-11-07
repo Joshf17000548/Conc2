@@ -155,7 +155,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
     ImageView photoBackground;
     ImageView slideBackground;
 
-    int team_code;
+    public int team_code;
 
     Button startTest;
     Button playerHistory;
@@ -290,7 +290,6 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                 R.anim.slide_in));*/
         Intent intent = new Intent(PlayerProfile.this, TestMenuActivity.class);
         intent.putExtra("player_info",playerInFocus);
-        intent.putExtra("team_code",team_code);
         //overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         startActivity(intent);
 
@@ -299,6 +298,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
 
     private void setInfoNoEdit() {
+        startTest.setVisibility(View.VISIBLE);
         name.setEnabled(false);
         emailText.setEnabled(false);
         age.setEnabled(false);
@@ -433,13 +433,12 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
     @Override
     public void onResume() {
         super.onResume();
-
+        Log.e(TAG, "onResume");
         Bundle extras = getIntent().getExtras();
-        //onNewIntent();
-
         player_select = extras.getString("player_select");
         Boolean testMenu = extras.getBoolean("parent");
-        team_code = extras.getInt("team", team_code);
+        team_code = extras.getInt("team_code");
+
         Log.e("Team_Code", String.valueOf(team_code));
 
         if (player_select.equalsIgnoreCase("existing")) {
@@ -459,6 +458,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         } else {
             JSONObject jsonObject = null;
             playerInFocus = new Player(jsonObject);
+            playerInFocus.Code_Team = team_code;
             playerPhoto.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.unknown));
 
             setInfoEdit();
@@ -523,12 +523,13 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                 if (!editEnabled) {
                     setInfoEdit();
                     item.setTitle(R.string.appbar_done);
-                    databaseUpdate = true;
+
                     editEnabled = true;
 
                 } else {
 
                     if (updatePlayerInfo()) {
+                        databaseUpdate = true;
                         item.setTitle(R.string.appbar_edit);
                         editEnabled = false;
                         setInfoNoEdit();
@@ -540,7 +541,14 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                 return true;
             case R.id.menuId_logout:
                 session.logoutUser();
+
                 return true;
+            case android.R.id.home:
+
+                Intent intent = new Intent(PlayerProfile.this, PlayerSelect.class);
+                intent.putExtra("database_update", databaseUpdate);
+                intent.putExtra("team_code", playerInFocus.Code_Team);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -555,6 +563,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
             }
 
         });
+        startTest.setVisibility(View.INVISIBLE);
         name.setEnabled(true);
         emailText.setEnabled(true);
         age.setEnabled(true);
@@ -846,11 +855,11 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         @Override
         protected JSONArray doInBackground(Void... params) {
 
-            Log.e("JSonInsPlayer", "Background");
+         //   Log.e("JSonInsPlayer", "Background");
             try {
                 // PREPARING PARAMETERS..
 
-                Log.e("JSON REQUEST", "Preparing Params2 ...");
+              //  Log.e("JSON REQUEST", "Preparing Params2 ...");
                 HashMap<String, String> args = new HashMap<>();
 
                 if (newPhotoLoaded) {
@@ -888,21 +897,19 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                 args.put("Player_Height", String.valueOf(playerInFocus.getPlayer_Height()));
                 args.put("Player_Weight", String.valueOf(playerInFocus.getPlayer_Weight()));
                 args.put("Player_DateOfBirth", playerInFocus.getDOB_player());
-                Log.e("JSON team", String.valueOf(team_code));
-                Log.e("JSON player", String.valueOf(playerInFocus.getCode_Player()));
                 args.put("Code_Team", String.valueOf(team_code));
 
                 args.put("Player_Lenses", "1");
                 // all args needs to convert to string because the hash map is string, string types.
 
                 //   Log.d("JSON REQUEST", args.toString());
-                Log.e("JSON REQUEST", "Firing Json ...");
+               // Log.e("JSON REQUEST", "Firing Json ...");
                 JSONArray json = jsonParser.makeHttpRequest(
                         URL, "POST", args);
                 Log.e("json", "0bject = " + json);
 
                 if (json != null) {
-                    Log.e("I got", "in here?");
+                //    Log.e("I got", "in here?");
                     Log.e("JSON REQUEST", params.toString());
                     Log.e("JSON result", json.toString());
 
@@ -917,7 +924,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
         @Override
         protected void onPostExecute(JSONArray json) {
-            Log.e("JSonInsTeam", "Finish");
+         //   Log.e("JSonInsTeam", "Finish");
             if (pDialog != null && pDialog.isShowing()) {
                 pDialog.dismiss();
             }
@@ -941,15 +948,18 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         }
     }
 
+    @Override
     public void onBackPressed() {
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("database_update", databaseUpdate);
-        bundle.putInt("team",team_code);
-        startActivity(new Intent(PlayerProfile.this, PlayerSelect.class).putExtras(bundle));
-        finish();
+        super.onBackPressed();
+
+        Intent intent = new Intent(PlayerProfile.this, PlayerSelect.class);
+
+        intent.putExtra("database_update", databaseUpdate);
+        intent.putExtra("team_code",playerInFocus.Code_Team);
+        startActivity(intent);
+       // finish();
+
     }
 
 }
 
-//TODO Deal with back button better. Before and after taking a photo. Maybe add a home button
-//TODO Rather than creating a new file with each entree, just append to a single object file

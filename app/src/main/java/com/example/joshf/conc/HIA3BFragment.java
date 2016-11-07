@@ -121,7 +121,7 @@ public class HIA3BFragment extends Fragment implements AdapterView.OnItemSelecte
                 public void onClick(View v) {
                     HIA3_Test2_Question2 = other.getText().toString();
                     Log.v(TAG, "Video Checkbox: " + HIA3_Test2_Question2);
-                    hia3test.objHIA3.setHIA3_Test2_Question2(HIA3_Test2_Question2);
+                    HIA3.HIA3_Test2_Question2=HIA3_Test2_Question2;
                 }
             });
 
@@ -129,7 +129,7 @@ public class HIA3BFragment extends Fragment implements AdapterView.OnItemSelecte
                 public void onClick(View v) {
                     HIA3_Test2_Question4 = other1.getText().toString();
                     Log.v(TAG, "Video Checkbox: " + HIA3_Test2_Question4);
-                    hia3test.objHIA3.setHIA3_Test2_Question4(HIA3_Test2_Question4);
+                    HIA3.HIA3_Test2_Question4=HIA3_Test2_Question4;
                 }
             });
 
@@ -137,7 +137,7 @@ public class HIA3BFragment extends Fragment implements AdapterView.OnItemSelecte
                 public void onClick(View v) {
                     HIA3_Test2_Question6 = other2.getText().toString();
                     Log.v(TAG, "Video Checkbox: " + HIA3_Test2_Question6);
-                    hia3test.objHIA3.setHIA3_Test2_Question6(HIA3_Test2_Question6);
+                    HIA3.HIA3_Test2_Question6=HIA3_Test2_Question6;
                 }
             });
 
@@ -145,7 +145,7 @@ public class HIA3BFragment extends Fragment implements AdapterView.OnItemSelecte
                 public void onClick(View v) {
                     HIA3_Test2_Question8 = other3.getText().toString();
                     Log.v(TAG, "Video Checkbox: " + HIA3_Test2_Question8);
-                    hia3test.objHIA3.setHIA3_Test2_Question8(HIA3_Test2_Question8);
+                    HIA3.HIA3_Test2_Question8=HIA3_Test2_Question8;
                 }
             });
 
@@ -164,22 +164,22 @@ public class HIA3BFragment extends Fragment implements AdapterView.OnItemSelecte
                 case R.id.spinner28:
                     Log.v(TAG, "Video Checkbox0: " + position);
                     HIA3_Test2_Question1 = position;
-                    hia3test.objHIA3.setHIA3_Test2_Question1(position);
+                    HIA3.HIA3_Test2_Question1=position;
                     return;
                 case R.id.spinner29:
                     Log.v(TAG, "Video Checkbox1: " + position);
                     HIA3_Test2_Question3 = position;
-                    hia3test.objHIA3.setHIA3_Test2_Question3(position);
+                    HIA3.HIA3_Test2_Question3=position;
                     return;
                 case R.id.spinner30:
                     Log.v(TAG, "Video Checkbox2: " + position);
                     HIA3_Test2_Question5 = position;
-                    hia3test.objHIA3.setHIA3_Test2_Question5(position);
+                    HIA3.HIA3_Test2_Question5=position;
                     return;
                 case R.id.spinner31:
                     Log.v(TAG, "Video Checkbox2: " + position);
                     HIA3_Test2_Question7 = position;
-                    hia3test.objHIA3.setHIA3_Test2_Question7(position);
+                    HIA3.HIA3_Test2_Question7=position;
                     return;
 
             }
