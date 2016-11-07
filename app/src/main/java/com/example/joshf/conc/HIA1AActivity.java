@@ -130,6 +130,8 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 // PREPARING PARAMETERS..
                 Log.d("JSON REQUEST", "Preparing Params ...");
                 HashMap<String, String> args = new HashMap<>();
+
+                Log.e("HIA1_Test2_Question1", Integer.toString(HIA1.HIA1_Test2_Question1));
                 args.put("HIA1_Test1_Question1", Integer.toString(this.objectHIA1.getHIA1_Test1_Question1()));
                 args.put("HIA1_Test1_Question2", Integer.toString(this.objectHIA1.getHIA1_Test1_Question2()));
                 args.put("HIA1_Test1_Question3", Integer.toString(this.objectHIA1.getHIA1_Test1_Question3()));
@@ -144,7 +146,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 args.put("HIA1_Test1_Question12", Integer.toString(this.objectHIA1.getHIA1_Test1_Question12()));
                 args.put("HIA1_Test1_Question13", Integer.toString(this.objectHIA1.getHIA1_Test1_Question13()));
 
-                args.put("HIA1_Test2_Question1", Integer.toString(this.objectHIA1.getHIA1_Test2_Question1()));
+                args.put("HIA1_Test2_Question1", Integer.toString(HIA1.HIA1_Test2_Question1));
                 args.put("HIA1_Test2_Question2", Integer.toString(this.objectHIA1.getHIA1_Test2_Question2()));
                 args.put("HIA1_Test2_Question3", Integer.toString(this.objectHIA1.getHIA1_Test2_Question3()));
                 args.put("HIA1_Test2_Question4", Integer.toString(this.objectHIA1.getHIA1_Test2_Question4()));
@@ -182,14 +184,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 args.put("HIA1_Test7_Question5", Integer.toString(this.objectHIA1.getHIA1_Test7_Question5()));
                 args.put("HIA1_Test7_Question6", Integer.toString(this.objectHIA1.getHIA1_Test7_Question6()));
 
-                args.put("HIA1_Test7_Question1", Integer.toString(this.objectHIA1.getHIA1_Test7_Question1()));
-                args.put("HIA1_Test7_Question2", Integer.toString(this.objectHIA1.getHIA1_Test7_Question2()));
-                args.put("HIA1_Test7_Question3", Integer.toString(this.objectHIA1.getHIA1_Test7_Question3()));
-                args.put("HIA1_Test7_Question4", Integer.toString(this.objectHIA1.getHIA1_Test7_Question4()));
-                args.put("HIA1_Test7_Question5", Integer.toString(this.objectHIA1.getHIA1_Test7_Question5()));
-                args.put("HIA1_Test7_Question6", Integer.toString(this.objectHIA1.getHIA1_Test7_Question6()));
-
-/*                Log.e("gait_test_Completed", Boolean.toString(PreferenceConnector.gait_test_completed));
+                Log.e("gait_test_Completed", Boolean.toString(PreferenceConnector.gait_test_completed));
                 args.put("gait_test_Completed", Boolean.toString(PreferenceConnector.gait_test_completed));
                 Log.e("test_Status", Float.toString(PreferenceConnector.test_status));
                 args.put("test_Status", Float.toString(PreferenceConnector.test_status));
@@ -241,7 +236,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 Log.e("tandem_rot_values1", PreferenceConnector.rot_values1.toString());
                 args.put("tandem_rot_values1", PreferenceConnector.rot_values1.toString());
                 Log.e("tandem_rot_values2", PreferenceConnector.rot_values2.toString());
-                args.put("tandem_rot_values2", PreferenceConnector.rot_values2.toString());*/
+                args.put("tandem_rot_values2", PreferenceConnector.rot_values2.toString());
 
 
                 // all args needs to convert to string because the hash map is string, string types.

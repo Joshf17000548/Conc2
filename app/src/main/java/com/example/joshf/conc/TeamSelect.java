@@ -47,7 +47,7 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
         selectedTeam = listSelectedTeam;
 
         Intent intent = new Intent(this, PlayerSelect.class);
-        intent.putExtra("team",selectedTeam.getCode_Team());
+        intent.putExtra("team_code",selectedTeam.getCode_Team());
         intent.putExtra("database_update", true);
 
         startActivity(intent);

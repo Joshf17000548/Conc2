@@ -51,11 +51,11 @@ public class HIA3EFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     final boolean checked2 = mButton.isChecked();
                     if (checked2) {
                         //HIA3_Test3_Question1 = true;
-                        hia3test.objHIA3.setHIA3_Test5_Question2(1);
+                        HIA3.HIA3_Test5_Question2=1;
                         Log.v("2", "Test: " + 1);
                     } else {
                         //HIA1_Test2_Question1 = false;
-                        hia3test.objHIA3.setHIA3_Test5_Question2(0);
+                        HIA3.HIA3_Test5_Question2=0;
                         Log.v("2", "Test: " + 0);
                     }
                 }
@@ -67,11 +67,11 @@ public class HIA3EFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     final boolean checked2 = mButton1.isChecked();
                     if (checked2) {
                         //HIA1_Test2_Question2 = true;
-                        hia3test.objHIA3.setHIA3_Test5_Question3(1);
+                        HIA3.HIA3_Test5_Question3=1;
                         Log.v("3", "Test: " + 1);
                     } else {
                         //HIA1_Test2_Question2 = false;
-                        hia3test.objHIA3.setHIA3_Test5_Question3(0);
+                        HIA3.HIA3_Test5_Question3=0;
                         Log.v("3", "Test: " + 0);
                     }
                 }
@@ -83,11 +83,11 @@ public class HIA3EFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     final boolean checked2 = mButton2.isChecked();
                     if (checked2) {
                         //HIA1_Test2_Question3 = true;
-                        hia3test.objHIA3.setHIA3_Test5_Question4(1);
+                        HIA3.HIA3_Test5_Question4=1;
                         Log.v("4", "Test: " + 1);
                     } else {
                         //HIA1_Test2_Question3 = false;
-                        hia3test.objHIA3.setHIA3_Test5_Question4(0);
+                        HIA3.HIA3_Test5_Question4=0;
                         Log.v("4", "Test: " + 0);
                     }
                 }
@@ -99,11 +99,11 @@ public class HIA3EFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     final boolean checked2 = mButton3.isChecked();
                     if (checked2) {
                         // HIA1_Test2_Question4 = true;
-                        hia3test.objHIA3.setHIA3_Test5_Question5(1);
+                        HIA3.HIA3_Test5_Question5=1;
                         Log.v("5", "Test: " + 1);
                     } else {
                         //HIA1_Test2_Question4 = false;
-                        hia3test.objHIA3.setHIA3_Test5_Question5(0);
+                        HIA3.HIA3_Test5_Question5=0;
                         Log.v("5", "Test: " + 0);
                     }
                 }
@@ -127,13 +127,13 @@ public class HIA3EFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     if (checked2) {
                         //HIA3_Test3_Question1 = true;
                         //Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question1);
-                        hia3test.objHIA3.setHIA3_Test5_Question1(1);
+                        HIA3.HIA3_Test5_Question1=1;
                         Log.v("1", "Test: " + 1);
                         break;
                     } else {
                         //HIA3_Test3_Question1 = false;
                         //Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question1);
-                        hia3test.objHIA3.setHIA3_Test5_Question1(0);
+                        HIA3.HIA3_Test5_Question1=0;
                         Log.v("1", "Test: " + 0);
                         break;
                     }

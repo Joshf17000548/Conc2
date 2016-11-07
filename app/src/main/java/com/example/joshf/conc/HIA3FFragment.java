@@ -118,7 +118,7 @@ public class HIA3FFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 public void onClick(View v) {
                     HIA3_Test3_Question2 = other.getText().toString();
                     Log.v(TAG, "Video Checkbox: " + HIA3_Test3_Question2);
-                    hia3test.objHIA3.setHIA3_Test3_Question2(HIA3_Test3_Question2);
+                    HIA3.HIA3_Test3_Question2=HIA3_Test3_Question2;
                 }
             });
 
@@ -126,7 +126,7 @@ public class HIA3FFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 public void onClick(View v) {
                     HIA3_Test3_Question4 = other1.getText().toString();
                     Log.v(TAG, "Video Checkbox: " + HIA3_Test3_Question4);
-                    hia3test.objHIA3.setHIA3_Test3_Question4(HIA3_Test3_Question4);
+                    HIA3.HIA3_Test3_Question4=HIA3_Test3_Question4;
                 }
             });
         }
@@ -218,12 +218,12 @@ public class HIA3FFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     if (checked2) {
                         HIA3_Test3_Question1 = true;
                         Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question1);
-                        hia3test.objHIA3.setHIA3_Test3_Question1(1);
+                        HIA3.HIA3_Test3_Question1=1;
                         break;
                     } else {
                         HIA3_Test3_Question1 = false;
                         Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question1);
-                        hia3test.objHIA3.setHIA3_Test3_Question1(0);
+                        HIA3.HIA3_Test3_Question1=0;
                         break;
                     }
 
@@ -231,12 +231,12 @@ public class HIA3FFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     if (checked2) {
                         HIA3_Test3_Question3 = true;
                         Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question3);
-                        hia3test.objHIA3.setHIA3_Test3_Question3(1);
+                        HIA3.HIA3_Test3_Question3=1;
                         break;
                     } else {
                         HIA3_Test3_Question3 = false;
                         Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question3);
-                        hia3test.objHIA3.setHIA3_Test3_Question1(0);
+                        HIA3.HIA3_Test3_Question1=0;
                         break;
                     }
             }

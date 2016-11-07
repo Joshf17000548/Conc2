@@ -129,7 +129,8 @@ public class Balance extends Fragment implements SensorEventListener {
                 });
                 AlertDialog dialog = builder.create();
                 dialog.setCancelable(false);
-                dialog.show();
+                if(getActivity()!=null)
+                  dialog.show();
             }
         }else{
             remove();

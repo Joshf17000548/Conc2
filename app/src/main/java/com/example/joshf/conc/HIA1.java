@@ -21,7 +21,7 @@ public class HIA1 extends FragmentActivity {
     public int HIA1_Test1_Question12; //[0 – Referee, 1 – Team doctor, 2 – Tournament Doctor, 3 -Match Day Doctor, 4-Following in-game video review, 5 - Physiotherapist]
     public int HIA1_Test1_Question13;
 
-    public int HIA1_Test2_Question1;
+    static int HIA1_Test2_Question1;
     public int HIA1_Test2_Question2;
     public int HIA1_Test2_Question3;
     public int HIA1_Test2_Question4;
