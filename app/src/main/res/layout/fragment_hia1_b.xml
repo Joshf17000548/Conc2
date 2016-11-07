@@ -137,7 +137,8 @@
             android:hint="...Convulsion"
             android:ems="7"
             android:id="@+id/editText001"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:imeOptions="actionDone"/>
     </LinearLayout>
 
 

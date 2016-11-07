@@ -97,7 +97,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_Symp22_y:
                     if (checked) {
                         HIA1_Test5_Question1 = 1;
-                        hia1test.objHIA1.setHIA1_Test5_Question1(1);
+                        HIA1.HIA1_Test5_Question1=1;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -105,7 +105,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         break;
                     } else {
                         HIA1_Test5_Question1 = 0;
-                        hia1test.objHIA1.setHIA1_Test5_Question1(0);
+                        HIA1.HIA1_Test5_Question1=0;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -115,7 +115,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_Symp23_y:
                     if (checked) {
                         HIA1_Test5_Question2 = 1;
-                        hia1test.objHIA1.setHIA1_Test5_Question2(1);
+                        HIA1.HIA1_Test5_Question2=1;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -123,7 +123,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         break;
                     } else {
                         HIA1_Test5_Question2 = 0;
-                        hia1test.objHIA1.setHIA1_Test5_Question2(0);
+                        HIA1.HIA1_Test5_Question2=0;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -133,7 +133,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_Symp24_y:
                     if (checked) {
                         HIA1_Test5_Question3 = 1;
-                        hia1test.objHIA1.setHIA1_Test5_Question3(1);
+                        HIA1.HIA1_Test5_Question3=1;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -141,7 +141,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         break;
                     } else {
                         HIA1_Test5_Question3 = 0;
-                        hia1test.objHIA1.setHIA1_Test5_Question3(0);
+                        HIA1.HIA1_Test5_Question3=0;;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -152,7 +152,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_Symp25_y: //+2
                     if (checked) {
                         HIA1_Test5_Question4 = 1;
-                        hia1test.objHIA1.setHIA1_Test5_Question4(1);
+                        HIA1.HIA1_Test5_Question4=1;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -160,7 +160,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         break;
                     } else {
                         HIA1_Test5_Question4 = 0;
-                        hia1test.objHIA1.setHIA1_Test5_Question4(0);
+                        HIA1.HIA1_Test5_Question4=0;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -171,7 +171,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_Symp26_y:
                     if (checked) {
                         HIA1_Test5_Question5 = 1;
-                        hia1test.objHIA1.setHIA1_Test5_Question5(1);
+                        HIA1.HIA1_Test5_Question5=1;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -179,7 +179,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         break;
                     } else {
                         HIA1_Test5_Question5 = 0;
-                        hia1test.objHIA1.setHIA1_Test5_Question5(0);
+                        HIA1.HIA1_Test5_Question5=0;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -190,7 +190,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_Symp27_y:
                     if (checked) {
                         HIA1_Test5_Question6 = 1;
-                        hia1test.objHIA1.setHIA1_Test5_Question6(1);
+                        HIA1.HIA1_Test5_Question6=1;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -198,7 +198,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         break;
                     } else {
                         HIA1_Test5_Question6 = 0;
-                        hia1test.objHIA1.setHIA1_Test5_Question6(0);
+                        HIA1.HIA1_Test5_Question6=0;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -209,7 +209,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_Symp28_y:
                     if (checked) {
                         HIA1_Test5_Question7 = 1;
-                        hia1test.objHIA1.setHIA1_Test5_Question7(1);
+                        HIA1.HIA1_Test5_Question7=1;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -217,7 +217,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         break;
                     } else {
                         HIA1_Test5_Question7 = 0;
-                        hia1test.objHIA1.setHIA1_Test5_Question3(0);
+                        HIA1.HIA1_Test5_Question7=0;;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -228,7 +228,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_Symp29_y:
                     if (checked) {
                         HIA1_Test5_Question8 = 1;
-                        hia1test.objHIA1.setHIA1_Test5_Question8(1);
+                        HIA1.HIA1_Test5_Question8=1;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -236,7 +236,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         break;
                     } else {
                         HIA1_Test5_Question8 = 0;
-                        hia1test.objHIA1.setHIA1_Test5_Question3(0);
+                        HIA1.HIA1_Test5_Question8=0;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -247,7 +247,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_Symp210_y:
                     if (checked) {
                         HIA1_Test5_Question9 = 1;
-                        hia1test.objHIA1.setHIA1_Test5_Question9(1);
+                        HIA1.HIA1_Test5_Question9=1;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;
@@ -255,7 +255,7 @@ public class HIA1DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         break;
                     } else {
                         HIA1_Test5_Question9 = 0;
-                        hia1test.objHIA1.setHIA1_Test5_Question3(0);
+                        HIA1.HIA1_Test5_Question9=0;
                         sym_tally = HIA1_Test5_Question1 + HIA1_Test5_Question2 + HIA1_Test5_Question3 +
                                 HIA1_Test5_Question4 + HIA1_Test5_Question5 + HIA1_Test5_Question6 +
                                 HIA1_Test5_Question7 + HIA1_Test5_Question8 + HIA1_Test5_Question9;

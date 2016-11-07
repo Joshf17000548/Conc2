@@ -39,7 +39,7 @@ public class HIA3DFragment extends Fragment implements CheckBox.OnCheckedChangeL
         final CheckBox mButton = (CheckBox) rootView.findViewById(R.id.checkBox3_DOM1);
         final CheckBox mButton1 = (CheckBox) rootView.findViewById(R.id.checkBox_DOM2);
         final CheckBox mButton2 = (CheckBox) rootView.findViewById(R.id.checkBox3_DOM3);
-        final CheckBox mButton3 = (CheckBox) rootView.findViewById(R.id.checkBox3_DOM4);
+        //final CheckBox mButton3 = (CheckBox) rootView.findViewById(R.id.checkBox3_DOM4);
 
         RadioButton mButton4 = (RadioButton) rootView.findViewById(R.id.checkBox3_CSY);
         RadioButton mButton5 = (RadioButton) rootView.findViewById(R.id.checkBox3_diag_concY);
@@ -101,7 +101,7 @@ public class HIA3DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 }
             });
 
-            mButton3.setOnClickListener(new View.OnClickListener() {
+          /*  mButton3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     final boolean checked2 = mButton3.isChecked();
@@ -115,7 +115,7 @@ public class HIA3DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         Log.v("4", "Test: " + 0);
                     }
                 }
-            });
+            });*/
 
             other.setOnClickListener(new View.OnClickListener(){
                 public void onClick(View v) {

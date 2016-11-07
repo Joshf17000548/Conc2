@@ -7,57 +7,57 @@ package com.example.joshf.conc;
  */
 
 public class HIA1 extends FragmentActivity {
-    public int HIA1_Test1_Question1;
-    public int  HIA1_Test1_Question2;
-    public int HIA1_Test1_Question3;
-    public int HIA1_Test1_Question4;
-    public int HIA1_Test1_Question5;
-    public int HIA1_Test1_Question6;
-    public int HIA1_Test1_Question7;
-    public int HIA1_Test1_Question8;
-    public int HIA1_Test1_Question9;
-    public int HIA1_Test1_Question10;
-    public int HIA1_Test1_Question11;
-    public int HIA1_Test1_Question12; //[0 – Referee, 1 – Team doctor, 2 – Tournament Doctor, 3 -Match Day Doctor, 4-Following in-game video review, 5 - Physiotherapist]
-    public int HIA1_Test1_Question13;
+    static int HIA1_Test1_Question1;
+    static int  HIA1_Test1_Question2;
+    static int HIA1_Test1_Question3;
+    static int HIA1_Test1_Question4;
+    static int HIA1_Test1_Question5;
+    static int HIA1_Test1_Question6;
+    static int HIA1_Test1_Question7;
+    static int HIA1_Test1_Question8;
+    static int HIA1_Test1_Question9;
+    static int HIA1_Test1_Question10;
+    static int HIA1_Test1_Question11;
+    static int HIA1_Test1_Question12; //[0 – Referee, 1 – Team doctor, 2 – Tournament Doctor, 3 -Match Day Doctor, 4-Following in-game video review, 5 - Physiotherapist]
+    static int HIA1_Test1_Question13;
 
-    public int HIA1_Test2_Question1;
-    public int HIA1_Test2_Question2;
-    public int HIA1_Test2_Question3;
-    public int HIA1_Test2_Question4;
-    public int HIA1_Test2_Question5;
-    public String HIA1_Test2_Question6 = "NA";
+    static int HIA1_Test2_Question1;
+    static int HIA1_Test2_Question2;
+    static int HIA1_Test2_Question3;
+    static int HIA1_Test2_Question4;
+    static int HIA1_Test2_Question5;
+    static String HIA1_Test2_Question6 = "NA";
 
-    public int HIA1_Test3_Question1;
-    public int HIA1_Test3_Question2;
-    public int HIA1_Test3_Question3;
-    public int HIA1_Test3_Question4;
-    public int HIA1_Test3_Question5;
+    static int HIA1_Test3_Question1;
+    static int HIA1_Test3_Question2;
+    static int HIA1_Test3_Question3;
+    static int HIA1_Test3_Question4;
+    static int HIA1_Test3_Question5;
 
-    public int HIA1_Test4_Question1;
-    public int HIA1_Test4_Question2;
+    static int HIA1_Test4_Question1;
+    static int HIA1_Test4_Question2;
 
-    public int HIA1_Test5_Question1;
-    public int HIA1_Test5_Question2;
-    public int HIA1_Test5_Question3;
-    public int HIA1_Test5_Question4;
-    public int HIA1_Test5_Question5;
-    public int HIA1_Test5_Question6;
-    public int HIA1_Test5_Question7;
-    public int HIA1_Test5_Question8;
-    public int HIA1_Test5_Question9;
+    static int HIA1_Test5_Question1;
+    static int HIA1_Test5_Question2;
+    static int HIA1_Test5_Question3;
+    static int HIA1_Test5_Question4;
+    static int HIA1_Test5_Question5;
+    static int HIA1_Test5_Question6;
+    static int HIA1_Test5_Question7;
+    static int HIA1_Test5_Question8;
+    static int HIA1_Test5_Question9;
 
-    public int HIA1_Test6_Question1;
-    public int HIA1_Test6_Question2;
-    public int HIA1_Test6_Question3;
-    public int HIA1_Test6_Question4;
+    static int HIA1_Test6_Question1;
+    static int HIA1_Test6_Question2;
+    static int HIA1_Test6_Question3;
+    static int HIA1_Test6_Question4;
 
-    public int HIA1_Test7_Question1; //[0 – Referee, 1 – Team doctor, 2 – Tournament Doctor, 3 -Match Day Doctor, 4 - Physiotherapist]
-    public int HIA1_Test7_Question2;
-    public int HIA1_Test7_Question3; //[0 – Team doctor, 1– Tournament Doctor, 2 -Match Day Doctor, 3 – Assistant team doctor]
-    public int HIA1_Test7_Question4;
-    public int HIA1_Test7_Question5; //[0 – No, 1 – Yes, pitch side HIA abnormal, 2- Yes, player removed for another injury]
-    public int HIA1_Test7_Question6;
+    static int HIA1_Test7_Question1; //[0 – Referee, 1 – Team doctor, 2 – Tournament Doctor, 3 -Match Day Doctor, 4 - Physiotherapist]
+    static int HIA1_Test7_Question2;
+    static int HIA1_Test7_Question3; //[0 – Team doctor, 1– Tournament Doctor, 2 -Match Day Doctor, 3 – Assistant team doctor]
+    static int HIA1_Test7_Question4;
+    static int HIA1_Test7_Question5; //[0 – No, 1 – Yes, pitch side HIA abnormal, 2- Yes, player removed for another injury]
+    static int HIA1_Test7_Question6;
 
     //HIA1(){
     //  HIA1_Test1_Question1=0;
@@ -65,7 +65,7 @@ public class HIA1 extends FragmentActivity {
     public HIA1() {
     }
 
-    public int getHIA1_Test1_Question1() {
+    static int getHIA1_Test1_Question1() {
         return HIA1_Test1_Question1;
     }
     public int getHIA1_Test1_Question2() {

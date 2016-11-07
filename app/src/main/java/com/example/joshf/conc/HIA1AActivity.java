@@ -144,7 +144,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 args.put("HIA1_Test1_Question12", Integer.toString(this.objectHIA1.getHIA1_Test1_Question12()));
                 args.put("HIA1_Test1_Question13", Integer.toString(this.objectHIA1.getHIA1_Test1_Question13()));
 
-                args.put("HIA1_Test2_Question1", Integer.toString(this.objectHIA1.getHIA1_Test2_Question1()));
+                args.put("HIA1_Test2_Question1", Integer.toString(HIA1.HIA1_Test2_Question1));
                 args.put("HIA1_Test2_Question2", Integer.toString(this.objectHIA1.getHIA1_Test2_Question2()));
                 args.put("HIA1_Test2_Question3", Integer.toString(this.objectHIA1.getHIA1_Test2_Question3()));
                 args.put("HIA1_Test2_Question4", Integer.toString(this.objectHIA1.getHIA1_Test2_Question4()));
@@ -641,121 +641,121 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 case R.id.checkBox_TP:
                     if (ch1.isChecked()) {
                         HIA1_Test1_Question1 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question1(1);
+                        HIA1.HIA1_Test1_Question1=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question1);
                     } else {
                         HIA1_Test1_Question1 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question1(0);
+                        HIA1.HIA1_Test1_Question1=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question1);
                     }
                     break;
                 case R.id.checkBox_CONV:
                     if (ch2.isChecked()) {
                         HIA1_Test1_Question2 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question2(1);
+                        HIA1.HIA1_Test1_Question2=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question2);
                     } else {
                         HIA1_Test1_Question2 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question2(0);
+                        HIA1.HIA1_Test1_Question2=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question2);
                     }
                     break;
                 case R.id.checkBox_CCONSC:
                     if (ch3.isChecked()) {
                         HIA1_Test1_Question3 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question3(1);
+                        HIA1.HIA1_Test1_Question3=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question3);
                     } else {
                         HIA1_Test1_Question3 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question3(0);
+                        HIA1.HIA1_Test1_Question3=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question3);
                     }
                     break;
                 case R.id.checkBox_SCONSC:
                     if (ch4.isChecked()) {
                         HIA1_Test1_Question4 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question4(1);
+                        HIA1.HIA1_Test1_Question4=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question4);
                     } else {
                         HIA1_Test1_Question4 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question4(0);
+                        HIA1.HIA1_Test1_Question4=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question4);
                     }
                     break;
                 case R.id.checkBox_BAL:
                     if (ch5.isChecked()) {
                         HIA1_Test1_Question5 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question5(1);
+                        HIA1.HIA1_Test1_Question5=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question5);
                     } else {
                         HIA1_Test1_Question5 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question5(0);
+                        HIA1.HIA1_Test1_Question5=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question5);
                     }
                     break;
                 case R.id.checkBox_ORIEN:
                     if (ch6.isChecked()) {
                         HIA1_Test1_Question6 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question6(1);
+                        HIA1.HIA1_Test1_Question6=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question6);
                     } else {
                         HIA1_Test1_Question6 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question6(0);
+                        HIA1.HIA1_Test1_Question6=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question6);
                     }
                     break;
                 case R.id.checkBox_DAZE:
                     if (ch7.isChecked()) {
                         HIA1_Test1_Question7 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question7(1);
+                        HIA1.HIA1_Test1_Question7=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question7);
                     } else {
                         HIA1_Test1_Question7 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question7(0);
+                        HIA1.HIA1_Test1_Question7=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question7);
                     }
                     break;
                 case R.id.checkBox_CONF:
                     if (ch8.isChecked()) {
                         HIA1_Test1_Question8 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question8(1);
+                        HIA1.HIA1_Test1_Question8=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question8);
                     } else {
                         HIA1_Test1_Question8 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question8(0);
+                        HIA1.HIA1_Test1_Question8=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question8);
                     }
                     break;
                 case R.id.checkBox_BEHAV:
                     if (ch9.isChecked()) {
                         HIA1_Test1_Question9 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question9(1);
+                        HIA1.HIA1_Test1_Question9=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question9);
                     } else {
                         HIA1_Test1_Question9 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question9(0);
+                        HIA1.HIA1_Test1_Question9=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question9);
                     }
                     break;
                 case R.id.checkBox_IDENT:
                     if (ch10.isChecked()) {
                         HIA1_Test1_Question10 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question10(1);
+                        HIA1.HIA1_Test1_Question10=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question10);
                     } else {
                         HIA1_Test1_Question10 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question10(0);
+                        HIA1.HIA1_Test1_Question10=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question10);
                     }
                     break;
                 case R.id.checkBox_OCU:
                     if (ch11.isChecked()) {
                         HIA1_Test1_Question11 = true;
-                        hia1test.objHIA1.setHIA1_Test1_Question11(1);
+                        HIA1.HIA1_Test1_Question11=1;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question11);
                     } else {
                         HIA1_Test1_Question11 = false;
-                        hia1test.objHIA1.setHIA1_Test1_Question11(0);
+                        HIA1.HIA1_Test1_Question11=0;
                         Log.v(TAG, "Test: " + HIA1_Test1_Question11);
                     }
                     break;

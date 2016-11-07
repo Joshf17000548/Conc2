@@ -190,11 +190,11 @@ public class HIA1HFragment extends Fragment {
                         Log.v(TAG, "Video Checkbox: " + memscorestring);
                         if ("".equals(memscorestring)){
                             HIA1_Test4_Question1 = Integer.parseInt("0");
-                            hia1test.objHIA1.setHIA1_Test4_Question1(HIA1_Test4_Question1);
+                            HIA1.HIA1_Test4_Question1=HIA1_Test4_Question1;
                         }
                         else{
                             HIA1_Test4_Question1 = Integer.parseInt(memscorestring);
-                            hia1test.objHIA1.setHIA1_Test4_Question1(HIA1_Test4_Question1);
+                            HIA1.HIA1_Test4_Question1=HIA1_Test4_Question1;
                         }
 
                     }
@@ -213,11 +213,11 @@ public class HIA1HFragment extends Fragment {
                         Log.v(TAG, "Video Checkbox: " + digbackstring);
                         if ("".equals(digbackstring)){
                             HIA1_Test4_Question2 = Integer.parseInt("0");
-                            hia1test.objHIA1.setHIA1_Test4_Question2(HIA1_Test4_Question2);
+                            HIA1.HIA1_Test4_Question2=HIA1_Test4_Question2;
                         }
                         else{
                             HIA1_Test4_Question2 = Integer.parseInt(digbackstring);
-                            hia1test.objHIA1.setHIA1_Test4_Question2(HIA1_Test4_Question2);
+                            HIA1.HIA1_Test4_Question2=HIA1_Test4_Question2;
                         }
 
                     }

@@ -78,14 +78,14 @@ public class HIA1CFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     if (checked2) {
                         HIA1_Test3_Question1 = 1;
                         madTot = HIA1_Test3_Question1 + HIA1_Test3_Question4 + HIA1_Test3_Question2 + HIA1_Test3_Question3 + HIA1_Test3_Question5;
-                        hia1test.objHIA1.setHIA1_Test3_Question1(1);
+                        HIA1.HIA1_Test3_Question1=1;
                         Log.v(TAG, "Purple Monkeys " + madTot);
 
                         break;
                     } else {
                         HIA1_Test3_Question1 = 0;
                         madTot = HIA1_Test3_Question1 + HIA1_Test3_Question4 + HIA1_Test3_Question2 + HIA1_Test3_Question3 + HIA1_Test3_Question5;
-                        hia1test.objHIA1.setHIA1_Test3_Question1(0);
+                        HIA1.HIA1_Test3_Question1=0;
                         Log.v(TAG, "Purple Monkeys " + madTot);
 
                         break;
@@ -95,14 +95,14 @@ public class HIA1CFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     if (checked2) {
                         HIA1_Test3_Question2 = 1;
                         madTot = HIA1_Test3_Question1 + HIA1_Test3_Question4 + HIA1_Test3_Question2 + HIA1_Test3_Question3 + HIA1_Test3_Question5;
-                        hia1test.objHIA1.setHIA1_Test3_Question2(1);
+                        HIA1.HIA1_Test3_Question2=1;
                         Log.v(TAG, "Purple Monkeys " + madTot);
 
                         break;
                     } else {
                         HIA1_Test3_Question2 = 0;
                         madTot = HIA1_Test3_Question1 + HIA1_Test3_Question4 + HIA1_Test3_Question2 + HIA1_Test3_Question3 + HIA1_Test3_Question5;
-                        hia1test.objHIA1.setHIA1_Test3_Question2(0);
+                        HIA1.HIA1_Test3_Question2=0;
                         Log.v(TAG, "Purple Monkeys " + madTot);
 
                         break;
@@ -112,14 +112,14 @@ public class HIA1CFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     if (checked2) {
                         HIA1_Test3_Question3 = 1;
                         madTot = HIA1_Test3_Question1 + HIA1_Test3_Question4 + HIA1_Test3_Question2 + HIA1_Test3_Question3 + HIA1_Test3_Question5;
-                        hia1test.objHIA1.setHIA1_Test3_Question3(1);
+                        HIA1.HIA1_Test3_Question3=1;
                         Log.v(TAG, "Purple Monkeys " + madTot);
 
                         break;
                     } else {
                         HIA1_Test3_Question3 = 0;
                         madTot = HIA1_Test3_Question1 + HIA1_Test3_Question4 + HIA1_Test3_Question2 + HIA1_Test3_Question3 + HIA1_Test3_Question5;
-                        hia1test.objHIA1.setHIA1_Test3_Question3(0);
+                        HIA1.HIA1_Test3_Question3=0;
                         Log.v(TAG, "Purple Monkeys " + madTot);
 
                         break;
@@ -129,14 +129,14 @@ public class HIA1CFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     if (checked2) {
                         HIA1_Test3_Question4 = 1;
                         madTot = HIA1_Test3_Question1 + HIA1_Test3_Question4 + HIA1_Test3_Question2 + HIA1_Test3_Question3 + HIA1_Test3_Question5;
-                        hia1test.objHIA1.setHIA1_Test3_Question4(1);
+                        HIA1.HIA1_Test3_Question4=1;
                         Log.v(TAG, "Purple Monkeys " + madTot);
 
                         break;
                     } else {
                         HIA1_Test3_Question4 = 0;
                         madTot = HIA1_Test3_Question1 + HIA1_Test3_Question4 + HIA1_Test3_Question2 + HIA1_Test3_Question3 + HIA1_Test3_Question5;
-                        hia1test.objHIA1.setHIA1_Test3_Question4(0);
+                        HIA1.HIA1_Test3_Question4=0;
                         Log.v(TAG, "Purple Monkeys " + madTot);
 
                         break;
@@ -146,14 +146,14 @@ public class HIA1CFragment extends Fragment implements CheckBox.OnCheckedChangeL
                     if (checked2) {
                         HIA1_Test3_Question5 = 1;
                         madTot = HIA1_Test3_Question1 + HIA1_Test3_Question4 + HIA1_Test3_Question2 + HIA1_Test3_Question3 + HIA1_Test3_Question5;
-                        hia1test.objHIA1.setHIA1_Test3_Question5(1);
+                        HIA1.HIA1_Test3_Question5=1;
                         Log.v(TAG, "Purple Monkeys " + madTot);
 
                         break;
                     } else {
                         HIA1_Test3_Question5 = 0;
                         madTot = HIA1_Test3_Question1 + HIA1_Test3_Question4 + HIA1_Test3_Question2 + HIA1_Test3_Question3 + HIA1_Test3_Question5;
-                        hia1test.objHIA1.setHIA1_Test3_Question5(0);
+                        HIA1.HIA1_Test3_Question5=0;
                         Log.v(TAG, "Purple Monkeys " + madTot);
 
                         break;

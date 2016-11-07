@@ -56,11 +56,11 @@ public class HIA1BFragment extends Fragment {
                     final boolean checked2 = mButton.isChecked();
                     if (checked2) {
 
-                        hia1test.objHIA1.setHIA1_Test2_Question1(1);
+                        HIA1.HIA1_Test2_Question1=1; //example
                         Log.v(TAG, "Test: " + 1);
                     } else {
 
-                        hia1test.objHIA1.setHIA1_Test2_Question1(0);
+                        HIA1.HIA1_Test2_Question1=0;
                         Log.v(TAG, "Test: " + 0);
                     }
                 }
@@ -71,11 +71,11 @@ public class HIA1BFragment extends Fragment {
                 public void onClick(View v) {
                     final boolean checked2 = mButton1.isChecked();
                     if (checked2) {
-                        hia1test.objHIA1.setHIA1_Test2_Question2(1);
+                        HIA1.HIA1_Test2_Question2=1;
                         Log.v(TAG, "Test: " + 1);
                     } else {
 
-                        hia1test.objHIA1.setHIA1_Test2_Question2(0);
+                        HIA1.HIA1_Test2_Question2=0;
                         Log.v(TAG, "Test: " + 0);
                     }
                 }
@@ -86,10 +86,10 @@ public class HIA1BFragment extends Fragment {
                 public void onClick(View v) {
                     final boolean checked2 = mButton2.isChecked();
                     if (checked2) {
-                        hia1test.objHIA1.setHIA1_Test2_Question3(1);
+                        HIA1.HIA1_Test2_Question3=1;
                         Log.v(TAG, "Test: " + 1);
                     } else {
-                        hia1test.objHIA1.setHIA1_Test2_Question3(0);
+                        HIA1.HIA1_Test2_Question3=0;
                         Log.v(TAG, "Test: " + 0);
                     }
                 }
@@ -100,10 +100,10 @@ public class HIA1BFragment extends Fragment {
                 public void onClick(View v) {
                     final boolean checked2 = mButton3.isChecked();
                     if (checked2) {
-                        hia1test.objHIA1.setHIA1_Test2_Question4(1);
+                        HIA1.HIA1_Test2_Question4=1;
                         Log.v(TAG, "Test: " + 1);
                     } else {
-                        hia1test.objHIA1.setHIA1_Test2_Question4(0);
+                        HIA1.HIA1_Test2_Question4=0;;
                         Log.v(TAG, "Test: " + 0);
                     }
                 }
@@ -114,10 +114,10 @@ public class HIA1BFragment extends Fragment {
                 public void onClick(View v) {
                     final boolean checked2 = mButton4.isChecked();
                     if (checked2) {
-                        hia1test.objHIA1.setHIA1_Test2_Question5(1);
+                        HIA1.HIA1_Test2_Question5=1;
                         Log.v(TAG, "Test: " + 1);
                     } else {
-                        hia1test.objHIA1.setHIA1_Test2_Question5(0);
+                        HIA1.HIA1_Test2_Question5=0;
                         Log.v(TAG, "Test: " + 0);
                     }
                 }
@@ -126,7 +126,7 @@ public class HIA1BFragment extends Fragment {
             other.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     HIA1_Test2_Question6 = other.getText().toString();
-                    hia1test.objHIA1.setHIA1_Test2_Question6(HIA1_Test2_Question6);
+                    HIA1.HIA1_Test2_Question6 =HIA1_Test2_Question6;
                     Log.v(TAG, "Other textbox string: " + HIA1_Test2_Question6);
                 }
             });

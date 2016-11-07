@@ -70,11 +70,11 @@ public class HIA1FFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         Log.v(TAG, "Video Checkbox: " + delmemstring);
                         if ("".equals(delmemstring)){
                             HIA1_Test6_Question1 = Integer.parseInt("0");
-                            hia1test.objHIA1.setHIA1_Test6_Question1(HIA1_Test6_Question1);
+                            HIA1.HIA1_Test6_Question1=HIA1_Test6_Question1;
                         }
                         else{
                             HIA1_Test6_Question1 = Integer.parseInt(delmemstring);
-                            hia1test.objHIA1.setHIA1_Test6_Question1(HIA1_Test6_Question1);
+                            HIA1.HIA1_Test6_Question1=HIA1_Test6_Question1;
                         }
 
                     }
@@ -103,13 +103,13 @@ public class HIA1FFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_CS1_Y:
                     if (checked) {
                         HIA1_Test6_Question2 = 1;
-                        hia1test.objHIA1.setHIA1_Test6_Question2(1);
+                        HIA1.HIA1_Test6_Question2=1;
                         cs = HIA1_Test6_Question2 + HIA1_Test6_Question3 + HIA1_Test6_Question4;
                         Log.v(TAG, "Mad Checkbox: " + HIA1_Test6_Question2 + "tally: " + cs);
                         break;
                     } else {
                         HIA1_Test6_Question2 = 0;
-                        hia1test.objHIA1.setHIA1_Test6_Question2(0);
+                        HIA1.HIA1_Test6_Question2=0;
                         cs = HIA1_Test6_Question2 + HIA1_Test6_Question3 + HIA1_Test6_Question4;
                         Log.v(TAG, "Mad Checkbox: " + HIA1_Test6_Question2 + "tally: " + cs);
                         break;
@@ -118,13 +118,13 @@ public class HIA1FFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_CS2_Y:
                     if (checked) {
                         HIA1_Test6_Question3 = 1;
-                        hia1test.objHIA1.setHIA1_Test6_Question3(1);
+                        HIA1.HIA1_Test6_Question3=1;
                         cs = HIA1_Test6_Question2 + HIA1_Test6_Question3 + HIA1_Test6_Question4;
                         Log.v(TAG, "Mad Checkbox: " + HIA1_Test6_Question3 + "tally: " + cs);
                         break;
                     } else {
                         HIA1_Test6_Question3 = 0;
-                        hia1test.objHIA1.setHIA1_Test6_Question3(0);
+                        HIA1.HIA1_Test6_Question3=0;
                         cs = HIA1_Test6_Question2 + HIA1_Test6_Question3 + HIA1_Test6_Question4;
                         Log.v(TAG, "Mad Checkbox: " + HIA1_Test6_Question3 + "tally: " + cs);
                         break;
@@ -133,13 +133,13 @@ public class HIA1FFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_CS3_Y:
                     if (checked) {
                         HIA1_Test6_Question4 = 1;
-                        hia1test.objHIA1.setHIA1_Test6_Question4(1);
+                        HIA1.HIA1_Test6_Question4=1;
                         cs = HIA1_Test6_Question2 + HIA1_Test6_Question3 + HIA1_Test6_Question4;
                         Log.v(TAG, "Mad Checkbox: " + HIA1_Test6_Question4 + "tally: " + cs);
                         break;
                     } else {
                         HIA1_Test6_Question4 = 0;
-                        hia1test.objHIA1.setHIA1_Test6_Question4(0);
+                        HIA1.HIA1_Test6_Question4=0;
                         cs = HIA1_Test6_Question2 + HIA1_Test6_Question3 + HIA1_Test6_Question4;
                         Log.v(TAG, "Mad Checkbox: " + HIA1_Test6_Question4 + "tally: " + cs);
                         break;
