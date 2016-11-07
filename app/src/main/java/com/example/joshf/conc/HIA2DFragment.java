@@ -152,11 +152,11 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         HIA2_Test4_Question7 = Integer.parseInt(other.getText().toString());
                         if("".equals(mem_score)){
                             HIA2_Test4_Question7 = Integer.parseInt("0");
-                            hia2test.objHIA2.setHIA2_Test4_Question7(HIA2_Test4_Question7);
+                            HIA2.HIA2_Test4_Question7=HIA2_Test4_Question7;
                             // orienCallback.onImedMemSelected(HIA2_Test4_Question7);
                         }
                         else{
-                            hia2test.objHIA2.setHIA2_Test4_Question7(HIA2_Test4_Question7);
+                            HIA2.HIA2_Test4_Question7=HIA2_Test4_Question7;
                             Log.v(TAG, "Video Checkbox: " + mem_score);
                             orienCallback.onImedMemSelected(HIA2_Test4_Question7);
                         }
@@ -173,6 +173,37 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
         return rootView;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Activity b = getActivity();
+        if(b instanceof HIA2AActivity) {
+            hia2test = (HIA2AActivity) getActivity();
+
+                    try{
+                        String mem_score = other.getText().toString();
+                        HIA2_Test4_Question7 = Integer.parseInt(other.getText().toString());
+                        if("".equals(mem_score)){
+                            HIA2_Test4_Question7 = Integer.parseInt("0");
+                            HIA2.HIA2_Test4_Question7=HIA2_Test4_Question7;
+                            // orienCallback.onImedMemSelected(HIA2_Test4_Question7);
+                        }
+                        else{
+                            HIA2.HIA2_Test4_Question7=HIA2_Test4_Question7;
+                            Log.v(TAG, "Video Checkbox: " + mem_score);
+                            orienCallback.onImedMemSelected(HIA2_Test4_Question7);
+                        }
+                    }
+                    catch(NumberFormatException e){
+                        //exception
+                    }
+
+        }
+
+    }
+
+
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -186,18 +217,18 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_ORIEN_1:
                     if (checked2) {
                         HIA2_Test4_Question1 = 1;
-                        hia2test.objHIA2.setHIA2_Test4_Question1(1);
+                        HIA2.HIA2_Test4_Question1=1;
                         HIA2_Test4_Question6 = HIA2_Test4_Question1 + HIA2_Test4_Question2 + HIA2_Test4_Question3 + HIA2_Test4_Question4 + HIA2_Test4_Question5;
-                        hia2test.objHIA2.setHIA2_Test4_Question6(HIA2_Test4_Question6);
+                        HIA2.HIA2_Test4_Question6=HIA2_Test4_Question6;
                         Log.v(TAG, "Purple Monkeys " + HIA2_Test4_Question6);
                         orienCallback.onOrienSelected(HIA2_Test4_Question6);
                         break;
 
                     } else {
                         HIA2_Test4_Question1 = 0;
-                        hia2test.objHIA2.setHIA2_Test4_Question1(0);
+                        HIA2.HIA2_Test4_Question1=0;
                         HIA2_Test4_Question6 = HIA2_Test4_Question1 + HIA2_Test4_Question2 + HIA2_Test4_Question3 + HIA2_Test4_Question4 + HIA2_Test4_Question5;
-                        hia2test.objHIA2.setHIA2_Test4_Question6(HIA2_Test4_Question6);
+                        HIA2.HIA2_Test4_Question6=HIA2_Test4_Question6;
                         Log.v(TAG, "Purple Monkeys " + HIA2_Test4_Question6);
                         orienCallback.onOrienSelected(HIA2_Test4_Question6);
                         break;
@@ -206,17 +237,17 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_ORIEN_3:
                     if (checked2) {
                         HIA2_Test4_Question2 = 1;
-                        hia2test.objHIA2.setHIA2_Test4_Question2(1);
+                        HIA2.HIA2_Test4_Question2=1;
                         HIA2_Test4_Question6 = HIA2_Test4_Question1 + HIA2_Test4_Question2 + HIA2_Test4_Question3 + HIA2_Test4_Question4 + HIA2_Test4_Question5;
-                        hia2test.objHIA2.setHIA2_Test4_Question6(HIA2_Test4_Question6);
+                        HIA2.HIA2_Test4_Question6=HIA2_Test4_Question6;
                         Log.v(TAG, "Purple Monkeys " + HIA2_Test4_Question6);
                         orienCallback.onOrienSelected(HIA2_Test4_Question6);
                         break;
                     } else {
                         HIA2_Test4_Question2 = 0;
-                        hia2test.objHIA2.setHIA2_Test4_Question2(0);
+                        HIA2.HIA2_Test4_Question2=0;
                         HIA2_Test4_Question6 = HIA2_Test4_Question1 + HIA2_Test4_Question2 + HIA2_Test4_Question3 + HIA2_Test4_Question4 + HIA2_Test4_Question5;
-                        hia2test.objHIA2.setHIA2_Test4_Question6(HIA2_Test4_Question6);
+                        HIA2.HIA2_Test4_Question6=HIA2_Test4_Question6;
                         Log.v(TAG, "Purple Monkeys " + HIA2_Test4_Question6);
                         orienCallback.onOrienSelected(HIA2_Test4_Question6);
                         break;
@@ -225,17 +256,17 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_ORIEN_5:
                     if (checked2) {
                         HIA2_Test4_Question3 = 1;
-                        hia2test.objHIA2.setHIA2_Test4_Question3(1);
+                        HIA2.HIA2_Test4_Question3=1;
                         HIA2_Test4_Question6 = HIA2_Test4_Question1 + HIA2_Test4_Question2 + HIA2_Test4_Question3 + HIA2_Test4_Question4 + HIA2_Test4_Question5;
-                        hia2test.objHIA2.setHIA2_Test4_Question6(HIA2_Test4_Question6);
+                        HIA2.HIA2_Test4_Question6=HIA2_Test4_Question6;
                         Log.v(TAG, "Purple Monkeys " + HIA2_Test4_Question6);
                         orienCallback.onOrienSelected(HIA2_Test4_Question6);
                         break;
                     } else {
                         HIA2_Test4_Question3 = 0;
-                        hia2test.objHIA2.setHIA2_Test4_Question3(0);
+                        HIA2.HIA2_Test4_Question3=0;
                         HIA2_Test4_Question6 = HIA2_Test4_Question1 + HIA2_Test4_Question2 + HIA2_Test4_Question3 + HIA2_Test4_Question4 + HIA2_Test4_Question5;
-                        hia2test.objHIA2.setHIA2_Test4_Question6(HIA2_Test4_Question6);
+                        HIA2.HIA2_Test4_Question6=HIA2_Test4_Question6;
                         Log.v(TAG, "Purple Monkeys " + HIA2_Test4_Question6);
                         orienCallback.onOrienSelected(HIA2_Test4_Question6);
                         break;
@@ -244,17 +275,17 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_ORIEN_7:
                     if (checked2) {
                         HIA2_Test4_Question4 = 1;
-                        hia2test.objHIA2.setHIA2_Test4_Question4(1);
+                        HIA2.HIA2_Test4_Question4=1;
                         HIA2_Test4_Question6 = HIA2_Test4_Question1 + HIA2_Test4_Question2 + HIA2_Test4_Question3 + HIA2_Test4_Question4 + HIA2_Test4_Question5;
-                        hia2test.objHIA2.setHIA2_Test4_Question6(HIA2_Test4_Question6);
+                        HIA2.HIA2_Test4_Question6=HIA2_Test4_Question6;
                         Log.v(TAG, "Purple Monkeys " + HIA2_Test4_Question6);
                         orienCallback.onOrienSelected(HIA2_Test4_Question6);
                         break;
                     } else {
                         HIA2_Test4_Question4 = 0;
-                        hia2test.objHIA2.setHIA2_Test4_Question4(0);
+                        HIA2.HIA2_Test4_Question4=0;
                         HIA2_Test4_Question6 = HIA2_Test4_Question1 + HIA2_Test4_Question2 + HIA2_Test4_Question3 + HIA2_Test4_Question4 + HIA2_Test4_Question5;
-                        hia2test.objHIA2.setHIA2_Test4_Question6(HIA2_Test4_Question6);
+                        HIA2.HIA2_Test4_Question6=HIA2_Test4_Question6;
                         Log.v(TAG, "Purple Monkeys " + HIA2_Test4_Question6);
                         orienCallback.onOrienSelected(HIA2_Test4_Question6);
                         break;
@@ -263,17 +294,17 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                 case R.id.checkBox_ORIEN_9:
                     if (checked2) {
                         HIA2_Test4_Question5 = 1;
-                        hia2test.objHIA2.setHIA2_Test4_Question5(1);
+                        HIA2.HIA2_Test4_Question5=1;
                         HIA2_Test4_Question6 = HIA2_Test4_Question1 + HIA2_Test4_Question2 + HIA2_Test4_Question3 + HIA2_Test4_Question4 + HIA2_Test4_Question5;
-                        hia2test.objHIA2.setHIA2_Test4_Question6(HIA2_Test4_Question6);
+                        HIA2.HIA2_Test4_Question6=HIA2_Test4_Question6;
                         Log.v(TAG, "Purple Monkeys " + HIA2_Test4_Question6);
                         orienCallback.onOrienSelected(HIA2_Test4_Question6);
                         break;
                     } else {
                         HIA2_Test4_Question5 = 0;
-                        hia2test.objHIA2.setHIA2_Test4_Question5(0);
+                        HIA2.HIA2_Test4_Question5=0;
                         HIA2_Test4_Question6 = HIA2_Test4_Question1 + HIA2_Test4_Question2 + HIA2_Test4_Question3 + HIA2_Test4_Question4 + HIA2_Test4_Question5;
-                        hia2test.objHIA2.setHIA2_Test4_Question6(HIA2_Test4_Question6);
+                        HIA2.HIA2_Test4_Question6=HIA2_Test4_Question6;
                         Log.v(TAG, "Purple Monkeys " + HIA2_Test4_Question6);
                         orienCallback.onOrienSelected(HIA2_Test4_Question6);
                         break;

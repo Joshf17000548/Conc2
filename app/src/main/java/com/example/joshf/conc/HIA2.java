@@ -8,50 +8,50 @@ import android.support.v4.app.FragmentActivity;
 
 public class HIA2 extends FragmentActivity {
 
-    public int HIA2_Test2_Question1;
-    public int HIA2_Test2_Question2;
-    public int HIA2_Test2_Question3;
-    public int HIA2_Test2_Question4;
-    public int HIA2_Test2_Question5;
-    public int HIA2_Test2_Question6;
-    public int HIA2_Test2_Question7;
-    public int HIA2_Test2_Question8;
-    public int HIA2_Test2_Question9;
-    public int HIA2_Test2_Question10;
-    public int HIA2_Test2_Question11;
-    public int HIA2_Test2_Question12;
-    public int HIA2_Test2_Question13;
-    public int HIA2_Test2_Question14;
-    public int HIA2_Test2_Question15;
-    public int HIA2_Test2_Question16;
-    public int HIA2_Test2_Question17;
-    public int HIA2_Test2_Question18;
-    public int HIA2_Test2_Question19;
-    public int HIA2_Test2_Question20;
-    public int HIA2_Test2_Question21;
-    public int HIA2_Test2_Question22;
+    static int HIA2_Test2_Question1;
+    static int HIA2_Test2_Question2;
+    static int HIA2_Test2_Question3;
+    static int HIA2_Test2_Question4;
+    static int HIA2_Test2_Question5;
+    static int HIA2_Test2_Question6;
+    static int HIA2_Test2_Question7;
+    static int HIA2_Test2_Question8;
+    static int HIA2_Test2_Question9;
+    static int HIA2_Test2_Question10;
+    static int HIA2_Test2_Question11;
+    static int HIA2_Test2_Question12;
+    static int HIA2_Test2_Question13;
+    static int HIA2_Test2_Question14;
+    static int HIA2_Test2_Question15;
+    static int HIA2_Test2_Question16;
+    static int HIA2_Test2_Question17;
+    static int HIA2_Test2_Question18;
+    static int HIA2_Test2_Question19;
+    static int HIA2_Test2_Question20;
+    static int HIA2_Test2_Question21;
+    static int HIA2_Test2_Question22;
 
-    public String HIA2_Test3_Question1 = "NA";
+    static String HIA2_Test3_Question1 = "NA";
 
-    public int HIA2_Test4_Question1;
-    public int HIA2_Test4_Question2;
-    public int HIA2_Test4_Question3;
-    public int HIA2_Test4_Question4;
-    public int HIA2_Test4_Question5;
-    public int HIA2_Test4_Question6;
-    public int HIA2_Test4_Question7;
+    static int HIA2_Test4_Question1;
+    static int HIA2_Test4_Question2;
+    static int HIA2_Test4_Question3;
+    static int HIA2_Test4_Question4;
+    static int HIA2_Test4_Question5;
+    static int HIA2_Test4_Question6;
+    static int HIA2_Test4_Question7;
 
-    public int HIA2_Test5_Question1;
-    public int HIA2_Test5_Question2;
+    static int HIA2_Test5_Question1;
+    static int HIA2_Test5_Question2;
 
-    public int HIA2_Test6_Question1;
+    static int HIA2_Test6_Question1;
 
-    public int HIA2_Test7_Question1;
+    static int HIA2_Test7_Question1;
 
     public HIA2() {
     }
 
-    public int getHIA2_Test2_Question1() {
+    /*public int getHIA2_Test2_Question1() {
         return HIA2_Test2_Question1;
     }
     public int getHIA2_Test2_Question2() {
@@ -193,7 +193,7 @@ public class HIA2 extends FragmentActivity {
 
     public void setHIA2_Test6_Question1(int HIA2_Test6_Question1) {this.HIA2_Test6_Question1 = HIA2_Test6_Question1;}
 
-    public void setHIA2_Test7_Question1(int HIA2_Test7_Question1) {this.HIA2_Test7_Question1 = HIA2_Test7_Question1;}
+    public void setHIA2_Test7_Question1(int HIA2_Test7_Question1) {this.HIA2_Test7_Question1 = HIA2_Test7_Question1;}*/
 
 }
 

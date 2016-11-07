@@ -135,8 +135,9 @@
             android:inputType="number"
             android:ems="4"
             android:id="@+id/editText16"
-            android:paddingStart="50dp"
-            android:layout_weight="1.03" />
+            android:paddingStart="0dp"
+            android:layout_weight="1.03"
+            android:imeOptions="actionNext"/>
 
 
     </LinearLayout>
@@ -184,7 +185,8 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="4"
-            android:id="@+id/editText15"/>
+            android:id="@+id/editText15"
+            android:imeOptions="actionDone"/>
 
 
     </LinearLayout>

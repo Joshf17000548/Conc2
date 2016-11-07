@@ -135,6 +135,13 @@ public class HIA1BFragment extends Fragment {
 
         return rootView;
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        HIA1_Test2_Question6 = other.getText().toString();
+        HIA1.HIA1_Test2_Question6 =HIA1_Test2_Question6;
+        Log.v("nonclicked", ": " + HIA1_Test2_Question6);
+    }
 
 }
 

@@ -48,7 +48,8 @@
             android:inputType="number"
             android:ems="5"
             android:id="@+id/editText12"
-            android:paddingLeft="5dp"/>
+            android:paddingLeft="5dp"
+            android:imeOptions="actionDone"/>
 
     </LinearLayout>
 

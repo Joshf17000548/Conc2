@@ -73,7 +73,8 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editText9" />
+            android:id="@+id/editText9"
+            android:imeOptions="actionNext"/>
 
     </LinearLayout>
 
@@ -122,7 +123,8 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/editText10" />
+            android:id="@+id/editText10"
+            android:imeOptions="actionDone"/>
     </LinearLayout>
 
     <TextView

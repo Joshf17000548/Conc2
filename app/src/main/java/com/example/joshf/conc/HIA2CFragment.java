@@ -42,7 +42,7 @@ public class HIA2CFragment extends Fragment {
                 public void onClick(View v) {
                     HIA2_Test3_Question1 = other.getText().toString();
                     Log.v(TAG, "Video Checkbox: " + HIA2_Test3_Question1);
-                    hia2test.objHIA2.setHIA2_Test3_Question1(HIA2_Test3_Question1);
+                    HIA2.HIA2_Test3_Question1=HIA2_Test3_Question1;
                 }
             });
 
@@ -51,12 +51,10 @@ public class HIA2CFragment extends Fragment {
 
     }
 
-    /*@Override
+    @Override
     public void onPause( ){
         super.onPause();
-        if(other.getText() != null) {
-            String unusual_symp =other.getText().toString();
-            Log.v(TAG, "Video Checkbox: " + unusual_symp);
-        }
-    }*/
+        HIA2_Test3_Question1 = other.getText().toString();
+        HIA2.HIA2_Test3_Question1=HIA2_Test3_Question1;
+    }
 }

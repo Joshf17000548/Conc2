@@ -281,6 +281,7 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
         return rootView;
     }
 
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -293,12 +294,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question23 = position;
                     if (position > 0) {
                         HIA2_Test2_Question1 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question1(position);
+                        HIA2.HIA2_Test2_Question1=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev1;
                         prev1 = position;
                     } else {
                         HIA2_Test2_Question1 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question1(position);
+                        HIA2.HIA2_Test2_Question1=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev1;
 
                     }
@@ -309,12 +310,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question24 = position;
                     if (position > 0) {
                         HIA2_Test2_Question2 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question2(position);
+                        HIA2.HIA2_Test2_Question2=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev2;
                         prev2 = position;
                     } else {
                         HIA2_Test2_Question2 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question2(position);
+                        HIA2.HIA2_Test2_Question2=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev2;
                     }
                     Log.v(TAG, "Video Checkbox0: " + HIA2_Test2_Question45 + "state: " + HIA2_Test2_Question2);
@@ -324,12 +325,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question25 = position;
                     if (position > 0) {
                         HIA2_Test2_Question3 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question3(position);
+                        HIA2.HIA2_Test2_Question3=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev3;
                         prev3 = position;
                     } else {
                         HIA2_Test2_Question3 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question3(position);
+                        HIA2.HIA2_Test2_Question3=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev3;
                     }
                     Log.v(TAG, "Video Checkbox2: " + position);
@@ -339,12 +340,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question26 = position;
                     if (position > 0) {
                         HIA2_Test2_Question4 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question4(position);
+                        HIA2.HIA2_Test2_Question4=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev4;
                         prev4 = position;
                     } else {
                         HIA2_Test2_Question4 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question4(position);
+                        HIA2.HIA2_Test2_Question4=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev4;
                     }
                     Log.v(TAG, "Video Checkbox0: " + position);
@@ -354,12 +355,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question27 = position;
                     if (position > 0) {
                         HIA2_Test2_Question5 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question5(position);
+                        HIA2.HIA2_Test2_Question5=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev5;
                         prev5 = position;
                     } else {
                         HIA2_Test2_Question5 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question5(position);
+                        HIA2.HIA2_Test2_Question5=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev5;
                     }
                     Log.v(TAG, "Video Checkbox1: " + position);
@@ -369,12 +370,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question28 = position;
                     if (position > 0) {
                         HIA2_Test2_Question6 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question6(position);
+                        HIA2.HIA2_Test2_Question6=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev6;
                         prev6 = position;
                     } else {
                         HIA2_Test2_Question6 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question6(position);
+                        HIA2.HIA2_Test2_Question6=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev6;
                     }
                     Log.v(TAG, "Video Checkbox2: " + position);
@@ -384,12 +385,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question29 = position;
                     if (position > 0) {
                         HIA2_Test2_Question7 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question7(position);
+                        HIA2.HIA2_Test2_Question7=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev7;
                         prev7 = position;
                     } else {
                         HIA2_Test2_Question7 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question7(position);
+                        HIA2.HIA2_Test2_Question7=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev7;
                     }
                     Log.v(TAG, "Video Checkbox0: " + position);
@@ -399,12 +400,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question30 = position;
                     if (position > 0) {
                         HIA2_Test2_Question8 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question8(position);
+                        HIA2.HIA2_Test2_Question8=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev8;
                         prev8 = position;
                     } else {
                         HIA2_Test2_Question8 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question8(position);
+                        HIA2.HIA2_Test2_Question8=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev8;
                     }
                     Log.v(TAG, "Video Checkbox1: " + position);
@@ -414,12 +415,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question31 = position;
                     if (position > 0) {
                         HIA2_Test2_Question9 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question9(position);
+                        HIA2.HIA2_Test2_Question9=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev9;
                         prev9 = position;
                     } else {
                         HIA2_Test2_Question9 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question9(position);
+                        HIA2.HIA2_Test2_Question9=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev9;
                     }
                     Log.v(TAG, "Video Checkbox2: " + position);
@@ -429,12 +430,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question32 = position;
                     if (position > 0) {
                         HIA2_Test2_Question10 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question10(position);
+                        HIA2.HIA2_Test2_Question10=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev10;
                         prev10 = position;
                     } else {
                         HIA2_Test2_Question10 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question10(position);
+                        HIA2.HIA2_Test2_Question10=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev10;
                     }
                     Log.v(TAG, "Video Checkbox0: " + position);
@@ -444,12 +445,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question33 = position;
                     if (position > 0) {
                         HIA2_Test2_Question11 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question11(position);
+                        HIA2.HIA2_Test2_Question11=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev11;
                         prev11 = position;
                     } else {
                         HIA2_Test2_Question11 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question11(position);
+                        HIA2.HIA2_Test2_Question11=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev11;
                     }
                     Log.v(TAG, "Video Checkbox1: " + position);
@@ -459,12 +460,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question34 = position;
                     if (position > 0) {
                         HIA2_Test2_Question12 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question12(position);
+                        HIA2.HIA2_Test2_Question12=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev12;
                         prev12 = position;
                     } else {
                         HIA2_Test2_Question12 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question12(position);
+                        HIA2.HIA2_Test2_Question12=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev12;
                     }
                     Log.v(TAG, "Video Checkbox2: " + position);
@@ -474,12 +475,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question35 = position;
                     if (position > 0) {
                         HIA2_Test2_Question13 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question13(position);
+                        HIA2.HIA2_Test2_Question13=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev13;
                         prev13 = position;
                     } else {
                         HIA2_Test2_Question13 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question13(position);
+                        HIA2.HIA2_Test2_Question13=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev13;
                     }
                     Log.v(TAG, "Video Checkbox0: " + position);
@@ -489,12 +490,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question36 = position;
                     if (position > 0) {
                         HIA2_Test2_Question14 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question14(position);
+                        HIA2.HIA2_Test2_Question14=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev14;
                         prev14 = position;
                     } else {
                         HIA2_Test2_Question14 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question14(position);
+                        HIA2.HIA2_Test2_Question14=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev14;
                     }
                     Log.v(TAG, "Video Checkbox1: " + position);
@@ -504,12 +505,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question37 = position;
                     if (position > 0) {
                         HIA2_Test2_Question15 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question15(position);
+                        HIA2.HIA2_Test2_Question15=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev15;
                         prev15 = position;
                     } else {
                         HIA2_Test2_Question15 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question15(position);
+                        HIA2.HIA2_Test2_Question15=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev15;
                     }
                     Log.v(TAG, "Video Checkbox2: " + position);
@@ -519,12 +520,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question38 = position;
                     if (position > 0) {
                         HIA2_Test2_Question16 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question16(position);
+                        HIA2.HIA2_Test2_Question16=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev16;
                         prev16 = position;
                     } else {
                         HIA2_Test2_Question16 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question16(position);
+                        HIA2.HIA2_Test2_Question16=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev16;
                     }
                     Log.v(TAG, "Video Checkbox0: " + position);
@@ -534,12 +535,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question39 = position;
                     if (position > 0) {
                         HIA2_Test2_Question17 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question17(position);
+                        HIA2.HIA2_Test2_Question17=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev17;
                         prev17 = position;
                     } else {
                         HIA2_Test2_Question17 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question17(position);
+                        HIA2.HIA2_Test2_Question17=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev17;
                     }
                     Log.v(TAG, "Video Checkbox1: " + position);
@@ -549,12 +550,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question40 = position;
                     if (position > 0) {
                         HIA2_Test2_Question18 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question18(position);
+                        HIA2.HIA2_Test2_Question18=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev18;
                         prev18 = position;
                     } else {
                         HIA2_Test2_Question18 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question18(position);
+                        HIA2.HIA2_Test2_Question18=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev18;
                     }
                     Log.v(TAG, "Video Checkbox2: " + position);
@@ -564,12 +565,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question41 = position;
                     if (position > 0) {
                         HIA2_Test2_Question19 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question19(position);
+                        HIA2.HIA2_Test2_Question19=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev19;
                         prev19 = position;
                     } else {
                         HIA2_Test2_Question19 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question19(position);
+                        HIA2.HIA2_Test2_Question19=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev19;
                     }
                     Log.v(TAG, "Video Checkbox0: " + position);
@@ -579,12 +580,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question42 = position;
                     if (position > 0) {
                         HIA2_Test2_Question20 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question20(position);
+                        HIA2.HIA2_Test2_Question20=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev20;
                         prev20 = position;
                     } else {
                         HIA2_Test2_Question20 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question20(position);
+                        HIA2.HIA2_Test2_Question20=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev20;
                     }
                     Log.v(TAG, "Video Checkbox1: " + position);
@@ -594,12 +595,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question43 = position;
                     if (position > 0) {
                         HIA2_Test2_Question21 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question21(position);
+                        HIA2.HIA2_Test2_Question21=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev21;
                         prev21 = position;
                     } else {
                         HIA2_Test2_Question21 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question21(position);
+                        HIA2.HIA2_Test2_Question21=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev21;
                     }
                     Log.v(TAG, "Video Checkbox2: " + position);
@@ -609,12 +610,12 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
                     HIA2_Test2_Question44 = position;
                     if (position > 0) {
                         HIA2_Test2_Question22 = true;
-                        hia2test.objHIA2.setHIA2_Test2_Question22(position);
+                        HIA2.HIA2_Test2_Question22=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 + position - prev22;
                         prev22 = position;
                     } else {
                         HIA2_Test2_Question22 = false;
-                        hia2test.objHIA2.setHIA2_Test2_Question22(position);
+                        HIA2.HIA2_Test2_Question22=position;
                         HIA2_Test2_Question45 = HIA2_Test2_Question45 - prev22;
                     }
                     Log.v(TAG, "Video Checkbox2: " + position);

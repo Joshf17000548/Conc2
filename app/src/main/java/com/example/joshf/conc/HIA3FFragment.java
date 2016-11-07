@@ -204,6 +204,24 @@ public class HIA3FFragment extends Fragment implements CheckBox.OnCheckedChangeL
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+
+        Activity c = getActivity();
+        if(c instanceof HIA3AActivity) {
+            hia3test = (HIA3AActivity) getActivity();
+
+                    HIA3_Test3_Question2 = other.getText().toString();
+                    Log.v(TAG, "Video Checkbox: " + HIA3_Test3_Question2);
+                    HIA3.HIA3_Test3_Question2=HIA3_Test3_Question2;
+
+                    HIA3_Test3_Question4 = other1.getText().toString();
+                    Log.v(TAG, "Video Checkbox: " + HIA3_Test3_Question4);
+                    HIA3.HIA3_Test3_Question4=HIA3_Test3_Question4;
+
+        }
+    }
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

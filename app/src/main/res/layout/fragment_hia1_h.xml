@@ -206,7 +206,8 @@
             android:inputType="number"
             android:ems="2"
             android:id="@+id/editText11"
-            android:paddingLeft="5dp"/>
+            android:paddingLeft="5dp"
+            android:imeOptions="actionNext"/>
 
 
     </LinearLayout>
@@ -336,7 +337,8 @@
             android:inputType="number"
             android:ems="4"
             android:id="@+id/editText12"
-            android:paddingLeft="3dp"/>
+            android:paddingLeft="3dp"
+            android:imeOptions="actionDone"/>
     </LinearLayout>
 
 

@@ -90,6 +90,14 @@ public class HIA1FFragment extends Fragment implements CheckBox.OnCheckedChangeL
     }
 
     @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+
+
+
+    }
+
+    @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         boolean checked = ((RadioButton) buttonView).isChecked();
 

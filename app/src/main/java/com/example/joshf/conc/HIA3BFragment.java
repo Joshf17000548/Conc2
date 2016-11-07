@@ -188,6 +188,33 @@ public class HIA3BFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
     @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+        Activity c = getActivity();
+        if(c instanceof HIA3AActivity) {
+            hia3test = (HIA3AActivity) getActivity();
+
+                    HIA3_Test2_Question2 = other.getText().toString();
+                    Log.v(TAG, "Video Checkbox: " + HIA3_Test2_Question2);
+                    HIA3.HIA3_Test2_Question2=HIA3_Test2_Question2;
+
+                    HIA3_Test2_Question4 = other1.getText().toString();
+                    Log.v(TAG, "Video Checkbox: " + HIA3_Test2_Question4);
+                    HIA3.HIA3_Test2_Question4=HIA3_Test2_Question4;
+
+                    HIA3_Test2_Question6 = other2.getText().toString();
+                    Log.v(TAG, "Video Checkbox: " + HIA3_Test2_Question6);
+                    HIA3.HIA3_Test2_Question6=HIA3_Test2_Question6;
+
+                    HIA3_Test2_Question8 = other3.getText().toString();
+                    Log.v(TAG, "Video Checkbox: " + HIA3_Test2_Question8);
+                    HIA3.HIA3_Test2_Question8=HIA3_Test2_Question8;
+
+        }
+
+    }
+
+    @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }

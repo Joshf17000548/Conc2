@@ -134,11 +134,11 @@ public class HIA2GFragment extends Fragment {
                         HIA2_Test5_Question1 = Integer.parseInt(other.getText().toString());
                         if("".equals(dig_back_score)){
                             HIA2_Test5_Question1 = Integer.parseInt("0");
-                            hia2test.objHIA2.setHIA2_Test5_Question1(HIA2_Test5_Question1);
+                            HIA2.HIA2_Test5_Question1=HIA2_Test5_Question1;
                             concCallback.onDigitBackSelected(HIA2_Test5_Question1);
                         }
                         else{
-                            hia2test.objHIA2.setHIA2_Test5_Question1(HIA2_Test5_Question1);
+                            HIA2.HIA2_Test5_Question1=HIA2_Test5_Question1;
                             concCallback.onDigitBackSelected(HIA2_Test5_Question1);
                         }
 
@@ -158,11 +158,11 @@ public class HIA2GFragment extends Fragment {
                         HIA2_Test5_Question2 = Integer.parseInt(other2.getText().toString());
                         if("".equals(conc_score)){
                             HIA2_Test5_Question2 = Integer.parseInt("0");
-                            hia2test.objHIA2.setHIA2_Test5_Question2(HIA2_Test5_Question2);
+                            HIA2.HIA2_Test5_Question2=HIA2_Test5_Question2;
                             concCallback.onMonthBackSelected(HIA2_Test5_Question2);
                         }
                         else{
-                            hia2test.objHIA2.setHIA2_Test5_Question2(HIA2_Test5_Question2);
+                            HIA2.HIA2_Test5_Question2=HIA2_Test5_Question2;
                             concCallback.onMonthBackSelected(HIA2_Test5_Question2);
                         }
 
@@ -179,6 +179,56 @@ public class HIA2GFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+        Activity b = getActivity();
+        if(b instanceof HIA2AActivity) {
+            hia2test = (HIA2AActivity) getActivity();
+
+
+                    try{
+                        String dig_back_score = other.getText().toString();
+                        Log.v(TAG, "Video Checkbox: " + dig_back_score);
+                        HIA2_Test5_Question1 = Integer.parseInt(other.getText().toString());
+                        if("".equals(dig_back_score)){
+                            HIA2_Test5_Question1 = Integer.parseInt("0");
+                            HIA2.HIA2_Test5_Question1=HIA2_Test5_Question1;
+                            concCallback.onDigitBackSelected(HIA2_Test5_Question1);
+                        }
+                        else{
+                            HIA2.HIA2_Test5_Question1=HIA2_Test5_Question1;
+                            concCallback.onDigitBackSelected(HIA2_Test5_Question1);
+                        }
+
+                    }
+                    catch(NumberFormatException e){
+                        //exception
+                    }
+
+                    try{
+                        String conc_score = other2.getText().toString();
+                        Log.v(TAG, "Video Checkbox: " + conc_score);
+                        HIA2_Test5_Question2 = Integer.parseInt(other2.getText().toString());
+                        if("".equals(conc_score)){
+                            HIA2_Test5_Question2 = Integer.parseInt("0");
+                            HIA2.HIA2_Test5_Question2=HIA2_Test5_Question2;
+                            concCallback.onMonthBackSelected(HIA2_Test5_Question2);
+                        }
+                        else{
+                            HIA2.HIA2_Test5_Question2=HIA2_Test5_Question2;
+                            concCallback.onMonthBackSelected(HIA2_Test5_Question2);
+                        }
+
+                    }
+                    catch(NumberFormatException e){
+                        //exception
+                    }
+
+
+
+        }
+    }
 
     @Override
     public void onAttach(Activity activity) {

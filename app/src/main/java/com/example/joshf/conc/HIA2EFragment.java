@@ -93,11 +93,11 @@ public class HIA2EFragment extends Fragment {
                         Log.v(TAG, "Video Checkbox: " + delmemstring);
                         if("".equals(delmemstring)){
                             HIA2_Test6_Question1 = Integer.parseInt("0");
-                            hia2test.objHIA2.setHIA2_Test6_Question1(HIA2_Test6_Question1);
+                            HIA2.HIA2_Test6_Question1=HIA2_Test6_Question1;
                         }
                         else{
                             HIA2_Test6_Question1 = Integer.parseInt(delmemstring);
-                            hia2test.objHIA2.setHIA2_Test6_Question1(HIA2_Test6_Question1);
+                            HIA2.HIA2_Test6_Question1=HIA2_Test6_Question1;
                             attempt.attemp1.delayedRecall= HIA2_Test6_Question1;
                         }
                     }
@@ -146,6 +146,33 @@ public class HIA2EFragment extends Fragment {
 
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();  // Always call the superclass method first
+
+        Activity a = getActivity();
+        if(a instanceof HIA2AActivity) {
+            hia2test = (HIA2AActivity) getActivity();
+
+                    try {
+                        delmemstring = delmem.getText().toString();
+                        Log.v(TAG, "Video Checkbox: " + delmemstring);
+                        if ("".equals(delmemstring)) {
+                            HIA2_Test6_Question1 = Integer.parseInt("0");
+                            HIA2.HIA2_Test6_Question1 = HIA2_Test6_Question1;
+                        } else {
+                            HIA2_Test6_Question1 = Integer.parseInt(delmemstring);
+                            HIA2.HIA2_Test6_Question1 = HIA2_Test6_Question1;
+                            attempt.attemp1.delayedRecall = HIA2_Test6_Question1;
+                        }
+                    } catch (NumberFormatException e) {
+                        //exception
+                    }
+        }
+
+    }
+
 
     @Override
     public void onResume()

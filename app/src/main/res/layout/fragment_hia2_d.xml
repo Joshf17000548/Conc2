@@ -443,7 +443,8 @@
             android:inputType="number"
             android:ems="5"
             android:id="@+id/editText8"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:imeOptions="actionDone"/>
 
     </LinearLayout>
 

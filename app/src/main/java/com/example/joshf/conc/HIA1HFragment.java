@@ -233,5 +233,55 @@ public class HIA1HFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Activity a = getActivity();
+
+        if(a instanceof HIA1AActivity) {
+            hia1test = (HIA1AActivity) getActivity();
+
+                    try {
+                        String memscorestring = memscore.getText().toString();
+                        Log.v(TAG, "Video Checkbox: " + memscorestring);
+                        if ("".equals(memscorestring)){
+                            HIA1_Test4_Question1 = Integer.parseInt("0");
+                            HIA1.HIA1_Test4_Question1=HIA1_Test4_Question1;
+                        }
+                        else{
+                            HIA1_Test4_Question1 = Integer.parseInt(memscorestring);
+                            HIA1.HIA1_Test4_Question1=HIA1_Test4_Question1;
+                        }
+
+                    }
+                    catch (NumberFormatException e)
+                    {
+                        //exception
+                    }
+
+
+                    try{
+                        String digbackstring = digback.getText().toString();
+                        Log.v(TAG, "Video Checkbox: " + digbackstring);
+                        if ("".equals(digbackstring)){
+                            HIA1_Test4_Question2 = Integer.parseInt("0");
+                            HIA1.HIA1_Test4_Question2=HIA1_Test4_Question2;
+                        }
+                        else{
+                            HIA1_Test4_Question2 = Integer.parseInt(digbackstring);
+                            HIA1.HIA1_Test4_Question2=HIA1_Test4_Question2;
+                        }
+
+                    }
+                    catch (NumberFormatException e){
+                        //exception
+                    }
+
+
+        }
+
+
+
+    }
 
 }
