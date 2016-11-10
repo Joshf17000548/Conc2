@@ -44,7 +44,6 @@ public class HIA3AActivity extends AppCompatActivity {
     AlertDialogManager alert = new AlertDialogManager();
 
 
-
     //database
     public HIA3AActivity hia3test;
     HIA3 objHIA3=new HIA3();
@@ -52,28 +51,18 @@ public class HIA3AActivity extends AppCompatActivity {
 
     static int Code_HIA1;
 
+    static int Code_HIA2;
+    static int Code_HIA3;
+    static int Code_Player;
+    int getHIA1T7Q5;
+    int getHIA2T7Q1;
+    int getHIA3T4Q4;
+
+
+
     //This function calls AsyncTask [insertHIA1], which submit the HIA1 data to insertHIA1.php file.
     public void submitHIA3(View view) {
-        //HIA1 objHIA1=new HIA1();
-        // int param; // Used to convert YES ->1 and NO ->0. Should change the value of radio groups to integers.
-        //Find radio group
-        //radioGroup = (RadioGroup) findViewById(R.id.Radio_checkBoxAA);
-        // get selected radio button from radioGroup
-        // int selectedId = radioGroup.getCheckedRadioButtonId();
 
-        // find the radiobutton by returned id
-       /* radioButton = (RadioButton) findViewById(selectedId);
-        //if(radioButton.getText()=="Yes"){
-        if(radioButton.getText().equals("Yes")){
-            param=1;
-        }else{
-            param=0;
-        }
-        */
-        //objHIA1.setHIA1_Test1_Question1(databasetest.HIA1_Test1_Question1);
-        //Toast.makeText(getApplicationContext(), "You selected :"+ radioButton.getText(), Toast.LENGTH_SHORT).show();
-        //Log.v("AGAIN:", "Check Check Ckeck: " + fragObjHia1.objHIA1.HIA1_Test1_Question1);
-        //objHIA1.setHIA1_Test1_Question1(param);
         new HIA3AActivity.HIA3insertAsync(objHIA3).execute(); //Call async Task
     }
 
@@ -365,13 +354,15 @@ public class HIA3AActivity extends AppCompatActivity {
 
     // second Async start
 
-    private class get_HIA1_Test7_Question5 extends AsyncTask<Void, Void, JSONArray> {
+    private class get_HIA123 extends AsyncTask<Void, Void, JSONArray> {
 
-        int getHIA1T7Q5;
+
+        int CodePlayer;
         // Alert Dialog Manager
         AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://104.198.254.110/ConcApp/getHIA1_Test7_Question5.php"; // Needs to be changed when using different php files.
+        //private static final String URL = "http://104.198.254.110/ConcApp/getHIA1_Test7_Question5.php"; // Needs to be changed when using different php files.
+        private static final String URL = "http://104.198.254.110/ConcApp/getHIA123Fields.php";
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -380,10 +371,10 @@ public class HIA3AActivity extends AppCompatActivity {
 
         private ProgressDialog pDialog;
 
-        public get_HIA1_Test7_Question5(int CodeHIA1){
+        public get_HIA123(int Code_Player){
             Log.d("JSONCONSTRUCTOR", "Start");
             Toast.makeText(getApplicationContext(), "Starting JSON", Toast.LENGTH_SHORT).show();
-            this.getHIA1T7Q5=CodeHIA1;
+            this.CodePlayer=Code_Player;
         }
 
         @Override
@@ -406,7 +397,7 @@ public class HIA3AActivity extends AppCompatActivity {
                 Log.d("JSON REQUEST", "Preparing Params ...");
                 HashMap<String, String> args = new HashMap<>();
 
-                args.put("Code_HIA1", Integer.toString(this.getHIA1T7Q5));
+                args.put("Code_Player", Integer.toString(this.CodePlayer));
 
                 // all args needs to convert to string because the hash map is string, string types.
 
@@ -446,8 +437,15 @@ public class HIA3AActivity extends AppCompatActivity {
                     message = json.getJSONObject(0).getString(TAG_MESSAGE);
 
                     if (success==1){
-                        Code_HIA1 = json.getJSONObject(0).getInt("HIA1_Test7_Question5");
+
                         Log.d("Retrieved",Integer.toString(Code_HIA1));
+                        getHIA1T7Q5 = Integer.parseInt(json.getJSONObject(0).getString("HIA1_Test7_Question5"));
+                        getHIA2T7Q1 = Integer.parseInt(json.getJSONObject(0).getString("HIA2_Test7_Question1"));
+                        getHIA3T4Q4 = Integer.parseInt(json.getJSONObject(0).getString("HIA3_Test4_Question4"));
+                        Log.d("Retrieved:",Integer.toString(getHIA1T7Q5));
+                        Log.d("Retrieved:",Integer.toString(getHIA2T7Q1));
+                        Log.d("Retrieved:",Integer.toString(getHIA3T4Q4));
+
                         //test spinner
                         //Code_HIA1=1;
                         //onResume();
@@ -479,7 +477,7 @@ public class HIA3AActivity extends AppCompatActivity {
     // end second Async
 
     public void setSpinner(){
-        spinner1.setSelection(Code_HIA1);
+        spinner1.setSelection(getHIA1T7Q5);
 
 
     }
@@ -521,7 +519,7 @@ public class HIA3AActivity extends AppCompatActivity {
         });
 
         Log.d("Before", Integer.toString(Code_HIA1));
-        new HIA3AActivity.get_HIA1_Test7_Question5(1).execute();
+        new HIA3AActivity.get_HIA123(1).execute(); //selected player within get_HIA123(....)
         Log.d("After", Integer.toString(Code_HIA1));
 
     }

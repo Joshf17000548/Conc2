@@ -49,12 +49,14 @@ public class HIA2FFragment extends Fragment {
             if(concresult.attemp1.imedmem<=12){
                 chk1.setChecked(true);
                 chk2.setChecked(false);
+                HIA2.HIA2_Test7_Question1=1;
 
             }
             else if (concresult.attemp1.digback<=2)
             {
                 chk1.setChecked(true);
                 chk2.setChecked(false);
+                HIA2.HIA2_Test7_Question1=1;
             }
 
             else if (concresult.attemp1.delayedRecall<=3)
@@ -62,21 +64,25 @@ public class HIA2FFragment extends Fragment {
                 Log.v("del:", ""+ concresult.attemp1.delayedRecall);
                 chk1.setChecked(true);
                 chk2.setChecked(false);
+                HIA2.HIA2_Test7_Question1=1;
             }
 
             else if (concresult.attemp1.sacTotal<=26)
             {
                 chk1.setChecked(true);
                 chk2.setChecked(false);
+                HIA2.HIA2_Test7_Question1=1;
             }
             else if (concresult.attemp1.symFlag==1){
                 chk1.setChecked(true);
                 chk2.setChecked(false);
+                HIA2.HIA2_Test7_Question1=1;
             }
             else
             {
                 chk2.setChecked(true);
                 chk1.setChecked(false);
+                HIA2.HIA2_Test7_Question1=1;
             }
         }
     }
