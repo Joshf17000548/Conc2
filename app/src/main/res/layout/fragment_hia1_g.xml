@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout001"
         android:layout_below="@+id/linearLayout000"
-        android:paddingTop="10dp"
+        android:layout_marginTop="40dp"
         >
 
         <TextView
@@ -173,89 +173,5 @@
 
         </RadioGroup>
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout007"
-        android:layout_below="@+id/linearLayout006"
-        android:paddingTop="15dp">
-
-        <TextView
-            android:layout_width="129dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/hia1a_section91_header"
-            android:id="@+id/labelTextView004"
-            android:textSize="16sp"/>
-
-        <Spinner
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner3"
-            android:spinnerMode="dialog"
-             />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout008"
-        android:layout_below="@+id/linearLayout007"
-        >
-
-        <TextView
-            android:text="@string/vid_influence2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/textView004"
-            android:textSize="16sp"
-            android:paddingTop="15dp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout009"
-        android:layout_below="@+id/linearLayout008"
-        android:paddingTop="10dp">
-
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-            <RadioButton
-                android:text="@string/yes"
-                android:layout_width="72dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_VI2_Y"
-                style="@android:style/Widget.CompoundButton.CheckBox"/>
-
-            <RadioButton
-                android:text="@string/no"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/checkBox_VI2_N"
-                android:layout_weight="1"
-                style="@android:style/Widget.CompoundButton.CheckBox"/>
-
-        </RadioGroup>
-    </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Finish"
-        android:id="@+id/btn_finish"
-        android:onClick="submitHIA1"
-        android:layout_marginTop="6dp"
-        android:layout_below="@+id/linearLayout009"
-        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

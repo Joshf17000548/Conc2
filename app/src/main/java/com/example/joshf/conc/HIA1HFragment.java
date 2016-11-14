@@ -68,6 +68,9 @@ public class HIA1HFragment extends Fragment {
         TextView no_15 = (TextView)rootView.findViewById(R.id.textView37);
         no_15.setText(wordArray4[num15] + "  ");
 
+        HIA1.HIA1_Option_1 = wordArray[num11] + "  "+wordArray1[num12] + "  "+wordArray2[num13] + "  "
+                +wordArray3[num14] + "  "+wordArray4[num15] + "  ";
+
         int num21 = rand.nextInt(10);
         int num22 = rand.nextInt(10);
         int num23 = rand.nextInt(10);
@@ -84,6 +87,8 @@ public class HIA1HFragment extends Fragment {
         no_24.setText(wordArray3[num24] + "  ");
         TextView no_25 = (TextView)rootView.findViewById(R.id.textView27);
         no_25.setText(wordArray4[num25] + "  ");
+        HIA1.HIA1_Option_2 = wordArray[num21] + "  "+wordArray1[num22] + "  "+wordArray2[num23] + "  "
+                +wordArray3[num24] + "  "+wordArray4[num25] + "  ";
 
         int num31 = rand.nextInt(10);
         int num32 = rand.nextInt(10);
@@ -101,6 +106,8 @@ public class HIA1HFragment extends Fragment {
         no_34.setText(wordArray3[num34] + "  ");
         TextView no_35 = (TextView)rootView.findViewById(R.id.textView5);
         no_35.setText(wordArray4[num35] + "  ");
+        HIA1.HIA1_Option_3 = wordArray[num31] + "  "+wordArray1[num32] + "  "+wordArray2[num33] + "  "
+                +wordArray3[num34] + "  "+wordArray4[num35] + "  ";
 
         //Rand number generator
         Random rand2 = new Random();
@@ -187,7 +194,7 @@ public class HIA1HFragment extends Fragment {
 
                     try {
                         String memscorestring = memscore.getText().toString();
-                        Log.v(TAG, "Video Checkbox: " + memscorestring);
+                        Log.e(TAG, "Video Checkbox: " + memscorestring);
                         if ("".equals(memscorestring)){
                             HIA1_Test4_Question1 = Integer.parseInt("0");
                             HIA1.HIA1_Test4_Question1=HIA1_Test4_Question1;
@@ -202,6 +209,8 @@ public class HIA1HFragment extends Fragment {
                     {
                         //exception
                     }
+
+                    Log.e("memory", "Video Checkbox: " + String.valueOf(HIA1_Test4_Question1));
 
                 }
             });
@@ -225,6 +234,8 @@ public class HIA1HFragment extends Fragment {
                         //exception
                     }
 
+                    Log.e("digback", "Video Checkbox: " + String.valueOf(HIA1_Test4_Question2));
+
                 }
             });
 
@@ -235,7 +246,7 @@ public class HIA1HFragment extends Fragment {
 
     @Override
     public void onPause() {
-        super.onPause();
+
         Activity a = getActivity();
 
         if(a instanceof HIA1AActivity) {
@@ -243,7 +254,7 @@ public class HIA1HFragment extends Fragment {
 
                     try {
                         String memscorestring = memscore.getText().toString();
-                        Log.v(TAG, "Video Checkbox: " + memscorestring);
+                        Log.v(TAG, "Video Checkboxmem: " + memscorestring);
                         if ("".equals(memscorestring)){
                             HIA1_Test4_Question1 = Integer.parseInt("0");
                             HIA1.HIA1_Test4_Question1=HIA1_Test4_Question1;
@@ -254,15 +265,17 @@ public class HIA1HFragment extends Fragment {
                         }
 
                     }
+
                     catch (NumberFormatException e)
                     {
                         //exception
                     }
+            Log.e("memory", "Video Checkbox: " + String.valueOf(HIA1_Test4_Question1));
 
 
                     try{
                         String digbackstring = digback.getText().toString();
-                        Log.v(TAG, "Video Checkbox: " + digbackstring);
+                        Log.v(TAG, "Video Checkboxdb: " + digbackstring);
                         if ("".equals(digbackstring)){
                             HIA1_Test4_Question2 = Integer.parseInt("0");
                             HIA1.HIA1_Test4_Question2=HIA1_Test4_Question2;
@@ -276,12 +289,11 @@ public class HIA1HFragment extends Fragment {
                     catch (NumberFormatException e){
                         //exception
                     }
-
+            Log.e("digback", "Video Checkbox: " + String.valueOf(HIA1_Test4_Question2));
 
         }
 
-
-
+        super.onPause();
     }
 
 }

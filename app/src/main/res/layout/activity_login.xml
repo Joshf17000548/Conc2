@@ -9,13 +9,20 @@
     android:background="@drawable/login"
     app:popupTheme="@style/AppTheme.PopupOverlay">
 
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="0px"
+        android:layout_height="0px"/>
+
+
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="100dp"
         android:layout_height="60dp"
         android:background="@drawable/action_button_select"
         android:text="Login"
-        android:layout_marginBottom="260dp"
+        android:layout_marginBottom="170dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:elevation="2dp"/>
@@ -24,23 +31,28 @@
         android:id="@+id/txtUsername"
         android:layout_width="300dp"
         android:layout_height="50dp"
+        android:textColorHint="@color/login_selector"
         android:background="@drawable/login_bar"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="15dp"
         android:hint="Username"
+        android:nextFocusForward="@+id/txtPassword"
         android:maxLines="1"
         android:gravity="center"
         android:imeOptions="actionNext"
         android:layout_above="@+id/txtPassword"
-        android:layout_alignStart="@+id/txtPassword" />
+        android:layout_alignStart="@+id/txtPassword"
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/txtPassword"
         android:layout_width="300dp"
         android:background="@drawable/login_bar"
         android:layout_height="50dp"
-        android:inputType="textWebPassword"
+        android:textColorHint="@color/login_selector"
+        android:inputType="textPassword"
         android:maxLines="1"
         android:hint="Password"
+        android:imeOptions="actionDone"
         android:layout_marginBottom="40dp"
         android:gravity="center"
         android:layout_above="@+id/btnLogin"

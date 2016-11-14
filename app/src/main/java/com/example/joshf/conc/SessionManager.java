@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 import com.example.joshf.conc.LoginActivity;
 
@@ -33,10 +34,10 @@ public class SessionManager {
     private static final String IS_LOGIN = "IsLoggedIn";
 
     // User name (make variable public to access from outside)
-    public static final String KEY_NAME = "name";
+    public static String KEY_NAME = "name";
 
     // Token (make variable public to access from outside)
-    public static final String KEY_TOKEN = "token";
+    public static String KEY_TOKEN = "token";
 
     // ADM STATUS (make variable public to access from outside)
     public static final String KEY_ADM = "0";
@@ -53,6 +54,9 @@ public class SessionManager {
      * */
     public void createLoginSession(String name, String token, String adm){
         // Storing login value as TRUE
+
+        Log.e("CLS token", token);
+        Log.e("CLS adm", adm);
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref

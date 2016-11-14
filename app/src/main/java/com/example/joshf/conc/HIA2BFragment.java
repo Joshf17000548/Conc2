@@ -285,9 +285,9 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        Activity b = getActivity();
+/*        Activity b = getActivity();
         if(b instanceof HIA2AActivity) {
-            hia2test = (HIA2AActivity) getActivity();
+            hia2test = (HIA2AActivity) getActivity();*/
 
             switch (parent.getId()) {
                 case R.id.spinner5:
@@ -624,7 +624,7 @@ public class HIA2BFragment extends Fragment implements AdapterView.OnItemSelecte
 
             }
 
-        }
+       // }
 
     }
 

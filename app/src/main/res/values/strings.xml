@@ -317,8 +317,8 @@
     <!-- HIA3 -->
     <string name="Reas_HIA3">Reason for HIA3?</string>
     <string name="hia3a_1_sectionheader">SECTION 2: Summary of HIA1 and HIA2</string>
-    <string name="hia3a_21_sectionheader">Was an HIA1 form completed, and if yes, what was the result? (Select one option):</string>
-    <string name="hia3a_22_sectionheader">Was an HIA2 form completed, and if yes, what was the clinical diagnosis at the time? (Select one option):</string>
+    <string name="hia3a_21_sectionheader">Was an HIA1 form completed, and if yes, what was the result</string>
+    <string name="hia3a_22_sectionheader">Was an HIA2 form completed, and if yes, what was the clinical diagnosis at the time</string>
     <string name="sel_opt">(Select one option)</string>
     <string name="hia3a_3_sectionheader">SECTION 3: Incident Details</string>
     <string name="inc_d1">Game event:</string>

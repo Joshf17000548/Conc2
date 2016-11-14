@@ -118,7 +118,7 @@
                     android:layout_width="0dp"
                     android:textColor="@color/textPrimary"
                     android:layout_height="35dp"
-                    android:id="@+id/HIA1title"
+                    android:id="@+id/test1"
                     android:layout_column="1"
                     android:layout_weight="1"
                     android:gravity="center"
@@ -128,7 +128,7 @@
                     android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:textColor="@color/textPrimary"
-                    android:id="@+id/HIA1date"
+                    android:id="@+id/test1date"
                     android:layout_column="2"
                     android:text="23-05-2016"
                     android:layout_weight="1"
@@ -136,9 +136,9 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-                    android:id="@+id/HIA1result"
+                    android:id="@+id/test1result"
                     android:textColor="@color/textPrimary"
-                    android:text="Flagged"
+                    android:text="Removed"
                     android:layout_column="2"
                     android:layout_weight="1"
                     android:gravity="center"/>
@@ -157,7 +157,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-                    android:id="@+id/HIA2title"
+                    android:id="@+id/test2"
                     android:textColor="@color/textPrimary"
                     android:text="HIA 2"
                     android:layout_gravity="center"
@@ -167,7 +167,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-                    android:id="@+id/HIA2date"
+                    android:id="@+id/test2date"
                     android:textColor="@color/textPrimary"
                     android:text="23-05-2016"
                     android:layout_column="2"
@@ -176,9 +176,9 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-                    android:id="@+id/HIA2result"
+                    android:id="@+id/test2result"
                     android:textColor="@color/textPrimary"
-                    android:text="Concussed"
+                    android:text="Not Concussed"
                     android:layout_column="2"
                     android:layout_weight="1"
                     android:gravity="center"/>
@@ -196,7 +196,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-                    android:id="@+id/HIA3title"
+                    android:id="@+id/test3"
                     android:textColor="@color/textPrimary"
                     android:text="HIA 3"
 
@@ -206,18 +206,18 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-                    android:id="@+id/HIA3date"
+                    android:id="@+id/test3date"
                     android:textColor="@color/textPrimary"
-                    android:text="-"
+                    android:text="24-05-2016"
                     android:layout_column="2"
                     android:layout_weight="1"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-                    android:id="@+id/HIA3result"
+                    android:id="@+id/test3result"
                     android:textColor="@color/textPrimary"
-                    android:text="-"
+                    android:text="Cleared"
                     android:layout_column="2"
                     android:layout_weight="1"
                     android:gravity="center"/>

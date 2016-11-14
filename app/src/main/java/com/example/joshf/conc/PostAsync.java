@@ -23,7 +23,7 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
 
 
     // variables to store: username, password from EditText
-    String username, password;
+    String username, password , token, admin_Status;
 
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
@@ -116,6 +116,11 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
                 try {
                     success = json.getJSONObject(0).getInt(TAG_SUCCESS);
                     message = json.getJSONObject(0).getString(TAG_MESSAGE);
+                    admin_Status = json.getJSONObject(0).getString("UserDoctor_Adm");
+                    token = json.getJSONObject(0).getString("UserDoctor_secToken");
+
+                    Log.e("Post Async admin", admin_Status);
+                    Log.e("Post Async token", token);
 /*                    message = json.getJSONObject(0).getString();
                     message = json.getJSONObject(0).getString(TAG_MESSAGE);*/
                     // HERE WE TAKE THE TOKEN AND THE ADM PARAMETERS.
@@ -125,8 +130,8 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
             }
 
             if (success == 1) {
-                Log.d("Success!", message);
-                session.createLoginSession(username, "token", "0"); // here username, token and adm status
+                Log.e("Success!", message);
+                session.createLoginSession(username,token,admin_Status); // here username, token and adm status
 
                 // Staring MainActivity
                 Intent i = new Intent(mContext, TeamSelect.class);

@@ -17,6 +17,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.icu.math.BigDecimal;
+import android.icu.text.DecimalFormat;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
@@ -69,7 +71,7 @@ public class Gait extends Fragment implements SensorEventListener {
 
     long duration_initiation = 2000;
     long duration_setup = 5000;
-    long duration_assessment = 5000;
+    long duration_assessment = 14000;
 
     TextView /*taz,tpi,tro,tmvd,tmlrms,taprms,tpd,*/ ttimervalue;//,tstatus;
 
@@ -112,7 +114,7 @@ public class Gait extends Fragment implements SensorEventListener {
                 builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        if (!PreferenceConnector.gait_test_completed) {
+                        if (PreferenceConnector.gait_test_completed==0) {
                             startbutton.setClickable(true);
                             add();
                         }else{
@@ -161,7 +163,7 @@ public class Gait extends Fragment implements SensorEventListener {
         matrixI = new float[9];
         matrixValues = new float[3];
 
-        PreferenceConnector.time_stamp = new double[9999];
+        PreferenceConnector.time_stamp = new long[9999];
         PreferenceConnector.event_stamp= new double[5];
         PreferenceConnector.acc_values0 = new double[9999];
         PreferenceConnector.acc_values1 = new double[9999];
@@ -343,10 +345,10 @@ public class Gait extends Fragment implements SensorEventListener {
 
 
 
-        if(PreferenceConnector.gait_test_completed)
+        if(PreferenceConnector.gait_test_completed==1)
             add();
         title_text.setText("Tandem Gait: Attempt " + String.valueOf(teststatus) + "/4");
-        PreferenceConnector.gait_test_completed=false;
+        PreferenceConnector.gait_test_completed=0;
     }
 
 
@@ -520,19 +522,20 @@ public class Gait extends Fragment implements SensorEventListener {
         }
 
         if (status==2) {
-            PreferenceConnector.time_stamp[PreferenceConnector.acc_cnt] = timestamp-starttime;
+/*            PreferenceConnector.time_stamp[PreferenceConnector.acc_cnt] = timestamp-starttime;
             PreferenceConnector.acc_values0[PreferenceConnector.acc_cnt] = valuesAccelerometer[0];
             PreferenceConnector.acc_values1[PreferenceConnector.acc_cnt] = valuesAccelerometer[1];
             PreferenceConnector.acc_values2[PreferenceConnector.acc_cnt] = valuesAccelerometer[2];
             PreferenceConnector.rot_values1[PreferenceConnector.rot_cnt] = matrixValues[0];
             PreferenceConnector.rot_values1[PreferenceConnector.rot_cnt] = matrixValues[1];
-            PreferenceConnector.rot_values2[PreferenceConnector.rot_cnt] = matrixValues[2];
-            //Log.e("time_stamp",String.valueOf(PreferenceConnector.time_stamp[PreferenceConnector.acc_cnt]));
+            PreferenceConnector.rot_values2[PreferenceConnector.rot_cnt] = matrixValues[2];*/
+          //  Log.e("time_stamp",String.valueOf(PreferenceConnector.time_stamp[PreferenceConnector.acc_cnt]));
 
         }
 
 
         ttimervalue.setText(Integer.toString(Math.round(timervalue)));
+
 
     }
 
@@ -558,27 +561,35 @@ public class Gait extends Fragment implements SensorEventListener {
         //////////////////////////////////////////////////////////////////////////////
         //ALL THE PREFERENCE CONNECTOR VALUES?VARIABLES SHOULD BE SAVED
         ///////////////////////////////////////////////////////////////////////////
+       // Log.e("MPRMS",String.valueOf(MLRMS));
+        BigDecimal mlrms = new BigDecimal(Double.toString(MLRMS));
+        mlrms = mlrms.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+        BigDecimal aprms = new BigDecimal(Double.toString(APRMS));
+        aprms = aprms.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+
         PreferenceConnector.test_status = teststatus;
             switch (teststatus) {
                 case 2:
-                    PreferenceConnector.tandem_t1 = duration_assessment-timervalue;
-                    PreferenceConnector.tandem_t1_MLRMS = (float) MLRMS;
-                    PreferenceConnector.tandem_t1_APRMS = (float) APRMS;
+                    PreferenceConnector.tandem_t1 =(int) (duration_assessment-timervalue);
+                    PreferenceConnector.tandem_t1_MLRMS = mlrms.floatValue();
+                    PreferenceConnector.tandem_t1_APRMS = aprms.floatValue();
                     break;
                 case 3:
-                    PreferenceConnector.tandem_t2 = duration_assessment-timervalue;
-                    PreferenceConnector.tandem_t2_MLRMS = (float) MLRMS;
-                    PreferenceConnector.tandem_t2_APRMS = (float) APRMS;
+                    PreferenceConnector.tandem_t2 =(int) (duration_assessment-timervalue);
+                    PreferenceConnector.tandem_t2_MLRMS = mlrms.floatValue();
+                    PreferenceConnector.tandem_t2_APRMS = aprms.floatValue();
                     break;
                 case 4:
-                    PreferenceConnector.tandem_t3 = duration_assessment-timervalue;
-                    PreferenceConnector.tandem_t3_MLRMS = (float) MLRMS;
-                    PreferenceConnector.tandem_t3_APRMS = (float) APRMS;
+                    PreferenceConnector.tandem_t3 =(int) (duration_assessment-timervalue);
+                    PreferenceConnector.tandem_t3_MLRMS = mlrms.floatValue();
+                    PreferenceConnector.tandem_t3_APRMS = aprms.floatValue();
                     break;
                 case 5:
-                    PreferenceConnector.tandem_t4 = duration_assessment-timervalue;
-                    PreferenceConnector.tandem_t4_MLRMS = (float) MLRMS;
-                    PreferenceConnector.tandem_t4_APRMS = (float) APRMS;
+                    PreferenceConnector.tandem_t4 =(int) (duration_assessment-timervalue);
+                    PreferenceConnector.tandem_t4_MLRMS = mlrms.floatValue();
+                    PreferenceConnector.tandem_t4_APRMS = aprms.floatValue();
                     break;
                 default:
                     PreferenceConnector.tandem_t1 = 0;
@@ -602,7 +613,7 @@ public class Gait extends Fragment implements SensorEventListener {
 
     public void finish(){
 
-        PreferenceConnector.gait_test_completed=true;
+        PreferenceConnector.gait_test_completed=1;
 
         mSensorManager.unregisterListener(this,     mAccelerometer);
         mSensorManager.unregisterListener(this,     mMagneticField);
@@ -625,10 +636,6 @@ public class Gait extends Fragment implements SensorEventListener {
         dialog.show();
 
     }
-
-
-
-
 
     public void set_button_colors(){
         Resources resources = getActivity().getResources();
@@ -697,7 +704,7 @@ public class Gait extends Fragment implements SensorEventListener {
 
         super.onResume();
         Log.e("gait", "onResume");
-        if(PreferenceConnector.gait_test_completed && getUserVisibleHint()) {
+        if((PreferenceConnector.gait_test_completed==1) && getUserVisibleHint()) {
             startbutton.setClickable(false);
             title_text.setText("Tandem Gait: Done");
         }
@@ -720,11 +727,6 @@ public class Gait extends Fragment implements SensorEventListener {
         super.onPause();
 
     }
-
-
-
-
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -749,155 +751,4 @@ public class Gait extends Fragment implements SensorEventListener {
         }*/
         return true;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-    public class PostDataAsyncTask extends AsyncTask<String, String, String> {
-
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // do stuff before posting data
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-
-                // 1 = post text data, 2 = post file
-                int actionChoice = 2;
-
-                // post a text data
-                if(actionChoice==1){
-                    postText();
-                }
-
-                // post a file
-                else{
-                    postFile();
-                }
-
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String lenghtOfFile) {
-            // do stuff after posting data
-        }
-    }
-
-    // this will post our text data
-    private void postText(){
-        try{
-            // url where the data will be posted
-            String postReceiverUrl = "http://yourdomain.com/post_data_receiver.php";
-            Log.v(TAG, "postURL: " + postReceiverUrl);
-
-            // HttpClient
-            HttpClient httpClient = new DefaultHttpClient();
-
-            // post header
-            HttpPost httpPost = new HttpPost(postReceiverUrl);
-
-            // add your data
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("firstname", "Mike"));
-            nameValuePairs.add(new BasicNameValuePair("lastname", "Dalisay"));
-            nameValuePairs.add(new BasicNameValuePair("email", "mike@testmail.com"));
-
-            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-            // execute HTTP post request
-            HttpResponse response = httpClient.execute(httpPost);
-            HttpEntity resEntity = response.getEntity();
-
-            if (resEntity != null) {
-
-                String responseStr = EntityUtils.toString(resEntity).trim();
-                Log.v(TAG, "Response: " +  responseStr);
-
-                // you can add an if statement here and do other actions based on the response
-            }
-
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // will post our text file
-    private void postFile(){
-        try{
-
-            // the file to be posted
-            String textFile = Environment.getExternalStorageDirectory() + "/sample.txt";
-            Log.v(TAG, "textFile: " + textFile);
-
-            // the URL where the file will be posted
-            String postReceiverUrl = "http://yourdomain.com/post_data_receiver.php";
-            Log.v(TAG, "postURL: " + postReceiverUrl);
-
-            // new HttpClient
-            HttpClient httpClient = new DefaultHttpClient();
-
-            // post header
-            HttpPost httpPost = new HttpPost(postReceiverUrl);
-
-            File file = new File(textFile);
-            FileBody fileBody = new FileBody(file);
-
-            MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-            reqEntity.addPart("file", fileBody);
-            httpPost.setEntity(reqEntity);
-
-            // execute HTTP post request
-            HttpResponse response = httpClient.execute(httpPost);
-            HttpEntity resEntity = response.getEntity();
-
-            if (resEntity != null) {
-
-                String responseStr = EntityUtils.toString(resEntity).trim();
-                Log.v(TAG, "Response: " +  responseStr);
-
-                // you can add an if statement here and do other actions based on the response
-            }
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    */
 }

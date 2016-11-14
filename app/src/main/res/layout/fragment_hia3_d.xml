@@ -1,27 +1,744 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="15dp"
+            android:id="@+id/linearLayout008"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView004"
+                android:text="@string/hia3a_5_sectionheader"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="Tandem Gait"
+        android:layout_below="@id/linearLayout008"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:id="@+id/TG"
+
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="15sp"
+        android:id="@+id/TGtestResult"
+        android:text="Failed"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/TG"
+        android:gravity="center"
+        android:layout_alignBottom="@id/TG"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        android:text="Time"
+        android:layout_below="@id/TG"
+        android:id="@+id/TGtime"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="15dp"
-        android:id="@+id/linearLayout008"
-        android:layout_below="@+id/linearLayout007">
+        android:id="@+id/TGtimeholder"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_marginStart="20dp"
+        android:layout_alignTop="@id/TGtime"
+        android:layout_alignBottom="@id/TGtime">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView004"
-            android:text="@string/hia3a_5_sectionheader"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/TGTimeResult"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/TGTimeBaseline"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/TGTimeRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        android:text="ML-RMS"
+        android:layout_below="@+id/TGtimeholder"
+        android:id="@+id/TGmlrms"
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TGmlrmsholder"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/TGmlrms"
+        android:layout_alignBottom="@id/TGmlrms">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/TGmlrmsResult"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/TGmlrmsBaseline"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/TGmlrmsRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="15sp"
+        android:text="AP-RMS"
+        android:layout_below="@id/TGmlrmsholder"
+        android:id="@+id/TGalrms"
+
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:id="@+id/TGalrmsholder"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/TGalrms"
+        android:layout_alignBottom="@id/TGalrms">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/TGalrmsResult"
+            android:text="-"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+
+            android:id="@+id/TGalrmsBaseline"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/TGalrmsRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/TGalrmsholder"
+        android:background="#000000"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="Double leg"
+        android:layout_below="@id/TGalrmsholder"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:id="@+id/DL"
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="15sp"
+        android:id="@+id/DLResult"
+        android:text="Failed"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/DL"
+        android:gravity="center"
+        android:layout_alignBottom="@id/DL"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        android:text="PTP"
+        android:layout_below="@+id/DLResult"
+        android:id="@+id/DLptp"
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DLptpholder"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/DLptp"
+        android:layout_alignBottom="@id/DLptp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/DLptpResult"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/DLptpBaseline"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/DLptpRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        android:text="ML-RMS"
+
+        android:layout_below="@+id/DLptpholder"
+        android:id="@+id/DLmprms"
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/DLmprmsholder"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/DLmprms"
+        android:layout_alignBottom="@id/DLmprms">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/DLmprmsResult"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/DLmprmsBaseline"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/DLmprmsRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="15sp"
+        android:text="AP-RMS"
+        android:layout_below="@id/DLmprmsholder"
+        android:id="@+id/DLalrms"
+
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:id="@+id/DLalrmsholder"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/DLalrms"
+        android:layout_alignBottom="@id/DLalrms">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/DLalrmsResult"
+            android:text="-"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+
+            android:id="@+id/DLalrmsBaseline"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/DLalrmsRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/DLalrmsholder"
+        android:background="#000000"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="Single Leg"
+        android:layout_below="@id/DLalrmsholder"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:id="@+id/SL"
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="15sp"
+        android:id="@+id/SLtestResult"
+        android:text="Failed"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/SL"
+        android:gravity="center"
+        android:layout_alignBottom="@id/SL"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        android:text="PTP"
+        android:layout_below="@+id/SLtestResult"
+        android:id="@+id/SLptp"
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SLptpholder"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/SLptp"
+        android:layout_alignBottom="@id/SLptp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/SLptpResult"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/SLptpBaseline"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/SLptpRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        android:text="ML-RMS"
+
+        android:layout_below="@+id/SLptp"
+        android:id="@+id/SLmprms"
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/SLmprmsholder"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/SLmprms"
+        android:layout_alignBottom="@id/SLmprms">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/SLmprmsResult"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/SLmprmsBaseline"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/SLmprmsRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="15sp"
+        android:text="AP-RMS"
+        android:layout_below="@id/SLmprmsholder"
+        android:id="@+id/SLalrms"
+
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:id="@+id/SLalrmsholder"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/SLalrms"
+        android:layout_alignBottom="@id/SLalrms">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/SLalrmsResult"
+            android:text="-"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+
+            android:id="@+id/SLalrmsBaseline"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/SLalrmsRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/SLalrmsholder"
+        android:background="#000000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="Tandem Stance"
+        android:layout_below="@id/SLalrmsholder"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:id="@+id/TS"
+
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="15sp"
+        android:id="@+id/TStestResult"
+        android:text="Failed"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/TS"
+        android:gravity="center"
+        android:layout_alignBottom="@id/TS"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        android:text="PTP"
+        android:layout_below="@+id/TStestResult"
+        android:id="@+id/TSptp"
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TSptpholder"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/TSptp"
+        android:layout_alignBottom="@id/TSptp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/TSptpResult"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/TSptpBaseline"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/TSptpRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginStart="20dp"
+        android:text="ML-RMS"
+
+        android:layout_below="@+id/TSptpholder"
+        android:id="@+id/TSmprms"
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TSmprmsholder"
+        android:layout_marginStart="20dp"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/TSmprms"
+        android:layout_alignBottom="@id/TSmprms">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/TSmprmsResult"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:id="@+id/TSmprmsBaseline"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/TSmprmsRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="15sp"
+        android:text="AP-RMS"
+        android:layout_below="@id/TSmprmsholder"
+        android:id="@+id/TSalrms"
+
+        android:gravity="center"
+        android:layout_gravity="start"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:id="@+id/TSalrmsholder"
+        android:layout_toRightOf="@id/IMR"
+        android:layout_alignTop="@id/TSalrms"
+        android:layout_alignBottom="@id/TSalrms">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/TSalrmsResult"
+            android:text="-"
+
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+
+            android:id="@+id/TSalrmsBaseline"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/TSalrmsRequired"
+            android:text="TBC"
+
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/TSalrmsholder"
+        android:background="#000000"/>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +746,7 @@
         android:orientation="horizontal"
         android:paddingTop="15dp"
         android:id="@+id/linearLayout009"
-        android:layout_below="@+id/linearLayout008">
+        android:layout_below="@+id/TSalrmsholder">
 
         <TextView
             android:layout_width="wrap_content"
@@ -252,5 +969,16 @@
             android:layout_weight="1" />
     </LinearLayout>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finish"
+            android:id="@+id/btn_finish"
+            android:onClick="submitHIA3"
+            android:layout_marginTop="19dp"
+            android:layout_below="@+id/linearLayout016"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
-</RelativeLayout>
+
+</ScrollView>

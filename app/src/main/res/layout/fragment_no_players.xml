@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/unknown"
-        android:src="@drawable/unknown_profile"
+        android:src="@drawable/unknown"
         android:layout_alignParentBottom="true" />
     <TextView
         android:layout_width="match_parent"

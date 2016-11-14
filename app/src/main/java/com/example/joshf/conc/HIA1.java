@@ -36,6 +36,9 @@ public class HIA1 extends FragmentActivity {
 
     static int HIA1_Test4_Question1;
     static int HIA1_Test4_Question2;
+    static String HIA1_Option_1;
+    static String HIA1_Option_2;
+    static String HIA1_Option_3;
 
     static int HIA1_Test5_Question1;
     static int HIA1_Test5_Question2;
@@ -65,7 +68,64 @@ public class HIA1 extends FragmentActivity {
     public HIA1() {
     }
 
-    static int getHIA1_Test1_Question1() {
+    public static void clearHIA1(){
+        HIA1_Test1_Question1=0;
+        HIA1_Test1_Question2=0;
+        HIA1_Test1_Question3=0;
+        HIA1_Test1_Question4=0;
+        HIA1_Test1_Question5=0;
+        HIA1_Test1_Question6=0;
+        HIA1_Test1_Question7=0;
+        HIA1_Test1_Question8=0;
+        HIA1_Test1_Question9=0;
+        HIA1_Test1_Question10=0;
+        HIA1_Test1_Question12=0; //[0 – Referee, 1 – Team doctor, 2 – Tournament Doctor, 3 -Match Day Doctor, 4-Following in-game video review, 5 - Physiotherapist]
+        HIA1_Test1_Question13=0;
+
+        HIA1_Test2_Question1=0;
+        HIA1_Test2_Question2=0;
+        HIA1_Test2_Question3=0;
+        HIA1_Test2_Question4=0;
+        HIA1_Test2_Question5=0;
+        HIA1_Test2_Question6 = "NA";
+
+        HIA1_Test3_Question1=0;
+        HIA1_Test3_Question2=0;
+        HIA1_Test3_Question3=0;
+        HIA1_Test3_Question4=0;
+        HIA1_Test3_Question5=0;
+
+        HIA1_Test4_Question1=0;
+        HIA1_Test4_Question2=0;
+        HIA1_Option_1=" ";
+        HIA1_Option_2=" ";
+        HIA1_Option_3=" ";
+
+        HIA1_Test5_Question1=0;
+        HIA1_Test5_Question2=0;
+        HIA1_Test5_Question3=0;
+        HIA1_Test5_Question4=0;
+        HIA1_Test5_Question5=0;
+        HIA1_Test5_Question6=0;
+        HIA1_Test5_Question7=0;
+        HIA1_Test5_Question8=0;
+        HIA1_Test5_Question9=0;
+
+        HIA1_Test6_Question1=0;
+        HIA1_Test6_Question2=0;
+        HIA1_Test6_Question3=0;
+        HIA1_Test6_Question4=0;
+
+        HIA1_Test7_Question1=0; //[0 – Referee, 1 – Team doctor, 2 – Tournament Doctor, 3 -Match Day Doctor, 4 - Physiotherapist]
+        HIA1_Test7_Question2=0;
+        HIA1_Test7_Question3=0; //[0 – Team doctor, 1– Tournament Doctor, 2 -Match Day Doctor, 3 – Assistant team doctor]
+        HIA1_Test7_Question4=0;
+        HIA1_Test7_Question5=0; //[0 – No, 1 – Yes, pitch side HIA abnormal, 2- Yes, player removed for another injury]
+        HIA1_Test7_Question6=0;
+    }
+
+
+    /*static int getHIA1_Test1_Question1() {
         return HIA1_Test1_Question1;
     }
     public int getHIA1_Test1_Question2() {
@@ -237,6 +297,6 @@ public class HIA1 extends FragmentActivity {
     public void setHIA1_Test7_Question3(int HIA1_Test7_Question3) {this.HIA1_Test7_Question3 = HIA1_Test7_Question3;}
     public void setHIA1_Test7_Question4(int HIA1_Test7_Question4) {this.HIA1_Test7_Question4 = HIA1_Test7_Question4;}
     public void setHIA1_Test7_Question5(int HIA1_Test7_Question5) {this.HIA1_Test7_Question5 = HIA1_Test7_Question5;}
-    public void setHIA1_Test7_Question6(int HIA1_Test7_Question6) {this.HIA1_Test7_Question6 = HIA1_Test7_Question6;}
+    public void setHIA1_Test7_Question6(int HIA1_Test7_Question6) {this.HIA1_Test7_Question6 = HIA1_Test7_Question6;}*/
 
 }

@@ -69,6 +69,7 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
     int deleteCode;
     Activity activity;
 
+
     ListSelected listCallback;
 
 
@@ -101,6 +102,7 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
         mListView = (SwipeMenuListView) view.findViewById(R.id.list_view_swipe);
         //playerPhoto = (ImageView) view.findViewById(R.id.playerPhoto) ;
         setHasOptionsMenu(true);
+
         return view;
     }
     @Override

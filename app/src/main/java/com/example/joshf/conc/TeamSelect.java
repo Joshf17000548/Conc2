@@ -39,6 +39,7 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
     SearchView searchView;
     SearchManager searchManager;
     public ArrayList<Team> teamList;
+    String key;
     Boolean teamUpdateRequired = true;
     SessionManager session;
     private Team selectedTeam;
@@ -70,6 +71,7 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
         session = new SessionManager(this);
 
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_team);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +89,17 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
     public void onResume() {
         super.onResume();
         session.checkLogin();
+        // get user data from session
+/*        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        String name = user.get(SessionManager.KEY_NAME);
+
+        // token
+        String sToken = user.get(SessionManager.KEY_TOKEN);
+
+        Log.e("token team select", sToken);*/
+
 
         if ((teamUpdateRequired.equals(true))) {
             new getTeams().execute();
@@ -177,6 +190,7 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
             try {
                 // PREPARING PARAMETERS..
                 HashMap<String, String> args = new HashMap<>();
+                args.put("SecToken", SessionManager.KEY_TOKEN);
 
                 Log.e("request", "starting");
 

@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 
 public class HIA2 extends FragmentActivity {
 
+
     static int HIA2_Test2_Question1;
     static int HIA2_Test2_Question2;
     static int HIA2_Test2_Question3;
@@ -45,11 +46,77 @@ public class HIA2 extends FragmentActivity {
     static int HIA2_Test5_Question2;
 
     static int HIA2_Test6_Question1;
+    static String HIA2_Option_1;
+    static String HIA2_Option_2;
+    static String HIA2_Option_3;
 
     static int HIA2_Test7_Question1;
 
+    static int HIA2_result;
+    static boolean HIA2_Result_Chosen;
+
+    static boolean HIA2_first =true;
+
+    static String HIA1_result_string="/0";
+
     public HIA2() {
     }
+
+    public static void clearHIA2(){
+
+
+        HIA2_Test2_Question1=0;
+        HIA2_Test2_Question2=0;
+        HIA2_Test2_Question3=0;
+        HIA2_Test2_Question4=0;
+        HIA2_Test2_Question5=0;
+        HIA2_Test2_Question6=0;
+        HIA2_Test2_Question7=0;
+        HIA2_Test2_Question8=0;
+        HIA2_Test2_Question9=0;
+        HIA2_Test2_Question10=0;
+        HIA2_Test2_Question11=0;
+        HIA2_Test2_Question12=0;
+        HIA2_Test2_Question13=0;
+        HIA2_Test2_Question14=0;
+        HIA2_Test2_Question15=0;
+        HIA2_Test2_Question16=0;
+        HIA2_Test2_Question17=0;
+        HIA2_Test2_Question18=0;
+        HIA2_Test2_Question19=0;
+        HIA2_Test2_Question20=0;
+        HIA2_Test2_Question21=0;
+        HIA2_Test2_Question22=0;
+
+        HIA2_Test3_Question1 = "NA";
+
+        HIA2_Test4_Question1=0;
+        HIA2_Test4_Question2=0;
+        HIA2_Test4_Question3=0;
+        HIA2_Test4_Question4=0;
+        HIA2_Test4_Question5=0;
+        HIA2_Test4_Question6=0;
+        HIA2_Test4_Question7=0;
+
+        HIA2_Test5_Question1=0;
+        HIA2_Test5_Question2=0;
+
+        HIA2_Test6_Question1=0;
+        HIA2_Option_1=null;
+        HIA2_Option_2=null;
+        HIA2_Option_3=null;
+
+        HIA2_Test7_Question1=0;
+
+        HIA2_result=0;
+        HIA2_Result_Chosen = false;
+
+        HIA2_first =true;
+
+        HIA1_result_string="/0";
+
+    }
+
 
     /*public int getHIA2_Test2_Question1() {
         return HIA2_Test2_Question1;

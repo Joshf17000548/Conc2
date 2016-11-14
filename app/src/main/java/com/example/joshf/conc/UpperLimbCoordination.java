@@ -15,12 +15,16 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 public class UpperLimbCoordination extends Fragment {
 
@@ -38,7 +42,7 @@ public class UpperLimbCoordination extends Fragment {
         if(isVisibleToUser) {
             Activity a = getActivity();
             if(a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            success.setClickable(true );
+
         }
     }
 
@@ -47,38 +51,58 @@ public class UpperLimbCoordination extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View rootView = inflater.inflate(R.layout.limb_coordination, container, false);
+        if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
+            Log.e("OC", "ULB");
 
-        success = (Button) rootView.findViewById(R.id.success);
-        reset = (Button) rootView.findViewById(R.id.reset);
 
-        bt1 = (Button) rootView.findViewById(R.id.upper1);
-        bt2 = (Button) rootView.findViewById(R.id.upper2);
-        bt3 = (Button) rootView.findViewById(R.id.upper3);
-        bt4 = (Button) rootView.findViewById(R.id.upper4);
-        bt5 = (Button) rootView.findViewById(R.id.upper5);
+            success = (Button) rootView.findViewById(R.id.success);
+            reset = (Button) rootView.findViewById(R.id.reset);
 
-        success.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                PreferenceConnector.upper_score = PreferenceConnector.upper_score+1;
-                if(PreferenceConnector.upper_score>=5)
-                    PreferenceConnector.upper_score = 5;
-                set_button_colors();
-            }
+            bt1 = (Button) rootView.findViewById(R.id.upper1);
+            bt2 = (Button) rootView.findViewById(R.id.upper2);
+            bt3 = (Button) rootView.findViewById(R.id.upper3);
+            bt4 = (Button) rootView.findViewById(R.id.upper4);
+            bt5 = (Button) rootView.findViewById(R.id.upper5);
 
-        });
+            success.setClickable(true);
 
-        reset.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                PreferenceConnector.upper_score = PreferenceConnector.upper_score-1;
-                if(PreferenceConnector.upper_score<=0)
-                    PreferenceConnector.upper_score = 0;
-                set_button_colors();
-            }
+            success.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    PreferenceConnector.upper_score = PreferenceConnector.upper_score + 1;
+                    if (PreferenceConnector.upper_score >= 5)
+                        PreferenceConnector.upper_score = 5;
+                    set_button_colors();
+                }
 
-        });
+            });
 
+            reset.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    PreferenceConnector.upper_score = PreferenceConnector.upper_score - 1;
+                    if (PreferenceConnector.upper_score <= 0)
+                        PreferenceConnector.upper_score = 0;
+                    set_button_colors();
+                }
+
+            });
+        }
 
       return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT)
+            set_button_colors();
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+
+
+
     }
 
     public void set_button_colors(){

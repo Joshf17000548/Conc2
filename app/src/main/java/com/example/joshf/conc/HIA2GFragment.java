@@ -121,9 +121,9 @@ public class HIA2GFragment extends Fragment {
                 concat("-").concat(String.valueOf(number218));
         numero24.setText(n24);
 
-        Activity b = getActivity();
+/*        Activity b = getActivity();
         if(b instanceof HIA2AActivity) {
-            hia2test = (HIA2AActivity) getActivity();
+            hia2test = (HIA2AActivity) getActivity();*/
 
 
             other.setOnClickListener(new View.OnClickListener() {
@@ -174,7 +174,7 @@ public class HIA2GFragment extends Fragment {
                 }
             });
 
-        }
+        //}
 
         return rootView;
     }

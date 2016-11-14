@@ -13,6 +13,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.icu.math.BigDecimal;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
@@ -89,9 +90,9 @@ public class Balance extends Fragment implements SensorEventListener {
     int status = 0;
     int balancestatus = 0;
 
-    Boolean doublestatus = false;
-    Boolean singlestatus = false;
-    Boolean tandemstatus = false;
+
+
+
 
     Boolean doublepressed = false;
     Boolean singlepressed = false;
@@ -115,7 +116,7 @@ public class Balance extends Fragment implements SensorEventListener {
                         .setTitle(R.string.dialog_title);
                 builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if(!PreferenceConnector.balance_test_completed)
+                        if(PreferenceConnector.balance_test_completed==0)
                         {
                             startbutton.setClickable(true);
                             add();
@@ -331,9 +332,9 @@ public class Balance extends Fragment implements SensorEventListener {
 
                 public void onClick(View v) {
                     Log.e("reset", "reset");
-                    Log.e("doublestatus", String.valueOf(doublestatus));
-                    Log.e("singlestatus", String.valueOf(singlestatus));
-                    Log.e("tandemstatus", String.valueOf(tandemstatus));
+                    Log.e("doublestatus", String.valueOf(PreferenceConnector.doubleStatus));
+                    Log.e("singlestatus", String.valueOf(PreferenceConnector.singleStatus));
+                    Log.e("tandemstatus", String.valueOf(PreferenceConnector.tandemStatus));
                     startbutton.setClickable(true);
                     switch (balancestatus) {
                         case 1:
@@ -341,7 +342,7 @@ public class Balance extends Fragment implements SensorEventListener {
                             PreferenceConnector.balance_dl_APRMS = 0;
                             PreferenceConnector.balance_dl_MLRMS = 0;
                             PreferenceConnector.balance_dl_PTP = 0;
-                            doublestatus = false;
+                            PreferenceConnector.doubleStatus = false;
                             set_button_colors();
                             reset.setVisibility(View.GONE);
                             break;
@@ -350,7 +351,7 @@ public class Balance extends Fragment implements SensorEventListener {
                             PreferenceConnector.balance_sl_APRMS = 0;
                             PreferenceConnector.balance_sl_MLRMS = 0;
                             PreferenceConnector.balance_sl_PTP = 0;
-                            singlestatus = false;
+                            PreferenceConnector.singleStatus = false;
                             set_button_colors();
                             reset.setVisibility(View.GONE);
                             break;
@@ -359,7 +360,7 @@ public class Balance extends Fragment implements SensorEventListener {
                             PreferenceConnector.balance_ts_APRMS = 0;
                             PreferenceConnector.balance_ts_MLRMS = 0;
                             PreferenceConnector.balance_ts_PTP = 0;
-                            tandemstatus = false;
+                            PreferenceConnector.tandemStatus = false;
                             set_button_colors();
                             reset.setVisibility(View.GONE);
                             break;
@@ -624,14 +625,14 @@ public class Balance extends Fragment implements SensorEventListener {
         }
 
         if (status ==2) {
-            PreferenceConnector.bal_time_stamp[PreferenceConnector.acc_cnt] = timestamp-starttime;
+/*            PreferenceConnector.bal_time_stamp[PreferenceConnector.acc_cnt] = timestamp-starttime;
             PreferenceConnector.bal_acc_values0[PreferenceConnector.acc_cnt] = valuesAccelerometer[0];
             PreferenceConnector.bal_acc_values1[PreferenceConnector.acc_cnt] = valuesAccelerometer[1];
             PreferenceConnector.bal_acc_values2[PreferenceConnector.acc_cnt] = valuesAccelerometer[2];
 
             PreferenceConnector.bal_rot_values1[PreferenceConnector.rot_cnt] = matrixValues[0];
             PreferenceConnector.bal_rot_values1[PreferenceConnector.rot_cnt] = matrixValues[1];
-            PreferenceConnector.bal_rot_values2[PreferenceConnector.rot_cnt] = matrixValues[2];
+            PreferenceConnector.bal_rot_values2[PreferenceConnector.rot_cnt] = matrixValues[2];*/
         }
     }
 
@@ -676,35 +677,45 @@ public class Balance extends Fragment implements SensorEventListener {
         ///////////////////////////////////////////////////////////////////////////
 
         //    errorcount = Integer.parseInt(edit_errorcnt.getText().toString());
-        int at = PreferenceConnector.assessment_type;
+
+        BigDecimal mlrms = new BigDecimal(Double.toString(MLRMS));
+        mlrms = mlrms.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+        BigDecimal aprms = new BigDecimal(Double.toString(APRMS));
+        aprms = aprms.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+        double ptp = maxaccy - minaccy;
+        BigDecimal ptpr = new BigDecimal(Double.toString(ptp));
+        ptpr = ptpr.setScale(2, BigDecimal.ROUND_HALF_UP);
+
 
             switch (balancestatus) {
                 case 1:
                     // PreferenceConnector.balance_dl = errorcount;
-                    PreferenceConnector.balance_dl_MLRMS = (float) MLRMS;
-                    PreferenceConnector.balance_dl_APRMS = (float) APRMS;
-                    PreferenceConnector.balance_dl_PTP = (float) (maxaccy - minaccy);
-                    doublestatus=true;
+                    PreferenceConnector.balance_dl_MLRMS = mlrms.floatValue();
+                    PreferenceConnector.balance_dl_APRMS = aprms.floatValue();
+                    PreferenceConnector.balance_dl_PTP = ptpr.floatValue();
+                    PreferenceConnector.doubleStatus=true;
                     break;
                 case 2:
                     // PreferenceConnector.balance_sl = errorcount;
-                    PreferenceConnector.balance_sl_MLRMS = (float) MLRMS;
-                    PreferenceConnector.balance_sl_APRMS = (float) APRMS;
-                    PreferenceConnector.balance_sl_PTP = (float) (maxaccy - minaccy);
-                    singlestatus=true;
+                    PreferenceConnector.balance_sl_MLRMS = mlrms.floatValue();
+                    PreferenceConnector.balance_sl_APRMS = aprms.floatValue();
+                    PreferenceConnector.balance_sl_PTP = ptpr.floatValue();
+                    PreferenceConnector.singleStatus=true;
                     break;
                 case 3:
                     // PreferenceConnector.balance_ts = errorcount;
-                    PreferenceConnector.balance_ts_MLRMS = (float) MLRMS;
-                    PreferenceConnector.balance_ts_APRMS = (float) APRMS;
-                    PreferenceConnector.balance_ts_PTP = (float) (maxaccy - minaccy);
-                    tandemstatus=true;
+                    PreferenceConnector.balance_ts_MLRMS = mlrms.floatValue();
+                    PreferenceConnector.balance_ts_APRMS = aprms.floatValue();
+                    PreferenceConnector.balance_ts_PTP = ptpr.floatValue();
+                    PreferenceConnector.tandemStatus=true;
                     break;
                 default:
                     //   PreferenceConnector.balance_dl = 0;
-                    PreferenceConnector.balance_dl_MLRMS = (float) MLRMS;
-                    PreferenceConnector.balance_dl_APRMS = (float) APRMS;
-                    PreferenceConnector.balance_dl_PTP = (float) (maxaccy - minaccy);
+                    PreferenceConnector.balance_dl_MLRMS = mlrms.floatValue();
+                    PreferenceConnector.balance_dl_APRMS = aprms.floatValue();
+                    PreferenceConnector.balance_dl_PTP = ptpr.floatValue();
 
             }
 
@@ -722,8 +733,8 @@ public class Balance extends Fragment implements SensorEventListener {
                 e.printStackTrace();
             }*/
 
-        if(doublestatus && singlestatus && tandemstatus){
-            PreferenceConnector.balance_test_completed = true;
+        if(PreferenceConnector.doubleStatus && PreferenceConnector.singleStatus && PreferenceConnector.tandemStatus){
+            PreferenceConnector.balance_test_completed = 1;
         }
 
 
@@ -757,13 +768,13 @@ public class Balance extends Fragment implements SensorEventListener {
             }
         }
 
-        if (doublepressed && doublestatus){
+        if (doublepressed && PreferenceConnector.doubleStatus){
             bt2.setBackground(on_green);
             reset.setVisibility(View.VISIBLE);
             startbutton.setClickable(false);
-        }else if(!doublepressed && doublestatus){
+        }else if(!doublepressed && PreferenceConnector.doubleStatus){
             bt2.setBackground(off_green);
-        }else if(doublepressed && !doublestatus){
+        }else if(doublepressed && !PreferenceConnector.doubleStatus){
             bt2.setBackground(on_red);
             reset.setVisibility(View.GONE);
             startbutton.setClickable(true);
@@ -771,13 +782,13 @@ public class Balance extends Fragment implements SensorEventListener {
             bt2.setBackground(off_red);
         }
 
-        if (singlepressed && singlestatus){
+        if (singlepressed && PreferenceConnector.singleStatus){
             bt3.setBackground(on_green);
             reset.setVisibility(View.VISIBLE);
             startbutton.setClickable(false);
-        }else if(!singlepressed && singlestatus){
+        }else if(!singlepressed && PreferenceConnector.singleStatus){
             bt3.setBackground(off_green);
-        }else if(singlepressed && !singlestatus){
+        }else if(singlepressed && !PreferenceConnector.singleStatus){
             bt3.setBackground(on_red);
             reset.setVisibility(View.GONE);
             startbutton.setClickable(true);
@@ -785,19 +796,20 @@ public class Balance extends Fragment implements SensorEventListener {
             bt3.setBackground(off_red);
         }
 
-        if (tandempressed && tandemstatus){
+        if (tandempressed && PreferenceConnector.tandemStatus){
             bt4.setBackground(on_green);
             reset.setVisibility(View.VISIBLE);
             startbutton.setClickable(false);
-        }else if(!tandempressed && tandemstatus){
+        }else if(!tandempressed && PreferenceConnector.tandemStatus){
             bt4.setBackground(off_green);
-        }else if(tandempressed && !tandemstatus){
+        }else if(tandempressed && !PreferenceConnector.tandemStatus){
             bt4.setBackground(on_red);
             reset.setVisibility(View.GONE);
             startbutton.setClickable(true);
         }else{
             bt4.setBackground(off_red);
         }
+
 
 
     }
@@ -832,7 +844,9 @@ public class Balance extends Fragment implements SensorEventListener {
 
         super.onResume();
         Log.e("balance", "onResume");
-        if(PreferenceConnector.gait_test_completed && getUserVisibleHint()) {
+        if(toneGen1==null){
+            toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
+
         }
         if(getUserVisibleHint()){
             add();

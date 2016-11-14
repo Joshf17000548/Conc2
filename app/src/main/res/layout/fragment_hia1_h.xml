@@ -184,34 +184,6 @@
             android:layout_weight="0.00" />
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout008"
-        android:layout_below="@+id/linearLayout003"
-        android:paddingTop="10dp">
-
-        <TextView
-            android:layout_width="250dp"
-            android:layout_height="26dp"
-            android:text="@string/imed_score"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="14sp"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="2"
-            android:id="@+id/editText11"
-            android:paddingLeft="5dp"
-            android:imeOptions="actionNext"/>
-
-
-    </LinearLayout>
-
     <TextView
         android:text="@string/hia1a_83_sectionheader"
         android:layout_width="wrap_content"
@@ -341,6 +313,34 @@
             android:imeOptions="actionDone"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout008"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/linearLayout003"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="26dp"
+            android:text="@string/imed_score"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14sp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="2"
+            android:id="@+id/editText11"
+            android:paddingLeft="5dp"
+            android:imeOptions="actionNext"/>
+
+
+    </LinearLayout>
 
 
 </RelativeLayout>

@@ -14,11 +14,7 @@ package com.example.joshf.conc;
         import android.widget.EditText;
         import android.widget.TextView;
 
-        import static com.example.joshf.conc.R.id.textView_concresult;
-        import static com.example.joshf.conc.R.id.textView_delmemresult;
-        import static com.example.joshf.conc.R.id.textView_imedmemresult;
-        import static com.example.joshf.conc.R.id.textView_orientationresult;
-        import static com.example.joshf.conc.R.id.textView_totalresult;
+
 
 
 public class HIA2EFragment extends Fragment {
@@ -26,6 +22,9 @@ public class HIA2EFragment extends Fragment {
 
     int total;
     public HIA2AActivity attempt;
+    TextView option1;
+    TextView option2;
+    TextView option3;
     TextView o_result;
     String o_result_string, m_result_string,conc_result,del_result;
     int conc1,conc2;
@@ -60,6 +59,10 @@ public class HIA2EFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_hia2_e, container, false);
         delmem = (EditText) rootView.findViewById(R.id.editText12);
+        option1 =(TextView) rootView.findViewById(R.id.option1);
+        option2 =(TextView) rootView.findViewById(R.id.option2);
+        option3 =(TextView) rootView.findViewById(R.id.option3);
+
 
 
         //o_result = (TextView) rootView.findViewById(R.id.textView_orientationresult);
@@ -82,9 +85,9 @@ public class HIA2EFragment extends Fragment {
         // Log.v(TAG, "SET FLAG");
         //}
 
-        Activity a = getActivity();
+/*        Activity a = getActivity();
         if(a instanceof HIA2AActivity) {
-            hia2test = (HIA2AActivity) getActivity();
+            hia2test = (HIA2AActivity) getActivity();*/
 
             delmem.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -98,7 +101,7 @@ public class HIA2EFragment extends Fragment {
                         else{
                             HIA2_Test6_Question1 = Integer.parseInt(delmemstring);
                             HIA2.HIA2_Test6_Question1=HIA2_Test6_Question1;
-                            attempt.attemp1.delayedRecall= HIA2_Test6_Question1;
+                            //attempt.attemp1.delayedRecall= HIA2_Test6_Question1;
                         }
                     }
                     catch(NumberFormatException e){
@@ -106,8 +109,7 @@ public class HIA2EFragment extends Fragment {
                     }
 
                     //delmemscore = Integer.parseInt(delmemstring);
-                    textView3 = (TextView) getView().findViewById(textView_delmemresult);
-                    textView3.setText(delmemstring);
+/*                    textView3.setText(delmemstring);
 
 
                     total = conc1 + val1 + val2 + HIA2_Test6_Question1;
@@ -119,13 +121,13 @@ public class HIA2EFragment extends Fragment {
 
                     String totalstring;
                     totalstring = String.valueOf(total);
-                    textView2 = (TextView) getView().findViewById(textView_totalresult);
-                    textView2.setText(totalstring);
+                    textView2.setText(totalstring);*/
                 }
             });
-        }
+        //}
         return rootView;
     }
+
 
     public void updateOrienScore(int position) {
 
@@ -151,9 +153,9 @@ public class HIA2EFragment extends Fragment {
     public void onPause() {
         super.onPause();  // Always call the superclass method first
 
-        Activity a = getActivity();
+/*        Activity a = getActivity();
         if(a instanceof HIA2AActivity) {
-            hia2test = (HIA2AActivity) getActivity();
+            hia2test = (HIA2AActivity) getActivity();*/
 
                     try {
                         delmemstring = delmem.getText().toString();
@@ -164,12 +166,12 @@ public class HIA2EFragment extends Fragment {
                         } else {
                             HIA2_Test6_Question1 = Integer.parseInt(delmemstring);
                             HIA2.HIA2_Test6_Question1 = HIA2_Test6_Question1;
-                            attempt.attemp1.delayedRecall = HIA2_Test6_Question1;
+                           // attempt.attemp1.delayedRecall = HIA2_Test6_Question1;
                         }
                     } catch (NumberFormatException e) {
                         //exception
                     }
-        }
+    //    }
 
     }
 
@@ -186,33 +188,12 @@ public class HIA2EFragment extends Fragment {
         //  Log.v(TAG, "Video Checkbox: " + a);
 
 
-        if(a instanceof HIA2AActivity)
-        {
-            attempt = (HIA2AActivity) getActivity();
-            textView = (TextView) getView().findViewById(textView_orientationresult);
-            o_result_string= String.valueOf(attempt.attemp1.orientation);
-            textView.setText(o_result_string);
-            val1 = Integer.parseInt(o_result_string);
 
-            textView1 = (TextView) getView().findViewById(textView_imedmemresult);
-            m_result_string = String.valueOf(attempt.attemp1.imedmem);
-            textView1.setText(m_result_string);
-            val2 = Integer.parseInt(m_result_string);
+        option1.setText(HIA2.HIA2_Option_1);
+        option2.setText(HIA2.HIA2_Option_2);
+        option3.setText(HIA2.HIA2_Option_3);
 
-            textView2 = (TextView) getView().findViewById(textView_concresult);
-            conc1 = attempt.attemp1.digback + attempt.attemp1.monthback;
-            conc_result = String.valueOf(conc1);
-            textView2.setText(conc_result);
 
-            textView3 = (TextView) getView().findViewById(textView_delmemresult);
-            attempt.attemp1.delayedRecall= HIA2_Test6_Question1;
-            del_result=String.valueOf(attempt.attemp1.delayedRecall);
-            textView3.setText(del_result);
-            //hia2test.objHIA2.setHIA2_Test6_Question1(HIA2_Test6_Question1);
-
-            attempt.attemp1.sacTotal = total;
-
-        }
 
     }
 

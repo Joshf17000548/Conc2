@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 public class PreferenceConnector{
 
-    public static double [] time_stamp;
+    public static long [] time_stamp;
     public static double [] event_stamp;
     public static double [] status_stamp;
     public static double [] acc_values0;
@@ -51,12 +51,12 @@ public class PreferenceConnector{
     public static int test_type = 0;
 
 
-    public static Boolean gait_test_completed = false;
+    public static int gait_test_completed = 0;
     public static int test_status = 1;
-    public static float tandem_t1 = 0;
-    public static float tandem_t2 = 0;
-    public static float tandem_t3 = 0;
-    public static float tandem_t4 = 0;
+    public static int tandem_t1 = 0;
+    public static int tandem_t2 = 0;
+    public static int tandem_t3 = 0;
+    public static int tandem_t4 = 0;
     public static float tandem_t1_MLRMS = 0;
     public static float tandem_t1_APRMS = 0;
     public static float tandem_t2_MLRMS = 0;
@@ -66,7 +66,12 @@ public class PreferenceConnector{
     public static float tandem_t4_MLRMS = 0;
     public static float tandem_t4_APRMS = 0;
 
-    public static Boolean balance_test_completed = false;
+    public static int balance_test_completed = 0;
+
+    public static Boolean doubleStatus = false;
+    public static Boolean singleStatus = false;
+    public static Boolean tandemStatus = false;
+
     public static int balance_dl = 0;
     public static int balance_sl = 0;
     public static int balance_ts = 0;
@@ -160,7 +165,8 @@ public class PreferenceConnector{
 
     public static void clear_all_values(){
 
-        gait_test_completed=false;
+        gait_test_completed=0;
+        balance_test_completed=0;
         test_status=1;
         tandem_t1 = 0;
         tandem_t2 = 0;
@@ -179,7 +185,11 @@ public class PreferenceConnector{
         balance_dl = 0;
         balance_sl = 0;
         balance_ts = 0;
-        balance_status = 0;//"Not fit";
+        balance_status = 0;//
+
+        doubleStatus = false;
+        singleStatus = false;
+        tandemStatus = false;
 
         balance_dl_MLRMS = 0;
         balance_dl_APRMS = 0;

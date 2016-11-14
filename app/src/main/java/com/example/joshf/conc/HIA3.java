@@ -9,6 +9,10 @@ import android.support.v4.app.FragmentActivity;
 
 public class HIA3 extends FragmentActivity {
 
+    static String HIA1_result_string = "NA";
+    static String HIA2_result_string= "NA";
+    static boolean HIA3_first=true;
+
     static int HIA3_Test1_Question1;
     static int HIA3_Test2_Question1;
     static String HIA3_Test2_Question2 = "NA";
@@ -124,6 +128,131 @@ public class HIA3 extends FragmentActivity {
     static int HIA3_Test5_Question3;
     static int HIA3_Test5_Question4;
     static int HIA3_Test5_Question5;
+
+
+
+    public static void clearHIA3(){
+
+        HIA1_result_string = "NA";
+        HIA2_result_string= "NA";
+        HIA3_first=true;
+
+        HIA3_Test1_Question1=0;
+        HIA3_Test2_Question1=0;
+        HIA3_Test2_Question2 = "NA";
+        HIA3_Test2_Question3=0;
+        HIA3_Test2_Question4 = "NA";
+        HIA3_Test2_Question5=0;
+        HIA3_Test2_Question6 = "NA";
+        HIA3_Test2_Question7=0;
+        HIA3_Test2_Question8 = "NA";
+
+        HIA3_Test3_Question1=0;
+        HIA3_Test3_Question2 = "NA";
+        HIA3_Test3_Question3=0;
+        HIA3_Test3_Question4 = "NA";
+        HIA3_Test3_Question5=0;
+        HIA3_Test3_Question6=0;
+        HIA3_Test3_Question7=0;
+        HIA3_Test3_Question8=0;
+        HIA3_Test3_Question9=0;
+        HIA3_Test3_Question10=0;
+        HIA3_Test3_Question11=0;
+        HIA3_Test3_Question12=0;
+        HIA3_Test3_Question13=0;
+        HIA3_Test3_Question14=0;
+        HIA3_Test3_Question15=0;
+        HIA3_Test3_Question16=0;
+        HIA3_Test3_Question17=0;
+        HIA3_Test3_Question18=0;
+        HIA3_Test3_Question19=0;
+        HIA3_Test3_Question20=0;
+        HIA3_Test3_Question21=0;
+        HIA3_Test3_Question22=0;
+        HIA3_Test3_Question23=0;
+        HIA3_Test3_Question24=0;
+        HIA3_Test3_Question25=0;
+        HIA3_Test3_Question26=0;
+        HIA3_Test3_Question27=0;
+        HIA3_Test3_Question28=0;
+        HIA3_Test3_Question29=0;
+        HIA3_Test3_Question30=0;
+        HIA3_Test3_Question31=0;
+        HIA3_Test3_Question32=0;
+        HIA3_Test3_Question33=0;
+        HIA3_Test3_Question34=0;
+        HIA3_Test3_Question35=0;
+        HIA3_Test3_Question36=0;
+        HIA3_Test3_Question37=0;
+        HIA3_Test3_Question38=0;
+        HIA3_Test3_Question39=0;
+        HIA3_Test3_Question40=0;
+        HIA3_Test3_Question41=0;
+        HIA3_Test3_Question42=0;
+        HIA3_Test3_Question43=0;
+        HIA3_Test3_Question44=0;
+        HIA3_Test3_Question45=0;
+        HIA3_Test3_Question46=0;
+        HIA3_Test3_Question47=0;
+        HIA3_Test3_Question48=0;
+        HIA3_Test3_Question49=0;
+        HIA3_Test3_Question50=0;
+        HIA3_Test3_Question51=0;
+        HIA3_Test3_Question52=0;
+        HIA3_Test3_Question53=0;
+        HIA3_Test3_Question54=0;
+        HIA3_Test3_Question55=0;
+        HIA3_Test3_Question56=0;
+        HIA3_Test3_Question57=0;
+        HIA3_Test3_Question58=0;
+        HIA3_Test3_Question59=0;
+        HIA3_Test3_Question60=0;
+        HIA3_Test3_Question61=0;
+        HIA3_Test3_Question62=0;
+        HIA3_Test3_Question63=0;
+        HIA3_Test3_Question64=0;
+        HIA3_Test3_Question65=0;
+        HIA3_Test3_Question66=0;
+        HIA3_Test3_Question67=0;
+        HIA3_Test3_Question68=0;
+        HIA3_Test3_Question69=0;
+        HIA3_Test3_Question70=0;
+        HIA3_Test3_Question71=0;
+        HIA3_Test3_Question72=0;
+        HIA3_Test3_Question73=0;
+        HIA3_Test3_Question74=0;
+        HIA3_Test3_Question75=0;
+        HIA3_Test3_Question76=0;
+        HIA3_Test3_Question77=0;
+        HIA3_Test3_Question78=0;
+        HIA3_Test3_Question79=0;
+        HIA3_Test3_Question80=0;
+        HIA3_Test3_Question81=0;
+        HIA3_Test3_Question82=0;
+        HIA3_Test3_Question83=0;
+        HIA3_Test3_Question84=0;
+        HIA3_Test3_Question85=0;
+        HIA3_Test3_Question86=0;
+        HIA3_Test3_Question87=0;
+        HIA3_Test3_Question88=0;
+        HIA3_Test3_Question89=0;
+        HIA3_Test3_Question90=0;
+        HIA3_Test3_Question91=0;
+        HIA3_Test3_Question92=0;
+
+        HIA3_Test4_Question1=0;
+        HIA3_Test4_Question2=0;
+        HIA3_Test4_Question3=0;
+        HIA3_Test4_Question4=0;
+        HIA3_Test4_Question5=0;
+        HIA3_Test4_Question6 ="NA";
+
+        HIA3_Test5_Question1=0;
+        HIA3_Test5_Question2=0;
+        HIA3_Test5_Question3=0;
+        HIA3_Test5_Question4=0;
+        HIA3_Test5_Question5=0;
+    }
 
    /* public int getHIA3_Test1_Question1() {
         return HIA3_Test1_Question1;

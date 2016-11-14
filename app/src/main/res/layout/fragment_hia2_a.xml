@@ -13,7 +13,7 @@
         android:id="@+id/linearLayout001">
 
         <TextView
-            android:text="@string/hia2a_section11_header"
+            android:text="A HIA1 has not been completed on the same day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -31,13 +31,15 @@
         android:layout_below="@+id/linearLayout001">
 
         <TextView
-            android:text="@string/hia2a_section12_header"
+            android:text="Result:"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView002"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="16sp"
-            android:layout_weight="0.06" />
+            android:layout_weight="0.06"
+            android:visibility="invisible"
+            />
 
     </LinearLayout>
 
@@ -47,13 +49,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout002"
         android:layout_below="@+id/linearLayout003"
+
         android:paddingTop="0dp">
 
-        <Spinner
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner4"
-            android:spinnerMode="dialog"/>
+            android:id="@+id/HIA1_awnser"
+            android:visibility="invisible"
+            />
 
     </LinearLayout>
 

@@ -27,10 +27,100 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout001"
+        android:id="@+id/linearLayout002"
+        android:paddingTop="10dp"
+        >
+
+        <TextView
+            android:text="@string/opt_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView36"
+            android:layout_weight="0.00"
+            android:paddingTop="10dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14sp"
+
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/option1"
+            android:layout_weight="0.00" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout002"
+        android:paddingTop="10dp"
+        android:id="@+id/linearLayout003"
+        >
+
+        <TextView
+            android:text="@string/opt_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView33"
+            android:layout_weight="0.00"
+            android:paddingTop="10dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14sp"
+
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/option2"
+            android:layout_weight="0.00" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout003"
+        android:paddingTop="10dp"
+        android:id="@+id/linearLayout004"
+        >
+
+        <TextView
+            android:text="@string/opt_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView0000"
+            android:layout_weight="0.00"
+            android:paddingTop="10dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14sp"
+
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/option3"
+            android:layout_weight="0.00" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout001"
+        android:layout_below="@+id/linearLayout004"
         android:id="@+id/linearLayout0033"
         android:paddingTop="20dp"
         >
@@ -51,153 +141,6 @@
             android:paddingLeft="5dp"
             android:imeOptions="actionDone"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout003"
-        android:paddingTop="25dp"
-        android:layout_below="@+id/linearLayout0033">
-
-        <TextView
-            android:text="@string/sac_sum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView3"
-            android:layout_weight="1"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="18sp"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout004"
-        android:paddingTop="25dp"
-        android:layout_below="@+id/linearLayout003">
-
-        <TextView
-            android:text="@string/sac_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView4"
-            android:layout_weight="0.11"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="14sp"
-            />
-
-        <TextView
-            android:text=" "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView_orientationresult"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout005"
-        android:paddingTop="5dp"
-        android:layout_below="@+id/linearLayout004">
-
-        <TextView
-            android:text="@string/sac_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView5"
-            android:layout_weight="0.15"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="14sp"
-            />
-
-        <TextView
-            android:text=" "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView_imedmemresult"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout006"
-        android:paddingTop="5dp"
-        android:layout_below="@+id/linearLayout005">
-
-        <TextView
-            android:text="@string/conc_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView6"
-            android:layout_weight="0.16"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="14sp"
-            />
-
-        <TextView
-            android:text=" "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView_concresult"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout007"
-        android:paddingTop="5dp"
-        android:layout_below="@+id/linearLayout006">
-
-        <TextView
-            android:text="@string/sac_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView7"
-            android:layout_weight="0.19"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="14sp"
-            />
-        <TextView
-            android:text=" "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView_delmemresult"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/linearLayout008"
-        android:paddingTop="5dp"
-        android:layout_below="@+id/linearLayout007">
-
-        <TextView
-            android:text="@string/sac_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView8"
-            android:layout_weight="0.16"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="14sp"
-            />
-        <TextView
-            android:text=" "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView_totalresult"
-            android:layout_weight="1" />
     </LinearLayout>
 
 </RelativeLayout>

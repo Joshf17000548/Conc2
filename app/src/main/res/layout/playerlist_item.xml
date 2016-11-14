@@ -29,8 +29,8 @@
 
     <TextView
         android:id="@+id/surname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_alignBottom="@+id/playerHealth"
         android:textSize="20sp"
         android:transitionName="surname"
@@ -44,11 +44,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="6dp"
+
         android:transitionName="name"
         android:textStyle="bold"
         android:textColor="@color/textPrimary"
-        android:layout_alignTop="@+id/playerHealth"
+        android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/playerPhoto" />
 
 

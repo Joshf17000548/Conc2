@@ -1,8 +1,10 @@
 package com.example.joshf.conc;
 
+        import android.app.Activity;
         import android.app.ProgressDialog;
         import android.content.Context;
         import android.content.DialogInterface;
+        import android.content.pm.ActivityInfo;
         import android.os.AsyncTask;
         import android.support.design.widget.FloatingActionButton;
         import android.support.design.widget.Snackbar;
@@ -32,9 +34,14 @@ package com.example.joshf.conc;
 
         import org.json.JSONArray;
         import org.json.JSONException;
+        import org.w3c.dom.Text;
 
+        import java.text.SimpleDateFormat;
+        import java.util.Date;
         import java.util.HashMap;
         import java.util.Map;
+
+        import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class HIA2AActivity extends AppCompatActivity
         implements HIA2DFragment.OnOrienSelectedListener, HIA2GFragment.OnConcSelectedListener
@@ -45,6 +52,12 @@ public class HIA2AActivity extends AppCompatActivity
     SectionsPagerAdapter mSectionsPagerAdapter;
     HIA2 objHIA2=new HIA2();
     static Spinner spinner;
+    Bundle save;
+    static int player_code;
+    public static String HIA1_result_string = "/0";
+    static TextView title;
+    static TextView result, resultText;
+
     public int tabbed_pos;
     AlertDialogManager alert = new AlertDialogManager();
 
@@ -75,7 +88,24 @@ public class HIA2AActivity extends AppCompatActivity
         //Toast.makeText(getApplicationContext(), "You selected :"+ radioButton.getText(), Toast.LENGTH_SHORT).show();
         //Log.v("AGAIN:", "Check Check Ckeck: " + fragObjHia1.objHIA1.HIA1_Test1_Question1);
         //objHIA1.setHIA1_Test1_Question1(param);
-        new HIA2AActivity.HIA2insertAsync(objHIA2).execute(); //Call async Task
+        if(HIA2.HIA2_Result_Chosen){
+
+            new HIA2AActivity.HIA2insertAsync(objHIA2).execute(); //Call async Task
+        }
+        else{
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+            builder.setMessage("Diagnoses not Selected")
+                    .setTitle(R.string.dialog_title);
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+
+                }
+            });
+            android.app.AlertDialog dialog = builder.create();
+            dialog.setCancelable(false);
+            dialog.show();
+        }
     }
     //---------------------------------------------
     //------------JSON ----------------------------
@@ -115,12 +145,17 @@ public class HIA2AActivity extends AppCompatActivity
 
             Log.d("JSonInsTeam", "Background");
             try {
+                String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                 //    Log.d("JSON REQUEST", "Start ...");
 
                 // PREPARING PARAMETERS..
                 Log.d("JSON REQUEST", "Preparing Params ...");
                 HashMap<String, String> args = new HashMap<>();
 
+                args.put("Code_Player", Integer.toString(player_code));
+                args.put("HIA2_Date", date);
+
+                args.put("HIA2_Result", Integer.toString(HIA2.HIA2_result));
                 args.put("HIA2_Test2_Question1", Integer.toString(HIA2.HIA2_Test2_Question1));
                 args.put("HIA2_Test2_Question2", Integer.toString(HIA2.HIA2_Test2_Question2));
                 args.put("HIA2_Test2_Question3", Integer.toString(HIA2.HIA2_Test2_Question3));
@@ -161,71 +196,40 @@ public class HIA2AActivity extends AppCompatActivity
 
                 args.put("HIA2_Test7_Question1", Integer.toString(HIA2.HIA2_Test7_Question1));
 
-    /*            args.put("Gait_Completed", Boolean.toString(PreferenceConnector.gait_test_completed));
-                args.put("Test_Status", Float.toString(PreferenceConnector.test_status));
+                args.put("gait_test_completed", Integer.toString(PreferenceConnector.gait_test_completed));
+                args.put("test_status", Float.toString(PreferenceConnector.test_status));
 
-                args.put("Tandem_t1", Float.toString(PreferenceConnector.tandem_t1));
-                args.put("Tandem_t1_MLRMS", Float.toString(PreferenceConnector.tandem_t1_MLRMS));
-                args.put("Tandem_t1_APRMS", Float.toString(PreferenceConnector.tandem_t1_APRMS));
+                args.put("tandem_t1", Float.toString(PreferenceConnector.tandem_t1));
+                args.put("tandem_t1_MLRMS", Float.toString(PreferenceConnector.tandem_t1_MLRMS));
+                args.put("tandem_t1_APRMS", Float.toString(PreferenceConnector.tandem_t1_APRMS));
 
-                args.put("Tandem_t2", Float.toString(PreferenceConnector.tandem_t2));
-                args.put("Tandem_t2_MLRMS", Float.toString(PreferenceConnector.tandem_t2_MLRMS));
-                args.put("Tandem_t2_APRMS", Float.toString(PreferenceConnector.tandem_t2_APRMS));
+                args.put("tandem_t2", Float.toString(PreferenceConnector.tandem_t2));
+                args.put("tandem_t2_MLRMS", Float.toString(PreferenceConnector.tandem_t2_MLRMS));
+                args.put("tandem_t2_APRMS", Float.toString(PreferenceConnector.tandem_t2_APRMS));
 
-                args.put("Tandem_t3", Float.toString(PreferenceConnector.tandem_t3));
-                args.put("Tandem_t3_MLRMS", Float.toString(PreferenceConnector.tandem_t3_MLRMS));
-                args.put("Tandem_t3_APRMS", Float.toString(PreferenceConnector.tandem_t3_APRMS));
+                args.put("tandem_t3", Float.toString(PreferenceConnector.tandem_t3));
+                args.put("tandem_t3_MLRMS", Float.toString(PreferenceConnector.tandem_t3_MLRMS));
+                args.put("tandem_t3_APRMS", Float.toString(PreferenceConnector.tandem_t3_APRMS));
 
-                args.put("Tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
-                args.put("Tandem_t4_MLRMS", Float.toString(PreferenceConnector.tandem_t4_MLRMS));
-                args.put("Tandem_t4_APRMS", Float.toString(PreferenceConnector.tandem_t4_APRMS));
+                args.put("tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
+                args.put("tandem_t4_MLRMS", Float.toString(PreferenceConnector.tandem_t4_MLRMS));
+                args.put("tandem_t4_APRMS", Float.toString(PreferenceConnector.tandem_t4_APRMS));
 
-                args.put("Balance_test_complete", Boolean.toString(PreferenceConnector.balance_test_completed));
+                args.put("balance_test_completed", Integer.toString(PreferenceConnector.balance_test_completed));
 
-                args.put("Balance_dl", Float.toString(PreferenceConnector.balance_dl));
-                args.put("Balance_dl_MLRMS", Float.toString(PreferenceConnector.balance_dl_MLRMS));
-                args.put("Balance_dl_APRMS", Float.toString(PreferenceConnector.balance_dl_APRMS));
-                args.put("Balance_dl_PTP", Float.toString(PreferenceConnector.balance_dl_PTP));
+                args.put("balance_dl_MLRMS", Float.toString(PreferenceConnector.balance_dl_MLRMS));
+                args.put("balance_dl_APRMS", Float.toString(PreferenceConnector.balance_dl_APRMS));
+                args.put("balance_dl_PTP", Float.toString(PreferenceConnector.balance_dl_PTP));
 
-                args.put("Balance_sl", Float.toString(PreferenceConnector.balance_dl));
-                args.put("Balance_sl_MLRMS", Float.toString(PreferenceConnector.balance_dl_MLRMS));
-                args.put("Balance_sl_APRMS", Float.toString(PreferenceConnector.balance_dl_APRMS));
-                args.put("Balance_sl_PTP", Float.toString(PreferenceConnector.balance_dl_PTP));
+                args.put("balance_sl_MLRMS", Float.toString(PreferenceConnector.balance_dl_MLRMS));
+                args.put("balance_sl_APRMS", Float.toString(PreferenceConnector.balance_dl_APRMS));
+                args.put("balance_sl_PTP", Float.toString(PreferenceConnector.balance_dl_PTP));
 
-                args.put("Balance_ts", Float.toString(PreferenceConnector.balance_ts));
-                args.put("Balance_ts_MLRMS", Float.toString(PreferenceConnector.balance_ts_MLRMS));
-                args.put("Balance_ts_APRMS", Float.toString(PreferenceConnector.balance_ts_APRMS));
-                args.put("Balance_ts_PTP", Float.toString(PreferenceConnector.balance_ts_PTP));
+                args.put("balance_ts_MLRMS", Float.toString(PreferenceConnector.balance_ts_MLRMS));
+                args.put("balance_ts_APRMS", Float.toString(PreferenceConnector.balance_ts_APRMS));
+                args.put("balance_ts_PTP", Float.toString(PreferenceConnector.balance_ts_PTP));
 
-                args.put("Tandem_time_stamp", PreferenceConnector.time_stamp.toString());
-                args.put("Tandem_event_stamp", PreferenceConnector.event_stamp.toString());
-                args.put("Tandem_status_stamp", PreferenceConnector.status_stamp.toString());
-
-                args.put("Tandem_acc_values0", PreferenceConnector.acc_values0.toString());
-                args.put("Tandem_acc_values1", PreferenceConnector.acc_values1.toString());
-                args.put("Tandem_acc_values2", PreferenceConnector.acc_values2.toString());
-
-                args.put("Tandem_rot_values0", PreferenceConnector.rot_values0.toString());
-                args.put("Tandem_rot_values1", PreferenceConnector.rot_values1.toString());
-                args.put("Tandem_rot_values2", PreferenceConnector.rot_values2.toString());
-
-                args.put("Balance_time_stamp", PreferenceConnector.bal_time_stamp.toString());
-                args.put("Balance_event_stamp", PreferenceConnector.bal_event_stamp.toString());
-                args.put("Balance_status_stamp", PreferenceConnector.bal_status_stamp.toString());
-
-                args.put("Balance_acc_values0", PreferenceConnector.bal_acc_values0.toString());
-                args.put("Balance_acc_values1", PreferenceConnector.bal_acc_values1.toString());
-                args.put("Balance_acc_values2", PreferenceConnector.bal_acc_values2.toString());
-
-                args.put("Balance_rot_values0", PreferenceConnector.bal_rot_values0.toString());
-                args.put("Balance_rot_values1", PreferenceConnector.bal_rot_values1.toString());
-                args.put("Balance_rot_values2", PreferenceConnector.bal_rot_values2.toString());
-
-                args.put("Upper_Limb", String.valueOf (PreferenceConnector.upper_score));
-*/
-
-
-
+                args.put("upper_score", String.valueOf (PreferenceConnector.upper_score));
 
                 // all args needs to convert to string because the hash map is string, string types.
 
@@ -272,6 +276,8 @@ public class HIA2AActivity extends AppCompatActivity
 
             if (success == 1) {
                 Log.d("Success!", message);
+                PreferenceConnector.clear_all_values();
+                HIA2.clearHIA2();
 
                 finish();
             } else {
@@ -293,7 +299,7 @@ public class HIA2AActivity extends AppCompatActivity
 
     private class get_HIA1_Test7_Question5 extends AsyncTask<Void, Void, JSONArray> {
 
-        int getHIA1T7Q5;
+        int code;
         // Alert Dialog Manager
        // AlertDialogManager alert = new AlertDialogManager();
 
@@ -306,10 +312,10 @@ public class HIA2AActivity extends AppCompatActivity
 
         private ProgressDialog pDialog;
 
-        public get_HIA1_Test7_Question5(int CodeHIA1){
+        public get_HIA1_Test7_Question5(int codePlayer){
             Log.d("JSONCONSTRUCTOR", "Start");
             Toast.makeText(getApplicationContext(), "Starting JSON", Toast.LENGTH_SHORT).show();
-            this.getHIA1T7Q5=CodeHIA1;
+            this.code=codePlayer;
         }
 
         @Override
@@ -332,7 +338,7 @@ public class HIA2AActivity extends AppCompatActivity
                 Log.d("JSON REQUEST", "Preparing Params ...");
                 HashMap<String, String> args = new HashMap<>();
 
-                args.put("Code_HIA1", Integer.toString(this.getHIA1T7Q5));
+                args.put("Code_HIA1", Integer.toString(this.code));
 
                 // all args needs to convert to string because the hash map is string, string types.
 
@@ -357,7 +363,7 @@ public class HIA2AActivity extends AppCompatActivity
         }
         @Override
         protected void onPostExecute(JSONArray json) {
-            Log.d("JSonInsTeam", "Finish");
+            Log.e("JSonInsTeam", "Finish");
             if (pDialog != null && pDialog.isShowing()) {
                 pDialog.dismiss();
             }
@@ -370,31 +376,63 @@ public class HIA2AActivity extends AppCompatActivity
                 try {
                     success = json.getJSONObject(0).getInt(TAG_SUCCESS);
                     message = json.getJSONObject(0).getString(TAG_MESSAGE);
+                    String date = json.getJSONObject(0).getString("HIA1_Date");
 
                     if (success==1){
                         Code_HIA1 = json.getJSONObject(0).getInt("HIA1_Test7_Question5");
-                        Log.d("Retrieved",Integer.toString(Code_HIA1));
-                        //test spinner
-                        //Code_HIA1=1;
-                        //onResume();
-                        setSpinner();
+                        Log.e("Retrieved",Integer.toString(Code_HIA1));
+
+                        if(checkDate(date)){
+                            switch(Code_HIA1){
+                                case 0:
+                                    HIA2.HIA1_result_string = "player immediately and permanently removed";
+                                    break;
+                                case 1:
+                                    HIA2.HIA1_result_string = "pitch-side HIA abnormal and player removed";
+                                    break;
+                                case 2:
+                                    HIA2.HIA1_result_string = "pitch-side HIA normal and player removed";
+                                    break;
+                                case 3:
+                                    HIA2.HIA1_result_string = "pitch-side HIA normal and player returned to play";
+                                    break;
+                                case 4:
+                                    HIA2.HIA1_result_string = "HIA normal and player removed for another injury";
+                                    break;
+                                case 5:
+                                    HIA2.HIA1_result_string = "Not removed";
+                                    break;
+                            }
+                        }
 
                     }
 
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e("error","HIA1 error");
                 }
+            }else{
+                HIA2.HIA1_result_string="/0";
             }
 
             if (success == 1) {
-                Log.d("Success!", message);
+                Log.e("Success!", message);
 
-                //finish();
-            } else {
-                // Problems SQL
-                alert.showAlertDialog(HIA2AActivity.this, "Insert failed..", "Something went wrong, see Failure Log", false);
-                Log.d("Failure", message);
-                finish();
+            }
+
+            title =(TextView) findViewById(R.id.textView001);
+            resultText = (TextView) findViewById(R.id.textView002);
+            result = (TextView) findViewById(R.id.HIA1_awnser);
+
+            if(!HIA2.HIA1_result_string.equals("/0")){
+                result.setText(HIA2.HIA1_result_string);
+                title.setText("A HIA1 has been completed on the same day");
+                resultText.setVisibility(View.VISIBLE);
+                result.setVisibility(View.VISIBLE);
+            }else
+            {
+                result.setVisibility(View.INVISIBLE);
+                resultText.setVisibility(View.INVISIBLE);
+                title.setText("A HIA1 has not been completed on the same day");
             }
         }
 
@@ -404,17 +442,28 @@ public class HIA2AActivity extends AppCompatActivity
     //-------------------------------
     // end second Async
 
-    public void setSpinner(){
-        spinner.setSelection(Code_HIA1);
+    public Boolean checkDate(String date){
 
+        return (date.equalsIgnoreCase(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
 
     }
+/*    @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("first_run", first_run);
+    }*/
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+/*        if (savedInstanceState != null) {
+            first_run = savedInstanceState.getBoolean("first_run");
+
+        }else{
+            first_run = getIntent().getExtras().getBoolean("first_run");
+        }*/
         setContentView(R.layout.viewpager_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_team);
         toolbar.setLogo(R.drawable.logo);
@@ -435,10 +484,15 @@ public class HIA2AActivity extends AppCompatActivity
         //mViewPager = new ViewPager(this);
         //mViewPager.setId(R.id.pager);
         //setContentView(mViewPager);
+        player_code = getIntent().getExtras().getInt("player_code");
 
-        Log.d("Before", Integer.toString(Code_HIA1));
-        new HIA2AActivity.get_HIA1_Test7_Question5(1).execute();
-        Log.d("After", Integer.toString(Code_HIA1));
+
+
+        //Log.e("HIA2first", String.valueOf(first_run));
+
+
+
+
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());//,this.getApplicationContext());
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
@@ -473,8 +527,22 @@ public class HIA2AActivity extends AppCompatActivity
             }
         });
 
+        save = savedInstanceState;
+
+        if(HIA2.HIA2_first) {
+            new get_HIA1_Test7_Question5(player_code).execute();
+            HIA2.HIA2_first=false;
+        }
+
+    }
 
 
+
+
+    protected void onSaveInstanceState(Bundle icicle) {
+        super.onSaveInstanceState(icicle);
+        Log.e("ONR HIA2","on Save");
+        icicle.putString("HIA_String", HIA1_result_string);
     }
 
     @Override
@@ -579,6 +647,8 @@ public class HIA2AActivity extends AppCompatActivity
         backbut.setPositiveButton(R.string.dialog_back_ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked OK button
+                HIA2.clearHIA2();
+                PreferenceConnector.clear_all_values();
                 HIA2AActivity.super.onBackPressed();
             }
         });
@@ -665,6 +735,11 @@ public class HIA2AActivity extends AppCompatActivity
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+
+        public Boolean first_run;
+
+
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -673,6 +748,7 @@ public class HIA2AActivity extends AppCompatActivity
         private ArrayAdapter<CharSequence> adapter;
 
         public PlaceholderFragment() {
+
         }
 
         /**
@@ -684,27 +760,50 @@ public class HIA2AActivity extends AppCompatActivity
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
+            Log.e("ONR HIA2","on instance");
             return fragment;
         }
+        @Override
+        public void onSaveInstanceState(Bundle icicle) {
+            super.onSaveInstanceState(icicle);
+            Log.e("ONR HIA2","on Save");
+            icicle.putString("HIA_String", HIA1_result_string);
+
+        }
+
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            Log.e("ONR HIA2",HIA2.HIA1_result_string);
+
+
+                if (!HIA2.HIA1_result_string.equals("/0")) {
+                    result.setText(HIA2.HIA1_result_string);
+                    title.setText("A HIA1 has been completed on the same day");
+                    resultText.setVisibility(View.VISIBLE);
+                    result.setVisibility(View.VISIBLE);
+                } else {
+                    result.setVisibility(View.INVISIBLE);
+                    resultText.setVisibility(View.INVISIBLE);
+                    title.setText("A HIA1 has not been completed on the same day");
+                }
+
+            }
+
+
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_hia2_a, container, false);
-
-
-            spinner = (Spinner) rootView.findViewById(R.id.spinner4);
-
-            this.adapter=ArrayAdapter.createFromResource(this.getActivity(),R.array.hia2_1_spinner,android.R.layout.simple_spinner_dropdown_item);
-            this.adapter = ArrayAdapter.createFromResource(this.getActivity(),R.array.hia2_1_spinner,R.layout.multiline_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-            Log.d("Spinner Value Test:",Integer.toString(Code_HIA1));
-            spinner.setSelection(Code_HIA1);
+            title =(TextView) rootView.findViewById(R.id.textView001);
+            resultText = (TextView) rootView.findViewById(R.id.textView002);
+            result = (TextView) rootView.findViewById(R.id.HIA1_awnser);
 
 
             return rootView;
         }
-
 
     }
 
@@ -737,22 +836,22 @@ public class HIA2AActivity extends AppCompatActivity
                     return PlaceholderFragment.newInstance(position + 1);
                 case 1:
                     return HIA2BFragment.newInstance();
+/*                case 2:
+                    return HIA2CFragment.newInstance();*/
                 case 2:
-                    return HIA2CFragment.newInstance();
-                case 3:
                     return HIA2DFragment.newInstance();
-                case 4:
+                case 3:
                     return HIA2GFragment.newInstance();
-                case 5:
+                case 4:
                     return HIA2EFragment.newInstance();
-                case 6:
+                case 5:
                     return Gait.newInstance();
-                case 7:
+                case 6:
                     return Balance.newInstance();
-                case 8:
+                case 7:
                     return UpperLimbCoordination.newInstance();
-                case 9:
-                    return HIA2FFragment.newInstance();
+                case 8:
+                    return HIA2Results.newInstance();
 
             }
 
@@ -762,13 +861,13 @@ public class HIA2AActivity extends AppCompatActivity
         @Override
         public int getCount() {
 
-            return 10;
+            return 9;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
 
-            return "HIA2 (" + (position + 1) + "/10)";
+            return "HIA2 (" + (position + 1) + "/9)";
         }
 
         @Override

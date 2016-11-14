@@ -2,20 +2,12 @@ package com.example.joshf.conc;
         import android.app.Activity;
         //import android.app.AlertDialog;
         import android.app.ProgressDialog;
-        import android.app.SearchManager;
-        import android.content.Context;
         import android.content.DialogInterface;
-        import android.content.pm.ActivityInfo;
-        import android.net.Uri;
+        import android.content.Intent;
         import android.os.AsyncTask;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.design.widget.Snackbar;
-        import android.support.v4.app.FragmentStatePagerAdapter;
-        import android.support.v4.view.PagerAdapter;
         import android.support.v7.app.ActionBar;
         import android.support.v7.app.AlertDialog;
         import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.SearchView;
         import android.support.v7.widget.Toolbar;
 
         import android.support.v4.app.Fragment;
@@ -23,7 +15,6 @@ package com.example.joshf.conc;
         import android.support.v4.app.FragmentPagerAdapter;
         import android.support.v4.view.ViewPager;
         import android.os.Bundle;
-        import android.text.InputType;
         import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.Menu;
@@ -34,9 +25,7 @@ package com.example.joshf.conc;
         import android.widget.AdapterView;
         import android.widget.ArrayAdapter;
         import android.widget.CheckBox;
-        import android.widget.EditText;
         import android.widget.RadioButton;
-        import android.widget.RadioGroup;
         import android.widget.Spinner;
         import android.widget.TextView;
         import android.widget.Toast;
@@ -45,8 +34,9 @@ package com.example.joshf.conc;
 
         import org.json.JSONArray;
         import org.json.JSONException;
-        import org.w3c.dom.Text;
 
+        import java.text.SimpleDateFormat;
+        import java.util.Date;
         import java.util.HashMap;
         import java.util.Map;
 
@@ -69,6 +59,8 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
     boolean HIA1_Test1_Question9 = false;
     boolean HIA1_Test1_Question10 = false;
     boolean HIA1_Test1_Question11 = false;
+
+    int player_code;
 
     public HIA1 databasetest;
 
@@ -124,100 +116,106 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         protected JSONArray doInBackground(Void... params) {
 
             Log.d("JSonInsTeam", "Background");
+
             try {
+
+                String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+/*
+                PreferenceConnector.time_stamp[PreferenceConnector.acc_cnt] = timestamp-starttime;
+                PreferenceConnector.acc_values0[PreferenceConnector.acc_cnt] = valuesAccelerometer[0];
+                PreferenceConnector.acc_values1[PreferenceConnector.acc_cnt] = valuesAccelerometer[1];
+                PreferenceConnector.acc_values2[PreferenceConnector.acc_cnt] = valuesAccelerometer[2];
+                PreferenceConnector.rot_values1[PreferenceConnector.rot_cnt] = matrixValues[0];
+                PreferenceConnector.rot_values1[PreferenceConnector.rot_cnt] = matrixValues[1];
+                PreferenceConnector.rot_values2[PreferenceConnector.rot_cnt] = matrixValues[2];*/
+
+
                 //    Log.d("JSON REQUEST", "Start ...");
 
                 // PREPARING PARAMETERS..
                 Log.d("JSON REQUEST", "Preparing Params ...");
                 HashMap<String, String> args = new HashMap<>();
 
-                Log.e("HIA1_Test2_Question1", Integer.toString(HIA1.HIA1_Test2_Question1));
-                args.put("HIA1_Test1_Question1", Integer.toString(this.objectHIA1.getHIA1_Test1_Question1()));
-                args.put("HIA1_Test1_Question2", Integer.toString(this.objectHIA1.getHIA1_Test1_Question2()));
-                args.put("HIA1_Test1_Question3", Integer.toString(this.objectHIA1.getHIA1_Test1_Question3()));
-                args.put("HIA1_Test1_Question4", Integer.toString(this.objectHIA1.getHIA1_Test1_Question4()));
-                args.put("HIA1_Test1_Question5", Integer.toString(this.objectHIA1.getHIA1_Test1_Question5()));
-                args.put("HIA1_Test1_Question6", Integer.toString(this.objectHIA1.getHIA1_Test1_Question6()));
-                args.put("HIA1_Test1_Question7", Integer.toString(this.objectHIA1.getHIA1_Test1_Question7()));
-                args.put("HIA1_Test1_Question8", Integer.toString(this.objectHIA1.getHIA1_Test1_Question8()));
-                args.put("HIA1_Test1_Question9", Integer.toString(this.objectHIA1.getHIA1_Test1_Question9()));
-                args.put("HIA1_Test1_Question10", Integer.toString(this.objectHIA1.getHIA1_Test1_Question10()));
-                args.put("HIA1_Test1_Question11", Integer.toString(this.objectHIA1.getHIA1_Test1_Question11()));
-                args.put("HIA1_Test1_Question12", Integer.toString(this.objectHIA1.getHIA1_Test1_Question12()));
-                args.put("HIA1_Test1_Question13", Integer.toString(this.objectHIA1.getHIA1_Test1_Question13()));
+/*                Log.e("HIA1_Test2_Question1", Integer.toString(HIA1.HIA1_Test2_Question1));
+                Log.e("testMenuA", String.valueOf(player_code));
+                Log.e("testMenuA", date);*/
+                args.put("Code_Player", Integer.toString(player_code));
+                args.put("HIA1_Date", date);
+
+
+                args.put("HIA1_Test1_Question1", Integer.toString(HIA1.HIA1_Test1_Question1));
+                args.put("HIA1_Test1_Question2", Integer.toString(HIA1.HIA1_Test1_Question2));
+                args.put("HIA1_Test1_Question3", Integer.toString(HIA1.HIA1_Test1_Question3));
+                args.put("HIA1_Test1_Question4", Integer.toString(HIA1.HIA1_Test1_Question4));
+                args.put("HIA1_Test1_Question5", Integer.toString(HIA1.HIA1_Test1_Question5));
+                args.put("HIA1_Test1_Question6", Integer.toString(HIA1.HIA1_Test1_Question6));
+                args.put("HIA1_Test1_Question7", Integer.toString(HIA1.HIA1_Test1_Question7));
+                args.put("HIA1_Test1_Question8", Integer.toString(HIA1.HIA1_Test1_Question8));
+                args.put("HIA1_Test1_Question9", Integer.toString(HIA1.HIA1_Test1_Question9));
+                args.put("HIA1_Test1_Question10", Integer.toString(HIA1.HIA1_Test1_Question10));
+                args.put("HIA1_Test1_Question11", Integer.toString(HIA1.HIA1_Test1_Question11));
+                args.put("HIA1_Test1_Question12", Integer.toString(HIA1.HIA1_Test1_Question12));
+                args.put("HIA1_Test1_Question13", Integer.toString(HIA1.HIA1_Test1_Question13));
 
                 args.put("HIA1_Test2_Question1", Integer.toString(HIA1.HIA1_Test2_Question1));
-                args.put("HIA1_Test2_Question2", Integer.toString(this.objectHIA1.getHIA1_Test2_Question2()));
-                args.put("HIA1_Test2_Question3", Integer.toString(this.objectHIA1.getHIA1_Test2_Question3()));
-                args.put("HIA1_Test2_Question4", Integer.toString(this.objectHIA1.getHIA1_Test2_Question4()));
-                args.put("HIA1_Test2_Question5", Integer.toString(this.objectHIA1.getHIA1_Test2_Question5()));
-                args.put("HIA1_Test2_Question6", this.objectHIA1.getHIA1_Test2_Question6());
+                args.put("HIA1_Test2_Question2", Integer.toString(HIA1.HIA1_Test2_Question2));
+                args.put("HIA1_Test2_Question3", Integer.toString(HIA1.HIA1_Test2_Question3));
+                args.put("HIA1_Test2_Question4", Integer.toString(HIA1.HIA1_Test2_Question4));
+                args.put("HIA1_Test2_Question5", Integer.toString(HIA1.HIA1_Test2_Question5));
+                args.put("HIA1_Test2_Question6", HIA1.HIA1_Test2_Question6);
 
-                args.put("HIA1_Test3_Question1", Integer.toString(this.objectHIA1.getHIA1_Test3_Question1()));
-                args.put("HIA1_Test3_Question2", Integer.toString(this.objectHIA1.getHIA1_Test3_Question2()));
-                args.put("HIA1_Test3_Question3", Integer.toString(this.objectHIA1.getHIA1_Test3_Question3()));
-                args.put("HIA1_Test3_Question4", Integer.toString(this.objectHIA1.getHIA1_Test3_Question4()));
-                args.put("HIA1_Test3_Question5", Integer.toString(this.objectHIA1.getHIA1_Test3_Question5()));
+                args.put("HIA1_Test3_Question1", Integer.toString(HIA1.HIA1_Test3_Question1));
+                args.put("HIA1_Test3_Question2", Integer.toString(HIA1.HIA1_Test3_Question2));
+                args.put("HIA1_Test3_Question3", Integer.toString(HIA1.HIA1_Test3_Question3));
+                args.put("HIA1_Test3_Question4", Integer.toString(HIA1.HIA1_Test3_Question4));
+                args.put("HIA1_Test3_Question5", Integer.toString(HIA1.HIA1_Test3_Question5));
 
-                args.put("HIA1_Test4_Question1", Integer.toString(this.objectHIA1.getHIA1_Test4_Question1()));
-                args.put("HIA1_Test4_Question2", Integer.toString(this.objectHIA1.getHIA1_Test4_Question2()));
+                args.put("HIA1_Test4_Question1", Integer.toString(HIA1.HIA1_Test4_Question1));
+                args.put("HIA1_Test4_Question2", Integer.toString(HIA1.HIA1_Test4_Question2));
 
-                args.put("HIA1_Test5_Question1", Integer.toString(this.objectHIA1.getHIA1_Test5_Question1()));
-                args.put("HIA1_Test5_Question2", Integer.toString(this.objectHIA1.getHIA1_Test5_Question2()));
-                args.put("HIA1_Test5_Question3", Integer.toString(this.objectHIA1.getHIA1_Test5_Question3()));
-                args.put("HIA1_Test5_Question4", Integer.toString(this.objectHIA1.getHIA1_Test5_Question4()));
-                args.put("HIA1_Test5_Question5", Integer.toString(this.objectHIA1.getHIA1_Test5_Question5()));
-                args.put("HIA1_Test5_Question6", Integer.toString(this.objectHIA1.getHIA1_Test5_Question6()));
-                args.put("HIA1_Test5_Question7", Integer.toString(this.objectHIA1.getHIA1_Test5_Question7()));
-                args.put("HIA1_Test5_Question8", Integer.toString(this.objectHIA1.getHIA1_Test5_Question8()));
-                args.put("HIA1_Test5_Question9", Integer.toString(this.objectHIA1.getHIA1_Test5_Question9()));
+                args.put("HIA1_Test5_Question1", Integer.toString(HIA1.HIA1_Test5_Question1));
+                args.put("HIA1_Test5_Question2", Integer.toString(HIA1.HIA1_Test5_Question2));
+                args.put("HIA1_Test5_Question3", Integer.toString(HIA1.HIA1_Test5_Question3));
+                args.put("HIA1_Test5_Question4", Integer.toString(HIA1.HIA1_Test5_Question4));
+                args.put("HIA1_Test5_Question5", Integer.toString(HIA1.HIA1_Test5_Question5));
+                args.put("HIA1_Test5_Question6", Integer.toString(HIA1.HIA1_Test5_Question6));
+                args.put("HIA1_Test5_Question7", Integer.toString(HIA1.HIA1_Test5_Question7));
+                args.put("HIA1_Test5_Question8", Integer.toString(HIA1.HIA1_Test5_Question8));
+                args.put("HIA1_Test5_Question9", Integer.toString(HIA1.HIA1_Test5_Question9));
 
-                args.put("HIA1_Test6_Question1", Integer.toString(this.objectHIA1.getHIA1_Test6_Question1()));
-                args.put("HIA1_Test6_Question2", Integer.toString(this.objectHIA1.getHIA1_Test6_Question2()));
-                args.put("HIA1_Test6_Question3", Integer.toString(this.objectHIA1.getHIA1_Test6_Question3()));
-                args.put("HIA1_Test6_Question4", Integer.toString(this.objectHIA1.getHIA1_Test6_Question4()));
+                args.put("HIA1_Test6_Question1", Integer.toString(HIA1.HIA1_Test6_Question1));
+                args.put("HIA1_Test6_Question2", Integer.toString(HIA1.HIA1_Test6_Question2));
+                args.put("HIA1_Test6_Question3", Integer.toString(HIA1.HIA1_Test6_Question3));
+                args.put("HIA1_Test6_Question4", Integer.toString(HIA1.HIA1_Test6_Question4));
 
-                args.put("HIA1_Test7_Question1", Integer.toString(this.objectHIA1.getHIA1_Test7_Question1()));
-                args.put("HIA1_Test7_Question2", Integer.toString(this.objectHIA1.getHIA1_Test7_Question2()));
-                args.put("HIA1_Test7_Question3", Integer.toString(this.objectHIA1.getHIA1_Test7_Question3()));
-                args.put("HIA1_Test7_Question4", Integer.toString(this.objectHIA1.getHIA1_Test7_Question4()));
-                args.put("HIA1_Test7_Question5", Integer.toString(this.objectHIA1.getHIA1_Test7_Question5()));
-                args.put("HIA1_Test7_Question6", Integer.toString(this.objectHIA1.getHIA1_Test7_Question6()));
+                args.put("HIA1_Test7_Question1", Integer.toString(HIA1.HIA1_Test7_Question1));
+                args.put("HIA1_Test7_Question2", Integer.toString(HIA1.HIA1_Test7_Question2));
+                args.put("HIA1_Test7_Question3", Integer.toString(HIA1.HIA1_Test7_Question3));
+                args.put("HIA1_Test7_Question4", Integer.toString(HIA1.HIA1_Test7_Question4));
+                args.put("HIA1_Test7_Question5", Integer.toString(HIA1.HIA1_Test7_Question5));
+                args.put("HIA1_Test7_Question6", Integer.toString(HIA1.HIA1_Test7_Question6));
 
-                Log.e("gait_test_Completed", Boolean.toString(PreferenceConnector.gait_test_completed));
-                args.put("gait_test_Completed", Boolean.toString(PreferenceConnector.gait_test_completed));
-                Log.e("test_Status", Float.toString(PreferenceConnector.test_status));
+                args.put("gait_test_Completed", Integer.toString(PreferenceConnector.gait_test_completed));
                 args.put("test_Status", Float.toString(PreferenceConnector.test_status));
 
-                Log.e("tandem_t1", Float.toString(PreferenceConnector.tandem_t1));
                 args.put("tandem_t1", Float.toString(PreferenceConnector.tandem_t1));
-                Log.e("tandem_t1_MLRMS", Float.toString(PreferenceConnector.tandem_t1_MLRMS));
                 args.put("tandem_t1_MLRMS", Float.toString(PreferenceConnector.tandem_t1_MLRMS));
-                Log.e("tandem_t1_APRMS", Float.toString(PreferenceConnector.tandem_t1_APRMS));
                 args.put("tandem_t1_APRMS", Float.toString(PreferenceConnector.tandem_t1_APRMS));
 
-                Log.e("tandem_t2", Float.toString(PreferenceConnector.tandem_t2));
                 args.put("tandem_t2", Float.toString(PreferenceConnector.tandem_t2));
-                Log.e("tandem_t2_MLRMS", Float.toString(PreferenceConnector.tandem_t2_MLRMS));
                 args.put("tandem_t2_MLRMS", Float.toString(PreferenceConnector.tandem_t2_MLRMS));
-                Log.e("tandem_t2_APRMS", Float.toString(PreferenceConnector.tandem_t2_APRMS));
                 args.put("tandem_t2_APRMS", Float.toString(PreferenceConnector.tandem_t2_APRMS));
 
-                Log.e("tandem_t3", Float.toString(PreferenceConnector.tandem_t3));
                 args.put("tandem_t3", Float.toString(PreferenceConnector.tandem_t3));
-                Log.e("tandem_t3_MLRMS", Float.toString(PreferenceConnector.tandem_t3_MLRMS));
                 args.put("tandem_t3_MLRMS", Float.toString(PreferenceConnector.tandem_t3_MLRMS));
-                Log.e("tandem_t3_APRMS", Float.toString(PreferenceConnector.tandem_t3_APRMS));
                 args.put("tandem_t3_APRMS", Float.toString(PreferenceConnector.tandem_t3_APRMS));
 
-                Log.e("tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
                 args.put("tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
-                Log.e("tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
                 args.put("tandem_t4_MLRMS", Float.toString(PreferenceConnector.tandem_t4_MLRMS));
-                Log.e("tandem_t4", Float.toString(PreferenceConnector.tandem_t4));
                 args.put("tandem_t4_APRMS", Float.toString(PreferenceConnector.tandem_t4_APRMS));
 
-                Log.e("tandem_time_stamp", PreferenceConnector.time_stamp.toString());
+/*               // Log.e("tandem_time_stamp", time_stamp);
                 args.put("tandem_time_stamp", PreferenceConnector.time_stamp.toString());
                 Log.e("tandem_event_stamp", PreferenceConnector.event_stamp.toString());
                 args.put("tandem_event_stamp", PreferenceConnector.event_stamp.toString());
@@ -236,7 +234,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 Log.e("tandem_rot_values1", PreferenceConnector.rot_values1.toString());
                 args.put("tandem_rot_values1", PreferenceConnector.rot_values1.toString());
                 Log.e("tandem_rot_values2", PreferenceConnector.rot_values2.toString());
-                args.put("tandem_rot_values2", PreferenceConnector.rot_values2.toString());
+                args.put("tandem_rot_values2", PreferenceConnector.rot_values2.toString());*/
 
 
                 // all args needs to convert to string because the hash map is string, string types.
@@ -264,9 +262,15 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         @Override
         protected void onPostExecute(JSONArray json) {
             Log.d("JSonInsTeam", "Finish");
+
+            Intent intent = new Intent(HIA1AActivity.this, PlayerProfile.class);
+            intent.putExtra("player_select", "existing");
+            startActivity(intent);
+
             if (pDialog != null && pDialog.isShowing()) {
                 pDialog.dismiss();
             }
+
             int success = 0;
             String message = "";
 
@@ -283,7 +287,8 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 
             if (success == 1) {
                 Log.d("Success!", message);
-
+                PreferenceConnector.clear_all_values();
+                HIA1.clearHIA1();
                 finish();
             } else {
                 // Problems SQL
@@ -306,10 +311,17 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         toolbar.setLogo(R.drawable.logo);
         setSupportActionBar(toolbar);
 
+        player_code = getIntent().getExtras().getInt("player_code");
+        Log.e("testMenu", String.valueOf(player_code));
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        Log.e("testMenu", date);
+
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
@@ -450,6 +462,8 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         backbut.setPositiveButton(R.string.dialog_back_ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked OK button
+                HIA1.clearHIA1();
+                PreferenceConnector.clear_all_values();
                 HIA1AActivity.super.onBackPressed();
             }
         });
@@ -462,6 +476,11 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 
         final AlertDialog dialogback = backbut.create();
         dialogback.show();
+
+
+
+        HIA1.clearHIA1();
+
 
 
     }
@@ -518,7 +537,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
             Activity a = getActivity();
             if(a instanceof HIA1AActivity) {
                 hia1test = (HIA1AActivity) getActivity();
-                hia1test.objHIA1.setHIA1_Test1_Question12(position);
+                HIA1.HIA1_Test1_Question12=position;
             }
         }
 
@@ -562,6 +581,8 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                     return Gait.newInstance();
                 case 7:
                     return HIA1GFragment.newInstance();
+                case 8:
+                    return HIA1Results.newInstance();
 
             }
 
@@ -570,13 +591,13 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 
         @Override
         public int getCount() {
-            return 8;
+            return 9;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
 
-            return "HIA1 (" + (position + 1) + "/8)";
+            return "HIA1 (" + (position + 1) + "/9)";
         }
 
         public Fragment getFragment(int position){
@@ -600,13 +621,13 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 case R.id.checkBox_yes:
                     if (checked)
                         HIA1_Test1_Question13 = true;
-                    hia1test.objHIA1.setHIA1_Test1_Question13(1);
+                    HIA1.HIA1_Test1_Question13=1;
                     Log.v(TAG, "Video Checkbox: " + HIA1_Test1_Question13);
                     break;
                 case R.id.checkBox_no:
                     if (checked)
                         HIA1_Test1_Question13 = false;
-                    hia1test.objHIA1.setHIA1_Test1_Question13(0);
+                    HIA1.HIA1_Test1_Question13=0;
                     Log.v(TAG, "Video Checkbox: " + HIA1_Test1_Question13);
                     break;
             }

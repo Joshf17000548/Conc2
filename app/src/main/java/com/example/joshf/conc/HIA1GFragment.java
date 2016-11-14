@@ -18,7 +18,6 @@ package com.example.joshf.conc;
 
 
 public class HIA1GFragment extends Fragment implements AdapterView.OnItemSelectedListener, CheckBox.OnCheckedChangeListener {
-    private ArrayAdapter<CharSequence> adapter3;
     private static final String TAG = "Video Check";
 
     //database
@@ -55,21 +54,16 @@ public class HIA1GFragment extends Fragment implements AdapterView.OnItemSelecte
         adapter2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner2.setAdapter(adapter2);
 
-        Spinner spinner3 = (Spinner) rootView.findViewById(R.id.spinner3);
-        this.adapter3=ArrayAdapter.createFromResource(this.getActivity(),R.array.player_removed_spinner,android.R.layout.simple_spinner_dropdown_item);
-        this.adapter3 = ArrayAdapter.createFromResource(this.getActivity(),R.array.player_removed_spinner,R.layout.multiline_spinner_dropdown_item);
-        spinner3.setAdapter(adapter3);
         spinner1.setOnItemSelectedListener(this);
         spinner2.setOnItemSelectedListener(this);
-        spinner3.setOnItemSelectedListener(this);
 
         RadioButton mButton = (RadioButton) rootView.findViewById(R.id.checkBox_VI_Y);
         RadioButton mButton1 = (RadioButton) rootView.findViewById(R.id.checkBox_MDD_Y);
-        RadioButton mButton2 = (RadioButton) rootView.findViewById(R.id.checkBox_VI2_Y);
+
 
         mButton.setOnCheckedChangeListener(this);
         mButton1.setOnCheckedChangeListener(this);
-        mButton2.setOnCheckedChangeListener(this);
+
 
 
 
@@ -91,10 +85,6 @@ public class HIA1GFragment extends Fragment implements AdapterView.OnItemSelecte
                 case R.id.spinner2:
                     Log.v(TAG, "Video Checkbox1: " + position);
                     HIA1.HIA1_Test7_Question3=position;
-                    return;
-                case R.id.spinner3:
-                    Log.v(TAG, "Video Checkbox2: " + position);
-                    HIA1.HIA1_Test7_Question5=position;
                     return;
 
             }
@@ -139,16 +129,6 @@ public class HIA1GFragment extends Fragment implements AdapterView.OnItemSelecte
                         break;
                     }
 
-                case R.id.checkBox_VI2_Y:
-                    if (checked) {
-                        HIA1.HIA1_Test7_Question6=1;
-                        Log.v(TAG, "Mad Checkbox: " + 1);
-                        break;
-                    } else {
-                        HIA1.HIA1_Test7_Question6=0;
-                        Log.v(TAG, "Mad Checkbox: " + 0);
-                        break;
-                    }
             }
         }
     }

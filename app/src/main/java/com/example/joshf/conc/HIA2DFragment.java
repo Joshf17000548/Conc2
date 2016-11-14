@@ -83,6 +83,8 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
         no_14.setText(wordArray3[num14] + "  ");
         TextView no_15 = (TextView)rootView.findViewById(R.id.textView37);
         no_15.setText(wordArray4[num15] + "  ");
+        HIA2.HIA2_Option_1 = wordArray[num11] + "  "+wordArray1[num12] + "  "+wordArray2[num13] + "  "
+                +wordArray3[num14] + "  "+wordArray4[num15] + "  ";
 
         int num21 = rand.nextInt(10);
         int num22 = rand.nextInt(10);
@@ -100,6 +102,8 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
         no_24.setText(wordArray3[num24] + "  ");
         TextView no_25 = (TextView)rootView.findViewById(R.id.textView27);
         no_25.setText(wordArray4[num25] + "  ");
+        HIA2.HIA2_Option_2 = wordArray[num21] + "  "+wordArray1[num22] + "  "+wordArray2[num23] + "  "
+                +wordArray3[num24] + "  "+wordArray4[num25] + "  ";
 
         int num31 = rand.nextInt(10);
         int num32 = rand.nextInt(10);
@@ -117,6 +121,9 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
         no_34.setText(wordArray3[num34] + "  ");
         TextView no_35 = (TextView)rootView.findViewById(R.id.textView05);
         no_35.setText(wordArray4[num35] + "  ");
+
+        HIA2.HIA2_Option_3 = wordArray[num31] + "  "+wordArray1[num32] + "  "+wordArray2[num33] + "  "
+                +wordArray3[num34] + "  "+wordArray4[num35] + "  ";
 
         RadioButton mButton = (RadioButton) rootView.findViewById(R.id.checkBox_ORIEN_1);
         RadioButton mButton1 = (RadioButton) rootView.findViewById(R.id.checkBox_ORIEN_2);
@@ -177,9 +184,9 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
     public void onPause() {
         super.onPause();
 
-        Activity b = getActivity();
+/*        Activity b = getActivity();
         if(b instanceof HIA2AActivity) {
-            hia2test = (HIA2AActivity) getActivity();
+            hia2test = (HIA2AActivity) getActivity();*/
 
                     try{
                         String mem_score = other.getText().toString();
@@ -199,21 +206,21 @@ public class HIA2DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         //exception
                     }
 
-        }
+      //  }
 
     }
 
 
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        boolean checked2 = ((RadioButton) buttonView).isChecked();
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    boolean checked2 = ((RadioButton) buttonView).isChecked();
 
-        Activity b = getActivity();
-        if(b instanceof HIA2AActivity) {
-            hia2test = (HIA2AActivity) getActivity();
+                    Activity b = getActivity();
+                    if(b instanceof HIA2AActivity) {
+                        hia2test = (HIA2AActivity) getActivity();
 
-            switch (buttonView.getId()) {
+                        switch (buttonView.getId()) {
                 case R.id.checkBox_ORIEN_1:
                     if (checked2) {
                         HIA2_Test4_Question1 = 1;

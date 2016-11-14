@@ -82,7 +82,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/reset_button_selector"
-        android:clickable="false"
+        android:clickable="true"
         android:gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
@@ -103,11 +103,22 @@
         android:layout_height="wrap_content"
         android:text="Success"
         android:id="@+id/success"
-        android:clickable="false"
+        android:clickable="true"
         android:textAlignment="center"
         android:background="@drawable/balance_button_selector"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finish"
+        android:background="@drawable/balance_button_selector"
+        android:id="@+id/baseline_finish"
+        android:onClick="submitBaseline"
+        android:layout_alignBaseline="@+id/reset"
+        android:layout_alignBottom="@+id/reset"
+        android:layout_alignEnd="@+id/title_text_upper" />
 
 
 </RelativeLayout>

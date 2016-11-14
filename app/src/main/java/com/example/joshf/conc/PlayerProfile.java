@@ -371,7 +371,8 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         protected Bitmap doInBackground(Integer... params) {
             data = params[0];
 
-            return decodeSampledBitmapFromResource(getResources(), data, 200, 100);
+            return decodeSampledBitmapFromResource(getResources(), data, 200,150);
+
         }
 
         // Once complete, see if ImageView is still around and set bitmap.
@@ -400,7 +401,8 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         BitmapFactory.decodeResource(res, resId, options);
 
         // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        //options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        options.inSampleSize = 0;
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
@@ -480,12 +482,12 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                 break;
             case(1):
                 brainStatus.setImageResource(R.drawable.baseline);
-                brainStatusText.setText("Baseline Due");
+                brainStatusText.setText("Baseline Test Required");
                 break;
             default:
                 String test = String.valueOf(status);
                 brainStatus.setImageResource(R.drawable.injured);
-                brainStatusText.setText("HIA"+test+" Due");
+                brainStatusText.setText("Player is Injured");
         }
         age.setText(ageString); //Update all textViews
         name.setText(playerInFocus.getPlayer_Name());
@@ -631,6 +633,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
             }
 
             age.setText(playerInFocus.Player_DateOfBirth);
+            age.setTextColor(getResources().getColor(R.color.textPrimary));
             dateLoaded = true;
             // age.setTextColor(getResources().getColor(R.color.textPrimary));
         }
@@ -685,8 +688,12 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         try {
             if (!large) {
                 imageLoader.displayImage("http://104.198.254.110/ConcApp/Player_Image/" + photoPath + "THUMB.png", playerPhoto, options);
-            } else
+                imageLoader.loadImageSync("http://104.198.254.110/ConcApp/Player_Image/" + photoPath + "IMG.png", options);
+            } else {
                 imageLoader.displayImage("http://104.198.254.110/ConcApp/Player_Image/" + photoPath + "IMG.png", playerPhoto, options);
+
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -757,8 +764,8 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                 matrix.postRotate(90);
                 Bitmap rotatedBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
 
-                Bitmap scaledBitmapLarge = Bitmap.createScaledBitmap(rotatedBitmap, 300, 300, false);
-                Bitmap scaledBitmapThumb = Bitmap.createScaledBitmap(rotatedBitmap, 150, 150, false);
+                Bitmap scaledBitmapLarge = Bitmap.createScaledBitmap(rotatedBitmap, 250, 250, false);
+                Bitmap scaledBitmapThumb = Bitmap.createScaledBitmap(rotatedBitmap, 100, 100, false);
 
                 ByteArrayOutputStream byteArrayOutputStreamLarge = new ByteArrayOutputStream();
                 scaledBitmapLarge.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStreamLarge);
@@ -869,8 +876,8 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                     matrix.postRotate(90);
                     Bitmap rotatedBitmap = Bitmap.createBitmap(myBitmap, 0, 0, myBitmap.getWidth(), myBitmap.getHeight(), matrix, true);
 
-                    Bitmap scaledBitmapLarge = Bitmap.createScaledBitmap(rotatedBitmap, 300, 300, false);
-                    Bitmap scaledBitmapThumb = Bitmap.createScaledBitmap(rotatedBitmap, 150, 150, false);
+                    Bitmap scaledBitmapLarge = Bitmap.createScaledBitmap(rotatedBitmap, 250, 250, false);
+                    Bitmap scaledBitmapThumb = Bitmap.createScaledBitmap(rotatedBitmap, 100, 100, false);
 
                     ByteArrayOutputStream byteArrayOutputStreamLarge = new ByteArrayOutputStream();
                     scaledBitmapLarge.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStreamLarge);
