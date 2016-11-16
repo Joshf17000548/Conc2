@@ -49,7 +49,6 @@ public class HIA2Results extends Fragment implements CheckBox.OnCheckedChangeLis
     TextView SYMnumber;
     TextView SYMtotal;
     TextView MRtotal;
-    View IRresults;
 
     TextView tandemResult;
     TextView tandemTime;
@@ -75,11 +74,35 @@ public class HIA2Results extends Fragment implements CheckBox.OnCheckedChangeLis
     TextView tsMLRMS;
 
     TextView SYMtestResult;
-    TextView IRtestResult;
 
     TextView upperResult;
 
+    TextView IMRbaseline;
+    TextView DBbaseline;
+    TextView DMRbaseline;
+    TextView SYMnumberbaseline;
+    TextView SYMtotalbaseline;
+    TextView MRbaseline;
+
+    TextView tandemTimebaseline;
+    TextView tandemAPRMSbaseline;
+    TextView tandemMPRMSbaseline;
+
+    TextView dlptpbaseline;
+    TextView dlAPRMSbaseline;
+    TextView dlMLRMSbaseline;
+
+    TextView slptpbaseline;
+    TextView slAPRMSbaseline;
+    TextView slMLRMSbaseline;
+
+    TextView tsptpbaseline;
+    TextView tsAPRMSbaseline;
+    TextView tsMLRMSbaseline;
+
     RadioButton diagnosis;
+
+
 
     Spinner result;
     private ArrayAdapter<CharSequence> adapter3;
@@ -114,7 +137,6 @@ public class HIA2Results extends Fragment implements CheckBox.OnCheckedChangeLis
         //getActivity().setSupportActionBar(toolbar);
 
         SYMtestResult = (TextView) rootView.findViewById(R.id.SYMtestResult);
-        IRtestResult = (TextView) rootView.findViewById(R.id.IRtestResult);
 
         MQresults = (TextView) rootView.findViewById(R.id.MQresult);
         IMRresults = (TextView) rootView.findViewById(R.id.IMRresult);
@@ -122,7 +144,6 @@ public class HIA2Results extends Fragment implements CheckBox.OnCheckedChangeLis
         DMRresults = (TextView) rootView.findViewById(R.id.DMRresult);
         SYMtotal = (TextView) rootView.findViewById(R.id.SYMtotResult);
         SYMnumber = (TextView) rootView.findViewById(R.id.SYMnumResult);
-        IRresults = rootView.findViewById(R.id.IRresults);
         MRtotal = (TextView) rootView.findViewById(R.id.MRresult);
 
         tandemResult = (TextView) rootView.findViewById(R.id.TGtestResult);
@@ -147,6 +168,30 @@ public class HIA2Results extends Fragment implements CheckBox.OnCheckedChangeLis
 
         upperResult = (TextView) rootView.findViewById(R.id.ULResult);
 
+        IMRbaseline = (TextView) rootView.findViewById(R.id.IMRbaseline);
+        DBbaseline = (TextView) rootView.findViewById(R.id.DBbaseline);
+        DMRbaseline = (TextView) rootView.findViewById(R.id.DMRbaseline);
+
+        tandemTimebaseline = (TextView) rootView.findViewById(R.id.TGTimeBaseline);
+        tandemAPRMSbaseline = (TextView) rootView.findViewById(R.id.TGalrmsBaseline);
+        tandemMPRMSbaseline = (TextView) rootView.findViewById(R.id.TGmlrmsBaseline);
+
+        SYMnumberbaseline=(TextView) rootView.findViewById(R.id.SYMnumBaseline);
+        SYMtotalbaseline=(TextView) rootView.findViewById(R.id.SYMtotBaseline);
+
+        dlptpbaseline=(TextView) rootView.findViewById(R.id.DLptpBaseline);;
+        dlAPRMSbaseline=(TextView) rootView.findViewById(R.id.DLalrmsBaseline);;
+        dlMLRMSbaseline=(TextView) rootView.findViewById(R.id.DLmprmsBaseline);;
+
+        slptpbaseline=(TextView) rootView.findViewById(R.id.SLptpBaseline);;
+        slAPRMSbaseline=(TextView) rootView.findViewById(R.id.SLalrmsBaseline);;
+        slMLRMSbaseline=(TextView) rootView.findViewById(R.id.SLmprmsBaseline);;
+
+        tsptpbaseline=(TextView) rootView.findViewById(R.id.TSptpBaseline);;
+        tsAPRMSbaseline=(TextView) rootView.findViewById(R.id.TSalrmsBaseline);;
+        tsMLRMSbaseline=(TextView) rootView.findViewById(R.id.TSmprmsBaseline);;
+
+
         diagnosis = (RadioButton) rootView.findViewById(R.id.CC);
         diagnosis.setOnCheckedChangeListener(this);
 
@@ -157,11 +202,58 @@ public class HIA2Results extends Fragment implements CheckBox.OnCheckedChangeLis
     @Override
     public void onResume() {
         super.onResume();
+//////////////// Baseline
 
-/*        Log.e("mem", String.valueOf(HIA1.HIA1_Test4_Question1));
-        Log.e("dig", String.valueOf(HIA1.HIA1_Test4_Question2));
-        Log.e("Oculo", String.valueOf(HIA1.HIA1_Test1_Question11));
-        Log.e("Sym", String.valueOf(HIA1.HIA1_Test5_Question2));*/
+        if(Baseline.Baseline_Immediate_Memory!=0)
+            IMRbaseline.setText(String.valueOf(Baseline.Baseline_Immediate_Memory));
+
+        if(Baseline.Baseline_Digits_Backwards!=0)
+            DBbaseline.setText(String.valueOf(Baseline.Baseline_Digits_Backwards));
+
+        if(Baseline.Baseline_Delayed_Memory!=0)
+            DMRbaseline.setText(String.valueOf(Baseline.Baseline_Delayed_Memory));
+
+        if(Baseline.Baseline_Number_of_Symptoms!=0)
+            SYMnumberbaseline.setText(String.valueOf(Baseline.Baseline_Number_of_Symptoms));
+
+        if(Baseline.Baseline_Total_Symptoms!=0)
+            SYMtotalbaseline.setText(String.valueOf(Baseline.Baseline_Total_Symptoms));
+
+        if(Baseline.Baseline_Tandem_Time!=0)
+            tandemTimebaseline.setText(String.valueOf(Baseline.Baseline_Tandem_Time));
+
+        if(Baseline.Baseline_Tandem_AP!=0)
+            tandemAPRMSbaseline.setText(String.valueOf(Baseline.Baseline_Tandem_AP));
+
+        if(Baseline.Baseline_Tandem_ML!=0)
+            tandemMPRMSbaseline.setText(String.valueOf(Baseline.Baseline_Tandem_ML));
+
+        if(Baseline.Baseline_DL_PTP!=0)
+            dlptpbaseline.setText(String.valueOf(Baseline.Baseline_DL_PTP));
+
+        if(Baseline.Baseline_DL_AP!=0)
+            dlAPRMSbaseline.setText(String.valueOf(Baseline.Baseline_DL_AP));
+
+        if(Baseline.Baseline_DL_ML!=0)
+            dlMLRMSbaseline.setText(String.valueOf(Baseline.Baseline_DL_ML));
+
+        if(Baseline.Baseline_SL_PTP!=0)
+            slptpbaseline.setText(String.valueOf(Baseline.Baseline_SL_PTP));
+
+        if(Baseline.Baseline_SL_AP!=0)
+            slAPRMSbaseline.setText(String.valueOf(Baseline.Baseline_SL_AP));
+
+        if(Baseline.Baseline_SL_ML!=0)
+            slMLRMSbaseline.setText(String.valueOf(Baseline.Baseline_SL_ML));
+
+        if(Baseline.Baseline_TS_PTP!=0)
+            tsptpbaseline.setText(String.valueOf(Baseline.Baseline_TS_PTP));
+
+        if(Baseline.Baseline_TS_AP!=0)
+            tsAPRMSbaseline.setText(String.valueOf(Baseline.Baseline_TS_AP));
+
+        if(Baseline.Baseline_TS_ML!=0)
+            tsMLRMSbaseline.setText(String.valueOf(Baseline.Baseline_TS_ML));
 
 ////////////////Moddocks Questions
         maddocksResult = HIA2.HIA2_Test4_Question1 + HIA2.HIA2_Test4_Question2 + HIA2.HIA2_Test4_Question3 + HIA2.HIA2_Test4_Question4 + HIA2.HIA2_Test4_Question5;
@@ -171,12 +263,16 @@ public class HIA2Results extends Fragment implements CheckBox.OnCheckedChangeLis
 
 //////////////Imediate Memory Recall
         IMRresults.setText(String.valueOf(HIA2.HIA2_Test4_Question7));
-        if (HIA2.HIA2_Test4_Question7 < IMRrequired)
+        if ((HIA2.HIA2_Test4_Question7 < IMRrequired))
+            IMRresults.setTextColor(getResources().getColor(R.color.reset));
+        if((HIA2.HIA2_Test4_Question7 < Baseline.Baseline_Immediate_Memory)&&(Baseline.Baseline_Immediate_Memory!=0))
             IMRresults.setTextColor(getResources().getColor(R.color.reset));
 
 //////////////Digits Backwards
         DBresults.setText(String.valueOf(HIA2.HIA2_Test5_Question1));
-        if (HIA2.HIA2_Test5_Question1 < DBrequired)
+        if ((HIA2.HIA2_Test5_Question1 < DBrequired))
+            DBresults.setTextColor(getResources().getColor(R.color.reset));
+        if((Baseline.Baseline_Immediate_Memory!=0)&&(HIA2.HIA2_Test5_Question1 < Baseline.Baseline_Digits_Backwards))
             DBresults.setTextColor(getResources().getColor(R.color.reset));
 
 /////////////Tandem Gait
@@ -261,7 +357,8 @@ public class HIA2Results extends Fragment implements CheckBox.OnCheckedChangeLis
                 + HIA2.HIA2_Test2_Question21 + HIA2.HIA2_Test2_Question22;
 
         SYMtotal.setText(String.valueOf(total));
-
+        if((total<Baseline.Baseline_Total_Symptoms)&&(Baseline.Baseline_Total_Symptoms!=0))
+            SYMtotal.setTextColor(getResources().getColor(R.color.reset));
 
         if (HIA2.HIA2_Test2_Question1 != 0) {
             totalSymp = totalSymp + 1;
@@ -331,11 +428,15 @@ public class HIA2Results extends Fragment implements CheckBox.OnCheckedChangeLis
         }
 
         SYMnumber.setText(String.valueOf(totalSymp));
+        if((totalSymp<Baseline.Baseline_Total_Symptoms)&&(Baseline.Baseline_Total_Symptoms!=0))
+            SYMnumber.setTextColor(getResources().getColor(R.color.reset));
 
 
 /////////////Delayed Recall
         DMRresults.setText(String.valueOf(HIA2.HIA2_Test6_Question1));
-        if (HIA2.HIA2_Test6_Question1 < DMRrequired)
+        if ((HIA2.HIA2_Test6_Question1 < DMRrequired))
+            DMRresults.setTextColor(getResources().getColor(R.color.reset));
+        if((HIA2.HIA2_Test6_Question1<Baseline.Baseline_Delayed_Memory)&&(Baseline.Baseline_Delayed_Memory!=0))
             DMRresults.setTextColor(getResources().getColor(R.color.reset));
 
 /////////////Month Reverse

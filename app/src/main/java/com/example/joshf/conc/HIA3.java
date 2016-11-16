@@ -12,6 +12,7 @@ public class HIA3 extends FragmentActivity {
     static String HIA1_result_string = "NA";
     static String HIA2_result_string= "NA";
     static boolean HIA3_first=true;
+    static boolean HIA3_Result_Chosen =false;
 
     static int HIA3_Test1_Question1;
     static int HIA3_Test2_Question1;
@@ -136,6 +137,7 @@ public class HIA3 extends FragmentActivity {
         HIA1_result_string = "NA";
         HIA2_result_string= "NA";
         HIA3_first=true;
+        HIA3_Result_Chosen =false;
 
         HIA3_Test1_Question1=0;
         HIA3_Test2_Question1=0;

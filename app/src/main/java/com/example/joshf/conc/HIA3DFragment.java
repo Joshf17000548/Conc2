@@ -38,6 +38,22 @@ public class HIA3DFragment extends Fragment implements CheckBox.OnCheckedChangeL
     TextView tsAPRMS;
     TextView tsMLRMS;
 
+    TextView tandemTimebaseline;
+    TextView tandemAPRMSbaseline;
+    TextView tandemMPRMSbaseline;
+
+    TextView dlptpbaseline;
+    TextView dlAPRMSbaseline;
+    TextView dlMLRMSbaseline;
+
+    TextView slptpbaseline;
+    TextView slAPRMSbaseline;
+    TextView slMLRMSbaseline;
+
+    TextView tsptpbaseline;
+    TextView tsAPRMSbaseline;
+    TextView tsMLRMSbaseline;
+
     //database
     public HIA3AActivity hia3test;
 
@@ -93,6 +109,22 @@ public class HIA3DFragment extends Fragment implements CheckBox.OnCheckedChangeL
         tsptp = (TextView) rootView.findViewById(R.id.TSptpResult);
         tsAPRMS = (TextView) rootView.findViewById(R.id.TSalrmsResult);
         tsMLRMS = (TextView) rootView.findViewById(R.id.TSmprmsResult);
+
+        tandemTimebaseline = (TextView) rootView.findViewById(R.id.TGTimeBaseline);
+        tandemAPRMSbaseline = (TextView) rootView.findViewById(R.id.TGalrmsBaseline);
+        tandemMPRMSbaseline = (TextView) rootView.findViewById(R.id.TGmlrmsBaseline);
+
+        dlptpbaseline=(TextView) rootView.findViewById(R.id.DLptpBaseline);;
+        dlAPRMSbaseline=(TextView) rootView.findViewById(R.id.DLalrmsBaseline);;
+        dlMLRMSbaseline=(TextView) rootView.findViewById(R.id.DLmprmsBaseline);;
+
+        slptpbaseline=(TextView) rootView.findViewById(R.id.SLptpBaseline);;
+        slAPRMSbaseline=(TextView) rootView.findViewById(R.id.SLalrmsBaseline);;
+        slMLRMSbaseline=(TextView) rootView.findViewById(R.id.SLmprmsBaseline);;
+
+        tsptpbaseline=(TextView) rootView.findViewById(R.id.TSptpBaseline);;
+        tsAPRMSbaseline=(TextView) rootView.findViewById(R.id.TSalrmsBaseline);
+        tsMLRMSbaseline = (TextView) rootView.findViewById(R.id.TSmprmsBaseline);
 
         mButton4.setOnCheckedChangeListener(this);
         mButton5.setOnCheckedChangeListener(this);
@@ -197,6 +229,42 @@ public class HIA3DFragment extends Fragment implements CheckBox.OnCheckedChangeL
     public void onResume() {
         super.onResume();
 
+        if(Baseline.Baseline_Tandem_Time!=0)
+            tandemTimebaseline.setText(String.valueOf(Baseline.Baseline_Tandem_Time));
+
+        if(Baseline.Baseline_Tandem_AP!=0)
+            tandemAPRMSbaseline.setText(String.valueOf(Baseline.Baseline_Tandem_AP));
+
+        if(Baseline.Baseline_Tandem_ML!=0)
+            tandemMPRMSbaseline.setText(String.valueOf(Baseline.Baseline_Tandem_ML));
+
+        if(Baseline.Baseline_DL_PTP!=0)
+            dlptpbaseline.setText(String.valueOf(Baseline.Baseline_DL_PTP));
+
+        if(Baseline.Baseline_DL_AP!=0)
+            dlAPRMSbaseline.setText(String.valueOf(Baseline.Baseline_DL_AP));
+
+        if(Baseline.Baseline_DL_ML!=0)
+            dlMLRMSbaseline.setText(String.valueOf(Baseline.Baseline_DL_ML));
+
+        if(Baseline.Baseline_SL_PTP!=0)
+            slptpbaseline.setText(String.valueOf(Baseline.Baseline_SL_PTP));
+
+        if(Baseline.Baseline_SL_AP!=0)
+            slAPRMSbaseline.setText(String.valueOf(Baseline.Baseline_SL_AP));
+
+        if(Baseline.Baseline_SL_ML!=0)
+            slMLRMSbaseline.setText(String.valueOf(Baseline.Baseline_SL_ML));
+
+        if(Baseline.Baseline_TS_PTP!=0)
+            tsptpbaseline.setText(String.valueOf(Baseline.Baseline_TS_PTP));
+
+        if(Baseline.Baseline_TS_AP!=0)
+            tsAPRMSbaseline.setText(String.valueOf(Baseline.Baseline_TS_AP));
+
+        if(Baseline.Baseline_TS_ML!=0)
+            tsMLRMSbaseline.setText(String.valueOf(Baseline.Baseline_TS_ML));
+
         if (PreferenceConnector.gait_test_completed==1) {
             tandemResult.setText("Passed");
         } else {
@@ -295,11 +363,13 @@ public class HIA3DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         //Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question3);
                         HIA3.HIA3_Test4_Question5=1;
                         Log.v("6", "Test: " + 1);
+                        HIA3.HIA3_Result_Chosen=true;
                         break;
                     } else {
                         //HIA3_Test3_Question3 = false;
                         //Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question3);
                         HIA3.HIA3_Test4_Question5=0;
+                        HIA3.HIA3_Result_Chosen=true;
                         Log.v("4", "Test: " + 0);
                         break;
                     }

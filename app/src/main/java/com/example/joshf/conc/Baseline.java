@@ -14,20 +14,20 @@ public class Baseline {
     static int Baseline_Delayed_Memory=0;
 
     static int Baseline_Tandem_Time=0;
-    static float Baseline_Tandem_ML=0;
-    static float Baseline_Tandem_AP=0;
+    static double Baseline_Tandem_ML=0;
+    static double Baseline_Tandem_AP=0;
 
-    static float Baseline_DL_PTP=0;
-    static float Baseline_DL_ML=0;
-    static float Baseline_DL_AP=0;
+    static double Baseline_DL_PTP=0;
+    static double Baseline_DL_ML=0;
+    static double Baseline_DL_AP=0;
 
-    static float Baseline_SL_PTP=0;
-    static float Baseline_SL_ML=0;
-    static float Baseline_SL_AP=0;
+    static double Baseline_SL_PTP=0;
+    static double Baseline_SL_ML=0;
+    static double Baseline_SL_AP=0;
 
-    static float Baseline_TS_PTP=0;
-    static float Baseline_TS_ML=0;
-    static float Baseline_TS_AP=0;
+    static double Baseline_TS_PTP=0;
+    static double Baseline_TS_ML=0;
+    static double Baseline_TS_AP=0;
 
     static int Baseline_Upper=0;
 

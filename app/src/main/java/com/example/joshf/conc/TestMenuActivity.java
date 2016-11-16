@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +50,7 @@ public class TestMenuActivity extends AppCompatActivity {
     TextView test1,test2,test3;
     TextView test1date,test2date,test3date;
     TextView test1result,test2result,test3result;
+    TextView baselineDate, baselineValid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,11 @@ public class TestMenuActivity extends AppCompatActivity {
         test3 = (TextView) findViewById(R.id.test3);
         test3date = (TextView) findViewById(R.id.test3date);
         test3result = (TextView) findViewById(R.id.test3result);
+
+        baselineDate = (TextView) findViewById(R.id.Basleinedate);
+        baselineValid = (TextView) findViewById(R.id.Baselinevalid);
+
+
 
 /*        String[] testmenuArray = getResources().getStringArray(R.array.testmenu_array);
         List<String> testMenu = new ArrayList<String>(Arrays.asList(testmenuArray));
@@ -147,8 +154,6 @@ public class TestMenuActivity extends AppCompatActivity {
         playerInFocus =(Player) extras.getSerializable("player_info");
         team_code = extras.getInt("team_code");
         new assessment().execute();
-       // new baseline().execute();
-
 
     }
 
@@ -182,13 +187,41 @@ public class TestMenuActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public Boolean checkDate(String testdate){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        Boolean valid=false;
+
+        Date date=null;
+        String todayString = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        Date today=null;
+
+        if(testdate!=null) {
+
+            try {
+                date = format.parse(testdate);
+                today = format.parse(todayString);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            long diff = today.getTime() - date.getTime();
+            if ((diff / 86400000) <= 365)
+                valid = true;
+        }
+
+
+        return valid;
+
+
+    }
+
     private class assessment extends AsyncTask<Void, Void, JSONArray> {
 
-        HIA2 objectHIA2=new HIA2();
         // Alert Dialog Manager
         AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://104.198.254.110/ConcApp/getAssessment.php"; // Needs to be changed when using different php files.
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/getAssessment.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -205,7 +238,7 @@ public class TestMenuActivity extends AppCompatActivity {
         protected void onPreExecute() {
             Log.d("JSonInsTeam", "Start");
             pDialog = new ProgressDialog(TestMenuActivity.this);
-            pDialog.setMessage("Attempting register...");
+            pDialog.setMessage("Retrieving Concussion History");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -221,8 +254,7 @@ public class TestMenuActivity extends AppCompatActivity {
                 HashMap<String, String> args = new HashMap<>();
 
                 args.put("Code_Player", Integer.toString(playerInFocus.getCode_Player()));
-
-                // all args needs to convert to string because the hash map is string, string types.
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));                // all args needs to convert to string because the hash map is string, string types.
 
                 //   Log.d("JSON REQUEST", args.toString());
                 Log.e("JSON REQUEST", "Firing Json ...");
@@ -260,16 +292,176 @@ public class TestMenuActivity extends AppCompatActivity {
                     success = json.getJSONObject(0).getInt(TAG_SUCCESS);
                     message = json.getJSONObject(0).getString(TAG_MESSAGE);
 
-/*                    if(json.getJSONObject(0)!=null){
-                        test1.setText("HIA"+json.getJSONObject(0).getString(""));
-                    }*/
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                try {
+
+                    JSONObject baselineObject = json.getJSONObject(0);
+                    String test = baselineObject.getString("Type");
+                    if(test.equals("Baseline")){
+                        String date = baselineObject.getString("Date");
+                        baselineDate.setText(date);
+
+                        if(checkDate(date)){
+                            baselineValid.setText("Valid");
+                            new baseline().execute();
+                            baselineValid.setTextColor(getResources().getColor(R.color.startTest));
+                        }else{
+                            baselineValid.setText("Invalid");
+                            baselineValid.setTextColor(getResources().getColor(R.color.reset));
+                        }
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    JSONObject object1 = json.getJSONObject(1);
+                    String test = object1.getString("Type");
+                    test1.setText(test);
+                    test1date.setText(object1.getString("Date"));
+                    int result = object1.getInt("ColumnAlt");
+
+                    if(test.equalsIgnoreCase("HIA1")){
+                        switch(result){
+                            case 0:
+                                test1result.setText("Not Removed");
+                                break;
+                            case 1:
+                                test1result.setText("Removed");
+                                break;
+
+                        }
+                    }
+                    if(test.equalsIgnoreCase("HIA2")){
+                        switch(result){
+                            case 0:
+                                test1result.setText("CNC");
+                                break;
+                            case 1:
+                                test1result.setText("CC");
+                                break;
+
+                        }
+                    }
+                    if(test.equalsIgnoreCase("HIA3")){
+                        switch(result){
+                            case 0:
+                                test1result.setText("Concussed");
+                                break;
+                            case 1:
+                                test1result.setText("Cleared");
+                                break;
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+                try {
+                    JSONObject object1 = json.getJSONObject(2);
+                    String test = object1.getString("Type");
+                    test2.setText(test);
+                    test2date.setText(object1.getString("Date"));
+                    int result = object1.getInt("ColumnAlt");
+
+                    if(test.equalsIgnoreCase("HIA1")){
+                        switch(result){
+                            case 0:
+                                test2result.setText("Not Removed");
+                                break;
+                            case 1:
+                                test2result.setText("Removed");
+                                break;
+
+                        }
+                    }
+                    if(test.equalsIgnoreCase("HIA2")){
+                        switch(result){
+                            case 0:
+                                test2result.setText("CNC");
+                                break;
+                            case 1:
+                                test2result.setText("CC");
+                                break;
+
+                        }
+                    }
+                    if(test.equalsIgnoreCase("HIA3")){
+                        switch(result){
+                            case 0:
+                                test2result.setText("Concussed");
+                                break;
+                            case 1:
+                                test2result.setText("Cleared");
+                                break;
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    JSONObject object1 = json.getJSONObject(3);
+                    String test = object1.getString("Type");
+                    test3.setText(test);
+                    test3date.setText(object1.getString("Date"));
+                    int result = object1.getInt("ColumnAlt");
+
+                    if(test.equalsIgnoreCase("HIA1")){
+                        switch(result){
+                            case 0:
+                                test3result.setText("Not Removed");
+                                break;
+                            case 1:
+                                test3result.setText("Removed");
+                                break;
+
+                        }
+                    }
+                    if(test.equalsIgnoreCase("HIA2")){
+                        switch(result){
+                            case 0:
+                                test3result.setText("CNC");
+                                break;
+                            case 1:
+                                test3result.setText("CC");
+                                break;
+
+                        }
+                    }
+                    if(test.equalsIgnoreCase("HIA3")){
+                        switch(result){
+                            case 0:
+                                test3result.setText("Concussed");
+                                break;
+                            case 1:
+                                test3result.setText("Cleared");
+                                break;
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
             }
 
             if (success == 1) {
                 Log.e("Success!", message);
+
+
+
+
 
 
             } else {
@@ -291,7 +483,7 @@ public class TestMenuActivity extends AppCompatActivity {
         // Alert Dialog Manager
         AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://104.198.254.110/ConcApp/getBaseline.php"; // Needs to be changed when using different php files.
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/getBaseline.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -306,9 +498,9 @@ public class TestMenuActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            Log.d("JSonInsTeam", "Start");
+            Log.d("JSonGetBase", "Start");
             pDialog = new ProgressDialog(TestMenuActivity.this);
-            pDialog.setMessage("Attempting register...");
+            pDialog.setMessage("Retrieving Baseline");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -316,15 +508,17 @@ public class TestMenuActivity extends AppCompatActivity {
         @Override
         protected JSONArray doInBackground(Void... params) {
 
-            Log.e("JSonInsTeam", "Background");
+            Log.e("JSonInsTeamBase", "Background");
             try {
 
                 // PREPARING PARAMETERS..
-                Log.d("JSON REQUEST", "Preparing Params ...");
+                Log.e("JSON REQUEST", "Preparing Params ...");
                 HashMap<String, String> args = new HashMap<>();
 
-                args.put("Code_Player", Integer.toString(playerInFocus.getCode_Player()));
+                Log.e("Baseline get", String.valueOf(playerInFocus.getCode_Player()));
 
+                args.put("Code_Player", Integer.toString(playerInFocus.getCode_Player()));
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
                 // all args needs to convert to string because the hash map is string, string types.
 
                 //   Log.d("JSON REQUEST", args.toString());
@@ -350,7 +544,9 @@ public class TestMenuActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(JSONArray json) {
-            Log.e("JSonInsTeam", "Finish");
+            Log.e("JSonGetBaseline", "Finish");
+          ///  Log.e("GetBaselineR", json.getJSONObject(0).toString());
+
             if (pDialog != null && pDialog.isShowing()) {
                 pDialog.dismiss();
             }
@@ -363,46 +559,75 @@ public class TestMenuActivity extends AppCompatActivity {
                     success = json.getJSONObject(0).getInt(TAG_SUCCESS);
                     message = json.getJSONObject(0).getString(TAG_MESSAGE);
 
-/*                    if(json.getJSONObject(0)!=null){
-                        test1.setText("HIA"+json.getJSONObject(0).getString(""));
-                    }*/
+                    Log.e("Baseline_Total_Symptoms",String.valueOf(Baseline.Baseline_Total_Symptoms) );
+                    JSONObject object = json.getJSONObject(0);
+                    Baseline.Baseline_Total_Symptoms = object.getInt("Baseline_Total_Symptoms");
+                    Log.e("Baseline_Total_Symptoms",String.valueOf(Baseline.Baseline_Total_Symptoms) );
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+            try {
+                JSONObject object = json.getJSONObject(0);
+
+                Baseline.Baseline_Number_of_Symptoms = object.getInt("Baseline_Number_of_Symptoms");
+                Baseline.Baseline_Total_Symptoms = object.getInt("Baseline_Total_Symptoms");
+                Baseline.Baseline_Immediate_Memory = object.getInt("Baseline_Immediate_Memory");
+                Baseline.Baseline_Digits_Backwards = object.getInt("Baseline_Digits_Backwards");
+                Baseline.Baseline_Months_in_Reverse = object.getInt("Baseline_Months_in_Reverse");
+                Baseline.Baseline_Delayed_Memory = object.getInt("Baseline_Delayed_Memory");
+
+                Baseline.Baseline_Tandem_Time = object.getInt("Baseline_Tandem_Time");
+                Baseline.Baseline_Tandem_ML = object.getDouble("Baseline_Tandem_ML");
+                Baseline.Baseline_Tandem_AP = object.getDouble("Baseline_Tandem_AP");
+
+                Baseline.Baseline_DL_PTP = object.getDouble("Baseline_DL_PTP");
+                Baseline.Baseline_DL_ML = object.getDouble("Baseline_DL_ML");
+                Baseline.Baseline_DL_AP = object.getDouble("Baseline_DL_AP");
+
+                Baseline.Baseline_SL_PTP = object.getDouble("Baseline_SL_PTP");
+                Baseline.Baseline_SL_ML =object.getDouble("Baseline_SL_ML");
+                Baseline.Baseline_SL_AP = object.getDouble("Baseline_SL_AP");
+
+                Baseline.Baseline_TS_PTP = object.getDouble("Baseline_TS_PTP");
+                Baseline.Baseline_TS_ML =object.getDouble("Baseline_TS_ML");
+                Baseline.Baseline_TS_AP =object.getDouble("Baseline_TS_AP");
+
+                Log.e("Baseline_TS_AP",String.valueOf(Baseline.Baseline_TS_AP) );
+
+
+            }catch (JSONException e) {
+            e.printStackTrace();
+        }
 
             if (success == 1) {
-                Log.e("Success!", message);
-                try {
-                    JSONObject object = json.getJSONObject(0);
+                Log.e("SuccessBase!", message);
 
-                    Baseline.Baseline_Number_of_Symptoms = object.getInt("Baseline_Number_of_Symptoms");
-                    Baseline.Baseline_Total_Symptoms = object.getInt("Baseline_Total_Symptoms");
-                    Baseline.Baseline_Immediate_Memory =object.getInt("Baseline_Immediate_Memory");
-                    Baseline.Baseline_Digits_Backwards = object.getInt("Baseline_Digits_Backwards");
-                    Baseline.Baseline_Months_in_Reverse = object.getInt("Baseline_Months_in_Reverse");
-                    Baseline.Baseline_Delayed_Memory = object.getInt("Baseline_Delayed_Memory");
 
-                    Baseline.Baseline_Tandem_Time = object.getInt("Baseline_Tandem_Time");
-                    Baseline.Baseline_Tandem_ML = object.getInt("Baseline_Tandem_ML");
-                    Baseline.Baseline_Tandem_AP = object.getInt("Baseline_Tandem_AP");
+/*                    Baseline.Baseline_Tandem_Time = object.getInt("Baseline_Tandem_Time");
+                    Baseline.Baseline_Tandem_ML = object.getDouble("Baseline_Tandem_ML");
+                    Baseline.Baseline_Tandem_AP = object.getDouble("Baseline_Tandem_AP");
 
-                    Baseline.Baseline_DL_PTP = object.getInt("Baseline_DL_PTP");
-                    Baseline.Baseline_DL_ML = object.getInt("Baseline_DL_ML");
-                    Baseline.Baseline_DL_AP = object.getInt("Baseline_DL_AP");
+                    Baseline.Baseline_DL_PTP = object.getDouble("Baseline_DL_PTP");
+                    Baseline.Baseline_DL_ML = object.getDouble("Baseline_DL_ML");
+                    Baseline.Baseline_DL_AP = object.getDouble("Baseline_DL_AP");
 
-                    Baseline.Baseline_SL_PTP = object.getInt("Baseline_SL_PTP");
-                    Baseline.Baseline_SL_ML =object.getInt("Baseline_SL_ML");
-                    Baseline.Baseline_SL_AP = object.getInt("Baseline_SL_AP");
+                    Baseline.Baseline_SL_PTP = object.getDouble("Baseline_SL_PTP");
+                    Baseline.Baseline_SL_ML =object.getDouble("Baseline_SL_ML");
+                    Baseline.Baseline_SL_AP = object.getDouble("Baseline_SL_AP");
 
-                    Baseline.Baseline_TS_PTP = object.getInt("Baseline_TS_PTP");
-                    Baseline.Baseline_TS_ML =object.getInt("Baseline_TS_ML");
-                    Baseline.Baseline_TS_AP =object.getInt("Baseline_TS_AP");
+                    Baseline.Baseline_TS_PTP = object.getDouble("Baseline_TS_PTP");
+                    Baseline.Baseline_TS_ML =object.getDouble("Baseline_TS_ML");
+                    Baseline.Baseline_TS_AP =object.getDouble("Baseline_TS_AP");
+
+                    Log.e("Baseline_Total_Symptoms",String.valueOf(Baseline.Baseline_Total_Symptoms) );
 
 
                 }catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
 
             } else {
                 // Problems SQL

@@ -47,7 +47,7 @@
         android:id="@+id/TGtestResult"
         android:text="Failed"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/TG"
         android:gravity="center"
         android:layout_alignBottom="@id/TG"/>
@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/TGtimeholder"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_marginStart="20dp"
         android:layout_alignTop="@id/TGtime"
         android:layout_alignBottom="@id/TGtime">
@@ -115,7 +115,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/TGmlrmsholder"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/TGmlrms"
         android:layout_alignBottom="@id/TGmlrms">
 
@@ -165,7 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:id="@+id/TGalrmsholder"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/TGalrms"
         android:layout_alignBottom="@id/TGalrms">
 
@@ -221,7 +221,7 @@
         android:id="@+id/DLResult"
         android:text="Failed"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/DL"
         android:gravity="center"
         android:layout_alignBottom="@id/DL"/>
@@ -242,7 +242,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/DLptpholder"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/DLptp"
         android:layout_alignBottom="@id/DLptp">
 
@@ -292,7 +292,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/DLmprmsholder"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/DLmprms"
         android:layout_alignBottom="@id/DLmprms">
 
@@ -342,7 +342,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:id="@+id/DLalrmsholder"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/DLalrms"
         android:layout_alignBottom="@id/DLalrms">
 
@@ -398,7 +398,7 @@
         android:id="@+id/SLtestResult"
         android:text="Failed"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/SL"
         android:gravity="center"
         android:layout_alignBottom="@id/SL"/>
@@ -419,7 +419,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/SLptpholder"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/SLptp"
         android:layout_alignBottom="@id/SLptp">
 
@@ -469,7 +469,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/SLmprmsholder"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/SLmprms"
         android:layout_alignBottom="@id/SLmprms">
 
@@ -519,7 +519,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:id="@+id/SLalrmsholder"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/SLalrms"
         android:layout_alignBottom="@id/SLalrms">
 
@@ -577,7 +577,7 @@
         android:id="@+id/TStestResult"
         android:text="Failed"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/TS"
         android:gravity="center"
         android:layout_alignBottom="@id/TS"/>
@@ -599,7 +599,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/TSptpholder"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/TSptp"
         android:layout_alignBottom="@id/TSptp">
 
@@ -649,7 +649,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/TSmprmsholder"
         android:layout_marginStart="20dp"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/TSmprms"
         android:layout_alignBottom="@id/TSmprms">
 
@@ -699,7 +699,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:id="@+id/TSalrmsholder"
-        android:layout_toRightOf="@id/IMR"
+        android:layout_toRightOf="@+id/TS"
         android:layout_alignTop="@id/TSalrms"
         android:layout_alignBottom="@id/TSalrms">
 

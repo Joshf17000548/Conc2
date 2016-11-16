@@ -49,6 +49,8 @@ public class HIA3AActivity extends AppCompatActivity {
 
     static TextView HIA1result;
     static TextView HIA2result;
+    SessionManager session;
+
 
 
     //database
@@ -72,9 +74,26 @@ public class HIA3AActivity extends AppCompatActivity {
     //This function calls AsyncTask [insertHIA1], which submit the HIA1 data to insertHIA1.php file.
     public void submitHIA3(View view) {
 
+        if(HIA3.HIA3_Result_Chosen){
+
+            new HIA3AActivity.HIA3insertAsync(objHIA3).execute();
+        }
+        else{
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+            builder.setMessage("Diagnoses not Selected")
+                    .setTitle(R.string.dialog_title);
+            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+
+                }
+            });
+            android.app.AlertDialog dialog = builder.create();
+            dialog.setCancelable(false);
+            dialog.show();
+        }
 
 
-        new HIA3AActivity.HIA3insertAsync(objHIA3).execute(); //Call async Task
     }
 
     //---------------------------------------------
@@ -86,7 +105,7 @@ public class HIA3AActivity extends AppCompatActivity {
         // Alert Dialog Manager
         // AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://104.198.254.110/ConcApp/insertHIA3.php"; // Needs to be changed when using different php files.
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/insertHIA3.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -124,6 +143,7 @@ public class HIA3AActivity extends AppCompatActivity {
 
                 //args.put("HIA2_Test3_Question1", "test");
 
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
                 args.put("Code_Player", Integer.toString(code_player));
                 args.put("HIA3_Date", date);
 
@@ -353,7 +373,7 @@ public class HIA3AActivity extends AppCompatActivity {
         AlertDialogManager alert = new AlertDialogManager();
 
         //private static final String URL = "http://104.198.254.110/ConcApp/getHIA1_Test7_Question5.php"; // Needs to be changed when using different php files.
-        private static final String URL = "http://104.198.254.110/ConcApp/getHIA123Fields.php";
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/getHIA123Fields.php";
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -387,6 +407,7 @@ public class HIA3AActivity extends AppCompatActivity {
                 HashMap<String, String> args = new HashMap<>();
 
                 args.put("Code_Player", Integer.toString(this.CodePlayer));
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
 
                 Log.e("JSON REQUEST", "Firing Json ...");
                 JSONArray json = jsonParser.makeHttpRequest(
@@ -544,6 +565,9 @@ public class HIA3AActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_team);
         toolbar.setLogo(R.drawable.logo);
         setSupportActionBar(toolbar);
+
+        session = new SessionManager(this);
+        session.checkLogin();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 

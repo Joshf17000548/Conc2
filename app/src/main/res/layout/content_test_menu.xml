@@ -122,7 +122,7 @@
                     android:layout_column="1"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="HIA 1"/>
+                    android:text="-"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -130,7 +130,7 @@
                     android:textColor="@color/textPrimary"
                     android:id="@+id/test1date"
                     android:layout_column="2"
-                    android:text="23-05-2016"
+                    android:text="-"
                     android:layout_weight="1"
                     android:gravity="center"/>
                 <TextView
@@ -138,7 +138,7 @@
                     android:layout_height="35dp"
                     android:id="@+id/test1result"
                     android:textColor="@color/textPrimary"
-                    android:text="Removed"
+                    android:text="-"
                     android:layout_column="2"
                     android:layout_weight="1"
                     android:gravity="center"/>
@@ -159,7 +159,7 @@
                     android:layout_height="35dp"
                     android:id="@+id/test2"
                     android:textColor="@color/textPrimary"
-                    android:text="HIA 2"
+                    android:text="-"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_weight="1"/>
@@ -169,7 +169,7 @@
                     android:layout_height="35dp"
                     android:id="@+id/test2date"
                     android:textColor="@color/textPrimary"
-                    android:text="23-05-2016"
+                    android:text="-"
                     android:layout_column="2"
                     android:layout_weight="1"
                     android:gravity="center"/>
@@ -178,7 +178,7 @@
                     android:layout_height="35dp"
                     android:id="@+id/test2result"
                     android:textColor="@color/textPrimary"
-                    android:text="Not Concussed"
+                    android:text="-"
                     android:layout_column="2"
                     android:layout_weight="1"
                     android:gravity="center"/>
@@ -198,7 +198,7 @@
                     android:layout_height="35dp"
                     android:id="@+id/test3"
                     android:textColor="@color/textPrimary"
-                    android:text="HIA 3"
+                    android:text="-"
 
                     android:gravity="center"
                     android:layout_weight="1"/>
@@ -208,7 +208,7 @@
                     android:layout_height="35dp"
                     android:id="@+id/test3date"
                     android:textColor="@color/textPrimary"
-                    android:text="24-05-2016"
+                    android:text="-"
                     android:layout_column="2"
                     android:layout_weight="1"
                     android:gravity="center"/>
@@ -217,7 +217,7 @@
                     android:layout_height="35dp"
                     android:id="@+id/test3result"
                     android:textColor="@color/textPrimary"
-                    android:text="Cleared"
+                    android:text="-"
                     android:layout_column="2"
                     android:layout_weight="1"
                     android:gravity="center"/>
@@ -268,7 +268,7 @@
                     android:layout_height="35dp"
                     android:id="@+id/Basleinedate"
                     android:textColor="@color/textPrimary"
-                    android:text="03/01/2016"
+                    android:text="-"
                     android:textStyle="bold"
                     android:layout_column="2"
                     android:layout_weight="1"
@@ -278,9 +278,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="35dp"
-                    android:id="@+id/Basleinevalid"
-                    android:textColor="#76FF03"
-                    android:text="Valid"
+                    android:id="@+id/Baselinevalid"
+                    android:text="-"
                     android:textStyle="bold"
                     android:layout_column="3"
                     android:layout_weight="1"

@@ -60,7 +60,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> implements Filterable {
         this.origPlayerList = players;
 
 
-        File cacheDir = StorageUtils.getOwnCacheDirectory(context, "http://104.198.254.110/ConcApp/Player_Image/");
+        File cacheDir = StorageUtils.getOwnCacheDirectory(context, "https://www.concussionassessment.net/ConcApp/Player_Image/");
         try {
             // Get singletone instance of ImageLoader
             imageLoader = ImageLoader.getInstance();
@@ -71,7 +71,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> implements Filterable {
             options = new DisplayImageOptions.Builder()
                     .cacheInMemory(true)
                     .cacheOnDisk(false)
-                    .showImageOnLoading(R.mipmap.ic_launcher)//display stub image until image is loaded
+                    .showImageOnLoading(R.drawable.launcher)//display stub image until image is loaded
                     .displayer(new RoundedBitmapDisplayer(50))
                     .build();
             //---------------/IMG----

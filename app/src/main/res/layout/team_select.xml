@@ -26,6 +26,7 @@
         android:id="@+id/add_team"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:clickable="true"
         android:src="@drawable/add"
         app:layout_anchorGravity="bottom|right|end"

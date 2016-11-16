@@ -44,6 +44,8 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
     boolean HIA1_Test1_Question13;
     public HIA1AActivity hia1test;
     public int tabbed_pos;
+    SessionManager session;
+
 
     //testResults attemp1 = new testResults();
     HIA1 objHIA1=new HIA1();
@@ -88,7 +90,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         // Alert Dialog Manager
         //AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://104.198.254.110/ConcApp/insertHIA1.php"; // Needs to be changed when using different php files.
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/insertHIA1.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -140,6 +142,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
 /*                Log.e("HIA1_Test2_Question1", Integer.toString(HIA1.HIA1_Test2_Question1));
                 Log.e("testMenuA", String.valueOf(player_code));
                 Log.e("testMenuA", date);*/
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
                 args.put("Code_Player", Integer.toString(player_code));
                 args.put("HIA1_Date", date);
 
@@ -311,6 +314,9 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         toolbar.setLogo(R.drawable.logo);
         setSupportActionBar(toolbar);
 
+        session = new SessionManager(this);
+        session.checkLogin();
+
         player_code = getIntent().getExtras().getInt("player_code");
         Log.e("testMenu", String.valueOf(player_code));
 
@@ -345,21 +351,11 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
             }
         });
 
-
-
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-       // client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
     protected void onPause(){
-        alert.dismissAlertDialog();
+        //alert.dismissAlertDialog();
         super.onPause();
     }
 

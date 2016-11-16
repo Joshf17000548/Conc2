@@ -68,20 +68,26 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
         toolbar.setLogo(R.drawable.logo);
         setSupportActionBar(toolbar);
 
+
         session = new SessionManager(this);
+        session.checkLogin();
+        String useradm = session.getUserDetails().get("0");
+        String token = session.getUserDetails().get("token");
+        Log.e("adm", useradm);
 
+        if(useradm.equals("1")) {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_team);
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_team);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Bundle bundle = new Bundle();
-                bundle.putString("player_select", "new");
-                startActivity(new Intent(TeamSelect.this, TeamInsert.class).putExtras(bundle));
-            }
-        });
+                    Bundle bundle = new Bundle();
+                    bundle.putString("player_select", "new");
+                    startActivity(new Intent(TeamSelect.this, TeamInsert.class).putExtras(bundle));
+                }
+            });
+        }
 
     }
 
@@ -89,6 +95,8 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
     public void onResume() {
         super.onResume();
         session.checkLogin();
+
+
         // get user data from session
 /*        HashMap<String, String> user = session.getUserDetails();
 
@@ -99,6 +107,9 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
         String sToken = user.get(SessionManager.KEY_TOKEN);
 
         Log.e("token team select", sToken);*/
+        if(getIntent().getExtras()!=null) {
+            teamUpdateRequired = getIntent().getExtras().getBoolean("update_required");
+        }
 
 
         if ((teamUpdateRequired.equals(true))) {
@@ -170,7 +181,7 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
 
     private class getTeams extends AsyncTask<String, String, JSONArray> {
 
-        private static final String URL = "http://104.198.254.110/ConcApp/getTeams.php";
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/getTeams.php";
         JSONParser jsonParser = new JSONParser();
         private ProgressDialog pDialog;
 
@@ -190,9 +201,8 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
             try {
                 // PREPARING PARAMETERS..
                 HashMap<String, String> args = new HashMap<>();
-                args.put("SecToken", SessionManager.KEY_TOKEN);
-
-                Log.e("request", "starting");
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
+                Log.e("request", SessionManager.KEY_TOKEN);
 
                 JSONArray json = jsonParser.makeHttpRequest(
                         URL, "POST", args);

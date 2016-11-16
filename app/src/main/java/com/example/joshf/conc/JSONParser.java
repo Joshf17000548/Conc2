@@ -20,6 +20,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class JSONParser {
 
     String charset = "UTF-8";
@@ -58,11 +60,11 @@ public class JSONParser {
             try {
                 urlObj = new URL(url);
 
-                conn = (HttpURLConnection) urlObj.openConnection();
+                conn = (HttpsURLConnection) urlObj.openConnection();
 
                 conn.setDoOutput(true);
 
-                conn.setRequestMethod("POST");
+                conn.setRequestMethod("GET");
 
                 conn.setRequestProperty("Accept-Charset", charset);
 
@@ -94,7 +96,7 @@ public class JSONParser {
             try {
                 urlObj = new URL(url);
 
-                conn = (HttpURLConnection) urlObj.openConnection();
+                conn = (HttpsURLConnection) urlObj.openConnection();
 
                 conn.setDoOutput(false);
 

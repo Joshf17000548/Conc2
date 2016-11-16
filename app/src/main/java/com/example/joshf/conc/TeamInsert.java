@@ -219,8 +219,9 @@ public class TeamInsert extends AppCompatActivity implements View.OnClickListene
                 if (pDialog != null && pDialog.isShowing()) {
                  pDialog.dismiss();
                 }
-
-            startActivity(new Intent(TeamInsert.this, TeamSelect.class));
+            Intent intent = new Intent(TeamInsert.this, TeamSelect.class);
+            intent.putExtra("update_required", true);
+            startActivity(intent);
 
             }
 
@@ -239,6 +240,7 @@ public class TeamInsert extends AppCompatActivity implements View.OnClickListene
                 Log.e("JSON REQUEST", "Preparing Params ...");
                 HashMap<String, String> args = new HashMap<>();
                 args.put("Team_Name", nameData);
+                args.put("SecToken", session.getUserDetails().get("token"));
                 args.put("Team_Logo", encodedImage);
                 //   Log.d("JSON REQUEST", args.toString());
                 Log.e("JSON REQUEST", "Firing Json ...");

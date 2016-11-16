@@ -54,6 +54,7 @@ public class BaselineActivity extends AppCompatActivity
     HIA2 objHIA2=new HIA2();
     static Spinner spinner;
     Bundle save;
+    SessionManager session;
     static int player_code;
     public static String HIA1_result_string = "/0";
     static TextView title;
@@ -208,7 +209,7 @@ public class BaselineActivity extends AppCompatActivity
         // Alert Dialog Manager
         AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://104.198.254.110/ConcApp/insertBaseline.php"; // Needs to be changed when using different php files.
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/insertBaseline.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -244,6 +245,7 @@ public class BaselineActivity extends AppCompatActivity
                 Log.d("JSON REQUEST", "Preparing Params ...");
                 HashMap<String, String> args = new HashMap<>();
 
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
                 args.put("Code_Player", Integer.toString(player_code));
                 args.put("Baseline_Date", date);
 
@@ -252,23 +254,23 @@ public class BaselineActivity extends AppCompatActivity
                 args.put("Baseline_Immediate_Memory", Integer.toString(Baseline.Baseline_Immediate_Memory));
                 args.put("Baseline_Digits_Backwards", Integer.toString(Baseline.Baseline_Digits_Backwards));
                 args.put("Baseline_Months_in_Reverse", Integer.toString(Baseline.Baseline_Months_in_Reverse));
-                args.put("Baseline_Delayed_Memory", Float.toString(Baseline.Baseline_Delayed_Memory));
+                args.put("Baseline_Delayed_Memory", Integer.toString(Baseline.Baseline_Delayed_Memory));
 
-                args.put("Baseline_Tandem_Time", Float.toString(Baseline.Baseline_Tandem_Time));
-                args.put("Baseline_Tandem_ML", Float.toString(Baseline.Baseline_Tandem_ML));
-                args.put("Baseline_Tandem_AP", Float.toString(Baseline.Baseline_Tandem_AP));
+                args.put("Baseline_Tandem_Time", Double.toString(Baseline.Baseline_Tandem_Time));
+                args.put("Baseline_Tandem_ML", Double.toString(Baseline.Baseline_Tandem_ML));
+                args.put("Baseline_Tandem_AP", Double.toString(Baseline.Baseline_Tandem_AP));
 
-                args.put("Baseline_DL_PTP", Float.toString(Baseline.Baseline_DL_PTP));
-                args.put("Baseline_DL_ML", Float.toString(Baseline.Baseline_DL_ML));
-                args.put("Baseline_DL_AP", Float.toString(Baseline.Baseline_DL_AP));
+                args.put("Baseline_DL_PTP", Double.toString(Baseline.Baseline_DL_PTP));
+                args.put("Baseline_DL_ML", Double.toString(Baseline.Baseline_DL_ML));
+                args.put("Baseline_DL_AP", Double.toString(Baseline.Baseline_DL_AP));
 
-                args.put("Baseline_SL_PTP", Float.toString(Baseline.Baseline_SL_PTP));
-                args.put("Baseline_SL_ML", Float.toString(Baseline.Baseline_SL_ML));
-                args.put("Baseline_SL_AP", Float.toString(Baseline.Baseline_SL_AP));
+                args.put("Baseline_SL_PTP", Double.toString(Baseline.Baseline_SL_PTP));
+                args.put("Baseline_SL_ML", Double.toString(Baseline.Baseline_SL_ML));
+                args.put("Baseline_SL_AP", Double.toString(Baseline.Baseline_SL_AP));
 
-                args.put("Baseline_TS_PTP", Float.toString(Baseline.Baseline_TS_PTP));
-                args.put("Baseline_TS_ML", Float.toString(Baseline.Baseline_TS_ML));
-                args.put("Baseline_TS_AP", Float.toString(Baseline.Baseline_TS_AP));
+                args.put("Baseline_TS_PTP", Double.toString(Baseline.Baseline_TS_PTP));
+                args.put("Baseline_TS_ML", Double.toString(Baseline.Baseline_TS_ML));
+                args.put("Baseline_TS_AP", Double.toString(Baseline.Baseline_TS_AP));
 
                 args.put("Baseline_Upper", Integer.toString(Baseline.Baseline_Upper));
 
@@ -361,6 +363,9 @@ public class BaselineActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_team);
         toolbar.setLogo(R.drawable.logo);
         setSupportActionBar(toolbar);
+
+        session = new SessionManager(this);
+        session.checkLogin();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());//,this.getApplicationContext());
 
@@ -933,9 +938,9 @@ public class BaselineActivity extends AppCompatActivity
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-            Activity b = getActivity();
+/*            Activity b = getActivity();
             if(b instanceof HIA2AActivity) {
-                hia2test = (HIA2AActivity) getActivity();
+                hia2test = (HIA2AActivity) getActivity();*/
 
                 switch (parent.getId()) {
                     case R.id.spinner5:
@@ -1272,7 +1277,7 @@ public class BaselineActivity extends AppCompatActivity
 
                 }
 
-            }
+           // }
 
         }
         @Override

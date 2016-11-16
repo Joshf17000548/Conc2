@@ -53,6 +53,8 @@ public class HIA2AActivity extends AppCompatActivity
     HIA2 objHIA2=new HIA2();
     static Spinner spinner;
     Bundle save;
+    SessionManager session;
+
     static int player_code;
     public static String HIA1_result_string = "/0";
     static TextView title;
@@ -116,7 +118,7 @@ public class HIA2AActivity extends AppCompatActivity
         // Alert Dialog Manager
         AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://104.198.254.110/ConcApp/insertHIA2.php"; // Needs to be changed when using different php files.
+        private static final String URL = "https://www.concussionassessment.net /ConcApp/insertHIA2.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -152,6 +154,7 @@ public class HIA2AActivity extends AppCompatActivity
                 Log.d("JSON REQUEST", "Preparing Params ...");
                 HashMap<String, String> args = new HashMap<>();
 
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
                 args.put("Code_Player", Integer.toString(player_code));
                 args.put("HIA2_Date", date);
 
@@ -303,7 +306,7 @@ public class HIA2AActivity extends AppCompatActivity
         // Alert Dialog Manager
        // AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "http://104.198.254.110/ConcApp/getHIA1_Test7_Question5.php"; // Needs to be changed when using different php files.
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/getHIA1_Test7_Question5.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -339,6 +342,7 @@ public class HIA2AActivity extends AppCompatActivity
                 HashMap<String, String> args = new HashMap<>();
 
                 args.put("Code_HIA1", Integer.toString(this.code));
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
 
                 // all args needs to convert to string because the hash map is string, string types.
 
@@ -468,6 +472,9 @@ public class HIA2AActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_team);
         toolbar.setLogo(R.drawable.logo);
         setSupportActionBar(toolbar);
+
+        session = new SessionManager(this);
+        session.checkLogin();
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());//,this.getApplicationContext());
 

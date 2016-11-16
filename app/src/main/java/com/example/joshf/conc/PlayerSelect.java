@@ -114,19 +114,22 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
         }
         calendarHandler = new CalendarHandler();
         calendarHandler.getCalendarHandler(this);*/
+        String useradm = session.getUserDetails().get("0");
 
+        if(useradm.equals("1")) {
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Bundle bundle = new Bundle();
-                bundle.putString("player_select", "new");
-                bundle.putInt("team_code", team_code);
-                startActivity(new Intent(PlayerSelect.this, PlayerProfile.class).putExtras(bundle));
-            }
-        });
+                    Bundle bundle = new Bundle();
+                    bundle.putString("player_select", "new");
+                    bundle.putInt("team_code", team_code);
+                    startActivity(new Intent(PlayerSelect.this, PlayerProfile.class).putExtras(bundle));
+                }
+            });
+        }
     }
 
     public void listItemSelected(Player listSelectedPlayer, View view){
@@ -134,9 +137,9 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
         Intent intent = new Intent(this, PlayerProfile.class);
 
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
-                new android.support.v4.util.Pair<View, String>(view.findViewById(R.id.playerPhoto),"photo"));
-/*                new android.support.v4.util.Pair<View, String>(view.findViewById(R.id.name), "name"),
-                new android.support.v4.util.Pair<View, String>(view.findViewById(R.id.playerHealth), "brain"));*/
+                new android.support.v4.util.Pair<View, String>(view.findViewById(R.id.playerPhoto),"photo"),
+               new android.support.v4.util.Pair<View, String>(view.findViewById(R.id.name), "name"));
+               // new android.support.v4.util.Pair<View, String>(view.findViewById(R.id.playerHealth), "brain"));
 
         Bundle bundle = options.toBundle();
         intent.putExtra("player_select", "existing");
@@ -237,6 +240,11 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
             case R.id.menuId_logout:
                 session.logoutUser();
                 return true;
+            case android.R.id.home:
+
+                Intent intent = new Intent(PlayerSelect.this, TeamSelect.class);
+                intent.putExtra("update_required", false);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -245,7 +253,7 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
 
     private class getPlayers extends AsyncTask<String, String, JSONArray> {
 
-        private static final String URL = "http://104.198.254.110/ConcApp/getPlayer.php";
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/getPlayer.php";
         JSONParser jsonParser = new JSONParser();
         private ProgressDialog pDialog;
 
@@ -267,7 +275,7 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
                 HashMap<String, String> args = new HashMap<>();
 
                 args.put("Code_Team", String.valueOf(team_code));
-
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
                 Log.e("request", "starting");
 
                 JSONArray json = jsonParser.makeHttpRequest(
@@ -316,7 +324,7 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
     }
 
 
-    private void requestCalendarReadPermission(String permission) {
+    /*private void requestCalendarReadPermission(String permission) {
         if (shouldShowRequestPermissionRationale(permission)) {
             new ConfirmationDialog().show(getFragmentManager(), DIALOG);
         } else {
@@ -364,7 +372,7 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
                 }
             }
         }
-    }
+    }*/
 
     public static class ErrorDialog extends DialogFragment {
 
@@ -422,6 +430,16 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
                     .create();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(PlayerSelect.this, TeamSelect.class);
+        intent.putExtra("update_required", false);
+        startActivity(intent);
+
+    }
+
 }
 
 

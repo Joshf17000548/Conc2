@@ -182,9 +182,9 @@ public class HIA2GFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();  // Always call the superclass method first
-        Activity b = getActivity();
+/*        Activity b = getActivity();
         if(b instanceof HIA2AActivity) {
-            hia2test = (HIA2AActivity) getActivity();
+            hia2test = (HIA2AActivity) getActivity();*/
 
 
                     try{
@@ -227,7 +227,7 @@ public class HIA2GFragment extends Fragment {
 
 
 
-        }
+       // }
     }
 
     @Override

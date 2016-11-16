@@ -45,7 +45,7 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
 
 
     // private static final String LOGIN_URL = "http://10.0.2.2/ConcApp/loginTest.php";
-    private static final String LOGIN_URL = "http://104.198.254.110/ConcApp/loginTest.php";
+    private static final String LOGIN_URL = "https://www.concussionassessment.net/ConcApp/loginTest.php";
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 

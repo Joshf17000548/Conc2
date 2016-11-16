@@ -142,6 +142,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
     ImageView brainStatus;
     TextView brainStatusText;
     View ageLine;
+    Bitmap bitmap;
 
     private GestureDetectorCompat gestureDetector;
     View.OnTouchListener gestureListener;
@@ -266,7 +267,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
             options = new DisplayImageOptions.Builder()
                     .cacheInMemory(true)
                     .cacheOnDisk(true)
-                    .showImageOnLoading(R.mipmap.ic_launcher)//display stub image until image is loaded
+                    .showImageOnLoading(R.drawable.launcher)//display stub image until image is loaded
                     .displayer(new RoundedBitmapDisplayer(400))
                     .build();
             //---------------/IMG----
@@ -660,8 +661,8 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                 } else {
                     if (newPhotoLoaded) {
                         String photoPath = String.valueOf(playerInFocus.getCode_Player());
-                        String path1 = "http://104.198.254.110/ConcApp/Player_Image/" + photoPath +"THUMB.png";
-                        String path2 = "http://104.198.254.110/ConcApp/Player_Image/" + photoPath +"IMG.png";
+                        String path1 = "https://www.concussionassessment.net/ConcApp/Player_Image/" + photoPath +"THUMB.png";
+                        String path2 = "https://www.concussionassessment.net/ConcApp/Player_Image/" + photoPath +"IMG.png";
                         MemoryCacheUtils.removeFromCache(path1, ImageLoader.getInstance().getMemoryCache());
                         MemoryCacheUtils.removeFromCache(path2, ImageLoader.getInstance().getMemoryCache());
 
@@ -687,10 +688,13 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         String photoPath = String.valueOf(playerInFocus.getCode_Player());
         try {
             if (!large) {
-                imageLoader.displayImage("http://104.198.254.110/ConcApp/Player_Image/" + photoPath + "THUMB.png", playerPhoto, options);
-                imageLoader.loadImageSync("http://104.198.254.110/ConcApp/Player_Image/" + photoPath + "IMG.png", options);
+               // imageLoader.displayImage("https://www.concussionassessment.net/ConcApp/Player_Image/" + photoPath + "THUMB.png", playerPhoto, options);
+               // bitmap = imageLoader.loadImageSync("https://www.concussionassessment.net/ConcApp/Player_Image/" + photoPath + "IMG.png", options);
+                imageLoader.displayImage("https://www.concussionassessment.net/ConcApp/Player_Image/" + photoPath + "IMG.png", playerPhoto, options);
+
             } else {
-                imageLoader.displayImage("http://104.198.254.110/ConcApp/Player_Image/" + photoPath + "IMG.png", playerPhoto, options);
+               // imageLoader.displayImage("https://www.concussionassessment.net/ConcApp/Player_Image/" + photoPath + "IMG.png", playerPhoto, options);
+               // playerPhoto.setImageBitmap(bitmap);
 
             }
 
@@ -731,7 +735,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
     private class insertPlayer extends AsyncTask<Void, Void, JSONArray> {
 
-        private static final String URL = "http://104.198.254.110/ConcApp/insertPlayer.php"; // Needs to be changed when using different php files.
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/insertPlayer.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -777,7 +781,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
 
                 Log.e("JSON REQUEST", "Image Done");
-
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
                 args.put("Player_Name", String.valueOf(playerInFocus.getPlayer_Name()));
                 args.put("Player_Email", String.valueOf(playerInFocus.getPlayer_Email()));
                 args.put("Player_Height", String.valueOf(playerInFocus.getPlayer_Height()));

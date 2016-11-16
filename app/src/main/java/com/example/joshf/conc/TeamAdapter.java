@@ -60,7 +60,7 @@ public class TeamAdapter extends ArrayAdapter<Team> implements Filterable {
         this.teamList = teams;
         this.origTeamList = teams;
 
-        File cacheDir = StorageUtils.getOwnCacheDirectory(context, "http://104.198.254.110/ConcApp/Team_Logo/");
+        File cacheDir = StorageUtils.getOwnCacheDirectory(context, "https://www.concussionassessment.net/ConcApp/Team_Logo/");
         try {
             // Get singletone instance of ImageLoader
             imageLoader = ImageLoader.getInstance();
@@ -71,7 +71,7 @@ public class TeamAdapter extends ArrayAdapter<Team> implements Filterable {
             options = new DisplayImageOptions.Builder()
                     .cacheInMemory(true)
                     .cacheOnDisk(false)
-                    .showImageOnLoading(R.mipmap.ic_launcher)//display stub image until image is loaded
+                    .showImageOnLoading(R.drawable.launcher)//display stub image until image is loaded
                     .displayer(new RoundedBitmapDisplayer(50))
                     .build();
             //---------------/IMG----
