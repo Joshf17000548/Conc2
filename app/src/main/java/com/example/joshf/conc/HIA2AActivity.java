@@ -4,6 +4,7 @@ package com.example.joshf.conc;
         import android.app.ProgressDialog;
         import android.content.Context;
         import android.content.DialogInterface;
+        import android.content.Intent;
         import android.content.pm.ActivityInfo;
         import android.os.AsyncTask;
         import android.support.design.widget.FloatingActionButton;
@@ -55,7 +56,10 @@ public class HIA2AActivity extends AppCompatActivity
     Bundle save;
     SessionManager session;
 
-    static int player_code;
+    Player playerInFocus;
+    int team_code;
+    String Type_Text;
+
     public static String HIA1_result_string = "/0";
     static TextView title;
     static TextView result, resultText;
@@ -118,7 +122,7 @@ public class HIA2AActivity extends AppCompatActivity
         // Alert Dialog Manager
         AlertDialogManager alert = new AlertDialogManager();
 
-        private static final String URL = "https://www.concussionassessment.net /ConcApp/insertHIA2.php"; // Needs to be changed when using different php files.
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/insertHIA2.php"; // Needs to be changed when using different php files.
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -155,7 +159,9 @@ public class HIA2AActivity extends AppCompatActivity
                 HashMap<String, String> args = new HashMap<>();
 
                 args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
-                args.put("Code_Player", Integer.toString(player_code));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+
+                args.put("Code_Player", Integer.toString(playerInFocus.getCode_Player()));
                 args.put("HIA2_Date", date);
 
                 args.put("HIA2_Result", Integer.toString(HIA2.HIA2_result));
@@ -194,10 +200,11 @@ public class HIA2AActivity extends AppCompatActivity
 
                 args.put("HIA2_Test5_Question1", Integer.toString(HIA2.HIA2_Test5_Question1));
                 args.put("HIA2_Test5_Question2", Integer.toString(HIA2.HIA2_Test5_Question2));
+                Log.e("HIA2Insert", String.valueOf(HIA2.HIA2_Test7_Question1));
 
                 args.put("HIA2_Test6_Question1", Integer.toString(HIA2.HIA2_Test6_Question1));
-
                 args.put("HIA2_Test7_Question1", Integer.toString(HIA2.HIA2_Test7_Question1));
+
 
                 args.put("gait_test_completed", Integer.toString(PreferenceConnector.gait_test_completed));
                 args.put("test_status", Float.toString(PreferenceConnector.test_status));
@@ -263,6 +270,26 @@ public class HIA2AActivity extends AppCompatActivity
             if (pDialog != null && pDialog.isShowing()) {
                 pDialog.dismiss();
             }
+
+            Intent intent = new Intent(HIA2AActivity.this, PlayerProfile.class);
+
+            switch (HIA2.HIA2_result){
+                case 0:
+                    playerInFocus.Player_Status = 2;
+                    intent.putExtra("update_required", true);
+                    break;
+                case 1:
+                    intent.putExtra("update_required", true);
+                    playerInFocus.Player_Status = 3;
+                    break;
+
+            }
+
+
+            intent.putExtra("player_info", playerInFocus);
+            intent.putExtra("team_code", team_code);
+            intent.putExtra("player_select", "existing");
+            startActivity(intent);
             int success = 0;
             String message = "";
 
@@ -343,6 +370,8 @@ public class HIA2AActivity extends AppCompatActivity
 
                 args.put("Code_HIA1", Integer.toString(this.code));
                 args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+
 
                 // all args needs to convert to string because the hash map is string, string types.
 
@@ -476,6 +505,12 @@ public class HIA2AActivity extends AppCompatActivity
         session = new SessionManager(this);
         session.checkLogin();
 
+        Bundle extras = getIntent().getExtras();
+        playerInFocus =(Player) extras.getSerializable("player");
+        team_code = extras.getInt("team_code");
+        Type_Text = extras.getString("Type_Text");
+
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());//,this.getApplicationContext());
 
         //mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -491,7 +526,6 @@ public class HIA2AActivity extends AppCompatActivity
         //mViewPager = new ViewPager(this);
         //mViewPager.setId(R.id.pager);
         //setContentView(mViewPager);
-        player_code = getIntent().getExtras().getInt("player_code");
 
 
 
@@ -537,7 +571,7 @@ public class HIA2AActivity extends AppCompatActivity
         save = savedInstanceState;
 
         if(HIA2.HIA2_first) {
-            new get_HIA1_Test7_Question5(player_code).execute();
+            new get_HIA1_Test7_Question5(playerInFocus.getCode_Player()).execute();
             HIA2.HIA2_first=false;
         }
 
@@ -656,7 +690,10 @@ public class HIA2AActivity extends AppCompatActivity
                 // User clicked OK button
                 HIA2.clearHIA2();
                 PreferenceConnector.clear_all_values();
-                HIA2AActivity.super.onBackPressed();
+                Intent intent = new Intent(HIA2AActivity.this, TestMenuActivity.class);
+                intent.putExtra("player", playerInFocus);
+                intent.putExtra("team_code", team_code);
+                startActivity(intent);
             }
         });
         backbut.setNegativeButton(R.string.dialog_back_cancel, new DialogInterface.OnClickListener() {
@@ -856,7 +893,7 @@ public class HIA2AActivity extends AppCompatActivity
                 case 6:
                     return Balance.newInstance();
                 case 7:
-                    return UpperLimbCoordination.newInstance();
+                    return UpperLimbCoordination.newInstance("HIA2");
                 case 8:
                     return HIA2Results.newInstance();
 

@@ -3,6 +3,7 @@ package com.example.joshf.conc;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -51,7 +52,8 @@ public class HIA3AActivity extends AppCompatActivity {
     static TextView HIA2result;
     SessionManager session;
 
-
+    Player playerInFocus;
+    int team_code;
 
     //database
     public HIA3AActivity hia3test;
@@ -66,9 +68,6 @@ public class HIA3AActivity extends AppCompatActivity {
     int getHIA1T7Q5;
     int getHIA2T7Q1;
     int getHIA3T4Q4;
-
-    int code_player;
-
 
 
     //This function calls AsyncTask [insertHIA1], which submit the HIA1 data to insertHIA1.php file.
@@ -143,8 +142,10 @@ public class HIA3AActivity extends AppCompatActivity {
 
                 //args.put("HIA2_Test3_Question1", "test");
 
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
                 args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
-                args.put("Code_Player", Integer.toString(code_player));
+
+                args.put("Code_Player", Integer.toString(playerInFocus.getCode_Player()));
                 args.put("HIA3_Date", date);
 
                 args.put("HIA3_Test1_Question1", Integer.toString(HIA3.HIA3_Test1_Question1));
@@ -330,6 +331,29 @@ public class HIA3AActivity extends AppCompatActivity {
             if (pDialog != null && pDialog.isShowing()) {
                 pDialog.dismiss();
             }
+
+            Intent intent = new Intent(HIA3AActivity.this, PlayerProfile.class);
+
+            switch (HIA3.HIA3_Test4_Question5){
+                case 0:
+                    playerInFocus.Player_Status = 0;
+                    intent.putExtra("update_required", true);
+                    break;
+                case 1:
+                    intent.putExtra("update_required", true);
+                    if(playerInFocus.getPlayer_Status()<3)
+                        playerInFocus.Player_Status=3;
+                    else
+                        playerInFocus.Player_Status = playerInFocus.Player_Status+1;
+                    break;
+
+            }
+
+
+            intent.putExtra("player_info", playerInFocus);
+            intent.putExtra("team_code", team_code);
+            intent.putExtra("player_select", "existing");
+            startActivity(intent);
             int success = 0;
             String message = "";
 
@@ -408,6 +432,8 @@ public class HIA3AActivity extends AppCompatActivity {
 
                 args.put("Code_Player", Integer.toString(this.CodePlayer));
                 args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+
 
                 Log.e("JSON REQUEST", "Firing Json ...");
                 JSONArray json = jsonParser.makeHttpRequest(
@@ -571,14 +597,14 @@ public class HIA3AActivity extends AppCompatActivity {
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+        Bundle extras = getIntent().getExtras();
+        playerInFocus =(Player) extras.getSerializable("player");
+        team_code = extras.getInt("team_code");
+
+
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-
-
-        code_player = getIntent().getExtras().getInt("player_code");
-        Log.e("HIA3 code player", String.valueOf(code_player) );
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
@@ -602,10 +628,9 @@ public class HIA3AActivity extends AppCompatActivity {
             }
         });
 
-        code_player = getIntent().getExtras().getInt("player_code");
 
         if(HIA3.HIA3_first) {
-            new get_HIA123(code_player).execute();
+            new get_HIA123(playerInFocus.getCode_Player()).execute();
             HIA3.HIA3_first=false;
         }
 
@@ -702,7 +727,10 @@ public class HIA3AActivity extends AppCompatActivity {
                 // User clicked OK button
                 PreferenceConnector.clear_all_values();
                 HIA3.clearHIA3();
-                HIA3AActivity.super.onBackPressed();
+                Intent intent = new Intent(HIA3AActivity.this, TestMenuActivity.class);
+                intent.putExtra("player", playerInFocus);
+                intent.putExtra("team_code", team_code);
+                startActivity(intent);
             }
         });
         backbut.setNegativeButton(R.string.dialog_back_cancel, new DialogInterface.OnClickListener() {

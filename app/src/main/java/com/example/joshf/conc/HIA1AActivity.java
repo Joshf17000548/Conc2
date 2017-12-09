@@ -62,7 +62,8 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
     boolean HIA1_Test1_Question10 = false;
     boolean HIA1_Test1_Question11 = false;
 
-    int player_code;
+    Player playerInFocus;
+    int team_code;
 
     public HIA1 databasetest;
 
@@ -143,7 +144,9 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 Log.e("testMenuA", String.valueOf(player_code));
                 Log.e("testMenuA", date);*/
                 args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
-                args.put("Code_Player", Integer.toString(player_code));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+
+                args.put("Code_Player", Integer.toString(playerInFocus.getCode_Player()));
                 args.put("HIA1_Date", date);
 
 
@@ -199,7 +202,7 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 args.put("HIA1_Test7_Question5", Integer.toString(HIA1.HIA1_Test7_Question5));
                 args.put("HIA1_Test7_Question6", Integer.toString(HIA1.HIA1_Test7_Question6));
 
-                args.put("gait_test_Completed", Integer.toString(PreferenceConnector.gait_test_completed));
+                args.put("gait_test_completed", Integer.toString(PreferenceConnector.gait_test_completed));
                 args.put("test_Status", Float.toString(PreferenceConnector.test_status));
 
                 args.put("tandem_t1", Float.toString(PreferenceConnector.tandem_t1));
@@ -267,6 +270,27 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
             Log.d("JSonInsTeam", "Finish");
 
             Intent intent = new Intent(HIA1AActivity.this, PlayerProfile.class);
+
+            switch (HIA1.HIA1_Test7_Question5){
+                case 0:
+                    playerInFocus.Player_Status = 2;
+                    intent.putExtra("update_required", true);
+                    break;
+                case 1:
+                    intent.putExtra("update_required", true);
+                    playerInFocus.Player_Status = 2;
+                    break;
+                case 2:
+                    intent.putExtra("update_required", true);
+                    playerInFocus.Player_Status = 2;
+                    break;
+                default:
+                    break;
+            }
+
+
+            intent.putExtra("player_info", playerInFocus);
+            intent.putExtra("team_code", team_code);
             intent.putExtra("player_select", "existing");
             startActivity(intent);
 
@@ -317,8 +341,9 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
         session = new SessionManager(this);
         session.checkLogin();
 
-        player_code = getIntent().getExtras().getInt("player_code");
-        Log.e("testMenu", String.valueOf(player_code));
+        Bundle extras = getIntent().getExtras();
+        playerInFocus =(Player) extras.getSerializable("player");
+        team_code = extras.getInt("team_code");
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
@@ -460,7 +485,10 @@ public class HIA1AActivity extends AppCompatActivity implements AdapterView.OnIt
                 // User clicked OK button
                 HIA1.clearHIA1();
                 PreferenceConnector.clear_all_values();
-                HIA1AActivity.super.onBackPressed();
+                Intent intent = new Intent(HIA1AActivity.this, TestMenuActivity.class);
+                intent.putExtra("player", playerInFocus);
+                intent.putExtra("team_code", team_code);
+                startActivity(intent);
             }
         });
         backbut.setNegativeButton(R.string.dialog_back_cancel, new DialogInterface.OnClickListener() {

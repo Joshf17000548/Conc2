@@ -1,8 +1,17 @@
 apply plugin: 'com.android.application'
 
+System.setProperty("appName", "Conc2")
+
+if(file("../../common.gradle").exists()) {
+    apply from: '../../common.gradle'
+}
+else if(file("../../../../GearVRf-Demos/common.gradle").exists()) {
+    apply from: '../../../../GearVRf-Demos/common.gradle'
+}
+
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.example.joshf.conc"
@@ -17,6 +26,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    sourceSets.main {
+        jni.srcDirs = [] // no auto generation of Android.mk
+        jniLibs.srcDir 'libs' // pre-compiled libraries
+    }
 }
 
 dependencies {
@@ -26,5 +40,6 @@ dependencies {
     compile 'com.android.support:design:24.0.0'
     compile 'com.android.support:support-v13:24.1.1'
     compile project(':library')
+    compile 'com.android.support:support-v4:+'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }

@@ -134,6 +134,7 @@ public class HIA1Results extends Fragment implements AdapterView.OnItemSelectedL
 
                 case R.id.spinner3:
                    // Log.v(TAG, "Video Checkbox2: " + position);
+                    HIA1.HIA1_result_chosen =true;
                     HIA1.HIA1_Test7_Question5=position;
                     return;
 

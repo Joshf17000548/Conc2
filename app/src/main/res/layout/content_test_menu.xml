@@ -8,48 +8,60 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <Button
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:text="Head Injury Assessment 1"
-        android:background="@drawable/hia_button_selector"
-        android:layout_gravity="center_horizontal"
         android:id="@+id/buttonHIA1"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true" />
-
-
-    <Button
         android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:text="Head Injury Assessment 2"
-        android:background="@drawable/hia_button_selector"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/buttonHIA2"
-        android:layout_below="@+id/buttonHIA1"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:text="Head Injury Assessment 3"
-        android:background="@drawable/hia_button_selector"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/buttonHIA2"
-        android:layout_marginTop="20dp"
-        android:id="@+id/buttonHIA3"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:text="Baseline"
-        android:background="@drawable/baseline_selector"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/buttonHIA3"
-        android:layout_marginTop="20dp"
-        android:id="@+id/buttonBaseline"
+        android:layout_height="37dp"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/hia_button_selector"
+        android:text="Head Injury Assessment 1" />
+
+
+    <Button
+        android:id="@+id/buttonHIA2"
+        android:layout_width="300dp"
+        android:layout_height="37dp"
+        android:layout_below="@+id/buttonHIA1"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/hia_button_selector"
+        android:text="Head Injury Assessment 2" />
+
+    <Button
+        android:id="@+id/buttonHIA3"
+        android:layout_width="300dp"
+        android:layout_height="37dp"
+        android:layout_below="@+id/buttonHIA2"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/hia_button_selector"
+        android:text="Head Injury Assessment 3" />
+
+    <Button
+        android:id="@+id/buttonBaseline"
+        android:layout_width="300dp"
+        android:layout_height="37dp"
+        android:layout_below="@+id/buttonHIA3"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/baseline_selector"
+        android:text="Baseline"
+        tools:background="@drawable/baseline_selector" />
+
+    <Button
+        android:id="@+id/buttonVR"
+        android:layout_width="300dp"
+        android:layout_height="37dp"
+        android:layout_below="@+id/buttonBaseline"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/baseline_selector"
+        android:text="VR Test"
         tools:background="@drawable/baseline_selector" />
 
     <FrameLayout
@@ -60,7 +72,7 @@
         android:id="@+id/HIAtable"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_below="@id/buttonBaseline"
+        android:layout_below="@id/buttonVR"
         >
 
         <TableLayout

@@ -89,6 +89,7 @@ public class HIA3DFragment extends Fragment implements CheckBox.OnCheckedChangeL
 
         RadioButton mButton4 = (RadioButton) rootView.findViewById(R.id.checkBox3_CSY);
         RadioButton mButton5 = (RadioButton) rootView.findViewById(R.id.checkBox3_diag_concY);
+        RadioButton mButton6 = (RadioButton) rootView.findViewById(R.id.checkBox__diag_concN);
 
         tandemResult = (TextView) rootView.findViewById(R.id.TGtestResult);
         tandemTime = (TextView) rootView.findViewById(R.id.TGTimeResult);
@@ -128,6 +129,7 @@ public class HIA3DFragment extends Fragment implements CheckBox.OnCheckedChangeL
 
         mButton4.setOnCheckedChangeListener(this);
         mButton5.setOnCheckedChangeListener(this);
+        mButton6.setOnCheckedChangeListener(this);
 
         other = (EditText) rootView.findViewById(R.id.editText7);
 
@@ -362,6 +364,22 @@ public class HIA3DFragment extends Fragment implements CheckBox.OnCheckedChangeL
                         //HIA3_Test3_Question3 = true;
                         //Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question3);
                         HIA3.HIA3_Test4_Question5=1;
+                        Log.v("6", "Test: " + 1);
+                        HIA3.HIA3_Result_Chosen=true;
+                        break;
+                    } else {
+                        //HIA3_Test3_Question3 = false;
+                        //Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question3);
+                        HIA3.HIA3_Test4_Question5=0;
+                        HIA3.HIA3_Result_Chosen=true;
+                        Log.v("4", "Test: " + 0);
+                        break;
+                    }
+                case R.id.checkBox__diag_concN:
+                    if (checked2) {
+                        //HIA3_Test3_Question3 = true;
+                        //Log.v(TAG, "Purple Monkeys " + HIA3_Test3_Question3);
+                        HIA3.HIA3_Test4_Question5=0;
                         Log.v("6", "Test: " + 1);
                         HIA3.HIA3_Result_Chosen=true;
                         break;

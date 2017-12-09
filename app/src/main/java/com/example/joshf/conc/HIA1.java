@@ -7,6 +7,9 @@ package com.example.joshf.conc;
  */
 
 public class HIA1 extends FragmentActivity {
+
+    static Boolean HIA1_result_chosen=false;
+
     static int HIA1_Test1_Question1;
     static int  HIA1_Test1_Question2;
     static int HIA1_Test1_Question3;
@@ -69,6 +72,7 @@ public class HIA1 extends FragmentActivity {
     }
 
     public static void clearHIA1(){
+        HIA1_result_chosen=false;
         HIA1_Test1_Question1=0;
         HIA1_Test1_Question2=0;
         HIA1_Test1_Question3=0;

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
@@ -55,7 +56,8 @@ public class BaselineActivity extends AppCompatActivity
     static Spinner spinner;
     Bundle save;
     SessionManager session;
-    static int player_code;
+    Player player;
+    int team_code;
     public static String HIA1_result_string = "/0";
     static TextView title;
     static TextView result, resultText;
@@ -246,7 +248,9 @@ public class BaselineActivity extends AppCompatActivity
                 HashMap<String, String> args = new HashMap<>();
 
                 args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
-                args.put("Code_Player", Integer.toString(player_code));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+
+                args.put("Code_Player", Integer.toString(player.getCode_Player()));
                 args.put("Baseline_Date", date);
 
                 args.put("Baseline_Number_of_Symptoms", Integer.toString(Baseline.Baseline_Number_of_Symptoms));
@@ -382,7 +386,10 @@ public class BaselineActivity extends AppCompatActivity
         //mViewPager = new ViewPager(this);
         //mViewPager.setId(R.id.pager);
         //setContentView(mViewPager);
-        player_code = getIntent().getExtras().getInt("player_code");
+        Bundle extras = getIntent().getExtras();
+        player =(Player) extras.getSerializable("player");
+        team_code = extras.getInt("team_code");
+
 
 
 
@@ -540,7 +547,10 @@ public class BaselineActivity extends AppCompatActivity
                 // User clicked OK button
                 HIA2.clearHIA2();
                 PreferenceConnector.clear_all_values();
-                BaselineActivity.super.onBackPressed();
+                Intent intent = new Intent(BaselineActivity.this, TestMenuActivity.class);
+                intent.putExtra("player", player);
+                intent.putExtra("team_code", team_code);
+                startActivity(intent);
             }
         });
         backbut.setNegativeButton(R.string.dialog_back_cancel, new DialogInterface.OnClickListener() {
@@ -1328,7 +1338,7 @@ public class BaselineActivity extends AppCompatActivity
                 case 5:
                     return Balance.newInstance();
                 case 6:
-                    return UpperLimbCoordination.newInstance();
+                    return UpperLimbCoordination.newInstance("Baseline");
 
 
             }

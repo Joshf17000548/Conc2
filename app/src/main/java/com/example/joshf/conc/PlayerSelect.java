@@ -276,6 +276,8 @@ public class PlayerSelect extends AppCompatActivity implements SwipeListViewFrag
 
                 args.put("Code_Team", String.valueOf(team_code));
                 args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+
                 Log.e("request", "starting");
 
                 JSONArray json = jsonParser.makeHttpRequest(

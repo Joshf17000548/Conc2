@@ -120,7 +120,7 @@ public class TeamAdapter extends ArrayAdapter<Team> implements Filterable {
         }
 
         String photoPath = String.valueOf(teamList.get(position).getCode_Team());
-        String path = "http://104.198.254.110/ConcApp/Team_Logo/" + photoPath +"IMG.png";
+        String path = "https://www.concussionassessment.net/ConcApp/Team_Logo/" + photoPath +"IMG.png";
 
         try {
             imageLoader.displayImage(path, holder.teamPhoto, options);

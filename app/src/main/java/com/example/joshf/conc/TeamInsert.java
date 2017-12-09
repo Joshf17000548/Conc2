@@ -102,8 +102,8 @@ public class TeamInsert extends AppCompatActivity implements View.OnClickListene
                     new InsertTeam().execute();
 
                 }catch(Exception e){
-                    Toast toast = Toast.makeText(this, R.string.empty_field, Toast.LENGTH_SHORT);
-                    toast.show();
+                   // Toast toast = Toast.makeText(this, R.string.empty_field, Toast.LENGTH_SHORT);
+                   // toast.show();
                 }
 
                 //Toast.makeText(getApplicationContext(), "Sent!", Toast.LENGTH_LONG).show();
@@ -181,7 +181,7 @@ public class TeamInsert extends AppCompatActivity implements View.OnClickListene
     private class InsertTeam extends AsyncTask<Void, Void, JSONArray> {
 
 
-        private static final String URL = "http://104.198.254.110/ConcApp/insertTeams.php";
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/insertTeams.php";
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -241,6 +241,8 @@ public class TeamInsert extends AppCompatActivity implements View.OnClickListene
                 HashMap<String, String> args = new HashMap<>();
                 args.put("Team_Name", nameData);
                 args.put("SecToken", session.getUserDetails().get("token"));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+
                 args.put("Team_Logo", encodedImage);
                 //   Log.d("JSON REQUEST", args.toString());
                 Log.e("JSON REQUEST", "Firing Json ...");

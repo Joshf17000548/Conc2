@@ -3,13 +3,19 @@ package com.example.joshf.conc;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +43,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import static java.lang.Boolean.FALSE;
 
 /**
  * Created by joshf on 2016/09/30.
@@ -45,12 +55,20 @@ public class TestMenuActivity extends AppCompatActivity {
     SessionManager session;
     int team_code;
 
-    Button hia1, hia2, hia3, baseline;
+    Button hia1, hia2, hia3, baseline, VR;
 
     TextView test1,test2,test3;
     TextView test1date,test2date,test3date;
     TextView test1result,test2result,test3result;
     TextView baselineDate, baselineValid;
+
+    String servicePackage = "com.example.org.gvrfapplication.MainActivity";
+    String serviceClass = "com.example.org.gvrfapplication";
+    ComponentName serviceComponent;
+
+    FileWriter writer;
+    private  String fileNameW = "Player_data";
+    private  String dirName = "EyeTrackingData";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +81,7 @@ public class TestMenuActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         session = new SessionManager(this);
+       // new ComponentName(servicePackage, serviceClass);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -70,6 +89,7 @@ public class TestMenuActivity extends AppCompatActivity {
         hia2 = (Button) findViewById(R.id.buttonHIA2);
         hia3 = (Button) findViewById(R.id.buttonHIA3);
         baseline = (Button) findViewById(R.id.buttonBaseline);
+        VR = (Button) findViewById(R.id.buttonVR);
 
         test1 = (TextView) findViewById(R.id.test1);
         test1date = (TextView) findViewById(R.id.test1date);
@@ -104,7 +124,8 @@ public class TestMenuActivity extends AppCompatActivity {
 
             PreferenceConnector.clear_all_values();
             Intent intent = new Intent(getApplicationContext(),HIA1AActivity.class);
-            intent.putExtra("player_code", playerInFocus.getCode_Player());
+            intent.putExtra("player", playerInFocus);
+            intent.putExtra("team_code", team_code);
             startActivity(intent);
             }
 
@@ -116,8 +137,10 @@ public class TestMenuActivity extends AppCompatActivity {
 
                 PreferenceConnector.clear_all_values();
                 Intent intent1 = new Intent(getApplicationContext(),HIA2AActivity.class);
-                intent1.putExtra("player_code", playerInFocus.getCode_Player());
+                intent1.putExtra("player", playerInFocus);
+                intent1.putExtra("team_code", team_code);
                 intent1.putExtra("first_run", true);
+                intent1.putExtra("Test_Type", "HIA2");
                 startActivity(intent1);
             }
 
@@ -129,7 +152,8 @@ public class TestMenuActivity extends AppCompatActivity {
 
                 PreferenceConnector.clear_all_values();
                 Intent intent2 = new Intent(getApplicationContext(),HIA3AActivity.class);
-                intent2.putExtra("player_code", playerInFocus.getCode_Player());
+                intent2.putExtra("team_code", team_code);
+                intent2.putExtra("player", playerInFocus);
                 startActivity(intent2);
             }
         });
@@ -140,8 +164,61 @@ public class TestMenuActivity extends AppCompatActivity {
 
                 PreferenceConnector.clear_all_values();
                 Intent intent3 = new Intent(getApplicationContext(),BaselineActivity.class);
-                intent3.putExtra("player_code", playerInFocus.getCode_Player());
+                intent3.putExtra("player", playerInFocus);
+                intent3.putExtra("team_code", team_code);
+                intent3.putExtra("Test_Type", "Baseline");
                 startActivity(intent3);
+            }
+        });
+
+        VR.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                //
+                String parentString = Environment.getExternalStorageDirectory()+"/EyeTrackingData"+"/"+playerInFocus.getCode_Player();
+                String name ="";
+                String surname="";
+                Boolean n_s = FALSE;
+
+                for (char ch : playerInFocus.getPlayer_Name().toCharArray()){
+                    if((ch!=' ')&(n_s)){
+                        surname += ch;
+                    }
+                    else if((ch!=' ')&(!n_s)){
+                        name += ch;
+                    }
+                    else{
+                        n_s=!n_s;
+                    }
+                }
+
+                try {
+                    File root = new File(parentString);
+                    if (!root.exists()) {
+                        root.mkdirs();
+                    }
+                    File dataWrite = new File(root, (fileNameW+".txt"));
+                    writer = new FileWriter(dataWrite);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    writer.append("Player_code=" + String.valueOf(playerInFocus.getCode_Player()) + " ");
+                    writer.append("Player_name="+ name+ " ");
+                    writer.append("Player_surname="+ surname+ " ");
+                    writer.append("DOB="+ playerInFocus.getDOB_player()+ " ");
+                    writer.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                final Intent intent = new Intent(Intent.ACTION_MAIN, null);
+                final ComponentName cn = new ComponentName(serviceClass, servicePackage);
+                intent.setComponent(cn);
+                intent.putExtra("code", playerInFocus.getCode_Player());
+                startActivity(intent);
+                finishAndRemoveTask();
+                //send player code over
             }
         });
     }
@@ -151,8 +228,10 @@ public class TestMenuActivity extends AppCompatActivity {
         super.onResume();
         session.checkLogin();
         Bundle extras = getIntent().getExtras();
-        playerInFocus =(Player) extras.getSerializable("player_info");
-        team_code = extras.getInt("team_code");
+        if(extras!=null) {
+            playerInFocus =(Player)  extras.getSerializable("player");
+            team_code = extras.getInt("team_code");
+        }
         new assessment().execute();
 
     }
@@ -254,7 +333,9 @@ public class TestMenuActivity extends AppCompatActivity {
                 HashMap<String, String> args = new HashMap<>();
 
                 args.put("Code_Player", Integer.toString(playerInFocus.getCode_Player()));
-                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));                // all args needs to convert to string because the hash map is string, string types.
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+// all args needs to convert to string because the hash map is string, string types.
 
                 //   Log.d("JSON REQUEST", args.toString());
                 Log.e("JSON REQUEST", "Firing Json ...");
@@ -313,49 +394,131 @@ public class TestMenuActivity extends AppCompatActivity {
                             baselineValid.setTextColor(getResources().getColor(R.color.reset));
                         }
 
+                    }else{
+                        int result = baselineObject.getInt("ColumnAlt");
+                        test1.setText(test);
+                        test1date.setText(baselineObject.getString("Date"));
+                        if(test.equalsIgnoreCase("HIA1")){
+                            switch(result){
+                                case 0:
+                                    test1result.setText("Not Removed");
+                                    break;
+                                case 1:
+                                    test1result.setText("Removed");
+                                    break;
+
+                            }
+                        }
+                        if(test.equalsIgnoreCase("HIA2")){
+                            switch(result){
+                                case 0:
+                                    test1result.setText("CNC");
+                                    break;
+                                case 1:
+                                    test1result.setText("CC");
+                                    break;
+
+                            }
+                        }
+                        if(test.equalsIgnoreCase("HIA3")){
+                            switch(result){
+                                case 0:
+                                    test1result.setText("Concussed");
+                                    break;
+                                case 1:
+                                    test1result.setText("Cleared");
+                                    break;
+
+                            }
+                        }
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {
+                    JSONObject baselineObject = json.getJSONObject(0);
                     JSONObject object1 = json.getJSONObject(1);
                     String test = object1.getString("Type");
-                    test1.setText(test);
-                    test1date.setText(object1.getString("Date"));
+
                     int result = object1.getInt("ColumnAlt");
+                    Log.e("testt", object1.getString("Date"));
+                    Log.e("testt", test);
 
-                    if(test.equalsIgnoreCase("HIA1")){
-                        switch(result){
-                            case 0:
-                                test1result.setText("Not Removed");
-                                break;
-                            case 1:
-                                test1result.setText("Removed");
-                                break;
+                    if (baselineObject.getString("Type").equals("Baseline")) {
+                        test1.setText(test);
+                        test1date.setText(object1.getString("Date"));
+                        if (test.equalsIgnoreCase("HIA1")) {
+                            switch (result) {
+                                case 0:
+                                    test1result.setText("Not Removed");
+                                    break;
+                                case 1:
+                                    test1result.setText("Removed");
+                                    break;
 
+                            }
                         }
-                    }
-                    if(test.equalsIgnoreCase("HIA2")){
-                        switch(result){
-                            case 0:
-                                test1result.setText("CNC");
-                                break;
-                            case 1:
-                                test1result.setText("CC");
-                                break;
+                        if (test.equalsIgnoreCase("HIA2")) {
+                            switch (result) {
+                                case 0:
+                                    test1result.setText("CNC");
+                                    break;
+                                case 1:
+                                    test1result.setText("CC");
+                                    break;
 
+                            }
                         }
-                    }
-                    if(test.equalsIgnoreCase("HIA3")){
-                        switch(result){
-                            case 0:
-                                test1result.setText("Concussed");
-                                break;
-                            case 1:
-                                test1result.setText("Cleared");
-                                break;
+                        if (test.equalsIgnoreCase("HIA3")) {
+                            switch (result) {
+                                case 0:
+                                    test1result.setText("Concussed");
+                                    break;
+                                case 1:
+                                    test1result.setText("Cleared");
+                                    break;
 
+                            }
+                        }
+                    }else{
+                        test2.setText(test);
+                        test2date.setText(object1.getString("Date"));
+                        if (test.equalsIgnoreCase("HIA1")) {
+
+
+
+                            switch (result) {
+                                case 0:
+                                    test2result.setText("Not Removed");
+                                    break;
+                                case 1:
+                                    test2result.setText("Removed");
+                                    break;
+
+                            }
+                        }
+                        if (test.equalsIgnoreCase("HIA2")) {
+                            switch (result) {
+                                case 0:
+                                    test2result.setText("CNC");
+                                    break;
+                                case 1:
+                                    test2result.setText("CC");
+                                    break;
+
+                            }
+                        }
+                        if (test.equalsIgnoreCase("HIA3")) {
+                            switch (result) {
+                                case 0:
+                                    test2result.setText("Concussed");
+                                    break;
+                                case 1:
+                                    test2result.setText("Cleared");
+                                    break;
+
+                            }
                         }
                     }
                 } catch (JSONException e) {
@@ -364,44 +527,85 @@ public class TestMenuActivity extends AppCompatActivity {
 
 
 
+
                 try {
+                    JSONObject baselineObject = json.getJSONObject(0);
                     JSONObject object1 = json.getJSONObject(2);
                     String test = object1.getString("Type");
-                    test2.setText(test);
-                    test2date.setText(object1.getString("Date"));
+
+
                     int result = object1.getInt("ColumnAlt");
+                    if (baselineObject.getString("Type").equals("Baseline")) {
+                        test2.setText(test);
+                        test2date.setText(object1.getString("Date"));
+                        if (test.equalsIgnoreCase("HIA1")) {
+                            switch (result) {
+                                case 0:
+                                    test2result.setText("Not Removed");
+                                    break;
+                                case 1:
+                                    test2result.setText("Removed");
+                                    break;
 
-                    if(test.equalsIgnoreCase("HIA1")){
-                        switch(result){
-                            case 0:
-                                test2result.setText("Not Removed");
-                                break;
-                            case 1:
-                                test2result.setText("Removed");
-                                break;
-
+                            }
                         }
-                    }
-                    if(test.equalsIgnoreCase("HIA2")){
-                        switch(result){
-                            case 0:
-                                test2result.setText("CNC");
-                                break;
-                            case 1:
-                                test2result.setText("CC");
-                                break;
+                        if (test.equalsIgnoreCase("HIA2")) {
+                            switch (result) {
+                                case 0:
+                                    test2result.setText("CNC");
+                                    break;
+                                case 1:
+                                    test2result.setText("CC");
+                                    break;
 
+                            }
                         }
-                    }
-                    if(test.equalsIgnoreCase("HIA3")){
-                        switch(result){
-                            case 0:
-                                test2result.setText("Concussed");
-                                break;
-                            case 1:
-                                test2result.setText("Cleared");
-                                break;
+                        if (test.equalsIgnoreCase("HIA3")) {
+                            switch (result) {
+                                case 0:
+                                    test2result.setText("Concussed");
+                                    break;
+                                case 1:
+                                    test2result.setText("Cleared");
+                                    break;
 
+                            }
+                        }
+                    }else{
+                        test3.setText(test);
+                        test3date.setText(object1.getString("Date"));
+                        if (test.equalsIgnoreCase("HIA1")) {
+                            switch (result) {
+                                case 0:
+                                    test3result.setText("Not Removed");
+                                    break;
+                                case 1:
+                                    test3result.setText("Removed");
+                                    break;
+
+                            }
+                        }
+                        if (test.equalsIgnoreCase("HIA2")) {
+                            switch (result) {
+                                case 0:
+                                    test3result.setText("CNC");
+                                    break;
+                                case 1:
+                                    test3result.setText("CC");
+                                    break;
+
+                            }
+                        }
+                        if (test.equalsIgnoreCase("HIA3")) {
+                            switch (result) {
+                                case 0:
+                                    test3result.setText("Concussed");
+                                    break;
+                                case 1:
+                                    test3result.setText("Cleared");
+                                    break;
+
+                            }
                         }
                     }
                 } catch (JSONException e) {
@@ -409,60 +613,56 @@ public class TestMenuActivity extends AppCompatActivity {
                 }
 
                 try {
+                    JSONObject baselineObject = json.getJSONObject(0);
                     JSONObject object1 = json.getJSONObject(3);
                     String test = object1.getString("Type");
                     test3.setText(test);
                     test3date.setText(object1.getString("Date"));
                     int result = object1.getInt("ColumnAlt");
 
-                    if(test.equalsIgnoreCase("HIA1")){
-                        switch(result){
-                            case 0:
-                                test3result.setText("Not Removed");
-                                break;
-                            case 1:
-                                test3result.setText("Removed");
-                                break;
+                    if (baselineObject.getString("Type").equals("Baseline")) {
 
+                        if (test.equalsIgnoreCase("HIA1")) {
+                            switch (result) {
+                                case 0:
+                                    test3result.setText("Not Removed");
+                                    break;
+                                case 1:
+                                    test3result.setText("Removed");
+                                    break;
+
+                            }
+                        }
+                        if (test.equalsIgnoreCase("HIA2")) {
+                            switch (result) {
+                                case 0:
+                                    test3result.setText("CNC");
+                                    break;
+                                case 1:
+                                    test3result.setText("CC");
+                                    break;
+
+                            }
+                        }
+                        if (test.equalsIgnoreCase("HIA3")) {
+                            switch (result) {
+                                case 0:
+                                    test3result.setText("Concussed");
+                                    break;
+                                case 1:
+                                    test3result.setText("Cleared");
+                                    break;
+                            }
                         }
                     }
-                    if(test.equalsIgnoreCase("HIA2")){
-                        switch(result){
-                            case 0:
-                                test3result.setText("CNC");
-                                break;
-                            case 1:
-                                test3result.setText("CC");
-                                break;
-
-                        }
+                    }catch(JSONException e){
+                        e.printStackTrace();
                     }
-                    if(test.equalsIgnoreCase("HIA3")){
-                        switch(result){
-                            case 0:
-                                test3result.setText("Concussed");
-                                break;
-                            case 1:
-                                test3result.setText("Cleared");
-                                break;
-
-                        }
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
 
             }
 
             if (success == 1) {
                 Log.e("Success!", message);
-
-
-
-
-
 
             } else {
                 // Problems SQL
@@ -519,6 +719,8 @@ public class TestMenuActivity extends AppCompatActivity {
 
                 args.put("Code_Player", Integer.toString(playerInFocus.getCode_Player()));
                 args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+
                 // all args needs to convert to string because the hash map is string, string types.
 
                 //   Log.d("JSON REQUEST", args.toString());

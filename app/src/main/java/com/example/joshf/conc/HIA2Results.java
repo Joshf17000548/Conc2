@@ -428,7 +428,7 @@ public class HIA2Results extends Fragment implements CheckBox.OnCheckedChangeLis
         }
 
         SYMnumber.setText(String.valueOf(totalSymp));
-        if((totalSymp<Baseline.Baseline_Total_Symptoms)&&(Baseline.Baseline_Total_Symptoms!=0))
+        if((totalSymp<Baseline.Baseline_Number_of_Symptoms)&&(Baseline.Baseline_Number_of_Symptoms!=0))
             SYMnumber.setTextColor(getResources().getColor(R.color.reset));
 
 

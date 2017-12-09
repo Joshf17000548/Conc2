@@ -40,7 +40,9 @@ public class SessionManager {
     public static String KEY_TOKEN = "token";
 
     // ADM STATUS (make variable public to access from outside)
-    public static final String KEY_ADM = "0";
+    public static  String KEY_ADM = "0";
+
+    public static  String KEY_CODEUSERDOCTOR = "codeUserDoctor";
 
     // Constructor
     public SessionManager(Context context){
@@ -52,11 +54,9 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String name, String token, String adm){
+    public void createLoginSession(String name, String token, String adm, String codeuser){
         // Storing login value as TRUE
 
-        Log.e("CLS token", token);
-        Log.e("CLS adm", adm);
         editor.putBoolean(IS_LOGIN, true);
 
         // Storing name in pref
@@ -67,6 +67,8 @@ public class SessionManager {
 
         // Storing token in pref
         editor.putString(KEY_ADM, adm);
+
+        editor.putString(KEY_CODEUSERDOCTOR, codeuser);
 
         // commit changes
         editor.commit();
@@ -109,6 +111,9 @@ public class SessionManager {
 
         // user adm
         user.put(KEY_ADM, pref.getString(KEY_ADM, null));
+
+        //user.put(KEY_CODEUSERDOCTOR, pref.getString(KEY_CODEUSERDOCTOR, null));
+        user.put(KEY_CODEUSERDOCTOR, pref.getString(KEY_CODEUSERDOCTOR, null));
 
         // return user
         return user;

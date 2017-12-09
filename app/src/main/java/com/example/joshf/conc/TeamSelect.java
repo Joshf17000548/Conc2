@@ -52,8 +52,6 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
         intent.putExtra("database_update", true);
 
         startActivity(intent);
-
-
     }
 
     public TeamSelect() {
@@ -68,26 +66,25 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
         toolbar.setLogo(R.drawable.logo);
         setSupportActionBar(toolbar);
 
-
         session = new SessionManager(this);
-        session.checkLogin();
         String useradm = session.getUserDetails().get("0");
-        String token = session.getUserDetails().get("token");
-        Log.e("adm", useradm);
 
-        if(useradm.equals("1")) {
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_team);
-            fab.setVisibility(View.VISIBLE);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        if (useradm!=null) {
+            if (useradm.equals("1")) {
+                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_team);
+                fab.setVisibility(View.VISIBLE);
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("player_select", "new");
-                    startActivity(new Intent(TeamSelect.this, TeamInsert.class).putExtras(bundle));
-                }
-            });
-        }
+                        Bundle bundle = new Bundle();
+                        bundle.putString("player_select", "new");
+                        startActivity(new Intent(TeamSelect.this, TeamInsert.class).putExtras(bundle));
+                    }
+                });
+            }
+        }else
+            session.logoutUser();
 
     }
 
@@ -95,7 +92,6 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
     public void onResume() {
         super.onResume();
         session.checkLogin();
-
 
         // get user data from session
 /*        HashMap<String, String> user = session.getUserDetails();
@@ -113,7 +109,9 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
 
 
         if ((teamUpdateRequired.equals(true))) {
-            new getTeams().execute();
+            if(session.isLoggedIn()) {
+                new getTeams().execute();
+            }
 
         }else {
             try {
@@ -201,7 +199,12 @@ public class TeamSelect extends AppCompatActivity implements SwipeListTeam.ListS
             try {
                 // PREPARING PARAMETERS..
                 HashMap<String, String> args = new HashMap<>();
+                Log.e("tokenTS",  session.getUserDetails().get(SessionManager.KEY_TOKEN));
+                Log.e("CodeUserTS",  session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
                 args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+
+
                 Log.e("request", SessionManager.KEY_TOKEN);
 
                 JSONArray json = jsonParser.makeHttpRequest(

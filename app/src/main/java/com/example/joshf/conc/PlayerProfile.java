@@ -290,7 +290,8 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 /*        view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
                 R.anim.slide_in));*/
         Intent intent = new Intent(PlayerProfile.this, TestMenuActivity.class);
-        intent.putExtra("player_info",playerInFocus);
+        intent.putExtra("player",playerInFocus);
+        intent.putExtra("team_code", team_code);
         //overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         startActivity(intent);
 
@@ -441,16 +442,18 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
         player_select = extras.getString("player_select");
         Boolean testMenu = extras.getBoolean("parent");
         team_code = extras.getInt("team_code");
+        databaseUpdate = extras.getBoolean("update_required");
 
         Log.e("Team_Code", String.valueOf(team_code));
 
         if (player_select.equalsIgnoreCase("existing")) {
 
             playerInFocus = ((Player) extras.getSerializable("player_info"));
+            Log.e("team_code", String.valueOf(testMenu));
             if(testMenu)
                 addTransitionListener();
             else
-                loadImage(true);
+                loadImage(false);
 
             setInfoNoEdit();
             updateViews();
@@ -485,10 +488,17 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
                 brainStatus.setImageResource(R.drawable.baseline);
                 brainStatusText.setText("Baseline Test Required");
                 break;
-            default:
-                String test = String.valueOf(status);
+            case(2):
                 brainStatus.setImageResource(R.drawable.injured);
-                brainStatusText.setText("Player is Injured");
+                brainStatusText.setText("Suspected Concussion");
+                break;
+            case(3):
+                brainStatus.setImageResource(R.drawable.injured);
+                brainStatusText.setText("Concussion Confirmed");
+                break;
+            default:
+                brainStatus.setImageResource(R.drawable.injured);
+                brainStatusText.setText("Rehabilitating");
         }
         age.setText(ageString); //Update all textViews
         name.setText(playerInFocus.getPlayer_Name());
@@ -668,7 +678,6 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
                         DiskCacheUtils.removeFromCache(path1, ImageLoader.getInstance().getDiskCache());
                         DiskCacheUtils.removeFromCache(path2, ImageLoader.getInstance().getDiskCache());
-
                     }
                     new updatePlayer().execute();
                 }
@@ -782,6 +791,8 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
                 Log.e("JSON REQUEST", "Image Done");
                 args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+
                 args.put("Player_Name", String.valueOf(playerInFocus.getPlayer_Name()));
                 args.put("Player_Email", String.valueOf(playerInFocus.getPlayer_Email()));
                 args.put("Player_Height", String.valueOf(playerInFocus.getPlayer_Height()));
@@ -845,7 +856,7 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
         // Alert Dialog Manager
 
-        private static final String URL = "http://104.198.254.110/ConcApp/updatePlayer.php";
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/updatePlayer.php";
         private static final String TAG_SUCCESS = "success";
         private static final String TAG_MESSAGE = "message";
 
@@ -900,6 +911,9 @@ public class PlayerProfile extends AppCompatActivity implements PhotoFragment.Ch
 
 
                 Log.e("JSON REQUEST", "Image Done");
+
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
+                args.put("SecToken", session.getUserDetails().get(SessionManager.KEY_TOKEN));
 
                 args.put("Code_Player", String.valueOf(playerInFocus.getCode_Player()));
                 args.put("Player_Name", String.valueOf(playerInFocus.getPlayer_Name()));

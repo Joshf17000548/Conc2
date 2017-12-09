@@ -63,6 +63,8 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
 
     public PlayerAdapter mAdapter;
     private SwipeMenuListView mListView;
+    SessionManager session;
+
     public ArrayList<Player> playerList;
     String TAG = "SwipeListViewFragment";
     private int playerPositionForDelete;
@@ -102,6 +104,8 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
         mListView = (SwipeMenuListView) view.findViewById(R.id.list_view_swipe);
         //playerPhoto = (ImageView) view.findViewById(R.id.playerPhoto) ;
         setHasOptionsMenu(true);
+        session = new SessionManager(getActivity());
+
 
         return view;
     }
@@ -219,6 +223,12 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
         new deletePlayers().execute();
         mAdapter.remove(selectedPlayer);
         mAdapter.notifyDataSetChanged();
+        if(mAdapter.isEmpty()){
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            EmptyListFragment emptyListFragment = EmptyListFragment.newInstance();
+            transaction.replace(R.id.playerList, emptyListFragment);
+            transaction.commit();
+        }
     }
 
 
@@ -232,7 +242,7 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
 
     private class deletePlayers extends AsyncTask<String, String, JSONArray> {
 
-        private static final String URL = "http://104.198.254.110/ConcApp/deletePlayer.php";
+        private static final String URL = "https://www.concussionassessment.net/ConcApp/deletePlayer.php";
         JSONParser jsonParser = new JSONParser();
 
         @Override
@@ -242,7 +252,8 @@ public class SwipeListViewFragment extends Fragment implements ConfirmationDialo
                 HashMap<String, String> args = new HashMap<>();
 
                 args.put("Code_Player",String.valueOf(deleteCode));
-
+                args.put("SecToken", session.getUserDetails().get("token"));
+                args.put("Code_UserDoctor", session.getUserDetails().get(SessionManager.KEY_CODEUSERDOCTOR));
 
                 JSONArray json = jsonParser.makeHttpRequest(
                         URL, "POST", args);

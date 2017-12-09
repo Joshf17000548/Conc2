@@ -70,7 +70,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> implements Filterable {
             imageLoader.init(config);
             options = new DisplayImageOptions.Builder()
                     .cacheInMemory(true)
-                    .cacheOnDisk(false)
+                    .cacheOnDisk(true)
                     .showImageOnLoading(R.drawable.launcher)//display stub image until image is loaded
                     .displayer(new RoundedBitmapDisplayer(50))
                     .build();
@@ -121,7 +121,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> implements Filterable {
         }
 
         String photoPath = String.valueOf(playerList.get(position).getCode_Player());
-        String path = "http://104.198.254.110/ConcApp/Player_Image/" + photoPath +"THUMB.png";
+        String path = "https://www.concussionassessment.net/ConcApp/Player_Image/" + photoPath +"THUMB.png";
 
         try {
             imageLoader.displayImage(path, holder.playerPhoto, options);
@@ -130,11 +130,13 @@ public class PlayerAdapter extends ArrayAdapter<Player> implements Filterable {
             e.printStackTrace();
         }
         holder.playerNameView.setText(playerList.get(position).getPlayer_Name());
+/*
         playerList.get(position).Player_Status= position % 3;
 
         int status = playerList.get(position).getPlayer_Status();
+*/
 
-        switch (status){
+        switch (playerList.get(position).Player_Status){
             case(0):
                 holder.playerBrainStatus.setImageDrawable(null);
                 break;

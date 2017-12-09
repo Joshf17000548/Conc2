@@ -316,18 +316,18 @@
 
     <!-- HIA3 -->
     <string name="Reas_HIA3">Reason for HIA3?</string>
-    <string name="hia3a_1_sectionheader">SECTION 2: Summary of HIA1 and HIA2</string>
+    <string name="hia3a_1_sectionheader">SECTION 1: Summary of HIA1 and HIA2</string>
     <string name="hia3a_21_sectionheader">Was an HIA1 form completed, and if yes, what was the result</string>
     <string name="hia3a_22_sectionheader">Was an HIA2 form completed, and if yes, what was the clinical diagnosis at the time</string>
     <string name="sel_opt">(Select one option)</string>
-    <string name="hia3a_3_sectionheader">SECTION 3: Incident Details</string>
+    <string name="hia3a_3_sectionheader">SECTION 2: Incident Details</string>
     <string name="inc_d1">Game event:</string>
     <string name="inc_d2">Collision with:</string>
     <string name="inc_d3">Contact:</string>
     <string name="inc_d4">Player Technique:</string>
     <string name="if_other">If selected \"Other\":</string>
     <string name="hia3a_4_sectionheader">SECTION 6: Cognitive Assessment</string>
-    <string name="hia3a_5_sectionheader">SECTION 7: Results of HIA3</string>
+    <string name="hia3a_5_sectionheader">SECTION 4: Results of HIA3</string>
     <string name="hia3a_6_sectionheader">SECTION 8: Overall Result</string>
     <string name="cogAssTool">Cognitive assessment tool used:</string>
     <string name="cogAss1">Cognitive Assessment (SAC) from SCAT</string>
@@ -362,7 +362,7 @@
     <string name ="abass2">Abnormal HIA3 assessment</string>
     <string name ="abass3">Abnormal HIA2 assessment</string>
     <string name ="abass4">Clinical suspicion</string>
-    <string name="hia3a_7_sectionheader">SECTION 5: Symptom Assessment</string>
+    <string name="hia3a_7_sectionheader">SECTION 3: Symptom Assessment</string>
     <string name="hia3a_71_sectionheader">To the player: From kick-off until now</string>
     <string name ="symp_check">Symptoms Checklist:</string>
     <string name ="ant_amn">Anterograde Amnesia (amnesia after injury)?</string>
@@ -378,7 +378,7 @@
         <item>candle </item>
         <item>paper </item>
         <item>sugar </item>
-        <item>sandwich </item>
+        <item>water </item>
         <item>wagon </item>
     </string-array>
 
@@ -397,8 +397,8 @@
     </string-array>
 
     <string-array name="randomWords2">
-        <item>whistle </item>
-        <item>defence </item>
+        <item>bubble </item>
+        <item>drive </item>
         <item>style </item>
         <item>study </item>
         <item>wood </item>

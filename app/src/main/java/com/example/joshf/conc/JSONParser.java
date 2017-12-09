@@ -44,7 +44,7 @@ public class JSONParser {
                 if (i != 0){
                     sbParams.append("&");
                 }
-                Log.e("Parser", params.get(key));
+               // Log.e("Parser", key);
                /// Log.e("Parser", key + " " +params.get(key));
                 sbParams.append(key).append("=")
                         .append(URLEncoder.encode(params.get(key), charset));

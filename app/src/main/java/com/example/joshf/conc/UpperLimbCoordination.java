@@ -28,11 +28,15 @@ import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 public class UpperLimbCoordination extends Fragment {
 
-    Button success, reset, bt1, bt2, bt3, bt4, bt5;
+    Button success, reset, bt1, bt2, bt3, bt4, bt5, btFinish;
+    public static String Type_Text;
 
 
-    public static UpperLimbCoordination newInstance() {
+    public static UpperLimbCoordination newInstance(String Type_Text11) {
         UpperLimbCoordination fragment = new UpperLimbCoordination();
+        fragment.Type_Text=Type_Text11;
+        Log.e("Type_Text", "Starting..");
+        Log.e("Type_Text", Type_Text11);
         return fragment;
     }
 
@@ -52,7 +56,6 @@ public class UpperLimbCoordination extends Fragment {
         super.onCreate(savedInstanceState);
         View rootView = inflater.inflate(R.layout.limb_coordination, container, false);
         if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
-            Log.e("OC", "ULB");
 
 
             success = (Button) rootView.findViewById(R.id.success);
@@ -63,6 +66,10 @@ public class UpperLimbCoordination extends Fragment {
             bt3 = (Button) rootView.findViewById(R.id.upper3);
             bt4 = (Button) rootView.findViewById(R.id.upper4);
             bt5 = (Button) rootView.findViewById(R.id.upper5);
+            btFinish = (Button) rootView.findViewById(R.id.baseline_finish);
+            if(Type_Text.equals("HIA2")){
+                btFinish.setVisibility(View.INVISIBLE);
+            }
 
             success.setClickable(true);
 
@@ -93,8 +100,9 @@ public class UpperLimbCoordination extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT)
+        if (getActivity().getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
             set_button_colors();
+        }
 
     }
     @Override

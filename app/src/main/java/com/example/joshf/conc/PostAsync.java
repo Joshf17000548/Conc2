@@ -23,7 +23,7 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
 
 
     // variables to store: username, password from EditText
-    String username, password , token, admin_Status;
+    String username, password , token, admin_Status, User_Code;
 
     // Alert Dialog Manager
     AlertDialogManager alert = new AlertDialogManager();
@@ -55,7 +55,7 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
     protected void onPreExecute() {
         // Session Manager
         session = new SessionManager(mContext);
-        Toast.makeText(mContext, "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(mContext, "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
         pDialog = new ProgressDialog(mContext);
         pDialog.setMessage("Attempting login...");
         pDialog.setIndeterminate(false);
@@ -82,6 +82,8 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
                 params.put("User_Name", username);
                 params.put("User_Password", password);
 
+
+
                 Log.d("request", "starting");
 
                 JSONArray json = jsonParser.makeHttpRequest(
@@ -96,6 +98,7 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.e("JSON REQUEST", "stack",e);
             }
         }
         return null;
@@ -110,17 +113,19 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
             String message = "";
 
             if (json != null) {
-                Toast.makeText(mContext, json.toString(),
-                        Toast.LENGTH_LONG).show();
+              //  Toast.makeText(mContext, json.toString(),
+                //        Toast.LENGTH_LONG).show();
 
                 try {
                     success = json.getJSONObject(0).getInt(TAG_SUCCESS);
                     message = json.getJSONObject(0).getString(TAG_MESSAGE);
                     admin_Status = json.getJSONObject(0).getString("UserDoctor_Adm");
                     token = json.getJSONObject(0).getString("UserDoctor_secToken");
+                    User_Code = json.getJSONObject(0).getString("Code_UserDoctor");
 
                     Log.e("Post Async admin", admin_Status);
                     Log.e("Post Async token", token);
+                    Log.e("Post Async User_Code", User_Code);
 /*                    message = json.getJSONObject(0).getString();
                     message = json.getJSONObject(0).getString(TAG_MESSAGE);*/
                     // HERE WE TAKE THE TOKEN AND THE ADM PARAMETERS.
@@ -131,7 +136,7 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
 
             if (success == 1) {
                 Log.e("Success!", message);
-                session.createLoginSession(username,token,admin_Status); // here username, token and adm status
+                session.createLoginSession(username,token,admin_Status, User_Code); // here username, token and adm status
 
                 // Staring MainActivity
                 Intent i = new Intent(mContext, TeamSelect.class);
@@ -142,11 +147,13 @@ class PostAsync extends AsyncTask<String, String, JSONArray> {
                 // username / password doesn't match
                 alert.showAlertDialog(mContext, "Login failed..", "Username/Password is incorrect", false);
                 Log.d("Failure", message);
+
             }
         } else {
             // user didn't entered username or password
             // Show alert asking him to enter the details
             alert.showAlertDialog(mContext, "Login failed..", "Please enter username and password", false);
+
         }
     }
 }
